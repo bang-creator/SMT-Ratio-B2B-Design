@@ -1,0 +1,1595 @@
+{
+  "generatedAt": "2026-11-11T09:58:05.704813+00:00",
+  "sourcePriority": [
+    "platform CSS computed vars (E2/E8)",
+    "authenticated CDP render metrics (E8)",
+    "Dembrandt attempt (validation only)"
+  ],
+  "pages": [
+    "agents",
+    "audio-realtime",
+    "decisions",
+    "home",
+    "images",
+    "response",
+    "usage"
+  ],
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1280,
+      800
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "customProperties": [
+    {
+      "name": "--input-border",
+      "value": "#212121",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-900",
+      "value": "#003716",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-warning-outline-hover",
+      "value": "color-mix(in oklab, #fb6a22 7%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--pink-600",
+      "value": "#ba437a",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--syntax1",
+      "value": "#ffe48c",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-success",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--purple-200",
+      "value": "#be95fa",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-3xs",
+      "value": ".5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-surface",
+      "value": "color-mix(in oklab, #fff 8%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-xs-size",
+      "value": ".75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-icon-font-size-md",
+      "value": "1rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-150",
+      "value": "#1c1c1c",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-success-soft-active",
+      "value": "#b8ebcc",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--modal-backdrop-fade-shadow",
+      "value": "0 8px 16px 0 #00000059, 0 2px 8px 0 #0003, inset 0 0 0 1px color-mix(in oklab, #fff 6%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--breakpoint-xs",
+      "value": "380px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-danger-outline",
+      "value": "#ff8583",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-a50",
+      "value": "color-mix(in oklab, #0285ff 13%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-md-weight",
+      "value": "600",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-warning-surface",
+      "value": "#fb6a22",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radio-group-item-gap",
+      "value": "calc(.25rem * 1.5)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-blue-700",
+      "value": "#003f7a",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--modal-container-inner-padding",
+      "value": "calc(.25rem * 5)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-danger-surface",
+      "value": "#fa423e",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-xs-weight",
+      "value": "600",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--avatar-size",
+      "value": "28px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tooltip-compact-interactive-text-color-hover",
+      "value": "#0d0d0d",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-radius-lg",
+      "value": ".375rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border-success-outline",
+      "value": "#008635",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--menu-separator-gutter",
+      "value": "calc(.25rem * 1.5) calc(-1 * calc(.25rem * 1.5))",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tw-inset-ring-shadow",
+      "value": "0 0 #0000",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--shadow-hairline-width",
+      "value": "1px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-75",
+      "value": "#161616",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radius-4xl",
+      "value": "1.5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-base--line-height",
+      "value": "1.5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radius-2xs",
+      "value": ".125rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--transition-ease-basic",
+      "value": "ease",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-caution-ghost-active",
+      "value": "color-mix(in oklab, #ffc300 15%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--switch-track-height",
+      "value": "19px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-gutter-lg",
+      "value": ".5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-success-solid-active",
+      "value": "#008635",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-outline-hover",
+      "value": "color-mix(in oklab, #fff 4%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--dialog-radius",
+      "value": ".75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-success-ghost-hover",
+      "value": "color-mix(in oklab, #04b84c 15%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-975",
+      "value": "#f9f9f9",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-tertiary",
+      "value": "#8f8f8f",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--switch-track-color-hover",
+      "value": "#4f4f4f",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-gray-300",
+      "value": "#303030",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-small-caps-md-size",
+      "value": ".6875rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border-success-surface",
+      "value": "color-mix(in oklab, #04b84c 15%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-caution-ghost",
+      "value": "#916f00",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-mono",
+      "value": "\"SF Mono\", \"SFMono-Regular\", ui-monospace, consolas, liberation mono, menlo, monospace",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--yellow-950",
+      "value": "#261d00",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--yellow-a200",
+      "value": "color-mix(in oklab, #ffc300 59%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--pink-a300",
+      "value": "color-mix(in oklab, #ff66ad 76%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-danger-soft",
+      "value": "#ffd9d9",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-caution-outline",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-xs-line-height",
+      "value": "1.5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-600",
+      "value": "#004f99",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-info-soft-hover",
+      "value": "#cce6ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-gray-500",
+      "value": "#5d5d5d",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-a25",
+      "value": "color-mix(in oklab, #04b84c 8%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alert-gap",
+      "value": "calc(.25rem * 3)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--orange-200",
+      "value": "#ff9e6c",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-600",
+      "value": "#8f8f8f",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-900",
+      "value": "#00284d",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--select-list-max-height",
+      "value": "400px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-sm--font-weight",
+      "value": "400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-caution-solid-active",
+      "value": "#916f00",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-green-500",
+      "value": "#00a240",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--yellow-200",
+      "value": "#ffdb66",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--avatar-overflow-font-size-scaling-two",
+      "value": ".37",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-primary-ghost-hover",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-caution-ghost-hover",
+      "value": "color-mix(in oklab, #ffc300 15%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-danger-ghost-hover",
+      "value": "#e02e2a",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-caution-soft-alpha",
+      "value": "color-mix(in oklab, #ffc300 15%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-06",
+      "value": "color-mix(in oklab, #fff 6%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tw-inset-shadow",
+      "value": "0 0 #0000",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--input-outline-border-color-hover",
+      "value": "color-mix(in oklab, #fff 30%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--purple-400",
+      "value": "#924ff7",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-2xl--font-weight",
+      "value": "400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-white",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-secondary-solid",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--yellow-700",
+      "value": "#916f00",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-gray-400",
+      "value": "#414141",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-caution-soft",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-blue-400",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tw-shadow-alpha",
+      "value": "100%",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--pink-a25",
+      "value": "color-mix(in oklab, #ff66ad 8%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radius-sm",
+      "value": ".375rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--orange-75",
+      "value": "#ffcfb4",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-success-outline-active",
+      "value": "color-mix(in oklab, #04b84c 8%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--switch-thumb-offset",
+      "value": "3px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--orange-a300",
+      "value": "color-mix(in oklab, #fb6a22 81%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--orange-500",
+      "value": "#e25507",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-3xs-size",
+      "value": ".5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-secondary-ghost-hover",
+      "value": "#dcdcdc",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--purple-1000",
+      "value": "#100a19",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-secondary-soft-alpha-active",
+      "value": "color-mix(in oklab, #fff 20%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-secondary-soft-alt",
+      "value": "color-mix(in oklab, #fff 2%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-soft-hover",
+      "value": "#393939",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-gray-100",
+      "value": "#181818",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-secondary-soft",
+      "value": "#dcdcdc",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-20",
+      "value": "color-mix(in oklab, #fff 20%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--yellow-a75",
+      "value": "color-mix(in oklab, #ffc300 27%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-50",
+      "value": "#e5f3ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-100",
+      "value": "#181818",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-lg-weight",
+      "value": "400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-3xl--font-weight",
+      "value": "400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-2xl-weight",
+      "value": "600",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-surface-tertiary",
+      "value": "#131313",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tw-space-x-reverse",
+      "value": "0",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-lg-size",
+      "value": "1.125rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-caution-outline",
+      "value": "#916f00",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-info-solid",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-info-outline",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border-discovery-surface",
+      "value": "color-mix(in oklab, #924ff7 15%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-sm--letter-spacing",
+      "value": "-.01em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--shadow-alpha-300",
+      "value": ".36",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-danger-outline-active",
+      "value": "color-mix(in oklab, #fa423e 8%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--red-1000",
+      "value": "#1f0909",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-gutter-sm",
+      "value": "calc(.375rem - 1px)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--input-soft-border-color-focus",
+      "value": "color-mix(in oklab, #fff 20%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--syntax2",
+      "value": "#66b5ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--global-page-gutter",
+      "value": "8px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-danger",
+      "value": "#e02e2a",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-1000",
+      "value": "#000d19",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-2xs--line-height",
+      "value": ".875rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radius-md",
+      "value": ".5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-01",
+      "value": "color-mix(in oklab, #fff 1%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-a75",
+      "value": "color-mix(in oklab, #0285ff 25%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-icon-font-size-lg",
+      "value": "1rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--shadow-alpha-400",
+      "value": ".3",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border-subtle",
+      "value": "color-mix(in oklab, #fff 6%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radius-lg",
+      "value": ".625rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-secondary-soft-hover",
+      "value": "#393939",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-radius-sm",
+      "value": ".25rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-info-ghost-hover",
+      "value": "#66b5ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-warning-soft-active",
+      "value": "#ffcfb4",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--segmented-control-font-weight",
+      "value": "600",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tooltip-compact-background-color",
+      "value": "#afafaf",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--orange-25",
+      "value": "#fff5f0",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-sm-size",
+      "value": ".875rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-2xl-size",
+      "value": "2.25rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border-danger-outline-hover",
+      "value": "#e02e2a",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-solid-active",
+      "value": "#dcdcdc",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-08",
+      "value": "color-mix(in oklab, #fff 8%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-gutter-md",
+      "value": ".75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-2xs--letter-spacing",
+      "value": "0em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border-primary-outline",
+      "value": "color-mix(in oklab, #fff 25%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-300",
+      "value": "#40c977",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-lg--letter-spacing",
+      "value": "-.01em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--switch-track-color-checked",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-gray-350",
+      "value": "#393939",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-primary",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-secondary-outline-active",
+      "value": "color-mix(in oklab, #fff 6%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-caution-soft",
+      "value": "#ffc300",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-size-2xs",
+      "value": "1.5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-caution-hover",
+      "value": "#6e5400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-3xl--letter-spacing",
+      "value": "-.02em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--white",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-3xs--font-weight",
+      "value": "400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--red-a75",
+      "value": "color-mix(in oklab, #fa423e 30%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--red-a200",
+      "value": "color-mix(in oklab, #fa423e 64%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-size-xs",
+      "value": "1.625rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-discovery-soft-active",
+      "value": "#e0cefd",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--purple-25",
+      "value": "#f9f5fe",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--segmented-control-background",
+      "value": "#0d0d0d",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-4xl-weight",
+      "value": "600",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--purple-950",
+      "value": "#160c25",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--link-primary-text-color",
+      "value": "#339cff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-50",
+      "value": "#d9f4e4",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-200",
+      "value": "#66d492",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-info-solid",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tw-scale-y",
+      "value": "1",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-indicator-size-md",
+      "value": ".75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--menu-line-height",
+      "value": "1.25rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-400",
+      "value": "#04b84c",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tooltip-font-size",
+      "value": ".875rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-small-caps-lg-size",
+      "value": ".8125rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--menu-item-padding",
+      "value": "calc(.25rem * 1.5) calc(.25rem * 2)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--docs-page-max-width",
+      "value": "1048px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-75",
+      "value": "#cce6ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-success-outline-hover",
+      "value": "#00a240",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-size-md",
+      "value": "1.375rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tooltip-compact-padding",
+      "value": "calc(.25rem * .5) calc(.25rem * 2)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--pink-a200",
+      "value": "color-mix(in oklab, #ff66ad 60%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--codeblock-background-color",
+      "value": "#101010",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--tooltip-border-radius",
+      "value": ".5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-sm",
+      "value": ".875rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--menu-radio-indicator-hole-size",
+      "value": ".5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--link-primary-text-color-hover",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-primary-surface",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--codeblock-syntax-5",
+      "value": "#ad7bf9",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-secondary-solid",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-warning-surface",
+      "value": "color-mix(in oklab, #fb6a22 16%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-info-surface",
+      "value": "color-mix(in oklab, #0285ff 13%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--hairline",
+      "value": "1px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-success-solid",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-35",
+      "value": "color-mix(in oklab, #fff 35%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-gray-950",
+      "value": "#f3f3f3",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-font-size-sm",
+      "value": ".75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-soft-alpha-hover",
+      "value": "color-mix(in oklab, #fff 16%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--syntax4",
+      "value": "#e04c91",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-soft-alpha",
+      "value": "color-mix(in oklab, #fff 12%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--side-nav-collapsed-width",
+      "value": "56px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-warning",
+      "value": "#e25507",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-radius-lg",
+      "value": ".625rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-success-outline",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-0",
+      "value": "color-mix(in oklab, #fff 0%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-lg-line-height",
+      "value": "1.8125rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-solid",
+      "value": "#f3f3f3",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-font-weight-sm",
+      "value": "600",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-primary-ghost-active",
+      "value": "color-mix(in oklab, #fff 16%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-600",
+      "value": "#008635",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-md-line-height",
+      "value": "1.5rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--dialog-container-inner-padding",
+      "value": "calc(.25rem * 5)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--pink-500",
+      "value": "#e04c91",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-caution-solid",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--badge-gutter-md",
+      "value": ".375rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-warning-solid",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--pill-danger-bg",
+      "value": "#6e1615",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-danger-solid-active",
+      "value": "#ba2623",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-radius-xl",
+      "value": ".75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-heading-4xl-line-height",
+      "value": "3.75rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-border",
+      "value": "color-mix(in oklab, #fff 12%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-blue-50",
+      "value": "#e5f3ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-success-soft-alpha-active",
+      "value": "color-mix(in oklab, #04b84c 29%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-primary-soft-alt",
+      "value": "#fff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--purple-100",
+      "value": "#ceb0fb",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--yellow-500",
+      "value": "#e0ac00",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--text-xl--font-weight",
+      "value": "400",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-success-solid",
+      "value": "#008635",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-info-soft-alpha",
+      "value": "color-mix(in oklab, #0285ff 13%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--redesigned-page-heading-weight",
+      "value": "590",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-800",
+      "value": "#cdcdcd",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--control-size-md",
+      "value": "2rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--red-700",
+      "value": "#911e1b",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--gray-200",
+      "value": "#212121",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-tracking-normal",
+      "value": "-.01em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--alpha-10",
+      "value": "color-mix(in oklab, #fff 10%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-tracking-wide",
+      "value": "0em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-ring-primary-ghost",
+      "value": "#0285ff",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--radio-group-indicator-size",
+      "value": "1rem",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--shadow-alpha-100",
+      "value": ".2",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-text-success-outline",
+      "value": "#00a240",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--button-gap-md",
+      "value": "4px",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--color-background-info-ghost-active",
+      "value": "color-mix(in oklab, #0285ff 13%, transparent)",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--green-25",
+      "value": "#edfaf2",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--font-text-2xs-tracking",
+      "value": "0em",
+      "observations": 28,
+      "pages": 7
+    },
+    {
+      "name": "--blue-25",
+      "value": "#f5faff",
+      "observations": 28,
+      "pages": 7
+    }
+  ],
+  "palette": {
+    "rgb(220, 220, 220)": 148,
+    "rgb(19, 19, 19)": 21,
+    "rgb(48, 48, 48)": 7,
+    "rgb(175, 175, 175)": 4
+  },
+  "typography": {
+    "16px / 24px \"OpenAI Sans\", helvetica, sans-serif": 120,
+    "16px / 20px \"OpenAI Sans\", helvetica, sans-serif": 4,
+    "500 14px / 24px \"OpenAI Sans\", helvetica, sans-serif": 4,
+    "14px / 21px \"OpenAI Sans\", helvetica, sans-serif": 4,
+    "14px / 20px \"OpenAI Sans\", helvetica, sans-serif": 4
+  },
+  "spacing": {
+    "0px": 141,
+    "12px": 57,
+    "4px": 15,
+    "14px": 15,
+    "15.96px": 4,
+    "6px": 4
+  },
+  "radii": {
+    "24px": 15,
+    "4px": 11
+  },
+  "shadows": {
+    "rgba(255, 255, 255, 0.1) 0px 0px 0px 1px": 15
+  },
+  "motion": {
+    "runtime": {
+      "1200": 124,
+      "150": 53,
+      "800": 21,
+      "1000": 4,
+      "0": 2,
+      "250": 1,
+      "500": 1
+    },
+    "easing": {
+      "linear": 157,
+      "ease": 49
+    }
+  },
+  "dembrandtAttempts": [
+    {
+      "variant": "home-light",
+      "command": "BROWSER_CDP_ENDPOINT=... npx dembrandt https://platform.openai.com/home --dtcg --design-md --tailwind --save-output --wcag --slow",
+      "output": "output/platform.openai.com/2026-11-11T09-34-44-441Z_v0.39.2.json",
+      "valid": false,
+      "reason": "Dembrandt created a fresh context; platform session redirected to login/Cloudflare challenge. Screenshot retained for audit."
+    },
+    {
+      "variant": "home-light-cdp-authenticated-render",
+      "valid": true,
+      "source": "authenticated CDP target used by E8; values merged above"
+    }
+  ],
+  "confidencePolicy": "Computed variables/render metrics with repeated page+viewport observations; unresolved or single-source values remain unverified."
+}

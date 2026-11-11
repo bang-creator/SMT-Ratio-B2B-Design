@@ -1,0 +1,2 @@
+import { chatScenarios } from './chat-scenarios';
+export async function* mockRun(text:string, scenarioId='short') { const scenario=chatScenarios.find(s=>s.id===scenarioId)??chatScenarios[0]; const response=`${scenario.response}\n\nEcho: ${text}`; let content=''; for (const [index,char] of [...response].entries()) { await new Promise(r=>setTimeout(r,12)); if (scenarioId==='error'&&index>28) throw new Error('mock stream error'); content+=char; yield content; } }

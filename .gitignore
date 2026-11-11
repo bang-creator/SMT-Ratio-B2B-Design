@@ -1,0 +1,8 @@
+.secrets/
+output/
+ds-extraction/raw/
+.playwright-mcp/
+node_modules/
+dist/
+storybook-static/
+*.tsbuildinfo

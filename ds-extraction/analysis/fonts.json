@@ -1,0 +1,399 @@
+{
+  "generatedAt": "2026-11-11T09:45:01.994Z",
+  "families": [
+    {
+      "family": "Super Sans VF",
+      "weight": "100 900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Super Sans VF",
+      "weight": "100 900",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "900",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "700",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "700",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "800",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "800",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "200",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "200",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "400",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "300",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "300",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "500",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "500",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "400",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "600",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter",
+      "weight": "600",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter var",
+      "weight": "100 900",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "Inter var",
+      "weight": "100 900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "400",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "400",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "500",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "500",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "600",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "600",
+      "style": "italic",
+      "status": "unloaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "700",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "OpenAI Sans",
+      "weight": "700",
+      "style": "italic",
+      "status": "unloaded"
+    }
+  ],
+  "observations": [
+    {
+      "route": "/home",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/chat/edit?models=gpt-6-luna",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/decisions",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/agents?tab=vault",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/audio/realtime/edit",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/usage",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/playground/images",
+      "viewport": [
+        1440,
+        900
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/home",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/chat/edit?models=gpt-6-luna",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/decisions",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/agents?tab=vault",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/audio/realtime/edit",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/usage",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/playground/images",
+      "viewport": [
+        1280,
+        800
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/home",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/chat/edit?models=gpt-6-luna",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/decisions",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/agents?tab=vault",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/audio/realtime/edit",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/usage",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/playground/images",
+      "viewport": [
+        768,
+        1024
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/home",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/chat/edit?models=gpt-6-luna",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/decisions",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/agents?tab=vault",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/audio/realtime/edit",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/usage",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    },
+    {
+      "route": "/playground/images",
+      "viewport": [
+        390,
+        844
+      ],
+      "fontCount": 28
+    }
+  ]
+}

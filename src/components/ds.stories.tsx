@@ -1,0 +1,10 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Alert, Badge, Button, Card, Checkbox, CodeBlock, EmptyState, Field, Input, Select, Spinner, Switch, Table, Tabs, Textarea } from './ds';
+const meta = { title:'DS/Primitives', parameters:{layout:'padded'} } satisfies Meta;
+export default meta;
+type Story=StoryObj;
+export const Buttons:Story={render:()=> <div className="ds-row"><Button>Primary</Button><Button variant="secondary">Secondary</Button><Button variant="ghost">Ghost</Button><Badge>Status</Badge></div>};
+export const Fields:Story={render:()=> <Card title="Fields"><div className="ds-grid"><Field label="Email"><Input placeholder="you@example.com"/></Field><Field label="Message"><Textarea placeholder="Write something"/></Field></div></Card>};
+export const TabsStory:Story={render:()=> <Tabs items={['Agents','Environments','Sessions']} active="Agents" onChange={()=>{}}/>};
+export const States:Story={render:()=> <div className="ds-stack"><Alert>Info state</Alert><Alert tone="danger">Error state</Alert><EmptyState title="No results">Try a different filter.</EmptyState><div className="ds-row"><Checkbox label="Remember me"/><Switch label="Enabled" defaultChecked/><Spinner/></div></div>};
+export const Data:Story={render:()=> <div className="ds-stack"><Select defaultValue="model" aria-label="Model"><option value="model">Model</option></Select><CodeBlock>const ready = true;</CodeBlock><Table><thead><tr><th>Name</th><th>Status</th></tr></thead><tbody><tr><td>Demo</td><td><Badge>Ready</Badge></td></tr></tbody></Table></div>};
