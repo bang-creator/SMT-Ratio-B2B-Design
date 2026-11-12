@@ -13,6 +13,8 @@ Scope: mục 9–13 của `ds_setup_spec_for_agent.md`.
 - Debug toolbar in development: light/dark, reduced-motion, and Default/Loading/Empty/Error/No-permission/Long-content screen states.
 - Guardrails: `AGENTS.md`, literal scan, token checks, visual-test instructions, fidelity-report template.
 - Dark-first chat fidelity fixture at `/specimen/fixtures/chat` with crop comparator `npm run visual:fixture`.
+- D1 base is wired to `@openai/apps-sdk-ui/css`; Tailwind v4 is processed through `@tailwindcss/vite`.
+- Extended primitive states are catalogued in Storybook: outline Button, Radio, Combobox, SegmentedControl, Drawer, Menu, Pagination, CopyField, DatePicker, and focus-trapped Dialog.
 
 ## Deliberate CP4 simplification
 
@@ -20,22 +22,24 @@ The chat skin uses a small local React panel instead of installing `@assistant-u
 
 ## Fidelity status
 
-CP3 threshold: ≤2% changed pixels per fixture crop. Platform E1 captures remain the reference set. No numeric pass is claimed yet because fixture screenshots and pixelmatch automation are not part of this checkpoint's local run; the pending baseline and capture procedure are recorded in `reports/fidelity/README.md`.
+CP3 threshold: ≤2% changed pixels per fixture crop. Platform E1 captures remain the reference set. The dark-first Responses chat fixture passes at 1.02%; full-viewport route ratios remain diagnostic because product copy and platform-only assets differ.
 
 ## Validation
 
 ```text
 npm run ds:verify       PASS
 npm run build-storybook PASS
-npm run visual:fixture  PASS (Responses chat / dark, 1.04% changed pixels)
+npm run tokens:sd:check PASS
+npm run visual:fixture  PASS (Responses chat / dark, 1.02% changed pixels)
 ```
 
 Interaction smoke checks (dark-first, 2026-11-12):
 
 - `/specimen` defaults to dark; body resolves to `rgb(33, 33, 33)` / `rgb(243, 243, 243)`. Toolbar switches light and dark successfully.
+- Theme and reduced-motion selections persist through reload in the prototype via local storage; dark remains the default when no preference exists.
 - Chat scenario select uses the token-backed `Select`, so its surface remains dark. Enter submits; Shift+Enter keeps a newline.
 - Tool running transitions to done; tool error renders an error card. Offline/quota render an alert with Retry; Retry replaces the failed turn instead of duplicating it.
 - Slow stream exposes Stop and appends a stopped state after abort. Branch scenario exposes Edit and returns focus to the composer.
 - Mobile `390×844` keeps composer actions clickable: debug toolbar moves above content and toast background no longer intercepts pointer input.
 
-Vite/Lightning CSS emits a warning for the Tailwind v4 `@theme` at-rule because Tailwind's Vite plugin is intentionally not installed in this minimal scaffold. The generated CSS and Storybook build still complete successfully.
+Tailwind v4 and `@openai/apps-sdk-ui/css` are now processed through the Vite plugin. Storybook reports only its standard large-chunk advisory; builds complete successfully.

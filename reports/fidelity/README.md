@@ -32,14 +32,14 @@ Fixture comparison uses `npm run visual:fixture` and the same `threshold: 0.1`, 
 
 | Fixture | Reference | Local | Changed pixels | Ratio | ≤2% |
 |---|---|---|---:|---:|---:|
-| Responses chat / dark | `reports/fidelity/fixtures/chat/reference-dark.png` | `reports/fidelity/fixtures/chat/local-dark.png` | 4,161 | 1.04% | yes |
+| Responses chat / dark | `reports/fidelity/fixtures/chat/reference-dark.png` | `reports/fidelity/fixtures/chat/local-dark.png` | 4,085 | 1.02% | yes |
 
 Re-run:
 
 ```bash
 npm run visual:fixture -- \
   reports/fidelity/reference/responses-1440-dark.png \
-  reports/fidelity/local-responses-1440-dark-v4.png \
+  reports/fidelity/local-responses-1440-dark-v6.png \
   669 142 739 540 \
   reports/fidelity/fixtures/chat/diff-dark.png
 ```

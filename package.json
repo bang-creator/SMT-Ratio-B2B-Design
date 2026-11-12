@@ -12,6 +12,7 @@
     "visual:diff": "node scripts/visual_diff.mjs",
     "visual:fixture": "node scripts/visual_fixture_diff.mjs",
     "tokens:build": "node scripts/build_tokens.mjs",
+    "tokens:sd:check": "style-dictionary build --config style-dictionary.config.mjs",
     "tokens:check": "node scripts/check_tokens.mjs",
     "ds:check": "node scripts/check-literals.mjs",
     "ds:verify": "npm run tokens:check && npm run ds:check && npm run build"
@@ -25,11 +26,15 @@
     "vite": "latest"
   },
   "devDependencies": {
+    "@openai/apps-sdk-ui": "^0.2.2",
     "@storybook/react-vite": "^10.6.7",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "pixelmatch": "^8.0.0",
     "pngjs": "^7.0.0",
-    "storybook": "^10.6.7"
+    "storybook": "^10.6.7",
+    "style-dictionary": "^4.4.0",
+    "tailwindcss": "^4.3.5"
   }
 }

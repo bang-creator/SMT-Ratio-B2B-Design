@@ -10,11 +10,14 @@ Evidence index: `ds-extraction/analysis/components.json`. Components remain cont
 | Button | platform-observed + apps-sdk-ui | label, optional icon | solid, outline, ghost, disabled, loading, focus |
 | IconButton | platform-observed | icon, accessible label | default, hover, focus, disabled |
 | Input/Textarea | platform-observed | label, control, help/error | default, focus, invalid, disabled |
-| Select/Popover | apps-sdk-ui + platform vars | trigger, menu, option | closed, open, highlighted, disabled |
+| Select/Combobox/Popover | apps-sdk-ui + platform vars | trigger, input, menu, option | closed, open, highlighted, disabled |
 | Tabs/SegmentedControl | platform-observed | list, tab, active indicator | default, active, focus |
+| Radio/Switch/Checkbox | platform-observed | control, label | checked, unchecked, disabled, focus |
 | Table | platform-observed | header, row, cell, empty | default, loading, empty, selected |
-| Dialog/Drawer | apps-sdk-ui + Radix behavior | overlay, surface, close | closed, open, focus trap |
+| Dialog/Drawer | apps-sdk-ui + Radix behavior | overlay, surface, close | closed, open, focus trap, Escape |
 | Alert/Toast | platform-observed | status icon, message, action | info, caution, danger, success |
+| Pagination/CopyField/DatePicker | platform-observed + tokens | control, action, value | default, disabled, copied, focus |
+| Icon/Heading/Text | platform-observed + tokens | semantic wrapper | default, muted, accessible label |
 | Chat layer | assistant-ui + platform skin | thread, message, composer | streaming, error, tool-running, tool-done |
 
 All components use `tokens.json`. The interaction pass adds token-backed Tooltip, Popover/Menu, Dialog, Toast, loading Button state, and dark-first specimen stories. Dialog closes on backdrop click or Escape and places focus on its close control. Chat scenarios cover streaming, tool-running/done/error, stop, retry, offline, quota, attachment, and branch states. A full focus trap and assistant-ui primitive migration remain optional follow-up work.

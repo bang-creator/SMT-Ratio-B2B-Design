@@ -9,4 +9,5 @@
 - E4: `@openai/apps-sdk-ui@0.2.2`, comparison in `ds-extraction/analysis/overlap.md`.
 - E5: authenticated CDP render merge in `ds-extraction/analysis/rendered-merged.json`; Dembrandt fresh-context limitation recorded there.
 - E6–E9: DOM/accessibility, runtime animation, layout, font, and SVG evidence.
+- Prototype base: `@openai/apps-sdk-ui@0.2.2` CSS plus Tailwind v4 Vite processing; project tokens load after the base for semantic overrides.
 - Node pin: `.nvmrc` = 24; verified `v24.22.2` via fnm.
