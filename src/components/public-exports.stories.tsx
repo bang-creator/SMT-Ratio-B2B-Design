@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
-import { Alert, Badge, Button, Card, Checkbox, CodeBlock, Combobox, CopyField, DatePicker, Dialog, Drawer, EmptyState, Field, Heading, Icon, IconButton, Input, Menu, Pagination, Popover, Radio, SegmentedControl, Select, Skeleton, Spinner, Switch, Table, Tabs, Text, Textarea, Toast, Tooltip } from './ds';
+import { Alert, Badge, Button, Card, Checkbox, CodeBlock, Combobox, CopyField, DatePicker, Dialog, Drawer, EmptyState, Field, Heading, Icon, IconButton, Input, Menu, PageHeader, Pagination, Popover, Radio, SegmentedControl, Select, Skeleton, Spinner, Switch, Table, Tabs, Text, Textarea, Toast, Tooltip } from './ds';
 import { BarChart, ChartCard, CodePreview, CompactSelect, DataTable, Filter, FilterBar, MetricCard, SectionHeading, StatusBadge } from './product';
 import { ChatPanel } from './chat/ChatPanel';
 
@@ -32,6 +32,7 @@ export const Catalog: Story = {
         <ExportPreview name="Icon"><Icon label="Check">✓</Icon></ExportPreview>
         <ExportPreview name="Badge / StatusBadge"><div className="ds-row"><Badge>New</Badge><StatusBadge tone="positive">Ready</StatusBadge></div></ExportPreview>
         <ExportPreview name="Heading / Text"><div><Heading as="h3">Section heading</Heading><Text muted>Supporting text</Text></div></ExportPreview>
+        <ExportPreview name="PageHeader"><PageHeader title="Page title" description="Supporting description"/></ExportPreview>
         <ExportPreview name="Card"><Card title="Card title"><Text muted>Card content</Text></Card></ExportPreview>
       </div></section>
 
@@ -61,6 +62,7 @@ export const Catalog: Story = {
       </div></section>
 
       <section className="ds-export-catalog__group"><SectionHeading title="Data and product components"/><div className="ds-export-catalog__grid">
+        <ExportPreview name="SectionHeading"><SectionHeading title="Section title" description="Supporting description"/></ExportPreview>
         <ExportPreview name="MetricCard"><MetricCard label="Requests" value="0" detail="No data in this period"/></ExportPreview>
         <ExportPreview name="ChartCard / BarChart"><ChartCard title="Activity"><BarChart values={[{ label: 'Mon', value: '0', size: 'low' }, { label: 'Tue', value: '0', size: 'medium' }]}/></ChartCard></ExportPreview>
         <ExportPreview name="FilterBar / Filter / CompactSelect"><FilterBar><Filter label="Status"><Select aria-label="Status" defaultValue="All"><option>All</option><option>Ready</option></Select></Filter><CompactSelect label="Range" value="Last 7 days" options={['Last 7 days', 'Last 30 days']}/></FilterBar></ExportPreview>
