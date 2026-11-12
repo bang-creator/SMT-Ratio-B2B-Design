@@ -23,10 +23,12 @@
   --color-primitive-gray-950: #f3f3f3;
   --color-primitive-gray-975: #f9f9f9;
   --color-primitive-gray-1000: #fff;
+  --color-semantic-accent-control: #0285ff;
   --color-semantic-background-canvas: #212121;
   --color-semantic-background-surface: #212121;
   --color-semantic-background-surface-elevated: #282828;
   --color-semantic-background-surface-secondary: #303030;
+  --color-semantic-background-sidebar: #131313;
   --color-semantic-text-primary: #f3f3f3;
   --color-semantic-text-secondary: #b9b9b9;
   --color-semantic-text-tertiary: #8f8f8f;
@@ -61,10 +63,12 @@
   --color-primitive-gray-950: #f3f3f3;
   --color-primitive-gray-975: #f9f9f9;
   --color-primitive-gray-1000: #fff;
+  --color-semantic-accent-control: #0285ff;
   --color-semantic-background-canvas: #212121;
   --color-semantic-background-surface: #212121;
   --color-semantic-background-surface-elevated: #282828;
   --color-semantic-background-surface-secondary: #303030;
+  --color-semantic-background-sidebar: #131313;
   --color-semantic-text-primary: #f3f3f3;
   --color-semantic-text-secondary: #b9b9b9;
   --color-semantic-text-tertiary: #8f8f8f;

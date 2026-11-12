@@ -24,10 +24,12 @@
   --color-primitive-gray-950: #131313;
   --color-primitive-gray-975: #101010;
   --color-primitive-gray-1000: #0d0d0d;
+  --color-semantic-accent-control: #0285ff;
   --color-semantic-background-canvas: #fff;
   --color-semantic-background-surface: #f9f9f9;
   --color-semantic-background-surface-elevated: #fff;
   --color-semantic-background-surface-secondary: #f3f3f3;
+  --color-semantic-background-sidebar: #f9f9f9;
   --color-semantic-text-primary: #0d0d0d;
   --color-semantic-text-secondary: #414141;
   --color-semantic-text-tertiary: #5d5d5d;

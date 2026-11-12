@@ -27,7 +27,11 @@ Captured from the authenticated Chrome target with REA CDP at 1440×900, dark mo
 
 ## Token links
 
-The preview uses semantic tokens from `src/tokens/theme.css`, including `background-canvas`, `background-surface`, `background-surface-secondary`, `background-surface-elevated`, `text-primary`, `text-secondary`, `border-subtle`, `border-default`, `ring-focus`, spacing, radius, shadow, and motion tokens. No platform color literals were copied into UI source.
+The preview uses semantic tokens from `src/tokens/theme.css`, including `background-canvas`, `background-surface`, `background-surface-secondary`, `background-surface-elevated`, `background-sidebar`, `accent-control`, `text-primary`, `text-secondary`, `border-subtle`, `border-default`, `ring-focus`, spacing, radius, shadow, and motion tokens. No platform color literals were copied into UI source.
+
+## Fidelity corrections
+
+The first preview exposed two browser-native surfaces that diverged from the platform: native `<select>` menus and the native `<input type="date">` calendar. Both are now replaced by token-backed custom controls with dark surfaces, platform-sized options, calendar grid, Escape/outside-click dismissal, and keyboard-safe focus return. The sidebar/topbar now use the observed `#131313` dark rail surface, the work area and chat canvas remain `#212121`, the composer uses `#303030`, and the active switch uses the observed `#0285ff` control state (`accent-control`) with a white thumb.
 
 ## Preview
 

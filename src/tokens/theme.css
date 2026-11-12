@@ -5,10 +5,12 @@
   --shadow-*: initial;
   --font-*: initial;
   --text-*: initial;
+  --color-semantic-accent-control: var(--color-semantic-accent-control);
   --color-semantic-background-canvas: var(--color-semantic-background-canvas);
   --color-semantic-background-surface: var(--color-semantic-background-surface);
   --color-semantic-background-surface-elevated: var(--color-semantic-background-surface-elevated);
   --color-semantic-background-surface-secondary: var(--color-semantic-background-surface-secondary);
+  --color-semantic-background-sidebar: var(--color-semantic-background-sidebar);
   --color-semantic-text-primary: var(--color-semantic-text-primary);
   --color-semantic-text-secondary: var(--color-semantic-text-secondary);
   --color-semantic-text-tertiary: var(--color-semantic-text-tertiary);
