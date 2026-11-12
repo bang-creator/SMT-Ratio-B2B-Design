@@ -53,3 +53,5 @@ Preview the extracted Usage and Responses surfaces at `/specimen/fixtures/platfo
 For the reusable-project contract and feedback workflow, read [`docs/design-system/HANDOFF.md`](docs/design-system/HANDOFF.md). Review the complete shared component list in Storybook under **DS / Public exports / Catalog**; its promotion rule is documented in [`docs/design-system/PUBLIC_EXPORTS.md`](docs/design-system/PUBLIC_EXPORTS.md).
 
 For parallel editing with another AI, use [`docs/design-system/AI-HANDOFF.md`](docs/design-system/AI-HANDOFF.md). It lists the source files, isolated worktree commands, review boundary, and a ready-to-paste prompt.
+
+For GitHub branch, Storybook, PR, and post-merge workflow, read [`CONTRIBUTING.md`](CONTRIBUTING.md).
