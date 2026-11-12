@@ -25,3 +25,21 @@ Reference screenshots are extracted from the committed E1 REA JSON artifacts wit
 Dark semantic tokens now follow the observed Platform palette: canvas/surface `#212121`, sidebar `#131313`, secondary surface `#303030`, subtle border `#303030`, default border `#4f4f4f`. The token selector specificity bug was fixed so the toolbar's Dark choice actually overrides `:root` light values. Home now uses the observed Get started, usage summary, model, and updates structure; the remaining diff is dominated by missing Platform hero imagery and exact content assets.
 
 The comparison is full-viewport evidence, so product-copy, imagery, and data-density differences contribute to the ratio. The shell alignment pass moved the local frame to a full-height sidebar and removed the horizontal global topbar; exact fixture crops remain the next fidelity target.
+
+## Fixture crops
+
+Fixture comparison uses `npm run visual:fixture` and the same `threshold: 0.1`, `includeAA: false` settings. The first dark-first fixture isolates the Responses chat surface at `x=669, y=142, width=739, height=540`, excluding route-specific shell and platform-only loading chrome.
+
+| Fixture | Reference | Local | Changed pixels | Ratio | ≤2% |
+|---|---|---|---:|---:|---:|
+| Responses chat / dark | `reports/fidelity/fixtures/chat/reference-dark.png` | `reports/fidelity/fixtures/chat/local-dark.png` | 4,161 | 1.04% | yes |
+
+Re-run:
+
+```bash
+npm run visual:fixture -- \
+  reports/fidelity/reference/responses-1440-dark.png \
+  reports/fidelity/local-responses-1440-dark-v4.png \
+  669 142 739 540 \
+  reports/fidelity/fixtures/chat/diff-dark.png
+```

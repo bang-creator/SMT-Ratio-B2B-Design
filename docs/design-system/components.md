@@ -17,4 +17,4 @@ Evidence index: `ds-extraction/analysis/components.json`. Components remain cont
 | Alert/Toast | platform-observed | status icon, message, action | info, caution, danger, success |
 | Chat layer | assistant-ui + platform skin | thread, message, composer | streaming, error, tool-running, tool-done |
 
-All components use `tokens.json`. The interaction pass adds token-backed Tooltip, Popover/Menu, Dialog, Toast, loading Button state, and dark-first specimen stories. Dialog closes on backdrop click or Escape and places focus on its close control; the remaining full focus trap upgrade belongs with a Radix/assistant-ui behavior pass.
+All components use `tokens.json`. The interaction pass adds token-backed Tooltip, Popover/Menu, Dialog, Toast, loading Button state, and dark-first specimen stories. Dialog closes on backdrop click or Escape and places focus on its close control. Chat scenarios cover streaming, tool-running/done/error, stop, retry, offline, quota, attachment, and branch states. A full focus trap and assistant-ui primitive migration remain optional follow-up work.
