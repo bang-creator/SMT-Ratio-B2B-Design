@@ -4,7 +4,7 @@ import { usePrototypeState, type ScreenState } from './prototype-state';
 const screenStates: ScreenState[] = ['default', 'loading', 'empty', 'error', 'no-permission', 'long-content'];
 
 export function StateToolbar() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [motion, setMotion] = useState(false);
   const { screenState, setScreenState } = usePrototypeState();
   useEffect(() => {

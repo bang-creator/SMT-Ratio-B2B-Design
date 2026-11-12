@@ -13,7 +13,7 @@ export function Field({label, hint, error, children}:{label:string; hint?:string
 export function Checkbox({label, ...props}:{label:string} & InputHTMLAttributes<HTMLInputElement>) { return <label className="ds-check"><input type="checkbox" {...props}/><span>{label}</span></label>; }
 export function Switch({label, ...props}:{label:string} & InputHTMLAttributes<HTMLInputElement>) { return <label className="ds-check"><input type="checkbox" role="switch" {...props}/><span>{label}</span></label>; }
 export function Badge({children}:{children:ReactNode}) { return <span className="ds-badge">{children}</span>; }
-export function Card({title, children}:{title?:string; children:ReactNode}) { return <section className="ds-card">{title&&<h2>{title}</h2>}{children}</section>; }
+export function Card({title, className='', children}:{title?:string; className?:string; children:ReactNode}) { return <section className={`ds-card ${className}`.trim()}>{title&&<h2>{title}</h2>}{children}</section>; }
 export function Tabs({items, active, onChange}:{items:string[]; active:string; onChange:(item:string)=>void}) { return <div className="ds-tabs" role="tablist">{items.map(item=><button className="ds-tab" role="tab" aria-selected={item===active} key={item} onClick={()=>onChange(item)}>{item}</button>)}</div>; }
 export function Alert({children, tone='info'}:{children:ReactNode; tone?:'info'|'danger'|'success'}) { return <div className={`ds-alert ds-alert--${tone}`} role={tone==='danger'?'alert':'status'}>{children}</div>; }
 export function Skeleton({width='100%'}:{width?:string}) { const size=width==='40%'?'ds-skeleton--40':width==='60%'?'ds-skeleton--60':''; return <div className={`ds-skeleton ${size}`} aria-label="Loading"/>; }

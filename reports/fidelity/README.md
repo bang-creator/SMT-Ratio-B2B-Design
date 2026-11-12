@@ -17,11 +17,11 @@ Reference screenshots are extracted from the committed E1 REA JSON artifacts wit
 
 | Route | Reference | Local | Changed pixels | Ratio | ≤2% |
 |---|---:|---:|---:|---:|---:|
-| Home | `home-1440-dark.png` | `local-home-1440-dark-v3.png` | 194,021 | 14.97% | no |
+| Home | `home-1440-dark.png` | `local-home-1440-dark-v4.png` | 207,894 | 16.04% | no |
 | Responses | `responses-1440-dark.png` | `local-responses-1440-dark-v3.png` | 40,980 | 3.16% | no |
 | Agents | `agents-1440-dark.png` | `local-agents-1440-dark-v3.png` | 23,202 | 1.79% | yes |
 | Usage | `usage-1440-dark.png` | `local-usage-1440-dark-v3.png` | 25,740 | 1.99% | yes |
 
-Dark semantic tokens now follow the observed Platform palette: canvas/surface `#212121`, sidebar `#131313`, secondary surface `#303030`, subtle border `#303030`, default border `#4f4f4f`. The token selector specificity bug was fixed so the toolbar's Dark choice actually overrides `:root` light values.
+Dark semantic tokens now follow the observed Platform palette: canvas/surface `#212121`, sidebar `#131313`, secondary surface `#303030`, subtle border `#303030`, default border `#4f4f4f`. The token selector specificity bug was fixed so the toolbar's Dark choice actually overrides `:root` light values. Home now uses the observed Get started, usage summary, model, and updates structure; the remaining diff is dominated by missing Platform hero imagery and exact content assets.
 
 The comparison is full-viewport evidence, so product-copy, imagery, and data-density differences contribute to the ratio. The shell alignment pass moved the local frame to a full-height sidebar and removed the horizontal global topbar; exact fixture crops remain the next fidelity target.
