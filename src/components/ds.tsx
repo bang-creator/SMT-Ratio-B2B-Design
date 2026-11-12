@@ -1,7 +1,7 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, TextareaHTMLAttributes, ReactNode, SelectHTMLAttributes, TableHTMLAttributes } from 'react';
+import { useEffect, useState, type ButtonHTMLAttributes, type InputHTMLAttributes, type TextareaHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TableHTMLAttributes } from 'react';
 
-export function Button({variant='primary', children, ...props}:{variant?:'primary'|'secondary'|'ghost'; children:ReactNode} & ButtonHTMLAttributes<HTMLButtonElement>) {
-  return <button className={`ds-button ds-button--${variant}`} {...props}>{children}</button>;
+export function Button({variant='primary', loading=false, children, disabled, ...props}:{variant?:'primary'|'secondary'|'ghost'; loading?:boolean; children:ReactNode} & ButtonHTMLAttributes<HTMLButtonElement>) {
+  return <button className={`ds-button ds-button--${variant}`} disabled={disabled||loading} aria-busy={loading||undefined} {...props}>{loading&&<Spinner/>}{children}</button>;
 }
 export function IconButton({label, children, ...props}:{label:string; children:ReactNode} & ButtonHTMLAttributes<HTMLButtonElement>) {
   return <button className="ds-icon-button" aria-label={label} {...props}>{children}</button>;
@@ -21,4 +21,8 @@ export function Spinner() { return <span className="ds-spinner" role="status" ar
 export function EmptyState({title='Nothing here yet', children}:{title?:string; children?:ReactNode}) { return <div className="ds-empty"><strong>{title}</strong>{children&&<p>{children}</p>}</div>; }
 export function Table({children, ...props}:TableHTMLAttributes<HTMLTableElement>) { return <table className="ds-table" {...props}>{children}</table>; }
 export function CodeBlock({children}:{children:ReactNode}) { return <pre className="ds-code"><code>{children}</code></pre>; }
+export function Tooltip({label, children}:{label:string; children:ReactNode}) { return <span className="ds-tooltip"><span tabIndex={0} aria-describedby={`tooltip-${label.replaceAll(' ','-')}`}>{children}</span><span className="ds-tooltip__content" role="tooltip" id={`tooltip-${label.replaceAll(' ','-')}`}>{label}</span></span>; }
+export function Popover({label, children}:{label:string; children:ReactNode}) { const [open,setOpen]=useState(false); return <span className="ds-popover"><Button variant="secondary" aria-expanded={open} onClick={()=>setOpen(value=>!value)}>{label}</Button>{open&&<span className="ds-popover__content" role="menu" onKeyDown={event=>{if(event.key==='Escape')setOpen(false);}}>{children}</span>}</span>; }
+export function Dialog({open, title, onClose, children}:{open:boolean; title:string; onClose:()=>void; children:ReactNode}) { useEffect(()=>{if(!open)return; const onKey=(event:KeyboardEvent)=>{if(event.key==='Escape')onClose();}; document.addEventListener('keydown',onKey); return()=>document.removeEventListener('keydown',onKey);},[open,onClose]); return open&&<div className="ds-dialog__backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)onClose();}}><section className="ds-dialog" role="dialog" aria-modal="true" aria-labelledby="ds-dialog-title"><div className="ds-dialog__header"><h2 id="ds-dialog-title">{title}</h2><IconButton label="Close dialog" autoFocus onClick={onClose}>×</IconButton></div>{children}</section></div>; }
+export function Toast({children, action}:{children:ReactNode; action?:ReactNode}) { return <div className="ds-toast" role="status"><span>{children}</span>{action}</div>; }
 export function PageHeader({title, description, actions}:{title:string; description?:string; actions?:ReactNode}) { return <header className="ds-page__header"><div><h1>{title}</h1>{description&&<p>{description}</p>}</div>{actions&&<div className="ds-row">{actions}</div>}</header>; }

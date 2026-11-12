@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Alert, Badge, Button, Card, Checkbox, CodeBlock, EmptyState, Field, Input, Select, Spinner, Switch, Table, Tabs, Textarea } from './ds';
+import { useState } from 'react';
+import { Alert, Badge, Button, Card, Checkbox, CodeBlock, Dialog, EmptyState, Field, Input, Popover, Select, Spinner, Switch, Table, Tabs, Textarea, Toast, Tooltip } from './ds';
 const meta = { title:'DS/Primitives', parameters:{layout:'padded'} } satisfies Meta;
 export default meta;
 type Story=StoryObj;
@@ -8,3 +9,5 @@ export const Fields:Story={render:()=> <Card title="Fields"><div className="ds-g
 export const TabsStory:Story={render:()=> <Tabs items={['Agents','Environments','Sessions']} active="Agents" onChange={()=>{}}/>};
 export const States:Story={render:()=> <div className="ds-stack"><Alert>Info state</Alert><Alert tone="danger">Error state</Alert><EmptyState title="No results">Try a different filter.</EmptyState><div className="ds-row"><Checkbox label="Remember me"/><Switch label="Enabled" defaultChecked/><Spinner/></div></div>};
 export const Data:Story={render:()=> <div className="ds-stack"><Select defaultValue="model" aria-label="Model"><option value="model">Model</option></Select><CodeBlock>const ready = true;</CodeBlock><Table><thead><tr><th>Name</th><th>Status</th></tr></thead><tbody><tr><td>Demo</td><td><Badge>Ready</Badge></td></tr></tbody></Table></div>};
+export const Interactions:Story={render:()=> { const [open,setOpen]=useState(false); return <div className="ds-row"><Tooltip label="A token-backed tooltip"><Button variant="ghost">Hover or focus</Button></Tooltip><Popover label="Open menu"><Button variant="ghost">Edit</Button><Button variant="ghost">Duplicate</Button></Popover><Button onClick={()=>setOpen(true)}>Open dialog</Button><Dialog open={open} title="Confirm action" onClose={()=>setOpen(false)}><div className="ds-stack"><p>Review this action before continuing.</p><div className="ds-row"><Button variant="secondary" onClick={()=>setOpen(false)}>Cancel</Button><Button onClick={()=>setOpen(false)}>Continue</Button></div></div></Dialog></div>}};
+export const Feedback:Story={render:()=> <div className="ds-stack"><Button loading>Saving</Button><Toast action={<Button variant="ghost">Undo</Button>}>Changes saved.</Toast></div>};
