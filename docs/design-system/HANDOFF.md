@@ -63,3 +63,5 @@ npm run build-storybook
 `ChatPanel` is a mock interaction layer covering streaming, stop, retry, tool, attachment, and branch states. Connect it to the consuming product's API/runtime rather than adding network calls to the design-system package.
 
 For parallel work with another AI, follow [`AI-HANDOFF.md`](AI-HANDOFF.md).
+
+For a lightweight runtime, use the [`vanilla/`](../../vanilla/) build. It keeps the same token-backed `ds-*` classes and uses `data-ds-*` attributes for basic interactions without React.

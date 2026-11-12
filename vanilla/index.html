@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./favicon.svg">
+    <title>OpenAI Platform DS · Vanilla</title>
+    <link rel="stylesheet" href="./design-system.css">
+  </head>
+  <body>
+    <main class="ds-main ds-vanilla-demo">
+      <div class="ds-page">
+        <header class="ds-page__header"><div><h1>Vanilla design system</h1><p>Plain HTML, CSS, and JavaScript. No React runtime.</p></div><span class="ds-badge">Dark first</span></header>
+        <div class="ds-stack">
+          <section class="ds-card"><h2>Controls</h2><div class="ds-row"><button class="ds-button ds-button--primary">Primary</button><button class="ds-button ds-button--secondary">Secondary</button><button class="ds-button ds-button--outline">Outline</button><button class="ds-button ds-button--ghost">Ghost</button><input class="ds-input" placeholder="Input"><button class="ds-icon-button" aria-label="More">···</button></div></section>
+          <section class="ds-card"><h2>Custom select, switch, tabs</h2><div class="ds-stack">
+            <div class="ds-row">
+              <div class="ds-select" data-ds-select data-value="gpt-6.1-sol"><button class="ds-select__trigger" type="button" role="combobox" aria-expanded="false"><span data-ds-value>gpt-6.1-sol</span><span class="ds-select__chevron" aria-hidden="true"></span></button><div class="ds-select__menu" role="listbox" hidden><button class="ds-select__option" role="option" data-value="gpt-6.1-sol" aria-selected="true">gpt-6.1-sol</button><button class="ds-select__option" role="option" data-value="gpt-6-luna" aria-selected="false">gpt-6-luna</button></div></div>
+              <label class="ds-check ds-switch"><span>Store logs</span><button class="ds-switch__control" type="button" role="switch" aria-checked="true" data-ds-switch><span aria-hidden="true"></span></button></label>
+            </div>
+            <div class="ds-tabs" data-ds-tabs role="tablist"><button class="ds-tab" role="tab" aria-selected="true" data-panel="panel-overview">Overview</button><button class="ds-tab" role="tab" aria-selected="false" data-panel="panel-details">Details</button></div>
+            <p id="panel-overview" role="tabpanel">Overview content.</p><p id="panel-details" role="tabpanel" hidden>Details content.</p>
+          </div></section>
+          <section class="ds-card"><h2>Dialog and menu</h2><div class="ds-row"><div class="ds-popover" data-ds-menu><button class="ds-button ds-button--secondary" type="button">Open menu</button><div class="ds-popover__content" role="menu" hidden><button class="ds-button ds-button--ghost" role="menuitem">Rename</button><button class="ds-button ds-button--ghost" role="menuitem">Duplicate</button></div></div><button class="ds-button ds-button--primary" type="button" data-ds-dialog-open="#vanilla-dialog">Open dialog</button></div><div class="ds-dialog__backdrop" id="vanilla-dialog" role="dialog" aria-modal="true" hidden><section class="ds-dialog"><div class="ds-dialog__header"><h2>Review change</h2><button class="ds-icon-button" type="button" aria-label="Close dialog" data-ds-dialog-close>×</button></div><p>Plain HTML dialog surface.</p></section></div></section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./design-system.js"></script>
+  </body>
+</html>

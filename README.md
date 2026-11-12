@@ -55,3 +55,5 @@ For the reusable-project contract and feedback workflow, read [`docs/design-syst
 For parallel editing with another AI, use [`docs/design-system/AI-HANDOFF.md`](docs/design-system/AI-HANDOFF.md). It lists the source files, isolated worktree commands, review boundary, and a ready-to-paste prompt.
 
 For GitHub branch, Storybook, PR, and post-merge workflow, read [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+For a zero-framework build, use [`vanilla/`](vanilla/). It runs as plain HTML/CSS/JS and exposes `vanilla.css` and `vanilla.js` without React or Storybook at runtime.
