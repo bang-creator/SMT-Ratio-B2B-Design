@@ -11,7 +11,7 @@ function cssVar(e){return `--${e.name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase())}`
 const light=[],dark=[];
 for(const e of entries){let v=resolve(e.value); if(e.path[0]==='motion'&&e.path[1]==='easing'&&Array.isArray(e.value)) v=`cubic-bezier(${e.value.join(', ')})`; light.push(`  ${cssVar(e)}: ${v};`); const mode=e.ext?.mode?.dark; if(mode!==undefined) dark.push(`  ${cssVar(e)}: ${resolve(mode,true)};`);}
 fs.writeFileSync(`${out}/tokens.css`,`:root {\n${light.join('\n')}\n}\n`);
-fs.writeFileSync(`${out}/tokens.dark.css`,`:where([data-theme="dark"]) {\n${dark.join('\n')}\n}\n@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n${dark.join('\n')}\n  }\n}\n`);
+fs.writeFileSync(`${out}/tokens.dark.css`,`:root[data-theme="dark"] {\n${dark.join('\n')}\n}\n@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n${dark.join('\n')}\n  }\n}\n`);
 const theme=['@theme {','  --color-*: initial;','  --spacing-*: initial;','  --radius-*: initial;','  --shadow-*: initial;','  --font-*: initial;','  --text-*: initial;',...entries.filter(e=>/^color-semantic|^font|^space|^radius|^shadow/.test(e.name)).map(e=>`  --${e.name.replace(/[A-Z]/g,m=>'-'+m.toLowerCase())}: var(${cssVar(e)});`),'}'].join('\n')+'\n';
 fs.writeFileSync(`${out}/theme.css`,theme);
 const duration=entries.filter(e=>e.path[0]==='motion'&&e.path[1]==='duration').map(e=>`  ${e.path[2]}: '${e.value}',`).join('\n');

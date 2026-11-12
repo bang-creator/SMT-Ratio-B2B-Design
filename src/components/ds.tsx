@@ -6,9 +6,9 @@ export function Button({variant='primary', children, ...props}:{variant?:'primar
 export function IconButton({label, children, ...props}:{label:string; children:ReactNode} & ButtonHTMLAttributes<HTMLButtonElement>) {
   return <button className="ds-icon-button" aria-label={label} {...props}>{children}</button>;
 }
-export function Input(props:InputHTMLAttributes<HTMLInputElement>) { return <input className="ds-input" {...props}/>; }
-export function Textarea(props:TextareaHTMLAttributes<HTMLTextAreaElement>) { return <textarea className="ds-textarea" {...props}/>; }
-export function Select(props:SelectHTMLAttributes<HTMLSelectElement>) { return <select className="ds-input" {...props}/>; }
+export function Input({className='', ...props}:InputHTMLAttributes<HTMLInputElement>) { return <input className={`ds-input ${className}`.trim()} {...props}/>; }
+export function Textarea({className='', ...props}:TextareaHTMLAttributes<HTMLTextAreaElement>) { return <textarea className={`ds-textarea ${className}`.trim()} {...props}/>; }
+export function Select({className='', ...props}:SelectHTMLAttributes<HTMLSelectElement>) { return <select className={`ds-input ${className}`.trim()} {...props}/>; }
 export function Field({label, hint, error, children}:{label:string; hint?:string; error?:string; children:ReactNode}) { return <label><span className="ds-label">{label}</span>{children}{error?<small className="ds-field-error" role="alert">{error}</small>:hint&&<small className="ds-muted">{hint}</small>}</label>; }
 export function Checkbox({label, ...props}:{label:string} & InputHTMLAttributes<HTMLInputElement>) { return <label className="ds-check"><input type="checkbox" {...props}/><span>{label}</span></label>; }
 export function Switch({label, ...props}:{label:string} & InputHTMLAttributes<HTMLInputElement>) { return <label className="ds-check"><input type="checkbox" role="switch" {...props}/><span>{label}</span></label>; }

@@ -14,6 +14,10 @@ TARGETS = {
     "responses__1440x900__light": "responses",
     "agents-vault__1440x900__light": "agents",
     "usage__1440x900__light": "usage",
+    "home__1440x900__dark": "home",
+    "responses__1440x900__dark": "responses",
+    "agents-vault__1440x900__dark": "agents",
+    "usage__1440x900__dark": "usage",
 }
 
 
@@ -39,7 +43,8 @@ def main() -> None:
         encoded = next(find_screenshots(data), None)
         if not encoded:
             raise SystemExit(f"No screenshot artifact in {source}")
-        destination = OUT / f"{name}-1440-light.png"
+        theme = "dark" if stem.endswith("__dark") else "light"
+        destination = OUT / f"{name}-1440-{theme}.png"
         destination.write_bytes(base64.b64decode(encoded))
         print(destination)
 

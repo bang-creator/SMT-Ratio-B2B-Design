@@ -1,4 +1,4 @@
-:where([data-theme="dark"]) {
+:root[data-theme="dark"] {
   --color-primitive-gray-0: #0d0d0d;
   --color-primitive-gray-25: #101010;
   --color-primitive-gray-50: #131313;
@@ -23,17 +23,17 @@
   --color-primitive-gray-950: #f3f3f3;
   --color-primitive-gray-975: #f9f9f9;
   --color-primitive-gray-1000: #fff;
-  --color-semantic-background-canvas: #0d0d0d;
-  --color-semantic-background-surface: #131313;
-  --color-semantic-background-surface-elevated: #181818;
-  --color-semantic-background-surface-secondary: #161616;
-  --color-semantic-text-primary: #fff;
-  --color-semantic-text-secondary: #8f8f8f;
-  --color-semantic-text-tertiary: #afafaf;
-  --color-semantic-text-inverse: #0d0d0d;
-  --color-semantic-border-subtle: #cdcdcd;
-  --color-semantic-border-default: #afafaf;
-  --color-semantic-ring-focus: #0d0d0d;
+  --color-semantic-background-canvas: #212121;
+  --color-semantic-background-surface: #212121;
+  --color-semantic-background-surface-elevated: #282828;
+  --color-semantic-background-surface-secondary: #303030;
+  --color-semantic-text-primary: #f3f3f3;
+  --color-semantic-text-secondary: #b9b9b9;
+  --color-semantic-text-tertiary: #8f8f8f;
+  --color-semantic-text-inverse: #212121;
+  --color-semantic-border-subtle: #303030;
+  --color-semantic-border-default: #4f4f4f;
+  --color-semantic-ring-focus: #fff;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -61,16 +61,16 @@
   --color-primitive-gray-950: #f3f3f3;
   --color-primitive-gray-975: #f9f9f9;
   --color-primitive-gray-1000: #fff;
-  --color-semantic-background-canvas: #0d0d0d;
-  --color-semantic-background-surface: #131313;
-  --color-semantic-background-surface-elevated: #181818;
-  --color-semantic-background-surface-secondary: #161616;
-  --color-semantic-text-primary: #fff;
-  --color-semantic-text-secondary: #8f8f8f;
-  --color-semantic-text-tertiary: #afafaf;
-  --color-semantic-text-inverse: #0d0d0d;
-  --color-semantic-border-subtle: #cdcdcd;
-  --color-semantic-border-default: #afafaf;
-  --color-semantic-ring-focus: #0d0d0d;
+  --color-semantic-background-canvas: #212121;
+  --color-semantic-background-surface: #212121;
+  --color-semantic-background-surface-elevated: #282828;
+  --color-semantic-background-surface-secondary: #303030;
+  --color-semantic-text-primary: #f3f3f3;
+  --color-semantic-text-secondary: #b9b9b9;
+  --color-semantic-text-tertiary: #8f8f8f;
+  --color-semantic-text-inverse: #212121;
+  --color-semantic-border-subtle: #303030;
+  --color-semantic-border-default: #4f4f4f;
+  --color-semantic-ring-focus: #fff;
   }
 }
