@@ -1,10 +1,19 @@
-# Vanilla build
+# Framework-free source
 
-This folder runs with plain HTML, CSS, and JavaScript. No React, React DOM, Vite, or Storybook is required at runtime.
+Plain HTML/CSS/JS source for prototyping. Runtime has no dependencies. Storybook is the only preview surface.
+
+- `base.css`: editable CSS source.
+- `design-system.css`: generated token CSS + base CSS.
+- `design-system.js`: data-attribute behaviors.
+- `stories/shared/`: 33 shared components.
+- `stories/default/`: Default application components.
+- `stories/ams-b2b/`: AMS B2B application components.
+- `stories/supplemental/`: existing exports outside the required list.
+
+Regenerate and review:
 
 ```bash
+npm run tokens:build
 npm run build:vanilla
-python3 -m http.server 8080 -d vanilla
+npm run storybook
 ```
-
-Open `http://127.0.0.1:8080`. Reusable styling uses the same `ds-*` classes and generated token files as the React package. Behavior uses `data-ds-*` attributes for switches, custom selects, tabs, menus, and dialogs.

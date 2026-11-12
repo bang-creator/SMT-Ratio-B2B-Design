@@ -1,25 +1,23 @@
 # Contributing with another AI
 
-## Start from main
+## Start
 
 ```bash
 git clone https://github.com/bang-creator/openai-platform-design-system.git
 cd openai-platform-design-system
 npm install
+npm run storybook
 ```
 
 Read `AGENTS.md`, `README.md`, and `docs/design-system/AI-HANDOFF.md` before editing.
 
 ## Branch and Storybook flow
 
-Create one branch per feedback item:
-
 ```bash
 git switch -c ai/<short-task-name>
-npm run storybook
 ```
 
-Use **DS / Public exports / Catalog** as the review page. Update the Catalog story when a shared component changes. Keep product-only experiments out of the shared exports until the owner approves promotion.
+Use **Default / Shared / Button (and the matching component story)** as the only review page. Product-only experiments stay out of the shared catalog until the owner approves promotion.
 
 Before opening a PR:
 
@@ -28,11 +26,9 @@ npm run tokens:build
 npm run tokens:check
 npm run ds:check
 npm run ds:verify
-npm run build:library
-npm run build-storybook
 ```
 
-Commit, push, open a PR against `main`:
+Commit and push:
 
 ```bash
 git add .
@@ -40,7 +36,7 @@ git commit -m "describe the component feedback"
 git push -u origin ai/<short-task-name>
 ```
 
-After the owner merges the PR, the next AI starts from the updated main:
+After merge:
 
 ```bash
 git switch main
@@ -48,4 +44,4 @@ git pull --ff-only origin main
 git switch -c ai/<next-task-name>
 ```
 
-Never force-push `main`. Never commit secrets, `node_modules`, generated builds, or browser captures.
+Never force-push `main`. Never commit secrets, dependencies, build output, screenshots, or alternate previews.

@@ -13,7 +13,7 @@ Read this before implementing UI. Source of truth: `tokens.json`; observed prove
 
 ## Motion
 
-Use `src/tokens/motion.ts`. Basic interaction: 150ms ease. Enter: cubic-bezier(.19,1,.22,1). Move: cubic-bezier(.65,0,.35,1). Respect `prefers-reduced-motion`.
+Use motion tokens in `tokens/tokens.css`. Basic interaction: 150ms ease. Enter: cubic-bezier(.19,1,.22,1). Move: cubic-bezier(.65,0,.35,1). Respect `prefers-reduced-motion`.
 
 ## Guardrails
 

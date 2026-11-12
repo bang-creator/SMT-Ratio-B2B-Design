@@ -1,6 +1,6 @@
 # Decisions
 
-- D1: **A** — retain `@openai/apps-sdk-ui/css` as base. Evidence: 67.6% same variable names; 61.37% same name and value.
+- D1: **A** — keep the extracted token contract and plain CSS source as the base. Runtime has no dependency on `@openai/apps-sdk-ui` or another component library.
 - D2: **Yes** — light/dark tokens. Theme persistence remains unverified.
 - D3: **OpenAI Sans** with Helvetica fallback.
 - D4: **Observed inline SVG** through an Icon wrapper; external library deferred.

@@ -1,0 +1,5 @@
+import { story, stage } from '../story-helpers.js';
+
+export default { title: 'Default / Shared / Menu', parameters: { layout: 'padded' } };
+export const Default = story('Default', stage('Default', `<div class="ds-popover" data-ds-menu><button class="ds-button ds-button--secondary">Open menu</button><div class="ds-popover__content" role="menu" hidden><button class="ds-button ds-button--ghost" role="menuitem">Edit</button><button class="ds-button ds-button--ghost" role="menuitem">Duplicate</button></div></div>`));
+export const States = story('Default / Shared / Menu / States', stage('States', `<div class=\"ds-story-grid\"><div><div class="ds-popover" data-ds-menu><button class="ds-button ds-button--secondary">Open menu</button><div class="ds-popover__content" role="menu" hidden><button class="ds-button ds-button--ghost" role="menuitem">Edit</button><button class="ds-button ds-button--ghost" role="menuitem">Duplicate</button></div></div></div><div class=\"ds-empty\"><strong>State placeholder</strong><p>Add loading, error, disabled, and focus states.</p></div></div>`));

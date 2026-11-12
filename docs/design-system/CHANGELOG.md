@@ -5,8 +5,8 @@ Use this file for approved changes to public exports. Product-only tweaks stay i
 ## 2026-11-12
 
 - All compact controls standardized to 32px: buttons, inputs, selects, date trigger, options, and filter chips.
-- Added Storybook catalog at `DS / Public exports / Catalog`.
-- Added reusable package build with `npm run build:library`.
+- Added Storybook catalog at `Default / Shared / Button (and the matching component story)`.
+- Added framework-free HTML/CSS/JS source and removed React/Vite app preview layers.
 
 ## Entry template
 

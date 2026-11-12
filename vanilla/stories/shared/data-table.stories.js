@@ -1,0 +1,5 @@
+import { story, stage } from '../story-helpers.js';
+
+export default { title: 'Default / Shared / Data table', parameters: { layout: 'padded' } };
+export const Default = story('Default', stage('Default', `<div class="ds-table-wrap"><table class="ds-table"><thead><tr><th>Name</th><th>Status</th><th>Usage</th></tr></thead><tbody><tr><td>Production</td><td><span class="ds-badge">Ready</span></td><td>82%</td></tr><tr><td>Staging</td><td>Draft</td><td>24%</td></tr></tbody></table></div>`));
+export const States = story('Default / Shared / Data table / States', stage('States', `<div class=\"ds-story-grid\"><div><div class="ds-table-wrap"><table class="ds-table"><thead><tr><th>Name</th><th>Status</th><th>Usage</th></tr></thead><tbody><tr><td>Production</td><td><span class="ds-badge">Ready</span></td><td>82%</td></tr><tr><td>Staging</td><td>Draft</td><td>24%</td></tr></tbody></table></div></div><div class=\"ds-empty\"><strong>State placeholder</strong><p>Add loading, error, disabled, and focus states.</p></div></div>`));

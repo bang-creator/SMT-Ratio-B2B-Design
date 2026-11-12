@@ -1,29 +1,34 @@
-# Public exports review map
+# Storybook component map
 
-Source of truth: [`src/index.ts`](../../src/index.ts). The Storybook catalog mirrors that file and is the review surface for every shared component:
+Storybook is the only review surface. The tree mirrors the product split:
 
-```bash
-npm run storybook
+```text
+Default
+├── Shared                 33 base components
+├── Application            8 Default-only components
+└── Supplemental           existing exports outside the required list
+AMS B2B
+└── Application            8 brand-specific component slots
 ```
 
-Open **DS / Public exports / Catalog**. Each tile shows the exported name, the current visual state, and the interaction surface where relevant. Review the catalog before accepting a component change into the shared system.
+Each component is one Storybook CSF file. Component states and variants are child stories in the same file. Empty slots render a visible `State placeholder` or `Reserved in the catalog` tile so future AI agents know where to add source-matched markup.
 
-| Export group | Source | Catalog coverage |
-| --- | --- | --- |
-| Foundations | `src/components/ds.tsx` | Button, IconButton, Icon, Badge, Heading, Text, Card |
-| Forms | `src/components/ds.tsx` | Field, Input, Textarea, Select, Combobox, DatePicker, Checkbox, Radio, Switch |
-| Navigation | `src/components/ds.tsx` | Tabs, SegmentedControl, Menu, Popover, Tooltip, Pagination |
-| Overlays | `src/components/ds.tsx` | Dialog, Drawer |
-| Feedback | `src/components/ds.tsx` | Alert, Spinner, Skeleton, EmptyState, Toast |
-| Data and product | `src/components/product.tsx` | SectionHeading, MetricCard, FilterBar, Filter, ChartCard, BarChart, DataTable, CompactSelect, StatusBadge, CodePreview |
-| Utility | `src/components/ds.tsx` | Table, CodeBlock, CopyField, PageHeader |
-| Chat | `src/components/chat/ChatPanel.tsx` | ChatPanel |
+## Shared components
 
-## Promotion rule
+Breadcrumb, Button, Checkbox, Contained list, Content switcher, Date picker, Data table, Dropdown, File uploader, Form, Link, List, Menu, Modal, Notification, Number input, Pagination, Password input, Popover, Progress bar, Progress indicator, Radio button, Search, Select, Slider, Structured list, Tabs, Tag, Text area, Text input, Toggle, Toggle tips, Tool tips.
 
-1. Apply product-specific feedback locally first.
-2. If the change should become shared, update the component, tokens, and Catalog story together.
-3. Review the Catalog story at dark and light themes, plus disabled, focus, open, error, and loading states that apply.
-4. Promote the change only after the owner approves it. Record the decision in `docs/design-system/CHANGELOG.md`.
+## Application components
 
-This keeps a product experiment separate from the shared contract until it is explicitly approved.
+Page header, Card header, Section header, Section footer, Navigation, Chart, Metric, Empty state. Default and AMS B2B keep separate stories because application composition can vary by brand while shared components remain common.
+
+## Source map
+
+- `vanilla/stories/shared/` — shared components.
+- `vanilla/stories/default/` — Default application components.
+- `vanilla/stories/ams-b2b/` — AMS B2B application components.
+- `vanilla/stories/supplemental/` — existing exports outside the required shared/application lists.
+- `vanilla/base.css` — editable CSS source.
+- `vanilla/design-system.js` — editable interaction source.
+- `tokens/` — generated token CSS.
+
+Review the matching story against `https://platform.openai.com/` before promoting a change to the shared system.

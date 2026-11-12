@@ -1,59 +1,56 @@
 # OpenAI Platform Design System
 
-Reusable React components and dark-first tokens extracted from the OpenAI Platform UI.
+Token-backed UI for interface prototyping with plain HTML, CSS, and JavaScript. No React app, router, runtime framework, or API client. Storybook is the only preview surface.
 
-## Use in the next project
-
-Build the package once:
+## Start
 
 ```bash
 npm install
-npm run build:library
-```
-
-Install it from a sibling project:
-
-```bash
-npm install "../OpenAI Design System"
-```
-
-Use the primitives:
-
-```tsx
-import { Button, Card, Field, Input, Select, Switch } from 'openai-platform-design-system';
-
-export function SettingsPanel() {
-  return (
-    <Card title="Project settings">
-      <Field label="Project name"><Input defaultValue="Default project" /></Field>
-      <Field label="Model">
-        <Select defaultValue="gpt-6.1-sol">
-          <option>gpt-6.1-sol</option>
-          <option>gpt-6-luna</option>
-        </Select>
-      </Field>
-      <Switch label="Store logs" defaultChecked />
-      <Button>Save settings</Button>
-    </Card>
-  );
-}
-```
-
-Import `openai-platform-design-system/styles.css` once from the app entry or root layout. Components are token-backed and default to the dark platform theme; set `document.documentElement.dataset.theme = 'light'` for the light token set.
-
-## Local development
-
-```bash
-npm run dev
 npm run storybook
 ```
 
-Preview the extracted Usage and Responses surfaces at `/specimen/fixtures/platform-components`.
+Open:
 
-For the reusable-project contract and feedback workflow, read [`docs/design-system/HANDOFF.md`](docs/design-system/HANDOFF.md). Review the complete shared component list in Storybook under **DS / Public exports / Catalog**; its promotion rule is documented in [`docs/design-system/PUBLIC_EXPORTS.md`](docs/design-system/PUBLIC_EXPORTS.md).
+```text
+http://127.0.0.1:6006
+```
 
-For parallel editing with another AI, use [`docs/design-system/AI-HANDOFF.md`](docs/design-system/AI-HANDOFF.md). It lists the source files, isolated worktree commands, review boundary, and a ready-to-paste prompt.
+The Storybook tree is the shared review surface for every component, state, token decision, and motion hook. Start at `Default/Shared` for the 33 shared components, then compare `Default/Application` and `AMS B2B/Application`.
 
-For GitHub branch, Storybook, PR, and post-merge workflow, read [`CONTRIBUTING.md`](CONTRIBUTING.md).
+## Use in a plain HTML project
 
-For a zero-framework build, use [`vanilla/`](vanilla/). It runs as plain HTML/CSS/JS and exposes `vanilla.css` and `vanilla.js` without React or Storybook at runtime.
+Copy or package these files:
+
+- `vanilla/design-system.css`
+- `vanilla/design-system.js`
+- `tokens/tokens.css`
+- `tokens/tokens.dark.css`
+
+```html
+<link rel="stylesheet" href="./design-system.css">
+<script type="module" src="./design-system.js"></script>
+```
+
+Use the `ds-*` classes and `data-ds-*` attributes shown in the Storybook catalog. No npm dependency is required at runtime.
+
+## Theme
+
+```html
+<html data-theme="dark">
+```
+
+Use `data-theme="light"` for light mode. Dark mode is the primary reference.
+
+## Token workflow
+
+```bash
+npm run tokens:build
+npm run tokens:check
+npm run build:vanilla
+```
+
+Edit `docs/design-system/tokens.json`, regenerate `tokens/`, then review the catalog.
+
+## Feedback workflow
+
+Product feedback becomes a shared DS change only after owner approval. Update the CSS/JS/token source, the Storybook catalog, and `docs/design-system/CHANGELOG.md` together. Rules live in `AGENTS.md`; the cross-project handoff is in `docs/design-system/HANDOFF.md`; the parallel-AI workflow is in `docs/design-system/AI-HANDOFF.md`.

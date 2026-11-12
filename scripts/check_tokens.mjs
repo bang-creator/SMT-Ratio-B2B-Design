@@ -6,5 +6,5 @@ assert.equal(t.color.semantic.background.canvas.$extensions.mode.dark,'#212121')
 assert.equal(t.color.semantic.text.primary.$extensions.mode.dark,'#f3f3f3');
 assert.equal(t.motion.duration.basic.$value,'150ms');
 assert.equal(t.layout.sidebar.desktop.$value,'260px');
-for (const file of ['src/tokens/tokens.css','src/tokens/tokens.dark.css','src/tokens/theme.css','src/tokens/motion.ts']) assert.ok(fs.existsSync(file),file);
+for (const file of ['tokens/tokens.css','tokens/tokens.dark.css']) assert.ok(fs.existsSync(file),file);
 console.log('tokens:ok');
