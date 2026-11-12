@@ -4,5 +4,6 @@ ds-extraction/raw/
 .playwright-mcp/
 node_modules/
 dist/
+dist-package/
 storybook-static/
 *.tsbuildinfo

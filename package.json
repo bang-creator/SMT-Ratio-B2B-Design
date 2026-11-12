@@ -1,6 +1,26 @@
 {
   "name": "openai-platform-design-system",
+  "version": "0.1.0",
   "private": true,
+  "description": "Reusable dark-first OpenAI Platform design system for React projects",
+  "files": [
+    "dist-package",
+    "src/index.ts",
+    "src/components",
+    "src/mocks",
+    "src/styles",
+    "src/tokens",
+    "src/vite-env.d.ts",
+    "docs/design-system",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./dist-package/openai-platform-design-system.js"
+    },
+    "./styles.css": "./dist-package/openai-platform-design-system.css"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -8,6 +28,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "build:library": "npm run tokens:build && vite build --config vite.lib.config.ts",
     "visual:extract": "python3 scripts/extract_reference_screenshots.py",
     "visual:diff": "node scripts/visual_diff.mjs",
     "visual:fixture": "node scripts/visual_fixture_diff.mjs",
