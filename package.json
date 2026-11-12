@@ -8,6 +8,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "visual:extract": "python3 scripts/extract_reference_screenshots.py",
+    "visual:diff": "node scripts/visual_diff.mjs",
     "tokens:build": "node scripts/build_tokens.mjs",
     "tokens:check": "node scripts/check_tokens.mjs",
     "ds:check": "node scripts/check-literals.mjs",
@@ -25,6 +27,8 @@
     "@storybook/react-vite": "^10.6.7",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "pixelmatch": "^8.0.0",
+    "pngjs": "^7.0.0",
     "storybook": "^10.6.7"
   }
 }
