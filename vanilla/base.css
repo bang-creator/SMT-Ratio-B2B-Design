@@ -284,17 +284,12 @@ button { cursor: pointer; }
 .ds-checkbox input:focus-visible + .ds-checkbox__control { outline:2px solid var(--color-semantic-ring-focus); outline-offset:2px; }
 .ds-checkbox input:checked + .ds-checkbox__control,
 .ds-checkbox input:indeterminate + .ds-checkbox__control,
-.ds-checkbox input[data-indeterminate="true"] + .ds-checkbox__control,
 .ds-checkbox[data-indeterminate="true"] .ds-checkbox__control { background:var(--color-semantic-text-primary); box-shadow:0 0 0 1px var(--color-semantic-text-primary) inset; color:var(--color-semantic-background-canvas); }
 .ds-checkbox__check,
-.ds-checkbox__dash { width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:0; transform:scale(.6); transition:opacity var(--motion-duration-basic) var(--motion-easing-enter), transform var(--motion-duration-basic) var(--motion-easing-enter); }
-.ds-checkbox input:checked:not(:indeterminate):not([data-indeterminate="true"]) + .ds-checkbox__control .ds-checkbox__check { opacity:1; transform:scale(1); }
+.ds-checkbox__dash { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) scale(.6); width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:0; pointer-events:none; transition:opacity var(--motion-duration-basic) var(--motion-easing-enter), transform var(--motion-duration-basic) var(--motion-easing-enter); }
+.ds-checkbox input:checked:not(:indeterminate) + .ds-checkbox__control .ds-checkbox__check { opacity:1; transform:translate(-50%, -50%) scale(1); }
 .ds-checkbox input:indeterminate + .ds-checkbox__control .ds-checkbox__dash,
-.ds-checkbox input[data-indeterminate="true"] + .ds-checkbox__control .ds-checkbox__dash,
-.ds-checkbox[data-indeterminate="true"] .ds-checkbox__control .ds-checkbox__dash { opacity:1; transform:scale(1); }
-.ds-checkbox input:indeterminate + .ds-checkbox__control .ds-checkbox__check,
-.ds-checkbox input[data-indeterminate="true"] + .ds-checkbox__control .ds-checkbox__check,
-.ds-checkbox[data-indeterminate="true"] .ds-checkbox__control .ds-checkbox__check { opacity:0; display:none; }
+.ds-checkbox[data-indeterminate="true"]:not(:has(input:checked)) .ds-checkbox__control .ds-checkbox__dash { opacity:1; transform:translate(-50%, -50%) scale(1); }
 .ds-checkbox:has(:disabled), .ds-checkbox[data-disabled] { opacity:.5; cursor:not-allowed; pointer-events:none; }
 .ds-check { display:inline-flex; align-items:center; gap:var(--space-2); font-size:var(--font-size-sm); }
 .ds-check input { accent-color:var(--color-semantic-text-primary); }

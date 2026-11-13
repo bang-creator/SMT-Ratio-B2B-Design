@@ -80,8 +80,20 @@ export function mount(scope = document) {
     }
   });
 
-  scope.querySelectorAll('.ds-checkbox input[type="checkbox"][data-indeterminate="true"], .ds-checkbox[data-indeterminate="true"] input[type="checkbox"]').forEach((input) => {
-    input.indeterminate = true;
+  scope.querySelectorAll('.ds-checkbox input[type="checkbox"]').forEach((input) => {
+    if (input.dataset.indeterminate === 'true' || input.closest('.ds-checkbox')?.dataset?.indeterminate === 'true') {
+      input.indeterminate = true;
+    }
+    input.addEventListener('change', () => {
+      input.indeterminate = false;
+      input.removeAttribute('data-indeterminate');
+      delete input.dataset.indeterminate;
+      const label = input.closest('.ds-checkbox');
+      if (label) {
+        label.removeAttribute('data-indeterminate');
+        delete label.dataset.indeterminate;
+      }
+    });
   });
 
   scope.querySelectorAll('[data-ds-switch]').forEach((control) => {
