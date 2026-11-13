@@ -18,7 +18,11 @@ Use this file for approved changes to public exports. Product-only tweaks stay i
 - **Ultra Button Sparkle Velocity**: Further accelerated `.ds-button--ultra` particle speed to `0.6s - 0.9s` duration with negative delays for instant, high-energy horizontal star flow.
 
 ### Button Component Suite (`ds-button`)
-- **Source**: OpenAI Platform Action Controls (`platform.openai.com`) & Model Service Tier Selection (`platform.openai.com/chat/edit?models=gpt-6-astra`).
+- **Structure & Style Sections**:
+  - Divided each variant (`Default`, `Pill`, `Small`) into distinct style sections (`Primary`, `Secondary`, `Outline`, `Ghost`, `Danger (Outline)`, `Danger (Solid)`, `Ultrafast`).
+  - Added SF Mono 12px headings (`.ds-story-section > header code`) for each style section to establish clear visual hierarchy and ease management.
+  - Added interactive `disabled` (`:disabled`) and `loading` (`.ds-button--loading` with `.ds-button__spinner`) states alongside icon placement variations in every style row.
+  - Removed duplicate `Icon Button` story export (icon-only buttons are natively covered in each style row).
 - **Hierarchy & Structure**: Re-architected strictly as `Component (Button) -> Variants (Story) -> Styles -> Icon Variations (text-only, trái, phải, 2 bên, only)`. States (hover, active/pressed, focus, disabled, loading) are experienced purely through interactive testing without cluttering the catalog.
 - **Strict 32px Standard Height**: Migrated `.ds-button--secondary` from external CSS border to `box-shadow: 0 0 0 1px ... inset`, ensuring 100% height equality (exactly 32px) across Primary, Secondary, Outline, Ghost, Danger, and Ultra.
 - **Ultra Animated Refinement**:

@@ -16,7 +16,6 @@ const STORIES_TO_AUDIT = [
   { id: 'default-shared-button--default', name: 'Button (Default 32px)' },
   { id: 'default-shared-button--small', name: 'Button (Small 28px)' },
   { id: 'default-shared-button--pill', name: 'Button (Pill)' },
-  { id: 'default-shared-button--icon-button', name: 'Button (Icon Button)' },
   { id: 'default-shared-text-input--default', name: 'Text Input (Default)' },
   { id: 'default-shared-text-input--small', name: 'Text Input (Small)' },
   { id: 'default-shared-text-input--pill', name: 'Text Input (Pill)' },

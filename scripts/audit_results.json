@@ -145,7 +145,7 @@
     "status": "PASSED",
     "box": {
       "x": 37,
-      "y": 63,
+      "y": 85,
       "width": 72.234375,
       "height": 32
     },
@@ -165,7 +165,7 @@
     "status": "PASSED",
     "box": {
       "x": 37,
-      "y": 63,
+      "y": 85,
       "width": 57.34375,
       "height": 28
     },
@@ -185,7 +185,7 @@
     "status": "PASSED",
     "box": {
       "x": 37,
-      "y": 63,
+      "y": 85,
       "width": 80.234375,
       "height": 32
     },
@@ -197,26 +197,6 @@
       "fontWeight": "500",
       "backgroundColor": "rgb(243, 243, 243)",
       "color": "rgb(33, 33, 33)"
-    }
-  },
-  {
-    "id": "default-shared-button--icon-button",
-    "name": "Button (Icon Button)",
-    "status": "PASSED",
-    "box": {
-      "x": 37,
-      "y": 63,
-      "width": 32,
-      "height": 32
-    },
-    "cs": {
-      "height": "32px",
-      "borderRadius": "9999px",
-      "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
-      "fontSize": "14px",
-      "fontWeight": "500",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "color": "rgb(185, 185, 185)"
     }
   },
   {
@@ -864,10 +844,10 @@
     "name": "File Uploader (Upload Modal)",
     "status": "PASSED",
     "box": {
-      "x": 37.78668212890625,
-      "y": 64.25163269042969,
-      "width": 478.4266357421875,
-      "height": 363.80360412597656
+      "x": 38.86895751953125,
+      "y": 65.96653747558594,
+      "width": 476.2620849609375,
+      "height": 362.15760803222656
     },
     "cs": {
       "height": "365px",
