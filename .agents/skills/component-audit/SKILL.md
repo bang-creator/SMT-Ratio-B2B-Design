@@ -1,13 +1,38 @@
 ---
-name: component-audit
-description: Comprehensive 100% fidelity audit checklist and procedure for auditing and cloning OpenAI Platform Design System components.
+name: openai-ui-qa
+description: >-
+  OpenAI UI QA: Comprehensive 100% fidelity audit checklist, procedures, and zero-guess ground-truth extraction protocol for OpenAI Platform (https://platform.openai.com) Design System components. Use whenever implementing, auditing, testing, or verifying OpenAI Platform components, matching exact typography (400 weights), tokens, geometry, states, motion, and visual comparisons.
 ---
 
-# OpenAI Platform Component 100% Fidelity Audit Standard
+# OpenAI UI QA — 100% Fidelity Component Audit Standard
 
 This skill defines the mandatory protocol for auditing, extracting, cloning, and verifying components from the live OpenAI Platform (`https://platform.openai.com`) into the prototype design system.
 
 Every component must satisfy **all 101 criteria across 11 foundational categories** before it can be considered compliant.
+
+---
+
+## 0. Mandatory Screenshot & Live Platform Ground-Truth Protocol (Anti-Guessing Rule)
+
+> [!IMPORTANT]
+> **Zero-Guess Directive for User Screenshots**:
+> Whenever a user attaches a screenshot or asks to implement/fix a component:
+> 1. **Locate on Live Platform First**: Never attempt to approximate or recreate a component purely from visual appearance in a screenshot. You MUST determine where that component resides on `https://platform.openai.com` (e.g., Usage filter at `/usage`, API keys management at `/api-keys`, storage buckets at `/storage`, project/org settings at `/settings`).
+> 2. **Extract Authentic Platform Design Contracts**:
+>    - Determine the exact DOM structure, hierarchy, and ARIA roles used by OpenAI Platform.
+>    - Map styling to verified design tokens from `docs/design-system/tokens.json`.
+> 3. **Strict Typography Ground-Truth (Full 400 Weight Rule)**:
+>    - OpenAI Platform uses an understated, clean aesthetic with **`font-weight: 400` (normal)** across almost all secondary and tertiary UI elements:
+>      - Calendar month/year headers: `font-size: var(--font-size-sm)` (14px), **`font-weight: 400`** (`var(--font-weight-normal)`). Do NOT make them bold/semibold.
+>      - Calendar weekday headers: `font-size: var(--font-size-xs)` (12px), **`font-weight: 400`** (`var(--font-weight-normal)`).
+>      - Calendar date numbers (resting, hovered, in-range, and start/end endpoints): `font-size: var(--font-size-xs)` (12px/13px), **`font-weight: 400`** (`var(--font-weight-normal)`). Start and end date circles use solid background pills but retain **font-weight: 400**.
+>      - Filter and preset menu items: `font-size: var(--font-size-sm)` (14px), **`font-weight: 400`** (`var(--font-weight-normal)`) for both inactive and active states.
+> 4. **Color & Elevation Contracts**:
+>    - Popover surface: `var(--color-semantic-background-menu)` / `var(--color-semantic-background-surface-elevated)` with `var(--color-semantic-border-subtle)` and `var(--shadow-menu)`.
+>    - Date range selection strip: continuous connected track with tokenized selection background (dark: `#414141` / `var(--color-primitive-gray-400)`, light: `var(--color-primitive-gray-100)`).
+>    - Selected endpoints: circular badge (`var(--color-primitive-gray-1000)` bg, `var(--color-primitive-gray-0)` text).
+>    - Disabled future dates: `opacity: 0.35` with `var(--color-semantic-text-tertiary)` and `cursor: not-allowed`.
+>    - Today indicator: discrete 3px dot centered underneath the date number.
 
 ---
 
@@ -16,7 +41,7 @@ Every component must satisfy **all 101 criteria across 11 foundational categorie
 ### Category 1: Typography (10 Criteria)
 1. **Font family**: Must map to `var(--font-family-sans)` (OpenAI Sans fallback stack) or `var(--font-family-mono)`.
 2. **Font size**: Measured in px/rem, mapped to `--font-size-*` (e.g. `var(--font-size-sm)` = 14px, `var(--font-size-xs)` = 12px).
-3. **Font weight**: Measured exact numeric weight (e.g. 400 normal, 500 medium, 600 semibold). Must be identical across state transitions unless explicitly varied by design contract. For standard controls/tabs/switchers, use `var(--font-weight-medium)` (500) or as observed.
+3. **Font weight**: Measured exact numeric weight (e.g. 400 normal, 500 medium, 600 semibold). Must be identical across state transitions unless explicitly varied by design contract. For secondary controls/tabs/dates, use `var(--font-weight-normal)` (400) as observed on platform.
 4. **Line height**: Exact unitless or px value, mapped to `--font-line-height-*`.
 5. **Letter spacing**: Normal or tracking token (`var(--font-tracking-normal)` = 0em, `var(--font-tracking-tight)` = -0.025em).
 6. **Text color**: Tokenized text color for inactive, active, hover, and disabled states.
@@ -180,7 +205,6 @@ const exactMetrics = {
   spanHeight: spanBox.height,
   spanTopFromBtnTop: spanBox.y - btnBox.y,
   spanBottomFromBtnBottom: (btnBox.y + btnBox.height) - (spanBox.y + spanBox.height),
-  // Distance from bottom of text to top of underline indicator:
   spanBottomToThumbTop: thumbBox ? (thumbBox.y - (spanBox.y + spanBox.height)) : null,
 };
 ```
@@ -221,3 +245,16 @@ When reference images/screenshots are provided or captured from the source of tr
    - Verify hover visual feedback (border color highlight, subtle background highlight, text brightness).
    - Verify focus ring alignment and outline offsets.
    - Verify that shortcut chips or clear buttons adapt dynamically without breaking flex boundaries.
+
+---
+
+## 5. Automated Verification Tooling
+
+To run automated assertions on any story:
+```bash
+# Verify component geometry and computed typography
+node .agents/skills/openai-ui-qa/scripts/verify-component.mjs <story-id> [theme=dark|light] [selector]
+
+# Full design system check
+npm run tokens:check && npm run ds:check && npm run build:vanilla
+```

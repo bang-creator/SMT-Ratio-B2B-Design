@@ -4,6 +4,72 @@ Use this file for approved changes to public exports. Product-only tweaks stay i
 
 ## 2026-11-13 (QA Loop & Visual Fidelity Certification)
 
+### Data Table Component (`ds-table`)
+- **Source**: OpenAI Platform API Keys & Storage Table Model (`platform.openai.com/api-keys`).
+- **Fidelity Specifications**:
+  - **400 Font-Weight & Soft Typography**: All table cells enforce `font-weight: 400` (`var(--font-weight-normal)`) and `color: var(--color-semantic-text-secondary)` (#afafaf in dark mode), removing artificial bolds on resource names and keys.
+  - **Darker Header with Sort & Info Indicators**: Table header `thead th` styled with darker background `var(--color-semantic-table-header-background)` (#181818 in dark mode / #f9f9f9 in light mode), sortable column (`.ds-table__sortable` with toggle chevron `Created ˅`), and info icons `ⓘ` on `Last used` and `Monthly spend`.
+  - **Divider-Only Geometry (No Outer Border)**: Eliminated outer bounding wrapper border; table relies strictly on horizontal 1px divider lines (`var(--color-semantic-table-divider)`, #303030 in dark mode) between rows.
+  - **Custom Scrollbar**: Implemented platform-styled 6px scrollbar on `.ds-table-wrap` (`::-webkit-scrollbar` and `scrollbar-width: thin`) with `var(--color-semantic-background-surface-secondary)` track and `var(--color-semantic-border-strong)` rounded thumb.
+  - **Interactive Checkbox Selection**: Checkboxes in header and rows allow selecting individual rows (triggering `data-selected="true"`) or all rows at once.
+  - **Row Actions**: Interactive inline action buttons including Copy Tracking ID (`.ds-table__copy-btn`), Edit key icon button, and Danger Delete trashcan icon button.
+  - **Empty State**: Dedicated platform empty state (`.ds-platform-empty`) with 40px rounded icon container, title, description, and primary action button.
+- **Tokens Added**: Added `color.semantic.table` tokens in `docs/design-system/tokens.json`: `headerBackground`, `rowHoverBackground`, `rowSelectedBackground`, and `divider`.
+- **Ultra Button Sparkle Velocity**: Further accelerated `.ds-button--ultra` particle speed to `0.6s - 0.9s` duration with negative delays for instant, high-energy horizontal star flow.
+
+### Button Component Suite (`ds-button`)
+- **Source**: OpenAI Platform Action Controls (`platform.openai.com`) & Model Service Tier Selection (`platform.openai.com/chat/edit?models=gpt-6-astra`).
+- **Hierarchy & Structure**: Re-architected strictly as `Component (Button) -> Variants (Story) -> Styles -> Icon Variations (text-only, trái, phải, 2 bên, only)`. States (hover, active/pressed, focus, disabled, loading) are experienced purely through interactive testing without cluttering the catalog.
+- **Strict 32px Standard Height**: Migrated `.ds-button--secondary` from external CSS border to `box-shadow: 0 0 0 1px ... inset`, ensuring 100% height equality (exactly 32px) across Primary, Secondary, Outline, Ghost, Danger, and Ultra.
+- **Ultra Animated Refinement**:
+  - Small, unblurred 2px particle stars (`.ds-button__sparkle`) with constant 0.55 opacity (no flickering, no scaling changes).
+  - Smooth looping motion from left to right across the button (`@keyframes ds-sparkle-move`).
+  - Darker tint on hover (`filter: brightness(0.85)`) without outer glow box-shadow.
+- **Complete Variants Matrix**:
+  - `Default` (32px standard height): Primary, Secondary, Outline, Ghost, Danger Soft, Danger Solid, Ultra.
+  - `Pill` (border-radius: full): Full radius across all styles and icon placements.
+  - `Small` (28px compact height): Dense layout across all styles and icon placements.
+  - `IconButton` (32px & 28px icon-only): Dedicated matrix across Ghost, Primary, Secondary, Outline, Danger Soft, Danger Solid, and Ultra.
+- **Semantic Tokens**: Tokenized button colors in `docs/design-system/tokens.json`: `ultraBackground`, `ultraBackgroundHover`, `ultraText`, `dangerSolidBackground`, `dangerSolidBackgroundHover`, `dangerSolidText`, and `dangerSoftHoverBackground`.
+- **Compliance**: Zero inline styles, zero color literals, verified passing `npm run ds:verify`.
+
+### Chart & Data Visualization System (`ds-chart`)
+- **Source**: OpenAI Platform Dashboard Overview (`platform.openai.com`) and Usage Dashboard (`platform.openai.com/usage`).
+- **New Variants & Interactive Systems**:
+  - `Default` (Home Activity Area Chart): Interactive SVG time-series curve with gradient fill, horizontal dashed grid lines, dynamic mouse-tracking cursor line (`.ds-chart-area__cursor-line`), snapping cursor dot (`.ds-chart-area__cursor-dot`), floating breakdown popover tooltip (`.ds-chart-tooltip`), and Arrow key stepping.
+  - `DailyCosts` (Usage Daily Spend Stacked Bar Chart): 14 daily vertical stacked bar columns (`.ds-chart-col`) segmented by model (`gpt-4o`, `gpt-4o-mini`, `o3-mini`, `text-embedding-3`), reference soft-limit threshold line at $15.00, interactive column hover highlighting with sibling dimming, full breakdown floating tooltip, keyboard navigation (ArrowLeft/Right), and interactive series legend filtering.
+  - `CumulativeSpend` (Monthly Budget Burn-up): Cumulative spend curve tracking actual spend against soft limit ($100) and hard limit ($120) with projected burn trajectory to end of month.
+  - `ModelDistribution` (Usage Model Share Donut): SVG Donut ring (`.ds-chart-donut`) with segmented model arcs, dynamic center readout displaying spend and share, and interactive legend rows that highlight matching arcs on hover.
+  - `Comparison` (Horizontal TTFT & Generation Latency): Multi-segmented horizontal bar chart breaking down Time to First Token vs Token Generation Time with interactive row hover and tooltips.
+- **Tokens**: Added `color.semantic.chart` tokens (`seriesPrimary` #0285ff, `seriesSecondary` #10a37f, `seriesTertiary` #ab68ff / dark #b87cf8, `seriesQuaternary` #f59e0b / dark #fbbf24, `seriesMuted` #767676 / dark #8f8f8f, `threshold` #ba2623 / dark #fa423e).
+- **AMS B2B Variant**: Added `AMS B2B / Application / Chart` with `Default` (PTU Cluster Utilization) and `Throughput` (Provisioned Throughput TPM live telemetry).
+- **Compliance**: 0 inline styles, 0 hex/rgb literals in component source, respects `prefers-reduced-motion` and compact 32px control standards.
+
+### Date Picker Component (`ds-date-picker`)
+- **Source**: Live OpenAI Platform Usage Date Picker (`platform.openai.com/usage`).
+- **Fidelity Redesign to 100% Platform Match**:
+  - **Zero-Guess Skill Protocol**: Updated `.agents/skills/component-audit/SKILL.md` with Section 0 ("Mandatory Screenshot & Live Platform Ground-Truth Protocol") and created global Antigravity Skill `openai-ui-qa`.
+  - **Larger Date Font Size**: Scaled date numbers from 12px to 14px (`var(--font-size-sm)`), creating clear visual distinction from 12px weekday headers.
+  - **Circular Hover Outline**: Implemented 1px solid circular outline on hover (`border-color: var(--color-semantic-ring-focus)`) with transparent background on resting dates, matching live platform.
+  - **Outer Border & Divider**: Updated `.ds-date-picker__dialog` and `.ds-date-picker__presets` to use `var(--color-semantic-border-default)`, ensuring a crisp, visible outer border and vertical pane separator.
+  - **Range Strip Physics ("Bo, không tròn")**: Replaced 9999px pill semi-circle caps with subtle 6px rounded corners (`var(--radius-sm)`), accurately reflecting the live platform's rectangular bo range styling.
+  - **Soft Typography & Contrast**: Softened month title and calendar dates to `var(--color-semantic-text-secondary)` (#dcdcdc) and weekdays to `var(--color-semantic-text-tertiary)` (#afafaf).
+  - **Single Month Restoration**: Fixed `SingleMonth` story to render all 30 days of November 2026, proper 264px container geometry, open-by-default display, and single-click date selection.
+  - **Full 400 Typography Contract**: Enforced `font-weight: 400` (`var(--font-weight-normal)`) across all calendar dates, active/start/end circle badges, month navigation titles, weekday labels, and preset list items.
+  - **Semantic Tokens**: Introduced tokenized range colors in `docs/design-system/tokens.json` (`color.semantic.datePicker.rangeBackground`, `rangeText`, `presetActiveBackground`), resolving in dark mode to `#414141` / `#ffffff` and in light mode to `#ededed` / `#0d0d0d`.
+  - **Layout & Column Alignment**: Segmented the navigation bar into dual month headers sitting directly over each 224px month view. Previous chevron positioned on the far left of October; Next chevron positioned on the far right of November.
+  - **Range Strip Physics**: Connected continuous selection track with automatic row-wrap caps (`:nth-child(7n+1)` left radius, `:nth-child(7n)` right radius). Start day on Saturday 7 retains clean circle; Sunday 8 caps smoothly; Friday 13 ends with 50% linear-gradient behind the white circular badge.
+  - **Clean Component Isolation**: Removed external filter tabs and utility buttons (reset, download), keeping the story focused purely on the Date Picker component.
+  - **Popover Dialog (`.ds-date-picker__dialog`)**: Horizontal 2-pane structure with left presets list and right dual-month calendar view using `var(--color-semantic-background-menu)`.
+  - **Left Presets**: `Week to date`, `Month to date`, `Last 7 days` (with checkmark `✓` and active pill background), `Last 14 days`, `Last 30 days`.
+  - **Right Dual Calendar**: 2 months side-by-side (October 2026 & November 2026) with `<` and `>` month navigation chevrons.
+  - **Full Interactive Date Range Selection**:
+    - All calendar days across both months are fully enabled and clickable.
+    - Two-click range selection: First click sets start date, hover previews range, second click sets end date and updates the range strip.
+    - Solid circular badges for start and end days with high-contrast text and 400 weight.
+    - "Today" indicator dot below current date (Nov 13).
+    - Presets sync: Clicking presets dynamically updates the selected range and trigger label; custom selection clears preset checkmark.
+
 ### Visual Comparison & Search Pill Resolution
 - **Resolution of Visual Comparison Discrepancy**: Fixed crop geometry and width blowing out to 918px. Established 230px compact width matching `.Kepsx.api-keys-global-search` on `https://platform.openai.com/api-keys`.
 - **Search Pill (`data-pill`)**: Exact 9999px radius (`var(--radius-full)`), 14px SVG magnifying glass at 14px offset, 36px text start offset, inset 1px border `rgba(255, 255, 255, 0.15)`. Verified 100% pixel identical to user reference image (`search_pill_perfect_comparison.png`).

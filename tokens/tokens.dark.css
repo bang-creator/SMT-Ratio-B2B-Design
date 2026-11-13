@@ -44,6 +44,26 @@
   --color-semantic-border-default: #4f4f4f;
   --color-semantic-border-strong: #767676;
   --color-semantic-ring-focus: #fff;
+  --color-semantic-chart-series-primary: #0285ff;
+  --color-semantic-chart-series-secondary: #10a37f;
+  --color-semantic-chart-series-tertiary: #b87cf8;
+  --color-semantic-chart-series-quaternary: #fbbf24;
+  --color-semantic-chart-series-muted: #8f8f8f;
+  --color-semantic-chart-threshold: #fa423e;
+  --color-semantic-date-picker-range-background: #414141;
+  --color-semantic-date-picker-range-text: #ffffff;
+  --color-semantic-date-picker-preset-active-background: #414141;
+  --color-semantic-button-ultra-background: #2c6bf4;
+  --color-semantic-button-ultra-background-hover: #1d4ed8;
+  --color-semantic-button-ultra-text: #ffffff;
+  --color-semantic-button-danger-solid-background: #e02e2a;
+  --color-semantic-button-danger-solid-background-hover: #c92522;
+  --color-semantic-button-danger-solid-text: #ffffff;
+  --color-semantic-button-danger-soft-hover-background: #3d1f1f;
+  --color-semantic-table-header-background: #181818;
+  --color-semantic-table-row-hover-background: #282828;
+  --color-semantic-table-row-selected-background: #262626;
+  --color-semantic-table-divider: #303030;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -92,5 +112,25 @@
   --color-semantic-border-default: #4f4f4f;
   --color-semantic-border-strong: #767676;
   --color-semantic-ring-focus: #fff;
+  --color-semantic-chart-series-primary: #0285ff;
+  --color-semantic-chart-series-secondary: #10a37f;
+  --color-semantic-chart-series-tertiary: #b87cf8;
+  --color-semantic-chart-series-quaternary: #fbbf24;
+  --color-semantic-chart-series-muted: #8f8f8f;
+  --color-semantic-chart-threshold: #fa423e;
+  --color-semantic-date-picker-range-background: #414141;
+  --color-semantic-date-picker-range-text: #ffffff;
+  --color-semantic-date-picker-preset-active-background: #414141;
+  --color-semantic-button-ultra-background: #2c6bf4;
+  --color-semantic-button-ultra-background-hover: #1d4ed8;
+  --color-semantic-button-ultra-text: #ffffff;
+  --color-semantic-button-danger-solid-background: #e02e2a;
+  --color-semantic-button-danger-solid-background-hover: #c92522;
+  --color-semantic-button-danger-solid-text: #ffffff;
+  --color-semantic-button-danger-soft-hover-background: #3d1f1f;
+  --color-semantic-table-header-background: #181818;
+  --color-semantic-table-row-hover-background: #282828;
+  --color-semantic-table-row-selected-background: #262626;
+  --color-semantic-table-divider: #303030;
   }
 }
