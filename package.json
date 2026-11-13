@@ -3,7 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "Token-backed OpenAI Platform design system for plain HTML, CSS, and JavaScript prototypes",
-  "files": ["vanilla", "tokens", "docs/design-system", "scripts", "README.md", "AGENTS.md", "CONTRIBUTING.md"],
+  "files": [
+    "vanilla",
+    "tokens",
+    "docs/design-system",
+    "scripts",
+    "README.md",
+    "AGENTS.md",
+    "CONTRIBUTING.md"
+  ],
   "exports": {
     ".": "./vanilla/design-system.js",
     "./styles.css": "./vanilla/design-system.css",
@@ -23,7 +31,12 @@
     "ds:verify": "npm run tokens:check && npm run ds:check && npm run build:vanilla && npm run build-storybook"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@storybook/html-vite": "10.6.7",
+    "chrome-devtools-mcp": "^1.13.0",
+    "dembrandt": "^0.39.2",
+    "playwright": "^1.65.0",
+    "pngjs": "^7.0.0",
     "storybook": "10.6.7"
   }
 }

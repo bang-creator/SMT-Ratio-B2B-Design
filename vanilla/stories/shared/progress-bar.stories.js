@@ -1,5 +1,60 @@
 import { story, stage } from '../story-helpers.js';
 
-export default { title: 'Default / Shared / Progress bar', parameters: { layout: 'padded' } };
-export const Default = story('Default', stage('Default', `<div class="ds-stack"><span class="ds-muted">Build progress</span><div class="ds-summary__progress"><span class="ds-summary__line ds-summary__line--pink"></span></div></div>`));
-export const States = story('Default / Shared / Progress bar / States', stage('States', `<div class=\"ds-story-grid\"><div><div class="ds-stack"><span class="ds-muted">Build progress</span><div class="ds-summary__progress"><span class="ds-summary__line ds-summary__line--pink"></span></div></div></div><div class=\"ds-empty\"><strong>State placeholder</strong><p>Add loading, error, disabled, and focus states.</p></div></div>`));
+export default {
+  title: 'Default / Shared / Progress Bar',
+  parameters: { layout: 'padded' },
+};
+
+/* Source: Batch jobs and fine-tuning progress on platform.openai.com
+ * Ground truth:
+ * - Track height: 6px, radius full
+ * - Fill: full radius, text-primary background
+ * - Transition: width 200ms cubic-bezier */
+
+export const Default = story(
+  'Default / Shared / Progress Bar / Default',
+  stage(
+    'Standard Progress Bar (65%)',
+    `<div class="ds-stack">
+      <div class="ds-row">
+        <span class="ds-label">Uploading training shards</span>
+        <span class="ds-muted">65%</span>
+      </div>
+      <div class="ds-progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+        <div class="ds-progress-bar__fill"></div>
+      </div>
+    </div>`
+  )
+);
+
+export const Indeterminate = story(
+  'Default / Shared / Progress Bar / Indeterminate',
+  stage(
+    'Indeterminate Activity Progress',
+    `<div class="ds-stack">
+      <div class="ds-row">
+        <span class="ds-label">Validating JSONL token counts</span>
+        <span class="ds-muted">Calculating...</span>
+      </div>
+      <div class="ds-progress-bar ds-progress-bar--indeterminate" role="progressbar" aria-label="Validating tokens">
+        <div class="ds-progress-bar__fill"></div>
+      </div>
+    </div>`
+  )
+);
+
+export const Complete = story(
+  'Default / Shared / Progress Bar / Complete',
+  stage(
+    'Completed Progress (100%)',
+    `<div class="ds-stack">
+      <div class="ds-row">
+        <span class="ds-label">Epoch 3 / 3</span>
+        <span class="ds-muted">100%</span>
+      </div>
+      <div class="ds-progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+        <div class="ds-progress-bar__fill"></div>
+      </div>
+    </div>`
+  )
+);
