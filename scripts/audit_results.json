@@ -186,7 +186,7 @@
     "box": {
       "x": 37,
       "y": 63,
-      "width": 102.78125,
+      "width": 80.234375,
       "height": 32
     },
     "cs": {
@@ -200,63 +200,23 @@
     }
   },
   {
-    "id": "default-shared-button--with-icon",
-    "name": "Button (With Icon)",
+    "id": "default-shared-button--icon-button",
+    "name": "Button (Icon Button)",
     "status": "PASSED",
     "box": {
       "x": 37,
       "y": 63,
-      "width": 119.59375,
+      "width": 32,
       "height": 32
     },
     "cs": {
       "height": "32px",
-      "borderRadius": "8px",
+      "borderRadius": "9999px",
       "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
       "fontSize": "14px",
       "fontWeight": "500",
-      "backgroundColor": "rgb(243, 243, 243)",
-      "color": "rgb(33, 33, 33)"
-    }
-  },
-  {
-    "id": "default-shared-button--block",
-    "name": "Button (Block)",
-    "status": "PASSED",
-    "box": {
-      "x": 37,
-      "y": 63,
-      "width": 918,
-      "height": 32
-    },
-    "cs": {
-      "height": "32px",
-      "borderRadius": "8px",
-      "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
-      "fontSize": "14px",
-      "fontWeight": "500",
-      "backgroundColor": "rgb(243, 243, 243)",
-      "color": "rgb(33, 33, 33)"
-    }
-  },
-  {
-    "id": "default-shared-button--disabled",
-    "name": "Button (Disabled)",
-    "status": "PASSED",
-    "box": {
-      "x": 37,
-      "y": 63,
-      "width": 72.234375,
-      "height": 32
-    },
-    "cs": {
-      "height": "32px",
-      "borderRadius": "8px",
-      "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
-      "fontSize": "14px",
-      "fontWeight": "500",
-      "backgroundColor": "rgb(243, 243, 243)",
-      "color": "rgb(33, 33, 33)"
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(185, 185, 185)"
     }
   },
   {
@@ -585,7 +545,7 @@
     "status": "PASSED",
     "box": {
       "x": 37,
-      "y": 87,
+      "y": 63,
       "width": 918,
       "height": 32
     },
@@ -600,12 +560,52 @@
     }
   },
   {
-    "id": "default-shared-date-picker--pill-range",
-    "name": "Date Picker (Pill Range)",
+    "id": "default-shared-date-picker--interactive",
+    "name": "Date Picker (Interactive)",
     "status": "PASSED",
     "box": {
       "x": 37,
-      "y": 87,
+      "y": 63,
+      "width": 143.609375,
+      "height": 32
+    },
+    "cs": {
+      "height": "32px",
+      "borderRadius": "0px",
+      "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(243, 243, 243)"
+    }
+  },
+  {
+    "id": "default-shared-date-picker--single-month",
+    "name": "Date Picker (Single Month)",
+    "status": "PASSED",
+    "box": {
+      "x": 37,
+      "y": 63,
+      "width": 918,
+      "height": 32
+    },
+    "cs": {
+      "height": "32px",
+      "borderRadius": "0px",
+      "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(243, 243, 243)"
+    }
+  },
+  {
+    "id": "default-shared-date-picker--disabled",
+    "name": "Date Picker (Disabled)",
+    "status": "PASSED",
+    "box": {
+      "x": 37,
+      "y": 63,
       "width": 918,
       "height": 32
     },
@@ -864,10 +864,10 @@
     "name": "File Uploader (Upload Modal)",
     "status": "PASSED",
     "box": {
-      "x": 37.78907775878906,
-      "y": 64.25544738769531,
-      "width": 478.42185974121094,
-      "height": 363.79991149902344
+      "x": 37.78668212890625,
+      "y": 64.25163269042969,
+      "width": 478.4266357421875,
+      "height": 363.80360412597656
     },
     "cs": {
       "height": "365px",
@@ -984,13 +984,13 @@
     "name": "Data Table (Default)",
     "status": "PASSED",
     "box": {
-      "x": 38,
-      "y": 64,
-      "width": 916,
-      "height": 165
+      "x": 37,
+      "y": 63,
+      "width": 1183.203125,
+      "height": 212.5
     },
     "cs": {
-      "height": "165px",
+      "height": "212.5px",
       "borderRadius": "0px",
       "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
       "fontSize": "14px",
@@ -1004,13 +1004,13 @@
     "name": "Data Table (Selectable)",
     "status": "PASSED",
     "box": {
-      "x": 38,
-      "y": 64,
-      "width": 916,
-      "height": 120
+      "x": 37,
+      "y": 63,
+      "width": 918,
+      "height": 167.5
     },
     "cs": {
-      "height": "120px",
+      "height": "167.5px",
       "borderRadius": "0px",
       "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
       "fontSize": "14px",
@@ -1020,17 +1020,17 @@
     }
   },
   {
-    "id": "default-shared-data-table--api-keys-table",
-    "name": "Data Table (API Keys Table)",
+    "id": "default-shared-data-table--empty-state",
+    "name": "Data Table (Empty State)",
     "status": "PASSED",
     "box": {
-      "x": 38,
-      "y": 64,
-      "width": 1044.734375,
-      "height": 120
+      "x": 37,
+      "y": 63,
+      "width": 918,
+      "height": 326.5
     },
     "cs": {
-      "height": "120px",
+      "height": "326.5px",
       "borderRadius": "0px",
       "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
       "fontSize": "14px",
@@ -1075,8 +1075,8 @@
       "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
       "fontSize": "14px",
       "fontWeight": "500",
-      "backgroundColor": "rgb(250, 66, 62)",
-      "color": "rgb(33, 33, 33)"
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(250, 66, 62)"
     }
   },
   {
@@ -1464,9 +1464,9 @@
     "name": "App Page Header (Default)",
     "status": "PASSED",
     "box": {
-      "x": 691.359375,
+      "x": 693.359375,
       "y": 63,
-      "width": 135.21875,
+      "width": 133.21875,
       "height": 32
     },
     "cs": {
