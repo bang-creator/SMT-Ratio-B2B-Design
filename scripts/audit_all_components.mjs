@@ -40,7 +40,6 @@ const STORIES_TO_AUDIT = [
   { id: 'default-shared-menu--context-menu', name: 'Menu (Row Actions)' },
   { id: 'default-shared-menu--compact', name: 'Menu (Compact 28px)' },
   { id: 'default-shared-checkbox--default', name: 'Checkbox (Default)' },
-  { id: 'default-shared-checkbox--checked', name: 'Checkbox (Checked)' },
   { id: 'default-shared-radio-button--default', name: 'Radio Button (Default)' },
   { id: 'default-shared-toggle--default', name: 'Toggle (Default)' },
   { id: 'default-shared-toggle--checked', name: 'Toggle (Checked)' },

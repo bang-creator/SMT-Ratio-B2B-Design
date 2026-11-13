@@ -680,26 +680,6 @@
     }
   },
   {
-    "id": "default-shared-checkbox--checked",
-    "name": "Checkbox (Checked)",
-    "status": "PASSED",
-    "box": {
-      "x": 37,
-      "y": 63,
-      "width": 918,
-      "height": 16.796875
-    },
-    "cs": {
-      "height": "16.7969px",
-      "borderRadius": "0px",
-      "fontFamily": "\"OpenAI Sans\", helvetica, sans-serif",
-      "fontSize": "14px",
-      "fontWeight": "400",
-      "backgroundColor": "rgba(0, 0, 0, 0)",
-      "color": "rgb(243, 243, 243)"
-    }
-  },
-  {
     "id": "default-shared-radio-button--default",
     "name": "Radio Button (Default)",
     "status": "PASSED",
@@ -844,10 +824,10 @@
     "name": "File Uploader (Upload Modal)",
     "status": "PASSED",
     "box": {
-      "x": 38.86895751953125,
-      "y": 65.96653747558594,
-      "width": 476.2620849609375,
-      "height": 362.15760803222656
+      "x": 37.78865051269531,
+      "y": 64.2547607421875,
+      "width": 478.42271423339844,
+      "height": 363.80059814453125
     },
     "cs": {
       "height": "365px",

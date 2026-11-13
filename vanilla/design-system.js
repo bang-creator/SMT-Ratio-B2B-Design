@@ -80,6 +80,10 @@ export function mount(scope = document) {
     }
   });
 
+  scope.querySelectorAll('.ds-checkbox input[type="checkbox"][data-indeterminate="true"], .ds-checkbox[data-indeterminate="true"] input[type="checkbox"]').forEach((input) => {
+    input.indeterminate = true;
+  });
+
   scope.querySelectorAll('[data-ds-switch]').forEach((control) => {
     control.addEventListener('click', () => {
       if (control.disabled || control.hasAttribute('data-disabled')) return;

@@ -17,6 +17,13 @@ Use this file for approved changes to public exports. Product-only tweaks stay i
 - **Tokens Added**: Added `color.semantic.table` tokens in `docs/design-system/tokens.json`: `headerBackground`, `rowHoverBackground`, `rowSelectedBackground`, and `divider`.
 - **Ultra Button Sparkle Velocity**: Further accelerated `.ds-button--ultra` particle speed to `0.6s - 0.9s` duration with negative delays for instant, high-energy horizontal star flow.
 
+### Checkbox Component (`ds-checkbox`)
+- **Structure & States Consolidation**:
+  - Consolidated checkbox core states into `Default` story: Unchecked, Checked, and Indeterminate (horizontal dash icon).
+  - Removed duplicate `Checked` story export.
+  - Added indeterminate support in CSS (`:indeterminate`, `[data-indeterminate="true"]`) and JS `mount()` lifecycle.
+  - Added disabled indeterminate variation in `Disabled` story.
+
 ### Button Component Suite (`ds-button`)
 - **Structure & Style Sections**:
   - Divided each variant (`Default`, `Pill`, `Small`) into distinct style sections (`Primary`, `Secondary`, `Outline`, `Ghost`, `Danger (Outline)`, `Danger (Solid)`, `Ultrafast`).
