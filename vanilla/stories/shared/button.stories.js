@@ -84,3 +84,10 @@ export const Small = story(
   'Default / Shared / Button / Small',
   stage('Small (28 px)', renderButtonSections('ds-button--sm'))
 );
+
+/* ── Variant: Small Pill (28 px, border-radius: full) ── */
+
+export const SmallPill = story(
+  'Default / Shared / Button / Small Pill',
+  stage('Small Pill (28 px, border-radius: full)', renderButtonSections('ds-button--sm ds-button--pill'))
+);

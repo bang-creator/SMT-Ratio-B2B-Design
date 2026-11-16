@@ -1,0 +1,619 @@
+{
+  "allElementsLinks": [
+    {
+      "href": "/elements",
+      "text": "Elements"
+    },
+    {
+      "href": "/elements/loading-state",
+      "text": "01 Loader"
+    },
+    {
+      "href": "/elements/thinking-indicator",
+      "text": "02 Thinking indicator"
+    },
+    {
+      "href": "/elements/streaming-text",
+      "text": "03 Streaming text"
+    },
+    {
+      "href": "/elements/typing-indicator",
+      "text": "04 Typing indicator"
+    },
+    {
+      "href": "/elements/reasoning-effort",
+      "text": "05 Reasoning effort"
+    },
+    {
+      "href": "/elements/guardrail-notice",
+      "text": "06 Guardrail notice"
+    },
+    {
+      "href": "/elements/message-pair",
+      "text": "07 Message pair"
+    },
+    {
+      "href": "/elements/message-branches",
+      "text": "08 Message branches"
+    },
+    {
+      "href": "/elements/message-actions",
+      "text": "09 Message actions"
+    },
+    {
+      "href": "/elements/error-state",
+      "text": "10 Error state"
+    },
+    {
+      "href": "/elements/message-queue",
+      "text": "11 Message queue"
+    },
+    {
+      "href": "/elements/edit-message",
+      "text": "12 Edit a sent message"
+    },
+    {
+      "href": "/elements/feedback-dialog",
+      "text": "13 Feedback dialog"
+    },
+    {
+      "href": "/elements/stopped-run",
+      "text": "14 Stopped run"
+    },
+    {
+      "href": "/elements/day-separator",
+      "text": "15 Timestamps"
+    },
+    {
+      "href": "/elements/speaker-identity",
+      "text": "16 Speaker identity"
+    },
+    {
+      "href": "/elements/regenerate-menu",
+      "text": "17 Regenerate with"
+    },
+    {
+      "href": "/elements/confidence-marker",
+      "text": "18 Confidence"
+    },
+    {
+      "href": "/elements/tool-call",
+      "text": "19 Tool call"
+    },
+    {
+      "href": "/elements/run-activity",
+      "text": "20 Run activity"
+    },
+    {
+      "href": "/elements/tool-timeline",
+      "text": "21 Tool timeline"
+    },
+    {
+      "href": "/elements/terminal-block",
+      "text": "22 Terminal block"
+    },
+    {
+      "href": "/elements/code-diff",
+      "text": "23 Code diff"
+    },
+    {
+      "href": "/elements/reviewable-diff",
+      "text": "24 Reviewable diff"
+    },
+    {
+      "href": "/elements/file-tree",
+      "text": "25 File tree"
+    },
+    {
+      "href": "/elements/elicitation-form",
+      "text": "26 Elicitation form"
+    },
+    {
+      "href": "/elements/mcp-server-panel",
+      "text": "27 Server panel"
+    },
+    {
+      "href": "/elements/tool-error",
+      "text": "28 Tool failure"
+    },
+    {
+      "href": "/elements/permission-grant",
+      "text": "29 Permission grant"
+    },
+    {
+      "href": "/elements/computer-use",
+      "text": "30 Computer use"
+    },
+    {
+      "href": "/elements/code-runner",
+      "text": "31 Code runner"
+    },
+    {
+      "href": "/elements/web-search",
+      "text": "32 Web search"
+    },
+    {
+      "href": "/elements/inline-citation",
+      "text": "33 Inline citation"
+    },
+    {
+      "href": "/elements/link-preview",
+      "text": "34 Link preview"
+    },
+    {
+      "href": "/elements/image-generation",
+      "text": "35 Image generation"
+    },
+    {
+      "href": "/elements/image-gallery",
+      "text": "36 Image gallery"
+    },
+    {
+      "href": "/elements/retrieval-chunks",
+      "text": "37 Retrieval chunks"
+    },
+    {
+      "href": "/elements/document-reference",
+      "text": "38 Document reference"
+    },
+    {
+      "href": "/elements/memory-chips",
+      "text": "39 Memory"
+    },
+    {
+      "href": "/elements/research-report",
+      "text": "40 Research report"
+    },
+    {
+      "href": "/elements/map-answer",
+      "text": "41 Map"
+    },
+    {
+      "href": "/elements/geo-map",
+      "text": "42 Geo map"
+    },
+    {
+      "href": "/elements/data-table",
+      "text": "43 Data table"
+    },
+    {
+      "href": "/elements/number-ticker",
+      "text": "44 Number ticker"
+    },
+    {
+      "href": "/elements/chart",
+      "text": "45 Chart"
+    },
+    {
+      "href": "/elements/media-player",
+      "text": "46 Media player"
+    },
+    {
+      "href": "/elements/web-preview",
+      "text": "47 Web preview"
+    },
+    {
+      "href": "/elements/diagram",
+      "text": "48 Diagram"
+    },
+    {
+      "href": "/elements/flow-graph",
+      "text": "49 Flow graph"
+    },
+    {
+      "href": "/elements/activity-graph",
+      "text": "50 Activity graph"
+    },
+    {
+      "href": "/elements/math-block",
+      "text": "51 Math"
+    },
+    {
+      "href": "/elements/spec-sheet",
+      "text": "52 Spec sheet"
+    },
+    {
+      "href": "/elements/comparison-card",
+      "text": "53 Comparison"
+    },
+    {
+      "href": "/elements/timeline",
+      "text": "54 Timeline"
+    },
+    {
+      "href": "/elements/job-progress",
+      "text": "55 Job progress"
+    },
+    {
+      "href": "/elements/score-breakdown",
+      "text": "56 Score breakdown"
+    },
+    {
+      "href": "/elements/agent-plan",
+      "text": "57 Agent plan"
+    },
+    {
+      "href": "/elements/subagent-list",
+      "text": "58 Subagent list"
+    },
+    {
+      "href": "/elements/task-card",
+      "text": "59 Task card AUI"
+    },
+    {
+      "href": "/elements/agent-status",
+      "text": "60 Agent status AUI"
+    },
+    {
+      "href": "/elements/approval-card",
+      "text": "61 Approval card"
+    },
+    {
+      "href": "/elements/option-list",
+      "text": "62 Option list"
+    },
+    {
+      "href": "/elements/question-flow",
+      "text": "63 Question flow"
+    },
+    {
+      "href": "/elements/recommendation-card",
+      "text": "64 Recommendation card"
+    },
+    {
+      "href": "/elements/artifact-card",
+      "text": "65 Artifact card"
+    },
+    {
+      "href": "/elements/todo-list",
+      "text": "66 Todo list"
+    },
+    {
+      "href": "/elements/agent-card",
+      "text": "67 Agent card"
+    },
+    {
+      "href": "/elements/agent-handoff",
+      "text": "68 Handoff"
+    },
+    {
+      "href": "/elements/background-inbox",
+      "text": "69 Background runs"
+    },
+    {
+      "href": "/elements/checkpoint-history",
+      "text": "70 Checkpoints"
+    },
+    {
+      "href": "/elements/schedule-card",
+      "text": "71 Schedule"
+    },
+    {
+      "href": "/elements/trace-waterfall",
+      "text": "72 Trace waterfall"
+    },
+    {
+      "href": "/elements/cost-meter",
+      "text": "73 Cost meter"
+    },
+    {
+      "href": "/elements/quota-banner",
+      "text": "74 Quota banner"
+    },
+    {
+      "href": "/elements/composer",
+      "text": "75 Composer"
+    },
+    {
+      "href": "/elements/composer-slash-commands",
+      "text": "76 Slash commands"
+    },
+    {
+      "href": "/elements/composer-mentions",
+      "text": "77 Mentions"
+    },
+    {
+      "href": "/elements/composer-attachments",
+      "text": "78 Attachments"
+    },
+    {
+      "href": "/elements/composer-model-picker",
+      "text": "79 Models"
+    },
+    {
+      "href": "/elements/composer-voice",
+      "text": "80 Dictation"
+    },
+    {
+      "href": "/elements/composer-context",
+      "text": "81 Context"
+    },
+    {
+      "href": "/elements/draft-restore",
+      "text": "82 Draft restore"
+    },
+    {
+      "href": "/elements/context-breakdown",
+      "text": "83 Context breakdown"
+    },
+    {
+      "href": "/elements/prompt-library",
+      "text": "84 Prompt library"
+    },
+    {
+      "href": "/elements/command-palette",
+      "text": "85 Command palette"
+    },
+    {
+      "href": "/elements/voice-conversation",
+      "text": "86 Voice conversation AUI"
+    },
+    {
+      "href": "/elements/read-aloud",
+      "text": "87 Read aloud"
+    },
+    {
+      "href": "/elements/chat-panel",
+      "text": "88 Chat panel"
+    },
+    {
+      "href": "/elements/empty-state",
+      "text": "89 Empty state"
+    },
+    {
+      "href": "/elements/scroll-anchor",
+      "text": "90 Scroll anchor"
+    },
+    {
+      "href": "/elements/canvas-split",
+      "text": "91 Canvas"
+    },
+    {
+      "href": "/elements/connection-state",
+      "text": "92 Connection state"
+    },
+    {
+      "href": "/elements/shared-conversation",
+      "text": "93 Shared conversation"
+    },
+    {
+      "href": "/elements/conversation-search",
+      "text": "94 Search in conversation"
+    },
+    {
+      "href": "/elements/thread-search",
+      "text": "95 Thread search"
+    },
+    {
+      "href": "/elements/launcher-bubble",
+      "text": "96 Launcher"
+    },
+    {
+      "href": "/elements/settings-panel",
+      "text": "97 Settings"
+    },
+    {
+      "href": "/elements/onboarding",
+      "text": "98 Onboarding"
+    },
+    {
+      "href": "/elements/mobile-composer",
+      "text": "99 Mobile composer"
+    },
+    {
+      "href": "/elements/thread",
+      "text": "100 Thread AUI"
+    },
+    {
+      "href": "/elements/assistant-modal",
+      "text": "101 Assistant modal AUI"
+    },
+    {
+      "href": "/elements/assistant-sidebar",
+      "text": "102 Assistant sidebar AUI"
+    },
+    {
+      "href": "/elements/thread-list",
+      "text": "103 Thread list AUI"
+    },
+    {
+      "href": "/elements/thread-list-sidebar",
+      "text": "104 Thread list sidebar AUI"
+    },
+    {
+      "href": "/elements/orb",
+      "text": "105 Orb AUI"
+    },
+    {
+      "href": "/elements/reasoning",
+      "text": "106 Reasoning AUI"
+    },
+    {
+      "href": "/elements/message-timing",
+      "text": "107 Message timing AUI"
+    },
+    {
+      "href": "/elements/conversation-map",
+      "text": "108 Conversation map AUI"
+    },
+    {
+      "href": "/elements/context-display",
+      "text": "109 Context display AUI"
+    },
+    {
+      "href": "/elements/mcp-config",
+      "text": "110 MCP config dialog AUI"
+    },
+    {
+      "href": "/elements/attachment",
+      "text": "111 Attachment AUI"
+    },
+    {
+      "href": "/elements/follow-up-suggestions",
+      "text": "112 Follow-up suggestions AUI"
+    },
+    {
+      "href": "/elements/tool-fallback",
+      "text": "113 Tool fallback AUI"
+    },
+    {
+      "href": "/elements/tool-group",
+      "text": "114 Tool group AUI"
+    },
+    {
+      "href": "/elements/quote",
+      "text": "115 Quote AUI"
+    },
+    {
+      "href": "/elements/sources",
+      "text": "116 Sources AUI"
+    },
+    {
+      "href": "/elements/image",
+      "text": "117 Image AUI"
+    },
+    {
+      "href": "/elements/file",
+      "text": "118 File AUI"
+    },
+    {
+      "href": "/elements/model-selector",
+      "text": "119 Model selector AUI"
+    },
+    {
+      "href": "/elements/composer-trigger-popover",
+      "text": "120 Composer trigger popover AUI"
+    },
+    {
+      "href": "/elements/directive-text",
+      "text": "121 Directive text AUI"
+    },
+    {
+      "href": "/elements/markdown-text",
+      "text": "122 Markdown text AUI"
+    },
+    {
+      "href": "/elements/syntax-highlighter",
+      "text": "123 Syntax highlighter"
+    },
+    {
+      "href": "/elements/shiki-highlighter",
+      "text": "124 Shiki highlighter AUI"
+    },
+    {
+      "href": "/elements/mermaid-diagram",
+      "text": "125 Mermaid diagram"
+    },
+    {
+      "href": "/elements/generative-ui",
+      "text": "126 Generative UI"
+    },
+    {
+      "href": "/elements/tooltip-icon-button",
+      "text": "127 Tooltip icon button"
+    },
+    {
+      "href": "/elements/logos",
+      "text": "128 Model logos"
+    },
+    {
+      "href": "/elements/heat-graph",
+      "text": "129 Heat graph"
+    },
+    {
+      "href": "/elements/generative-stays",
+      "text": "130 Riverside Loft"
+    },
+    {
+      "href": "/elements/generative-booking",
+      "text": "131 Table reservation"
+    },
+    {
+      "href": "/elements/generative-order-status",
+      "text": "132 Order tracking"
+    },
+    {
+      "href": "/elements/generative-flight-tracker",
+      "text": "133 Flight tracker"
+    },
+    {
+      "href": "/elements/generative-portfolio",
+      "text": "134 Portfolio overview"
+    },
+    {
+      "href": "/elements/generative-create-event",
+      "text": "135 Create event"
+    },
+    {
+      "href": "/elements/generative-view-event",
+      "text": "136 View event"
+    },
+    {
+      "href": "/elements/generative-weather-current",
+      "text": "137 Current weather"
+    },
+    {
+      "href": "/elements/generative-ride-status",
+      "text": "138 Ride status"
+    },
+    {
+      "href": "/elements/generative-draft-email",
+      "text": "139 Draft email"
+    },
+    {
+      "href": "/elements/generative-cart",
+      "text": "140 Shopping cart"
+    },
+    {
+      "href": "/elements/generative-playlist",
+      "text": "141 Playlist"
+    },
+    {
+      "href": "/elements/generative-channel-message",
+      "text": "142 Channel message"
+    },
+    {
+      "href": "/elements/generative-receipt",
+      "text": "143 Purchase receipt"
+    },
+    {
+      "href": "/elements/generative-chart-area",
+      "text": "144 Weekly active users"
+    },
+    {
+      "href": "/elements/generative-player-card",
+      "text": "145 Player card"
+    },
+    {
+      "href": "/elements/generative-event-session",
+      "text": "146 Conference session"
+    },
+    {
+      "href": "/elements/generative-notify-confirm",
+      "text": "147 Confirm dialog"
+    },
+    {
+      "href": "/elements/generative-chart-line",
+      "text": "148 Response time"
+    },
+    {
+      "href": "/elements/generative-create-task",
+      "text": "149 Create task"
+    },
+    {
+      "href": "/elements/generative-software-purchase",
+      "text": "150 Software purchase"
+    },
+    {
+      "href": "/elements/generative-chart-bars",
+      "text": "151 Support tickets"
+    }
+  ],
+  "sidebarLinks": [
+    {
+      "href": "/elements",
+      "text": "Elements"
+    }
+  ],
+  "pageTitle": "Elements · assistant-ui"
+}

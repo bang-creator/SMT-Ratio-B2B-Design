@@ -22,7 +22,6 @@ export const globalTypes = {
       icon: 'paintbrush',
       items: [
         { value: 'default', title: 'Default' },
-        { value: 'ams-b2b', title: 'AMS B2B' },
       ],
       dynamicTitle: true,
     },
@@ -38,6 +37,42 @@ export const decorators = [(story, context) => {
 }];
 
 export const parameters = {
+  options: {
+    storySort: (a, b) => {
+      const aTitle = a.title || '';
+      const bTitle = b.title || '';
+      if (aTitle === bTitle) return 0;
+
+      const aParts = aTitle.split('/').map((s) => s.trim());
+      const bParts = bTitle.split('/').map((s) => s.trim());
+
+      const aTop = aParts[0] || '';
+      const bTop = bParts[0] || '';
+      if (aTop !== bTop) return aTop.localeCompare(bTop);
+
+      const aCat = aParts[1] || '';
+      const bCat = bParts[1] || '';
+      if (aCat !== bCat) {
+        if (aCat === 'Shared') return -1;
+        if (bCat === 'Shared') return 1;
+        return aCat.localeCompare(bCat);
+      }
+
+      const aComp = aParts[2] || '';
+      const bComp = bParts[2] || '';
+
+      const aNumMatch = aComp.match(/^(\d+)/);
+      const bNumMatch = bComp.match(/^(\d+)/);
+
+      if (aNumMatch && bNumMatch) {
+        const aNum = parseInt(aNumMatch[1], 10);
+        const bNum = parseInt(bNumMatch[1], 10);
+        if (aNum !== bNum) return aNum - bNum;
+      }
+
+      return aComp.localeCompare(bComp, undefined, { numeric: true, sensitivity: 'base' });
+    },
+  },
   controls: { expanded: true },
   layout: 'padded',
   backgrounds: {

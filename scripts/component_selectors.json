@@ -1,0 +1,606 @@
+{
+  "100": {
+    "slot": "thread",
+    "firstClass": "ds-thread-aui"
+  },
+  "101": {
+    "slot": "assistant-modal",
+    "firstClass": "ds-modal-aui-wrap"
+  },
+  "102": {
+    "slot": "assistant-sidebar",
+    "firstClass": "ds-sidebar-aui-wrap"
+  },
+  "103": {
+    "slot": "thread-list",
+    "firstClass": "ds-thread-list-aui"
+  },
+  "104": {
+    "slot": "thread-list-sidebar",
+    "firstClass": "ds-thread-list-sidebar-aui"
+  },
+  "105": {
+    "slot": "orb",
+    "firstClass": "ds-voice-orb-wrap"
+  },
+  "106": {
+    "slot": "reasoning",
+    "firstClass": "ds-reasoning-root"
+  },
+  "107": {
+    "slot": "message-timing",
+    "firstClass": "ds-msg-timing"
+  },
+  "108": {
+    "slot": "conversation-map",
+    "firstClass": "ds-conv-map"
+  },
+  "109": {
+    "slot": "context-display",
+    "firstClass": "ds-flex"
+  },
+  "110": {
+    "slot": "mcp-config",
+    "firstClass": "ds-mcp-config-card"
+  },
+  "111": {
+    "slot": "attachment",
+    "firstClass": "ds-attachment-card"
+  },
+  "112": {
+    "slot": "follow-up-suggestions",
+    "firstClass": "ds-followup-wrap"
+  },
+  "113": {
+    "slot": "tool-fallback",
+    "firstClass": "ds-tool-fallback"
+  },
+  "114": {
+    "slot": "tool-group",
+    "firstClass": "ds-text-success"
+  },
+  "115": {
+    "slot": "quote",
+    "firstClass": "ds-flex"
+  },
+  "116": {
+    "slot": "sources",
+    "firstClass": "ds-sources-box"
+  },
+  "117": {
+    "slot": "image",
+    "firstClass": "ds-image-msg-card"
+  },
+  "118": {
+    "slot": "file",
+    "firstClass": "ds-flex"
+  },
+  "119": {
+    "slot": "model-selector",
+    "firstClass": "ds-text-primary"
+  },
+  "120": {
+    "slot": "composer-trigger-popover",
+    "firstClass": "ds-trigger-popover-card"
+  },
+  "121": {
+    "slot": "directive-text-chip",
+    "firstClass": "ds-directive-chip"
+  },
+  "122": {
+    "slot": null,
+    "firstClass": "ds-markdown-card"
+  },
+  "123": {
+    "slot": null,
+    "firstClass": "ds-highlighter-frame"
+  },
+  "124": {
+    "slot": null,
+    "firstClass": "ds-highlighter-frame"
+  },
+  "125": {
+    "slot": null,
+    "firstClass": "ds-mermaid-card"
+  },
+  "126": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "127": {
+    "slot": null,
+    "firstClass": "ds-tooltip-icon-btn"
+  },
+  "128": {
+    "slot": null,
+    "firstClass": "${sizeClass}"
+  },
+  "129": {
+    "slot": null,
+    "firstClass": "ds-heat-cell"
+  },
+  "130": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "131": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "132": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "133": {
+    "slot": null,
+    "firstClass": "ds-text-secondary"
+  },
+  "134": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "135": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "136": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "137": {
+    "slot": null,
+    "firstClass": "ds-text-primary"
+  },
+  "138": {
+    "slot": null,
+    "firstClass": "ds-text-secondary"
+  },
+  "139": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "140": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "141": {
+    "slot": null,
+    "firstClass": "ds-text-secondary"
+  },
+  "142": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "143": {
+    "slot": null,
+    "firstClass": "ds-text-secondary"
+  },
+  "144": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "145": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "146": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "147": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "148": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "149": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "150": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "151": {
+    "slot": null,
+    "firstClass": "ds-generative-card"
+  },
+  "001": {
+    "slot": "generation-loader",
+    "firstClass": "ds-generation-loader__cell"
+  },
+  "002": {
+    "slot": "thinking-indicator",
+    "firstClass": "ds-thinking-indicator__elapsed"
+  },
+  "003": {
+    "slot": "streaming-text",
+    "firstClass": "ds-streaming-code"
+  },
+  "004": {
+    "slot": "typing-indicator",
+    "firstClass": "ds-typing-indicator__dot"
+  },
+  "005": {
+    "slot": "reasoning-effort",
+    "firstClass": "ds-reasoning-effort__btn"
+  },
+  "006": {
+    "slot": "guardrail-notice",
+    "firstClass": "size-3.5"
+  },
+  "007": {
+    "slot": "message-pair",
+    "firstClass": "size-3.5"
+  },
+  "008": {
+    "slot": "message-branches",
+    "firstClass": "size-3.5"
+  },
+  "009": {
+    "slot": "message-actions",
+    "firstClass": "size-3.5"
+  },
+  "010": {
+    "slot": "error-state",
+    "firstClass": "lucide"
+  },
+  "011": {
+    "slot": "message-queue",
+    "firstClass": "text-foreground/25"
+  },
+  "012": {
+    "slot": "edit-message",
+    "firstClass": "lucide"
+  },
+  "013": {
+    "slot": "feedback-dialog",
+    "firstClass": "size-3.5"
+  },
+  "014": {
+    "slot": "stopped-run",
+    "firstClass": "size-2.5"
+  },
+  "015": {
+    "slot": "day-separator",
+    "firstClass": "flex"
+  },
+  "016": {
+    "slot": "speaker-identity",
+    "firstClass": "size-3.5"
+  },
+  "017": {
+    "slot": "regenerate-menu",
+    "firstClass": "size-3.5"
+  },
+  "018": {
+    "slot": "confidence-marker",
+    "firstClass": "ds-claim-btn"
+  },
+  "019": {
+    "slot": "tool-call",
+    "firstClass": "size-3.5"
+  },
+  "020": {
+    "slot": "run-activity",
+    "firstClass": "size-3.5"
+  },
+  "021": {
+    "slot": "tool-timeline",
+    "firstClass": "ds-tool-timeline__chevron"
+  },
+  "022": {
+    "slot": "terminal-block",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "023": {
+    "slot": "code-diff",
+    "firstClass": "ds-code-diff__line"
+  },
+  "024": {
+    "slot": "reviewable-diff",
+    "firstClass": "ds-reviewable-diff__hunk"
+  },
+  "025": {
+    "slot": "file-tree",
+    "firstClass": "ds-tool-timeline__step-icon"
+  },
+  "026": {
+    "slot": "elicitation-form",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "027": {
+    "slot": "mcp-server-panel",
+    "firstClass": "ds-tool-timeline__step-icon"
+  },
+  "028": {
+    "slot": "tool-error",
+    "firstClass": "ds-diff-stat-remove"
+  },
+  "029": {
+    "slot": "permission-grant",
+    "firstClass": "ds-flex"
+  },
+  "030": {
+    "slot": "computer-use",
+    "firstClass": "ds-computer-cursor"
+  },
+  "031": {
+    "slot": "code-runner",
+    "firstClass": "ds-spin"
+  },
+  "032": {
+    "slot": "web-search",
+    "firstClass": "ds-thinking-indicator__label"
+  },
+  "033": {
+    "slot": "inline-citation",
+    "firstClass": "ds-text-sm"
+  },
+  "034": {
+    "slot": "link-preview",
+    "firstClass": "ds-link-preview"
+  },
+  "035": {
+    "slot": "image-generation",
+    "firstClass": "ds-gen-matrix__dot"
+  },
+  "036": {
+    "slot": "image-gallery",
+    "firstClass": "ds-gallery-item"
+  },
+  "037": {
+    "slot": "retrieval-chunks",
+    "firstClass": "ds-thinking-indicator__label"
+  },
+  "038": {
+    "slot": "document-reference",
+    "firstClass": "ds-doc-anchor"
+  },
+  "039": {
+    "slot": "memory-chips",
+    "firstClass": "ds-memory-chip"
+  },
+  "040": {
+    "slot": "research-report",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "041": {
+    "slot": "map-answer",
+    "firstClass": "ds-map-answer"
+  },
+  "042": {
+    "slot": "geo-map",
+    "firstClass": "ds-geo-map"
+  },
+  "043": {
+    "slot": "data-table",
+    "firstClass": "ds-data-table-td"
+  },
+  "044": {
+    "slot": "number-ticker",
+    "firstClass": "ds-ticker-slot"
+  },
+  "045": {
+    "slot": "chart",
+    "firstClass": "ds-chart-svg"
+  },
+  "046": {
+    "slot": "media-player",
+    "firstClass": "ds-audio-player"
+  },
+  "047": {
+    "slot": "web-preview",
+    "firstClass": "ds-web-preview"
+  },
+  "048": {
+    "slot": "diagram",
+    "firstClass": "ds-diagram"
+  },
+  "049": {
+    "slot": "flow-graph",
+    "firstClass": "ds-flow-graph"
+  },
+  "050": {
+    "slot": "activity-graph",
+    "firstClass": "ds-heat-cell"
+  },
+  "051": {
+    "slot": "math-block",
+    "firstClass": "ds-math-block"
+  },
+  "052": {
+    "slot": "spec-sheet",
+    "firstClass": "ds-spec-row"
+  },
+  "053": {
+    "slot": "comparison-card",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "054": {
+    "slot": "timeline",
+    "firstClass": "ds-timeline-item"
+  },
+  "055": {
+    "slot": "job-progress",
+    "firstClass": "ds-job-progress"
+  },
+  "056": {
+    "slot": "score-breakdown",
+    "firstClass": "ds-flex"
+  },
+  "057": {
+    "slot": "agent-plan",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "058": {
+    "slot": "subagent-list",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "059": {
+    "slot": "task-card",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "060": {
+    "slot": "agent-status",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "061": {
+    "slot": "approval-card",
+    "firstClass": "ds-approval-card"
+  },
+  "062": {
+    "slot": "option-list",
+    "firstClass": "ds-option-item"
+  },
+  "063": {
+    "slot": "question-flow",
+    "firstClass": "ds-question-flow"
+  },
+  "064": {
+    "slot": "recommendation-card",
+    "firstClass": "ds-recommendation-card"
+  },
+  "065": {
+    "slot": "artifact-card",
+    "firstClass": "ds-artifact-card"
+  },
+  "066": {
+    "slot": "todo-list",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "067": {
+    "slot": "agent-card",
+    "firstClass": "ds-flex"
+  },
+  "068": {
+    "slot": "agent-handoff",
+    "firstClass": "ds-agent-handoff"
+  },
+  "069": {
+    "slot": "background-inbox",
+    "firstClass": "ds-diff-stat-add"
+  },
+  "070": {
+    "slot": "checkpoint-history",
+    "firstClass": "ds-flex"
+  },
+  "071": {
+    "slot": "schedule-card",
+    "firstClass": "lucide"
+  },
+  "072": {
+    "slot": "trace-waterfall",
+    "firstClass": "fade-in"
+  },
+  "073": {
+    "slot": "cost-meter",
+    "firstClass": "ds-flex"
+  },
+  "074": {
+    "slot": "quota-banner",
+    "firstClass": "ds-quota-banner"
+  },
+  "075": {
+    "slot": "composer",
+    "firstClass": "ds-composer"
+  },
+  "076": {
+    "slot": "composer-slash-commands",
+    "firstClass": "ds-flex"
+  },
+  "077": {
+    "slot": "composer-mentions",
+    "firstClass": "ds-flex"
+  },
+  "078": {
+    "slot": "composer-attachments",
+    "firstClass": "ds-flex"
+  },
+  "079": {
+    "slot": "composer-model-picker",
+    "firstClass": "ds-flex"
+  },
+  "080": {
+    "slot": "composer-voice",
+    "firstClass": "ds-flex"
+  },
+  "081": {
+    "slot": "composer-context",
+    "firstClass": "ds-flex"
+  },
+  "082": {
+    "slot": "draft-restore",
+    "firstClass": "ds-draft-restore"
+  },
+  "083": {
+    "slot": "context-breakdown",
+    "firstClass": "ds-context-breakdown"
+  },
+  "084": {
+    "slot": "prompt-library",
+    "firstClass": "ds-prompt-library"
+  },
+  "085": {
+    "slot": "command-palette",
+    "firstClass": "ds-cmd-palette"
+  },
+  "086": {
+    "slot": "voice-conversation",
+    "firstClass": "ds-voice-card"
+  },
+  "087": {
+    "slot": "read-aloud",
+    "firstClass": "ds-read-aloud"
+  },
+  "088": {
+    "slot": "chat-panel",
+    "firstClass": "ds-chat-panel"
+  },
+  "089": {
+    "slot": "empty-state",
+    "firstClass": "ds-empty-state"
+  },
+  "090": {
+    "slot": "scroll-anchor",
+    "firstClass": "ds-scroll-anchor"
+  },
+  "091": {
+    "slot": "canvas-split",
+    "firstClass": "ds-canvas-split"
+  },
+  "092": {
+    "slot": "connection-state",
+    "firstClass": "ds-spin"
+  },
+  "093": {
+    "slot": "shared-conversation",
+    "firstClass": "ds-shared-conv"
+  },
+  "094": {
+    "slot": "conversation-search",
+    "firstClass": "ds-flex"
+  },
+  "095": {
+    "slot": "thread-search",
+    "firstClass": "ds-thread-search"
+  },
+  "096": {
+    "slot": "launcher-bubble",
+    "firstClass": "ds-launcher-bubble-wrap"
+  },
+  "097": {
+    "slot": "settings-panel",
+    "firstClass": "ds-settings-panel"
+  },
+  "098": {
+    "slot": "onboarding",
+    "firstClass": "ds-onboarding"
+  },
+  "099": {
+    "slot": "mobile-composer",
+    "firstClass": "ds-mobile-composer"
+  }
+}

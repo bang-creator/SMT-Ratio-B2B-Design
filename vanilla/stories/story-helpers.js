@@ -5,16 +5,28 @@ export const reserved = (name) => `
     <strong>${name}</strong><p>Reserved in the catalog. Add the source-matched markup and states here.</p>
   </div>`;
 
-export const story = (title, html, parameters = {}) => ({
-  title,
-  parameters: { layout: 'padded', ...parameters },
+export const story = (titleOrHtmlOrFn, maybeHtml, parameters = {}) => ({
+  parameters: { layout: 'padded', ...(typeof maybeHtml === 'object' && maybeHtml !== null ? maybeHtml : parameters) },
   render: () => {
     const root = document.createElement('div');
     root.className = 'ds-story';
-    root.innerHTML = html;
+    let content = '';
+    if (typeof titleOrHtmlOrFn === 'function') {
+      content = titleOrHtmlOrFn();
+    } else if (maybeHtml !== undefined && typeof maybeHtml === 'string') {
+      content = maybeHtml;
+    } else if (typeof titleOrHtmlOrFn === 'string') {
+      content = titleOrHtmlOrFn;
+    }
+    root.innerHTML = content;
     mount(root);
     return root;
   },
 });
 
-export const stage = (label, content) => `<section class="ds-story-stage"><header><code>${label}</code></header>${content}</section>`;
+export const stage = (labelOrContent, maybeContent) => {
+  if (maybeContent === undefined) {
+    return `<div class="ds-story-stage">${labelOrContent}</div>`;
+  }
+  return `<section class="ds-story-stage"><header><code>${labelOrContent}</code></header>${maybeContent}</section>`;
+};
