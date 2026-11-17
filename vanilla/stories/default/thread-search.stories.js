@@ -165,11 +165,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">95 Thread search</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderThreadSearch({
               threads: THREADS,
               query: currentQuery,
@@ -231,11 +227,7 @@ export const Default = {
 
 export const Filtered = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">95 Thread search (Filtered)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Query: "draft"</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderThreadSearch({
         threads: THREADS,
         query: 'draft',
@@ -247,11 +239,7 @@ export const Filtered = story(`
 
 export const NoMatches = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">95 Thread search (No Matches)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Empty Result</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderThreadSearch({
         threads: THREADS,
         query: 'billing webhook',
@@ -263,11 +251,7 @@ export const NoMatches = story(`
 
 export const LongContent = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">95 Thread search (Long Content)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">One-line Truncation</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderThreadSearch({
         threads: LONG_THREADS,
         query: '',

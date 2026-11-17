@@ -114,11 +114,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">66 Todo List</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Interactive Task Checklist</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderTodoListCard({
               title: 'Verification pipeline',
               description: 'Workspace validation checklist',
@@ -163,11 +159,7 @@ export const Default = {
 
 export const Bare = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">66 Todo List (Bare Variant)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Unframed Inline List</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderTodoListCard({
         title: 'Converter fix',
         description: 'Empty tool result handling',

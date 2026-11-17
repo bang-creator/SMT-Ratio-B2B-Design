@@ -91,8 +91,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>22 Terminal Block (Interactive Paper Variant)</code></header>
-        <div class="ds-terminal-target">
+<div class="ds-terminal-target">
           ${renderTerminalBlock({ done: true, exitCode: 0, duration: '1.4s', variant: 'paper' })}
         </div>
       </section>

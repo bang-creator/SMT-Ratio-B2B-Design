@@ -158,8 +158,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>24 Reviewable Diff (Interactive Hunk Review)</code></header>
-        <div class="ds-review-target">
+<div class="ds-review-target">
           ${renderReviewableDiff()}
         </div>
       </section>

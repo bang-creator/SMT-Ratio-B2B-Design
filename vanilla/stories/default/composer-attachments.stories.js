@@ -147,11 +147,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">78 Attachments</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderAttachmentsComposer({
               attachments: currentFiles,
               value: query,
@@ -196,11 +192,7 @@ export const Default = {
 
 export const Uploading = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">78 Attachments (Uploading)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">In Flight</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderAttachmentsComposer({
         value: '',
         attachments: [
@@ -226,11 +218,7 @@ export const Uploading = story(`
 
 export const Failed = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">78 Attachments (Failed)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Upload Error</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderAttachmentsComposer({
         value: 'Why does this trace stall at step 4?',
         attachments: [
@@ -254,11 +242,7 @@ export const Failed = story(`
 
 export const ManyFiles = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">78 Attachments (Many Files)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Multi-row Wrap</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderAttachmentsComposer({
         value: '',
         attachments: [

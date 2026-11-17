@@ -118,11 +118,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">75 Composer</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${isStreaming ? 'Streaming Response' : currentVal ? 'Ready to Send' : 'Idle Input'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderComposer({
               value: currentVal,
               model: models[modelIdx],
@@ -181,11 +177,7 @@ export const Default = {
 
 export const WithAttachments = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">75 Composer (With Attachments)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Draft Attachments</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderComposer({
         value: 'Inspect these token definitions against platform ground truth',
         model: 'gpt-4o',

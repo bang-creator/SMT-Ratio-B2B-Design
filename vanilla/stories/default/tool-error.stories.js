@@ -96,8 +96,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>28 Tool Error (Interactive Retry &amp; Skip)</code></header>
-        <div class="ds-tool-error-target">
+<div class="ds-tool-error-target">
           ${renderToolError()}
         </div>
       </section>

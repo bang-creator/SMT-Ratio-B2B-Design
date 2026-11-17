@@ -87,11 +87,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">67 Agent Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${isConn ? 'Connected' : 'Disconnected'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderAgentCard({ connected: isConn })}
           </div>
         </div>
@@ -110,11 +106,7 @@ export const Default = {
 
 export const Connected = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">67 Agent Card (Connected State)</span>
-      <span class="ds-badge ds-badge--success ds-badge--sm">Active Integration</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderAgentCard({ connected: true })}
     </div>
   </div>

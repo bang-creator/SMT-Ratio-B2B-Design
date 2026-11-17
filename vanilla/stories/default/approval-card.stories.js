@@ -107,11 +107,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">61 Approval Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">State: ${currentState}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderApprovalCard({
               title: 'Run command',
               subtitle: 'The agent wants to run a shell command',
@@ -156,11 +152,7 @@ export const Default = {
 
 export const Destructive = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">61 Approval Card (Destructive)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Irreversible Action</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderApprovalCard({
         title: 'Delete 12 archived conversations',
         subtitle: 'This action cannot be undone',

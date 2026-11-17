@@ -52,11 +52,7 @@ export const Default = {
       const activeStage = DEFAULT_STAGES[currentStep];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">54 Timeline</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Step ${currentStep + 1} of ${DEFAULT_STAGES.length}: ${activeStage.title}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             <div data-slot="timeline" class="ds-timeline-card">
               ${renderTimelineEvents(getEvents(currentStep))}
             </div>
@@ -87,11 +83,7 @@ export const Default = {
 
 export const Streaming = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">54 Timeline (Streaming)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">2 of 4 Events Arrived</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       <div data-slot="timeline" class="ds-timeline-card">
         ${renderTimelineEvents(getEvents(1).slice(0, 2))}
       </div>

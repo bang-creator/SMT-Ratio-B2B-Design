@@ -99,8 +99,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>23 Code Diff (Interactive File Cycling)</code></header>
-        <div class="ds-diff-target">
+<div class="ds-diff-target">
           ${renderCodeDiff(FILES[fileIdx])}
         </div>
       </section>

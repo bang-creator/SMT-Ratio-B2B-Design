@@ -5,23 +5,32 @@ export default {
   parameters: { layout: 'padded' },
 };
 
-/* Source: Playground model parameter sliders on platform.openai.com/playground
- * Ground truth:
- * - 4px track, 16px thumb, white with shadow
- * - Range: 0 to 1 or 0 to 2, step: 0.01 / 0.1 */
+/* Source: Playground image & model settings sliders on platform.openai.com/playground/images
+ * Ground truth from platform screenshot:
+ * - Layout: Single inline horizontal row (Title on left, range slider in middle, readout on right)
+ * - Track: 4px rounded height with dual-tone progress gradient (active progress vs subtle unfilled track)
+ * - Thumb Indicator: 14px hollow ring circle with 2px border and canvas center fill
+ * - Motion: Smooth hover highlight to text-primary, active micro-scale (1.08)
+ * - Variants:
+ *   - Default: Standard range slider without readout number
+ *   - WithReadout: Range slider with inline title, slider track, and tabular readout */
 
 export const Default = story(
   'Default / Shared / Slider / Default',
   stage(
-    'Standard Range Slider',
+    'Standard Range Slider (No Readout)',
     `<div class="ds-stack">
       <label class="ds-slider" data-ds-slider>
-        <div class="ds-row">
-          <span class="ds-label">Temperature</span>
-          <span class="ds-muted" data-ds-readout>0.7</span>
-        </div>
+        <span class="ds-slider__label">Number of images</span>
         <div class="ds-slider__track">
-          <input type="range" min="0" max="2" step="0.05" value="0.7">
+          <input type="range" min="1" max="4" step="1" value="3" aria-label="Number of images">
+        </div>
+      </label>
+
+      <label class="ds-slider" data-ds-slider>
+        <span class="ds-slider__label">Temperature</span>
+        <div class="ds-slider__track">
+          <input type="range" min="0" max="2" step="0.05" value="0.7" aria-label="Temperature">
         </div>
       </label>
     </div>`
@@ -31,38 +40,30 @@ export const Default = story(
 export const WithReadout = story(
   'Default / Shared / Slider / With Readout',
   stage(
-    'Top P Nucleus Sampling Slider',
+    'Range Slider with Readout (Inline Row)',
     `<div class="ds-stack">
       <label class="ds-slider" data-ds-slider>
-        <div class="ds-row">
-          <span class="ds-label">Top P</span>
-          <span class="ds-muted" data-ds-readout>1.0</span>
-        </div>
+        <span class="ds-slider__label">Number of images</span>
         <div class="ds-slider__track">
-          <input type="range" min="0" max="1" step="0.01" value="1.0">
+          <input type="range" min="1" max="4" step="1" value="3" aria-label="Number of images">
         </div>
-        <div class="ds-row">
-          <span class="ds-muted">0.0 (Strict)</span>
-          <span class="ds-muted">1.0 (Standard)</span>
-        </div>
+        <span class="ds-slider__readout" data-ds-readout>3</span>
       </label>
-    </div>`
-  )
-);
 
-export const Disabled = story(
-  'Default / Shared / Slider / Disabled',
-  stage(
-    'Disabled Slider',
-    `<div class="ds-stack">
-      <label class="ds-slider">
-        <div class="ds-row">
-          <span class="ds-label">Presence penalty</span>
-          <span class="ds-muted">0.0</span>
-        </div>
+      <label class="ds-slider" data-ds-slider>
+        <span class="ds-slider__label">Temperature</span>
         <div class="ds-slider__track">
-          <input type="range" min="-2" max="2" step="0.1" value="0.0" disabled>
+          <input type="range" min="0" max="2" step="0.05" value="0.7" data-decimals="2" aria-label="Temperature">
         </div>
+        <span class="ds-slider__readout" data-ds-readout>0.70</span>
+      </label>
+
+      <label class="ds-slider" data-ds-slider>
+        <span class="ds-slider__label">Top P</span>
+        <div class="ds-slider__track">
+          <input type="range" min="0" max="1" step="0.01" value="1.0" data-decimals="2" aria-label="Top P">
+        </div>
+        <span class="ds-slider__readout" data-ds-readout>1.00</span>
       </label>
     </div>`
   )

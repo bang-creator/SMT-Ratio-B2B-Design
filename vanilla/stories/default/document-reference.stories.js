@@ -71,8 +71,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>38 Document Reference (Interactive Citation Jumps)</code></header>
-        <div class="ds-doc-target">
+<div class="ds-doc-target">
           ${renderDocumentReference({ activePage: 12 })}
         </div>
       </section>

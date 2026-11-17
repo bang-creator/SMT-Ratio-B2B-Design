@@ -68,11 +68,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">92 Connection state</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             <div class="ds-flex ds-flex-col ds-gap-3 ds-items-start">
               ${renderConnectionState({
                 phase: currentPhase,
@@ -117,11 +113,7 @@ export const Default = {
 
 export const Reconnecting = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">92 Connection state (Reconnecting)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Attempt 3</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderConnectionState({ phase: 'reconnecting', attempt: 3 })}
     </div>
   </div>
@@ -129,11 +121,7 @@ export const Reconnecting = story(`
 
 export const Resumed = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">92 Connection state (Resumed)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">+1,248 Tokens</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderConnectionState({ phase: 'resumed', resumedTokens: 1248 })}
     </div>
   </div>

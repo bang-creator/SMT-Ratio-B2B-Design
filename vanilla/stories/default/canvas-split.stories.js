@@ -123,11 +123,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">91 Canvas</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${bodyHtml}
           </div>
         </div>
@@ -163,11 +159,7 @@ export const Default = {
 
 export const Empty = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">91 Canvas (Empty)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Awaiting Tokens</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCanvasSplit({
         title: 'migration-0.14.md',
         version: 1,
@@ -182,11 +174,7 @@ export const Empty = story(`
 
 export const Writing = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">91 Canvas (Writing)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Streaming Edit</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCanvasSplit({
         title: 'migration-0.14.md',
         version: 3,
@@ -201,11 +189,7 @@ export const Writing = story(`
 
 export const LongDocument = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">91 Canvas (Long Document)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Full Guide</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCanvasSplit({
         title: 'migration-0.14-composer-drafts-and-remote-thread-list-upgrade-guide.md',
         version: 12,

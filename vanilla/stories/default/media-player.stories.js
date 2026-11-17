@@ -127,8 +127,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>46 Media Player (Interactive Audio Synthesizer)</code></header>
-        <div class="ds-media-target">
+<div class="ds-media-target">
           ${renderAudioPlayer({ playing: false, currentTime: '0:00' })}
         </div>
       </section>

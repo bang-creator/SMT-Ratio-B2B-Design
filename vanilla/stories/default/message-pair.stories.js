@@ -66,8 +66,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>07 Message Pair (Interactive Bubble Variant)</code></header>
-        <div class="ds-pair-target">
+<div class="ds-pair-target">
           ${renderMessagePairStatic({ variant: 'bubble', visibleWords: 0, streaming: true })}
         </div>
       </section>

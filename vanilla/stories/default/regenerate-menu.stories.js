@@ -78,8 +78,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>17 Regenerate Menu (Interactive Model Picker)</code></header>
-        <div class="ds-regen-target">
+<div class="ds-regen-target">
           ${renderRegenerateMenu({ open: true, currentId: 'sonnet' })}
         </div>
       </section>

@@ -69,11 +69,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">68 Agent Handoff</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${isSettled ? 'Settled (Click to hand off)' : 'Handing Off (Active)'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderAgentHandoff({ settled: isSettled })}
           </div>
         </div>
@@ -100,11 +96,7 @@ export const Default = {
 
 export const NothingCarried = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">68 Agent Handoff (Empty Context)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Direct Delegation</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderAgentHandoff({
         from: 'Router',
         to: 'Billing',

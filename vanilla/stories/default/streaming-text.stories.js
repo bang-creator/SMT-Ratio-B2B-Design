@@ -53,8 +53,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>03 Streaming Text (Live Interactive Stream)</code></header>
-        <div class="ds-stream-viewport">
+<div class="ds-stream-viewport">
           <p data-slot="streaming-text" class="ds-streaming-text" title="Click text to pause or replay"></p>
         </div>
       </section>

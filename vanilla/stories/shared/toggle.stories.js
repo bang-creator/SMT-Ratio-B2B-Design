@@ -5,86 +5,103 @@ export default {
   parameters: { layout: 'padded' },
 };
 
-/* Source: .M38jh (track) + ._9I9IG (thumb) on platform.openai.com
- * Ground truth:
- * - Track: 36px width, 20px height, border-radius: full (9999px)
- * - Thumb: 16×16px circle, background var(--color-primitive-gray-0), shadow
- * - Motion: translateX(2px) -> translateX(18px) with cubic-enter transition (150ms)
- * - Active squash: thumb width expands slightly to 18px on press
- * - Checked: background switches to var(--color-semantic-text-primary) */
+/* Source: Platform settings toggles on platform.openai.com/settings
+ * Ground truth from platform evidence & screenshots:
+ * - Track: 36×20px capsule pill (border-radius: var(--radius-full))
+ * - Inactive Track (OFF): var(--color-semantic-switch-track-inactive)
+ * - Active Track (ON): var(--color-semantic-switch-track-active)
+ * - Thumb: 16×16px white circle (var(--color-semantic-switch-thumb)) with soft drop shadow
+ * - Motion: translateX(2px) [OFF] -> translateX(18px) [ON] with cubic-enter transition (150ms)
+ * - Layout with content: Toggle control on the LEFT, Title and Support text on the RIGHT
+ * - Typography: 14px Title (400 normal weight), 12px Support text (var(--color-semantic-text-secondary))
+ * - Variants:
+ *   - Default: Standalone toggle switch only, with disabled state staged inside
+ *   - WithContent: Toggle switch with title and description support text (matching platform settings) */
 
 const THUMB = `<span class="ds-switch__thumb" aria-hidden="true"></span>`;
+
+/* ── Story 1: Default (Standalone Toggle Control) ── */
 
 export const Default = story(
   'Default / Shared / Toggle / Default',
   stage(
-    'Interactive Toggle Switch',
-    `<label class="ds-switch">
-      <span>Stream responses</span>
-      <button type="button" role="switch" class="ds-switch__control" aria-checked="false" data-ds-switch>
-        ${THUMB}
-      </button>
-    </label>`
-  )
-);
-
-export const Checked = story(
-  'Default / Shared / Toggle / Checked',
-  stage(
-    'Pre-checked Toggle',
-    `<label class="ds-switch">
-      <span>Auto-recharge credits</span>
-      <button type="button" role="switch" class="ds-switch__control" aria-checked="true" data-ds-switch>
-        ${THUMB}
-      </button>
-    </label>`
-  )
-);
-
-export const SettingsList = story(
-  'Default / Shared / Toggle / Settings List',
-  stage(
-    'Settings Toggle Stack',
-    `<div class="ds-stack">
-      <label class="ds-switch">
-        <div>
-          <strong>Usage alerts</strong>
-          <div class="ds-muted">Receive email when approaching spending limit</div>
+    'Standalone Toggle Switch',
+    `<div class="ds-story-sections">
+      <!-- Enabled: Interactive Toggle Switch -->
+      <section class="ds-story-section">
+<div class="ds-row">
+          <button type="button" role="switch" class="ds-switch__control" aria-checked="false" aria-label="Toggle switch off" data-ds-switch>
+            ${THUMB}
+          </button>
+          <button type="button" role="switch" class="ds-switch__control" aria-checked="true" aria-label="Toggle switch on" data-ds-switch>
+            ${THUMB}
+          </button>
         </div>
-        <button type="button" role="switch" class="ds-switch__control" aria-checked="true" data-ds-switch>
-          ${THUMB}
-        </button>
-      </label>
-      <label class="ds-switch">
-        <div>
-          <strong>Multi-factor authentication</strong>
-          <div class="ds-muted">Require an authenticator app code to sign in</div>
+      </section>
+
+      <!-- Disabled: Unavailable Cursor on Hover -->
+      <section class="ds-story-section">
+<div class="ds-row">
+          <button type="button" role="switch" class="ds-switch__control" aria-checked="false" aria-label="Toggle switch off disabled" disabled>
+            ${THUMB}
+          </button>
+          <button type="button" role="switch" class="ds-switch__control" aria-checked="true" aria-label="Toggle switch on disabled" disabled>
+            ${THUMB}
+          </button>
         </div>
-        <button type="button" role="switch" class="ds-switch__control" aria-checked="false" data-ds-switch>
-          ${THUMB}
-        </button>
-      </label>
+      </section>
     </div>`
   )
 );
 
-export const Disabled = story(
-  'Default / Shared / Toggle / Disabled',
+/* ── Story 2: With Content (Title & Support Text on Right) ── */
+
+export const WithContent = story(
+  'Default / Shared / Toggle / With Content',
   stage(
-    'Disabled States',
-    `<div class="ds-stack">
-      <label class="ds-switch">
-        <span>Disabled off</span>
-        <button type="button" role="switch" class="ds-switch__control" aria-checked="false" disabled>
-          ${THUMB}
-        </button>
-      </label>
-      <label class="ds-switch">
-        <span>Disabled on</span>
-        <button type="button" role="switch" class="ds-switch__control" aria-checked="true" disabled>
-          ${THUMB}
-        </button>
-      </label>
+    'Toggle with Title and Support Text',
+    `<div class="ds-story-sections">
+      <!-- Enabled: Interactive Toggle with Content -->
+      <section class="ds-story-section">
+<div class="ds-stack">
+          <!-- ON State matching platform screenshot -->
+          <label class="ds-switch">
+            <button type="button" role="switch" class="ds-switch__control" aria-checked="true" aria-label="Disable all new API key creation" data-ds-switch>
+              ${THUMB}
+            </button>
+            <div class="ds-switch__content">
+              <span class="ds-switch__title">Disable all new API key creation</span>
+              <span class="ds-switch__desc">Prevents users from creating any new API keys.</span>
+            </div>
+          </label>
+
+          <!-- OFF State matching platform screenshot -->
+          <label class="ds-switch">
+            <button type="button" role="switch" class="ds-switch__control" aria-checked="false" aria-label="Require multi-factor authentication" data-ds-switch>
+              ${THUMB}
+            </button>
+            <div class="ds-switch__content">
+              <span class="ds-switch__title">Require multi-factor authentication</span>
+              <span class="ds-switch__desc">Enforce two-factor verification code for all project members.</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Disabled: Unavailable Cursor on Hover -->
+      <section class="ds-story-section">
+<div class="ds-stack">
+          <label class="ds-switch" data-disabled="true">
+            <button type="button" role="switch" class="ds-switch__control" aria-checked="false" aria-label="Disable all new API key creation disabled" disabled>
+              ${THUMB}
+            </button>
+            <div class="ds-switch__content">
+              <span class="ds-switch__title">Disable all new API key creation</span>
+              <span class="ds-switch__desc">Prevents users from creating any new API keys.</span>
+            </div>
+          </label>
+        </div>
+      </section>
     </div>`
   )
 );

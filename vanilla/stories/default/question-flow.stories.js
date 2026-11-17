@@ -101,11 +101,7 @@ export const Default = {
       if (isFinished) {
         root.innerHTML = `
           <div class="ds-story-stage">
-            <div class="ds-story-stage__header">
-              <span class="ds-story-stage__title">63 Question Flow (Summary)</span>
-              <span class="ds-badge ds-badge--subtle ds-badge--sm">Completed (Click to restart)</span>
-            </div>
-            <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
               ${renderReceiptView(answers)}
             </div>
           </div>
@@ -122,11 +118,7 @@ export const Default = {
       const step = STEPS[currentStepIndex];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">63 Question Flow</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Step ${currentStepIndex + 1} of ${STEPS.length}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderStepView(step, currentStepIndex, STEPS.length, answers[step.id])}
           </div>
         </div>
@@ -162,11 +154,7 @@ export const Default = {
 
 export const Completed = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">63 Question Flow (Completed Receipt)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Summary View</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderReceiptView({
         runtime: 'Node.js (LTS 20.x)',
         reasoning: 'Medium effort (Balanced)',

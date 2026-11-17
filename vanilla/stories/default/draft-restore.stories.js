@@ -83,11 +83,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">82 Draft restore</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${contentHtml}
           </div>
         </div>
@@ -116,11 +112,7 @@ export const Default = {
 
 export const LongDraft = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">82 Draft restore (Long Draft)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Text Truncation</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderDraftRestore({
         draft: "Can you go through the failing checkout tests on the release branch, figure out which ones broke after the payment provider migration, and propose a fix for each one before Thursday's cut?",
         savedAt: 'yesterday',
@@ -131,11 +123,7 @@ export const LongDraft = story(`
 
 export const MultiLine = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">82 Draft restore (Multi-line)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Collapsed Preview</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderDraftRestore({
         draft: 'Steps to reproduce:\n1. Open a thread\n2. Switch to another thread\n3. Come back',
         savedAt: 'just now',

@@ -131,11 +131,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">86 Voice conversation AUI</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${bodyHtml}
           </div>
         </div>
@@ -179,11 +175,7 @@ export const Default = {
 
 export const Connecting = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">86 Voice conversation AUI (Connecting)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Opening Mic</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderVoiceConversation({
         mode: 'connecting',
         transcript: [],
@@ -196,11 +188,7 @@ export const Connecting = story(`
 
 export const Speaking = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">86 Voice conversation AUI (Speaking)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">AI Playing Reply</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderVoiceConversation({
         mode: 'speaking',
         turns: DEFAULT_TURNS,
@@ -212,11 +200,7 @@ export const Speaking = story(`
 
 export const LongTranscript = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">86 Voice conversation AUI (Long Transcript)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Multi-turn History</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderVoiceConversation({
         mode: 'listening',
         turns: LONG_TURNS,

@@ -69,8 +69,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>08 Message Branches (Interactive Version Switcher)</code></header>
-        <div class="ds-branch-target">
+<div class="ds-branch-target">
           ${renderMessageBranches({ variants: VARIANTS, index: currentIndex })}
         </div>
       </section>

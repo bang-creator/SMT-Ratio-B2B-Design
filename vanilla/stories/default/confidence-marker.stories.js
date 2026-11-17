@@ -86,8 +86,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>18 Confidence Marker (Interactive Evidence Inspection)</code></header>
-        <div class="ds-confidence-target">
+<div class="ds-confidence-target">
           ${renderConfidenceMarker({ hoveredId: '1' })}
         </div>
       </section>

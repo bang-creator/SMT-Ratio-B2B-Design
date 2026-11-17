@@ -87,11 +87,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">90 Scroll anchor</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderScrollAnchor({
               messages: DEFAULT_MESSAGES,
               pinned: isPinned,
@@ -135,11 +131,7 @@ export const Default = {
 
 export const Short = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">90 Scroll anchor (Short Thread)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">No Overflow</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderScrollAnchor({
         messages: SHORT_MESSAGES,
         pinned: true,
@@ -151,11 +143,7 @@ export const Short = story(`
 
 export const LongContent = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">90 Scroll anchor (Long Content)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Top Fade Active</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderScrollAnchor({
         messages: LONG_MESSAGES,
         pinned: false,

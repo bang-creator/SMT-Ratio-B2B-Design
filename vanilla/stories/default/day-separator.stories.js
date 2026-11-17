@@ -112,8 +112,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>15 Day Separator (Interactive Thread Scope Toggle)</code></header>
-        <div class="ds-day-target">
+<div class="ds-day-target">
           ${renderDaySeparator({ messages: MANY_DAYS })}
         </div>
       </section>

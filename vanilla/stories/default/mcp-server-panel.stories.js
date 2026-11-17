@@ -100,8 +100,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>27 MCP Server Panel (Servers &amp; Tool Inspection)</code></header>
-        <div class="ds-mcp-target">
+<div class="ds-mcp-target">
           ${renderMcpServerPanel({ expandedId: null })}
         </div>
       </section>

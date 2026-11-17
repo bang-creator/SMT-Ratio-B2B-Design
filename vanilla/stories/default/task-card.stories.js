@@ -72,11 +72,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">59 Task Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Working (Accordion Toggle)</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderTask({
               label: 'Review the runtime architecture',
               state: 'working',
@@ -106,11 +102,7 @@ export const Default = {
 
 export const WaitingWithActions = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">59 Task Card (Waiting for Action)</span>
-      <span class="ds-badge ds-badge--warning ds-badge--sm">Approval Required</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderTask({
         label: 'Deploy the docs preview',
         meta: 'deploy',

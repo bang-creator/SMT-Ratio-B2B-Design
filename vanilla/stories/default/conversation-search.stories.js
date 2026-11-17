@@ -126,11 +126,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">94 Search in conversation</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderConversationSearch({
               query,
               hits,
@@ -183,11 +179,7 @@ export const Default = {
 
 export const NoMatches = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">94 Search in conversation (No Matches)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Empty Result</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderConversationSearch({
         query: 'checkpoint',
         hits: [],
@@ -200,11 +192,7 @@ export const NoMatches = story(`
 
 export const LastMatch = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">94 Search in conversation (Last Match)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Match 3 of 3</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderConversationSearch({
         query: 'draft',
         hits: DEFAULT_HITS,
@@ -217,11 +205,7 @@ export const LastMatch = story(`
 
 export const ManyHits = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">94 Search in conversation (Many Hits)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Long Excerpt</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderConversationSearch({
         query: 'thread id',
         hits: [

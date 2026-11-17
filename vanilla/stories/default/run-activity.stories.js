@@ -81,8 +81,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>20 Run Activity (Interactive Run Timeline)</code></header>
-        <div class="ds-activity-target">
+<div class="ds-activity-target">
           ${renderRunActivity({ open: false })}
         </div>
       </section>

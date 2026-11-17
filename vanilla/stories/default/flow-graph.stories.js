@@ -134,8 +134,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>49 Flow Graph (Interactive Pipeline DAG Progression)</code></header>
-        <div class="ds-flow-target">
+<div class="ds-flow-target">
           ${renderFlowGraph({ nodes: DEFAULT_NODES, edges: DEFAULT_EDGES, activeIndex: 3, activeCount: 4 })}
         </div>
       </section>

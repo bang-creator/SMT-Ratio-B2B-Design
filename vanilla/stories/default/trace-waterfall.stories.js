@@ -115,11 +115,7 @@ export const Default = {
       const count = countSequence[seqIdx];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">72 Trace Waterfall</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${count} of ${DEFAULT_SPANS.length} Spans (Click to cycle)</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderTraceWaterfall({ visibleCount: count })}
           </div>
         </div>
@@ -140,11 +136,7 @@ export const Default = {
 
 export const Streaming = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">72 Trace Waterfall (Streaming)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">In-Flight Execution</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderTraceWaterfall({
         spans: [
           { id: 'run', name: 'agent.run', depth: 0, startMs: 0, durationMs: 1400, status: 'running' },

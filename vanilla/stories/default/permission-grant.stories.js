@@ -123,8 +123,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>29 Permission Grant (Interactive Scope Authorization)</code></header>
-        <div class="ds-perm-target">
+<div class="ds-perm-target">
           ${renderPermissionGrant()}
         </div>
       </section>

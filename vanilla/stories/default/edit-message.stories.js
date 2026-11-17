@@ -63,8 +63,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>12 Edit Message (Interactive Editor Lifecycle)</code></header>
-        <div class="ds-edit-target">
+<div class="ds-edit-target">
           ${renderEditMessage({ value: currentText, editing: isEditing, discardedReplies: replies })}
         </div>
       </section>

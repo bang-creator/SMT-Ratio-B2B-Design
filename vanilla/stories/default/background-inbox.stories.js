@@ -108,11 +108,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">69 Background Inbox</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Click ready item to collect</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderBackgroundInbox({ runs, hasCollect: true })}
           </div>
         </div>
@@ -142,11 +138,7 @@ export const Default = {
 
 export const InFlight = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">69 Background Inbox (In Flight)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Active Daemons</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderBackgroundInbox({
         runs: [
           { id: '1', title: 'Audit adapters for parity gaps', state: 'running', elapsed: '4m' },

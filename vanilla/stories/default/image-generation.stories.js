@@ -68,8 +68,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>35 Image Generation (Interactive Image Synthesis)</code></header>
-        <div class="ds-image-gen-target">
+<div class="ds-image-gen-target">
           ${renderImageGeneration({ generating: false })}
         </div>
       </section>

@@ -100,8 +100,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>26 Elicitation Form (Interactive Parameter Intake)</code></header>
-        <div class="ds-elicitation-target">
+<div class="ds-elicitation-target">
           ${renderElicitationForm({ state: currentState })}
         </div>
       </section>

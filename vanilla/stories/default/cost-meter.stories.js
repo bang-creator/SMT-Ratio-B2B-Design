@@ -112,11 +112,7 @@ export const Default = {
       const p = presets[currentPreset];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">73 Cost Meter</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Preset ${currentPreset + 1} of ${presets.length} (Click to cycle)</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderCostMeter(p)}
           </div>
         </div>
@@ -143,11 +139,7 @@ export const Default = {
 
 export const OneModel = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">73 Cost Meter (Single Model)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">100% Share Variant</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCostMeter({
         runCost: '$0.420',
         sessionCost: '$3.10',

@@ -77,11 +77,7 @@ export const Default = {
       const p = proposals[currentProposal];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">64 Recommendation Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${isAccepted ? 'Accepted' : 'Pending Review'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderRecommendationCard({
               question: p.question,
               body: p.body,
@@ -116,11 +112,7 @@ export const Default = {
 
 export const LongRationale = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">64 Recommendation Card (Long Rationale)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Extended Multi-line Variant</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderRecommendationCard({
         question: 'Migrate to fine-grained atom subscriptions instead of context re-renders?',
         body: 'When large thread histories stream tokens at 90ms intervals, re-rendering the parent React tree causes frame drops and input lag. Splitting state into lightweight atomic subscriptions isolates updates strictly to the active streaming bubble.',

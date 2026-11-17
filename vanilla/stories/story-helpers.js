@@ -25,8 +25,6 @@ export const story = (titleOrHtmlOrFn, maybeHtml, parameters = {}) => ({
 });
 
 export const stage = (labelOrContent, maybeContent) => {
-  if (maybeContent === undefined) {
-    return `<div class="ds-story-stage">${labelOrContent}</div>`;
-  }
-  return `<section class="ds-story-stage"><header><code>${labelOrContent}</code></header>${maybeContent}</section>`;
+  const content = maybeContent !== undefined ? maybeContent : labelOrContent;
+  return `<section class="ds-story-stage">${content}</section>`;
 };

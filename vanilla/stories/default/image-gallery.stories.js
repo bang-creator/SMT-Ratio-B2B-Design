@@ -206,8 +206,7 @@ export const Default = {
     const images = SAMPLE_IMAGES.slice(0, 6);
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>36 Image Gallery (Interactive Grid &amp; Lightbox)</code></header>
-        <div class="ds-gallery-target">
+<div class="ds-gallery-target">
           ${renderImageGallery({ images, maxVisible: 6 })}
         </div>
       </section>

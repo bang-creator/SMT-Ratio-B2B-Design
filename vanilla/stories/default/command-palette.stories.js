@@ -137,11 +137,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">85 Command palette</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderCommandPalette({
               query: currentQuery,
               activeId: currentActiveId,
@@ -211,11 +207,7 @@ export const Default = {
 
 export const Filtered = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">85 Command palette (Filtered)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Query: "thread"</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCommandPalette({
         query: 'thread',
         activeId: 'search',
@@ -227,11 +219,7 @@ export const Filtered = story(`
 
 export const NoMatches = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">85 Command palette (No Matches)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Empty State</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCommandPalette({
         query: 'deploy to staging',
         activeId: 'new',
@@ -243,11 +231,7 @@ export const NoMatches = story(`
 
 export const LongList = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">85 Command palette (Long List)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Multi-group Scroll</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCommandPalette({
         query: '',
         activeId: 'export',

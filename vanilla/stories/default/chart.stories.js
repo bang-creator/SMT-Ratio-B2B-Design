@@ -169,8 +169,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>45 Chart (Interactive Sparkline: Area, Line, Bars)</code></header>
-        <div class="ds-chart-target">
+<div class="ds-chart-target">
           ${renderChart({
             variant: 'area',
             label: 'Requests per second',

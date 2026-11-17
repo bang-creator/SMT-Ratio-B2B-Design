@@ -60,11 +60,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">58 Subagent List</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${doneCount} of ${activeAgents.length} Completed</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             <div data-slot="subagent-list" class="ds-subagent-list">
               ${renderSubagentCards(activeAgents)}
             </div>
@@ -94,11 +90,7 @@ export const Default = {
 
 export const Summarizing = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">58 Subagent List (Summarizing)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Synthesizing Outputs</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       <div data-slot="subagent-list" class="ds-subagent-list">
         ${renderSubagentCards([
           { name: 'Explore the runtime', model: 'haiku', done: true, pct: '100' },

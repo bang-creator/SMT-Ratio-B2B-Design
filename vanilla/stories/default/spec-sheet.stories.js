@@ -115,8 +115,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>52 Spec Sheet (Interactive Parameter Matrix)</code></header>
-        <div class="ds-spec-target">
+<div class="ds-spec-target">
           ${renderSpecSheet(MODEL_SPECS['gpt-4o'])}
         </div>
       </section>

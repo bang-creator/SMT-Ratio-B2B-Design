@@ -88,8 +88,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>32 Web Search (Sources &amp; Real-time Retrieval)</code></header>
-        <div class="ds-web-search-target">
+<div class="ds-web-search-target">
           ${renderWebSearch()}
         </div>
       </section>

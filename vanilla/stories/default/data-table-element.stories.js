@@ -176,8 +176,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>43 Data Table (Interactive Sortable Tabular Benchmarks)</code></header>
-        <div class="ds-table-target">
+<div class="ds-table-target">
           ${renderDataTable()}
         </div>
       </section>

@@ -15,6 +15,9 @@ export default {
  * - Focus: 1px inset var(--color-semantic-ring-focus), outline: 0
  * - Invalid: 1px inset var(--color-semantic-text-danger) */
 
+const EYE_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+const KEY_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"></circle><path d="m21 2-9.6 9.6"></path><path d="m15.5 7.5 3 3"></path></svg>`;
+
 export const Default = story(
   'Default / Shared / Text Input / Default',
   stage(
@@ -107,6 +110,127 @@ export const Disabled = story(
         <span class="ds-label">Organization ID</span>
         <input type="text" class="ds-input" value="org-9xK2048XmzL" disabled>
       </label>
+    </div>`
+  )
+);
+
+export const Password = story(
+  'Default / Shared / Text Input / Password',
+  stage(
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <label>
+            <span class="ds-label">API Secret Token</span>
+            <div class="ds-input-wrap" data-ds-password-wrap>
+              <input type="password" class="ds-input" value="sk-antigravity-999-sec" placeholder="Enter API secret">
+              <button type="button" class="ds-password-toggle" data-ds-password-toggle aria-label="Show password">
+                ${EYE_ICON}
+              </button>
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Disabled</span>
+            <div class="ds-input-wrap" data-ds-password-wrap data-disabled="true">
+              <input type="password" class="ds-input" value="sk-antigravity-locked" placeholder="Enter API secret" disabled>
+              <button type="button" class="ds-password-toggle" data-ds-password-toggle aria-label="Show password" disabled>
+                ${EYE_ICON}
+              </button>
+            </div>
+          </label>
+        </div>
+      </section>
+    </div>`
+  )
+);
+
+export const WithSupportIcon = story(
+  'Default / Shared / Text Input / With Support Icon',
+  stage(
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <label>
+            <span class="ds-label">Monthly budget limit</span>
+            <div class="ds-input-group">
+              <span class="ds-input-group__prefix">$</span>
+              <input type="text" class="ds-input" value="100" placeholder="0" aria-label="Monthly budget limit">
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Key alias</span>
+            <div class="ds-input-group">
+              <span class="ds-input-group__prefix">${KEY_ICON}</span>
+              <input type="text" class="ds-input" placeholder="e.g. staging-vector-store-key" aria-label="Key alias">
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Disabled</span>
+            <div class="ds-input-group" data-disabled="true">
+              <span class="ds-input-group__prefix">$</span>
+              <input type="text" class="ds-input" value="500" disabled aria-label="Allocated credit tier">
+            </div>
+          </label>
+        </div>
+      </section>
+    </div>`
+  )
+);
+
+export const WithUnit = story(
+  'Default / Shared / Text Input / With Unit',
+  stage(
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <label>
+            <span class="ds-label">Confidence threshold</span>
+            <div class="ds-input-group">
+              <input type="text" class="ds-input" value="80" placeholder="0" inputmode="numeric" aria-label="Confidence threshold">
+              <span class="ds-input-group__unit">%</span>
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Request timeout</span>
+            <div class="ds-input-group">
+              <input type="text" class="ds-input" value="30,000" placeholder="0" inputmode="numeric" aria-label="Request timeout">
+              <span class="ds-input-group__unit">ms</span>
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Disabled</span>
+            <div class="ds-input-group" data-disabled="true">
+              <input type="text" class="ds-input" value="100" disabled aria-label="Fixed quota allocation">
+              <span class="ds-input-group__unit">%</span>
+            </div>
+          </label>
+        </div>
+      </section>
+    </div>`
+  )
+);
+
+export const Multiline = story(
+  'Default / Shared / Text Input / Multiline',
+  stage(
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <label>
+            <span class="ds-label">Notification email recipients</span>
+            <textarea class="ds-textarea ds-input--multiline" placeholder="alerts@acme.com" aria-label="Notification email recipients"></textarea>
+          </label>
+          <label>
+            <span class="ds-label">Invalid</span>
+            <textarea class="ds-textarea ds-input--multiline" aria-invalid="true" aria-label="Alert recipients with error">invalid-email-address</textarea>
+            <span class="ds-field-error">Enter valid email addresses</span>
+          </label>
+          <label>
+            <span class="ds-label">Disabled</span>
+            <textarea class="ds-textarea ds-input--multiline" disabled aria-label="System notification channel">security-alerts@acme.com</textarea>
+          </label>
+        </div>
+      </section>
     </div>`
   )
 );

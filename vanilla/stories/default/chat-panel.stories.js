@@ -89,11 +89,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">88 Chat panel</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderChatPanel({
               turns,
               isTyping,
@@ -143,11 +139,7 @@ export const Default = {
 
 export const Empty = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">88 Chat panel (Empty)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Fresh Thread</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderChatPanel({ turns: [] })}
     </div>
   </div>
@@ -155,11 +147,7 @@ export const Empty = story(`
 
 export const Typing = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">88 Chat panel (Typing)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Generating Response</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderChatPanel({
         turns: [{ role: 'user', text: QUESTION }],
         isTyping: true,
@@ -170,11 +158,7 @@ export const Typing = story(`
 
 export const LongThread = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">88 Chat panel (Long Thread)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Scroll Overflow</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderChatPanel({
         turns: LONG_TURNS,
         isTyping: false,

@@ -66,8 +66,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>05 Reasoning Effort (Interactive Level Selection)</code></header>
-        <div class="ds-reasoning-effort-target">
+<div class="ds-reasoning-effort-target">
           ${renderReasoningEffort({ selectedKey: currentKey, spent: spentMap[currentKey], interactive: true })}
         </div>
       </section>

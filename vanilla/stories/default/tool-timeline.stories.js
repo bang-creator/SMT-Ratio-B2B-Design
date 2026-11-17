@@ -86,8 +86,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>21 Tool Timeline (Interactive Execution Disclosure)</code></header>
-        <div class="ds-timeline-target">
+<div class="ds-timeline-target">
           ${renderToolTimeline({ open: true, streaming: false })}
         </div>
       </section>

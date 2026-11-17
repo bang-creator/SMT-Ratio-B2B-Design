@@ -82,11 +82,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">70 Checkpoint History</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Active: ${activeId} (Click row or Restore)</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderCheckpointHistory({
               checkpoints: CHECKPOINTS,
               currentId: activeId,
@@ -124,11 +120,7 @@ export const Default = {
 
 export const ReadOnly = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">70 Checkpoint History (Read Only)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Display Only Mode</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderCheckpointHistory({
         checkpoints: [
           { id: '1', label: 'Initial repository checkout', at: '09:00', files: 4 },

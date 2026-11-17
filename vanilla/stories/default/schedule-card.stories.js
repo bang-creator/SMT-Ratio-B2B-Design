@@ -81,11 +81,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">71 Schedule Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${isEnabled ? 'Active Schedule' : 'Paused Schedule'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderScheduleCard({ enabled: isEnabled })}
           </div>
         </div>
@@ -104,11 +100,7 @@ export const Default = {
 
 export const Paused = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">71 Schedule Card (Paused State)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Suspended Execution</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderScheduleCard({
         name: 'Weekly vector reindexing',
         cadence: 'every Sunday at 02:00',

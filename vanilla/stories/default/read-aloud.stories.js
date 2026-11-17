@@ -112,11 +112,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">87 Read aloud</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderReadAloud({
               words: WORDS,
               spokenIndex: spokenIdx,
@@ -175,11 +171,7 @@ export const Default = {
 
 export const Playing = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">87 Read aloud (Playing)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Midway Through</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderReadAloud({
         words: WORDS,
         spokenIndex: 9,
@@ -195,11 +187,7 @@ export const Playing = story(`
 
 export const Fast = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">87 Read aloud (Double Speed)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">2.0× Playback</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderReadAloud({
         words: WORDS,
         spokenIndex: 6,
@@ -215,11 +203,7 @@ export const Fast = story(`
 
 export const LongContent = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">87 Read aloud (Long Answer)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Full Paragraph</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderReadAloud({
         words: LONG_WORDS,
         spokenIndex: 31,

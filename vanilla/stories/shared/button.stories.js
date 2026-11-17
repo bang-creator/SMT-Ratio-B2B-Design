@@ -58,8 +58,8 @@ function renderButtonSections(modifier = '') {
     ${styleSection('Secondary', c('ds-button ds-button--secondary'), 'Secondary')}
     ${styleSection('Outline', c('ds-button ds-button--outline'), 'Outline')}
     ${styleSection('Ghost', c('ds-button ds-button--ghost'), 'Ghost')}
-    ${styleSection('Danger (Outline)', c('ds-button ds-button--danger'), 'Danger', { leadIcon: TRASH_ICON, trailIcon: TRASH_ICON })}
-    ${styleSection('Danger (Solid)', c('ds-button ds-button--danger-solid'), 'Delete', { leadIcon: TRASH_ICON, trailIcon: TRASH_ICON })}
+    ${styleSection('Danger', c('ds-button ds-button--danger'), 'Danger', { leadIcon: TRASH_ICON, trailIcon: TRASH_ICON })}
+    ${styleSection('Danger Solid', c('ds-button ds-button--danger-solid'), 'Delete', { leadIcon: TRASH_ICON, trailIcon: TRASH_ICON })}
     ${styleSection('Ultrafast', c('ds-button ds-button--ultra'), 'Ultrafast', { leadIcon: LIGHTNING_ICON, trailIcon: LIGHTNING_ICON, inner: SPARKLES })}
   </div>`;
 }

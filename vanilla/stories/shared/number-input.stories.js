@@ -5,78 +5,94 @@ export default {
   parameters: { layout: 'padded' },
 };
 
-/* Source: .Kepsx + .EzGXF on platform.openai.com
- * Ground truth:
- * - Standard 32px height, 8px radius
- * - Native numeric constraints (min, max, step)
- * - Box-shadow inset outline with hover and focus-ring states */
+/* Source: Platform numeric controls on platform.openai.com
+ * Ground truth from platform evidence:
+ * - Compact Stepper: 32px standard height, 8px container radius (var(--radius-md))
+ * - Mathematical centering: Optically and geometrically centered SVG minus/plus icons
+ * - Focus behavior: Clean border without intrusive focus ring when clicked
+ * - State architecture: Enabled and Disabled states staged directly within the Stepper story */
 
-export const Default = story(
-  'Default / Shared / Number Input / Default',
-  stage(
-    'Standard Number Input',
-    `<div class="ds-stack">
-      <label>
-        <span class="ds-label">Max completion tokens</span>
-        <input type="number" class="ds-input" value="2048" min="1" max="128000" step="256">
-      </label>
-    </div>`
-  )
-);
+const MINUS_ICON = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8h9"/></svg>`;
+const PLUS_ICON = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg>`;
 
-export const Temperature = story(
-  'Default / Shared / Number Input / Temperature',
-  stage(
-    'Decimal Step (0.0 to 2.0)',
-    `<div class="ds-stack">
-      <label>
-        <span class="ds-label">Sampling temperature</span>
-        <input type="number" class="ds-input" value="1.0" min="0" max="2" step="0.1">
-        <span class="ds-muted">Higher values make output more random, lower values more focused</span>
-      </label>
-    </div>`
-  )
-);
+/* ── Stepper (Consolidated Number Input Variant) ── */
 
 export const Stepper = story(
   'Default / Shared / Number Input / Stepper',
   stage(
-    'Interactive Stepper Control (−/+ buttons)',
-    `<div class="ds-stack">
-      <label>
-        <span class="ds-label">Concurrent workers</span>
-        <div class="ds-number-stepper" data-ds-number-stepper>
-          <button type="button" class="ds-number-stepper__btn" data-step="down" aria-label="Decrease value">−</button>
-          <input type="number" class="ds-input ds-number-stepper__input" value="4" min="1" max="32" step="1" aria-label="Concurrent workers">
-          <button type="button" class="ds-number-stepper__btn" data-step="up" aria-label="Increase value">+</button>
+    'Interactive Stepper Control (−/+)',
+    `<div class="ds-story-sections">
+      <!-- Enabled: Interactive Stepper Control -->
+      <section class="ds-story-section">
+<div class="ds-stack">
+          <label>
+            <span class="ds-label">Concurrent workers</span>
+            <div class="ds-number-stepper" data-ds-number-stepper>
+              <button type="button" class="ds-number-stepper__btn" data-step="down" aria-label="Decrease value">
+                ${MINUS_ICON}
+              </button>
+              <input type="number" class="ds-input ds-number-stepper__input" value="4" min="1" max="32" step="1" aria-label="Concurrent workers">
+              <button type="button" class="ds-number-stepper__btn" data-step="up" aria-label="Increase value">
+                ${PLUS_ICON}
+              </button>
+            </div>
+          </label>
         </div>
-      </label>
+      </section>
+
+      <!-- Disabled: Unavailable Cursor on Hover -->
+      <section class="ds-story-section">
+<div class="ds-stack">
+          <label>
+            <span class="ds-label">Concurrent workers</span>
+            <div class="ds-number-stepper" data-ds-number-stepper data-disabled="true">
+              <button type="button" class="ds-number-stepper__btn" data-step="down" aria-label="Decrease value" disabled>
+                ${MINUS_ICON}
+              </button>
+              <input type="number" class="ds-input ds-number-stepper__input" value="4" min="1" max="32" step="1" aria-label="Concurrent workers" disabled>
+              <button type="button" class="ds-number-stepper__btn" data-step="up" aria-label="Increase value" disabled>
+                ${PLUS_ICON}
+              </button>
+            </div>
+          </label>
+        </div>
+      </section>
     </div>`
   )
 );
 
-export const Small = story(
-  'Default / Shared / Number Input / Small',
+/* ── With Unit (Input có đơn vị) ── */
+
+export const WithUnit = story(
+  'Default / Shared / Number Input / With Unit',
   stage(
-    'Small Size (28px)',
-    `<div class="ds-stack">
-      <label>
-        <span class="ds-label">Batch size</span>
-        <input type="number" class="ds-input ds-input--sm" value="16" min="1" max="100">
-      </label>
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <label>
+            <span class="ds-label">Confidence threshold</span>
+            <div class="ds-input-group">
+              <input type="text" class="ds-input" value="80" placeholder="0" inputmode="numeric" aria-label="Confidence threshold">
+              <span class="ds-input-group__unit">%</span>
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Request timeout</span>
+            <div class="ds-input-group">
+              <input type="text" class="ds-input" value="30,000" placeholder="0" inputmode="numeric" aria-label="Request timeout">
+              <span class="ds-input-group__unit">ms</span>
+            </div>
+          </label>
+          <label>
+            <span class="ds-label">Disabled</span>
+            <div class="ds-input-group" data-disabled="true">
+              <input type="text" class="ds-input" value="100" disabled aria-label="Fixed quota allocation">
+              <span class="ds-input-group__unit">%</span>
+            </div>
+          </label>
+        </div>
+      </section>
     </div>`
   )
 );
 
-export const Disabled = story(
-  'Default / Shared / Number Input / Disabled',
-  stage(
-    'Disabled Number Input',
-    `<div class="ds-stack">
-      <label>
-        <span class="ds-label">Fixed concurrency quota</span>
-        <input type="number" class="ds-input" value="50" disabled>
-      </label>
-    </div>`
-  )
-);

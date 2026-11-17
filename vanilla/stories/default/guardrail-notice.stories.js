@@ -88,8 +88,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>06 Guardrail Notice (Interactive Policy Switcher)</code></header>
-        <div class="ds-guardrail-target">
+<div class="ds-guardrail-target">
           ${renderGuardrailNotice(POLICIES[currentIdx])}
         </div>
       </section>

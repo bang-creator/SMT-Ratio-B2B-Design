@@ -19,7 +19,6 @@ export default {
  *   • Click any preset on the left to immediately apply that range */
 
 const CALENDAR_ICON = `<svg viewBox="0 0 16 16" class="ds-filter-pill__icon" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M5 1.5v3M11 1.5v3M2 7h12"/></svg>`;
-const CHEVRON_UP_DOWN = `<svg viewBox="0 0 16 16" class="ds-filter-pill__chevron" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 3-3 3 3M5 10l3 3 3-3"/></svg>`;
 const LEFT_CHEVRON = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13 5 8l5-5"/></svg>`;
 const RIGHT_CHEVRON = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>`;
 const CHECK_ICON = `<svg class="ds-date-picker__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5 6.5 11.5 3 8"/></svg>`;
@@ -181,45 +180,125 @@ const renderDualCalendar = () => `
     </div>
   </div>`;
 
+const renderSingleCalendar = () => `
+  <div class="ds-date-picker__single-calendar">
+    <div class="ds-date-picker__nav-bar">
+      <button type="button" class="ds-date-picker__nav-btn ds-date-picker__nav-btn--prev" aria-label="Previous month">${LEFT_CHEVRON}</button>
+      <span class="ds-date-picker__month-title">November 2026</span>
+      <button type="button" class="ds-date-picker__nav-btn ds-date-picker__nav-btn--next" aria-label="Next month">${RIGHT_CHEVRON}</button>
+    </div>
+    <div class="ds-date-picker__weekday-row">
+      <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+    </div>
+    <div class="ds-date-picker__days-grid">
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-01">1</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-02">2</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-03">3</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-04">4</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-05">5</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-06">6</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-07">7</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-08">8</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-09">9</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-10">10</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-11">11</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-12">12</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day ds-date-picker__day--start" data-date="2026-11-13">
+        <span>13</span>
+        <span class="ds-date-picker__today-dot"></span>
+      </button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-14">14</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-15">15</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-16">16</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-17">17</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-18">18</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-19">19</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-20">20</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-21">21</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-22">22</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-23">23</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-24">24</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-25">25</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-26">26</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-27">27</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-28">28</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-29">29</button></div>
+      <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-30">30</button></div>
+    </div>
+  </div>`;
+
 export const Default = story(
   'Default / Shared / Date Picker / Default',
   stage(
-    'Date Range Picker (OpenAI Platform Live Model)',
-    `<div class="ds-stack">
-      <div class="ds-date-picker" data-ds-date-picker data-ds-open="true">
-        <button class="ds-date-picker__trigger" type="button" aria-expanded="true">
-          ${CALENDAR_ICON}
-          <span class="ds-date-picker__label" data-date-label>Last 7 days</span>
-          ${CHEVRON_UP_DOWN}
-        </button>
+    'Date Range Picker (Dual Month Calendar)',
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+<div class="ds-date-picker" data-ds-date-picker data-start="2026-11-07" data-end="2026-11-13" data-ds-open="true">
+          <button class="ds-date-picker__trigger" type="button" aria-expanded="true">
+            ${CALENDAR_ICON}
+            <span class="ds-date-picker__label" data-date-label>Last 7 days</span>
+          </button>
 
-        <div class="ds-date-picker__dialog">
-          ${renderDualCalendar()}
+          <div class="ds-date-picker__dialog">
+            ${renderDualCalendar()}
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="ds-story-section">
+<div class="ds-date-picker" data-ds-date-picker data-start="2026-11-07" data-end="2026-11-13">
+          <button class="ds-date-picker__trigger" type="button" aria-expanded="false" disabled>
+            ${CALENDAR_ICON}
+            <span class="ds-date-picker__label">Last 7 days</span>
+          </button>
+        </div>
+      </section>
     </div>`
   )
 );
 
-export const Interactive = story(
-  'Default / Shared / Date Picker / Interactive',
+export const Navigation = story(
+  'Default / Shared / Date Picker / Navigation',
   stage(
-    'Interactive Date Range Picker (Click to Toggle & Select Custom Range)',
-    `<div class="ds-stack">
-      <div class="ds-row">
-        <div class="ds-date-picker" data-ds-date-picker>
-          <button class="ds-date-picker__trigger" type="button" aria-expanded="false">
-            ${CALENDAR_ICON}
-            <span class="ds-date-picker__label" data-date-label>Last 7 days</span>
-            ${CHEVRON_UP_DOWN}
-          </button>
+    'Navigation Date Range Picker (platform.openai.com/analytics/overview)',
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+<div class="ds-date-picker ds-date-picker--navigation" data-ds-date-picker data-start="2026-11-01" data-end="2026-11-07">
+          <div class="ds-date-picker__nav-group">
+            <button type="button" class="ds-date-picker__nav-arrow ds-date-picker__nav-arrow--prev" aria-label="Previous date range">
+              ${LEFT_CHEVRON}
+            </button>
+            <button type="button" class="ds-date-picker__nav-trigger" aria-haspopup="dialog" aria-expanded="false">
+              ${CALENDAR_ICON}
+              <span class="ds-date-picker__label" data-date-label>Nov 1 – Nov 7, 2026</span>
+            </button>
+            <button type="button" class="ds-date-picker__nav-arrow ds-date-picker__nav-arrow--next" aria-label="Next date range">
+              ${RIGHT_CHEVRON}
+            </button>
+          </div>
 
           <div class="ds-date-picker__dialog" hidden>
             ${renderDualCalendar()}
           </div>
         </div>
-        <span class="ds-muted">Click trigger to toggle. Click any date to start picking, click second date to complete range.</span>
-      </div>
+      </section>
+
+      <section class="ds-story-section">
+<div class="ds-date-picker ds-date-picker--navigation" data-ds-date-picker data-start="2026-11-01" data-end="2026-11-07">
+          <div class="ds-date-picker__nav-group">
+            <button type="button" class="ds-date-picker__nav-arrow ds-date-picker__nav-arrow--prev" aria-label="Previous date range" disabled>
+              ${LEFT_CHEVRON}
+            </button>
+            <button type="button" class="ds-date-picker__nav-trigger" aria-haspopup="dialog" aria-expanded="false" disabled>
+              ${CALENDAR_ICON}
+              <span class="ds-date-picker__label">Nov 1 – Nov 7, 2026</span>
+            </button>
+            <button type="button" class="ds-date-picker__nav-arrow ds-date-picker__nav-arrow--next" aria-label="Next date range" disabled>
+              ${RIGHT_CHEVRON}
+            </button>
+          </div>
+        </div>
+      </section>
     </div>`
   )
 );
@@ -228,78 +307,28 @@ export const SingleMonth = story(
   'Default / Shared / Date Picker / Single Month',
   stage(
     'Single Month Compact Picker',
-    `<div class="ds-stack">
-      <div class="ds-date-picker" data-ds-date-picker data-ds-open="true">
-        <button class="ds-date-picker__trigger" type="button" aria-expanded="true">
-          ${CALENDAR_ICON}
-          <span class="ds-date-picker__label" data-date-label>Nov 13, 2026</span>
-          ${CHEVRON_UP_DOWN}
-        </button>
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+<div class="ds-date-picker ds-date-picker--single-month" data-ds-date-picker data-date="2026-11-13" data-ds-open="true">
+          <button class="ds-date-picker__trigger" type="button" aria-expanded="true">
+            ${CALENDAR_ICON}
+            <span class="ds-date-picker__label" data-date-label>Nov 13, 2026</span>
+          </button>
 
-        <div class="ds-date-picker__dialog">
-          <div class="ds-date-picker__single-calendar">
-            <div class="ds-date-picker__nav-bar">
-              <button type="button" class="ds-date-picker__nav-btn" aria-label="Previous month">${LEFT_CHEVRON}</button>
-              <span class="ds-date-picker__month-title">November 2026</span>
-              <button type="button" class="ds-date-picker__nav-btn" aria-label="Next month">${RIGHT_CHEVRON}</button>
-            </div>
-            <div class="ds-date-picker__weekday-row">
-              <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
-            </div>
-            <div class="ds-date-picker__days-grid">
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-01">1</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-02">2</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-03">3</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-04">4</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-05">5</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-06">6</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-07">7</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-08">8</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-09">9</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-10">10</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-11">11</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-12">12</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day ds-date-picker__day--start" data-date="2026-11-13">
-                <span>13</span>
-                <span class="ds-date-picker__today-dot"></span>
-              </button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-14">14</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-15">15</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-16">16</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-17">17</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-18">18</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-19">19</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-20">20</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-21">21</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-22">22</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-23">23</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-24">24</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-25">25</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-26">26</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-27">27</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-28">28</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-29">29</button></div>
-              <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-30">30</button></div>
-            </div>
+          <div class="ds-date-picker__dialog">
+            ${renderSingleCalendar()}
           </div>
         </div>
-      </div>
-    </div>`
-  )
-);
+      </section>
 
-export const Disabled = story(
-  'Default / Shared / Date Picker / Disabled',
-  stage(
-    'Disabled Date Picker',
-    `<div class="ds-stack">
-      <div class="ds-date-picker" data-ds-date-picker>
-        <button class="ds-date-picker__trigger" type="button" aria-expanded="false" disabled>
-          ${CALENDAR_ICON}
-          <span>Oct 1 – Oct 31, 2026</span>
-          ${CHEVRON_UP_DOWN}
-        </button>
-      </div>
+      <section class="ds-story-section">
+<div class="ds-date-picker ds-date-picker--single-month" data-ds-date-picker data-date="2026-11-13">
+          <button class="ds-date-picker__trigger" type="button" aria-expanded="false" disabled>
+            ${CALENDAR_ICON}
+            <span class="ds-date-picker__label">Nov 13, 2026</span>
+          </button>
+        </div>
+      </section>
     </div>`
   )
 );

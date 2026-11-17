@@ -126,11 +126,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">80 Dictation</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderVoiceComposer({ voice: currentVoice, seconds: currentSeconds, value: currentVal })}
           </div>
         </div>
@@ -190,11 +186,7 @@ export const Default = {
 
 export const Recording = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">80 Dictation (Recording)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Live Mic</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderVoiceComposer({ voice: 'recording', seconds: 14 })}
     </div>
   </div>
@@ -202,11 +194,7 @@ export const Recording = story(`
 
 export const Transcribing = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">80 Dictation (Transcribing)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Processing</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderVoiceComposer({ voice: 'transcribing', seconds: 14 })}
     </div>
   </div>
@@ -214,11 +202,7 @@ export const Transcribing = story(`
 
 export const Transcribed = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">80 Dictation (Transcribed)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Draft Ready</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderVoiceComposer({ voice: 'idle', value: 'Add a regression test for draft restore' })}
     </div>
   </div>

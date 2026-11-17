@@ -96,8 +96,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>39 Memory Chips (Interactive Context Retention)</code></header>
-        <div class="ds-memory-target">
+<div class="ds-memory-target">
           ${renderMemoryChips({ chips: INITIAL_CHIPS })}
         </div>
       </section>

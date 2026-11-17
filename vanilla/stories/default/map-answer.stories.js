@@ -128,8 +128,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>41 Map Answer (Interactive Multi-Pin Geo Answer)</code></header>
-        <div class="ds-map-target">
+<div class="ds-map-target">
           ${renderMapAnswer({ activeId: 'pin-1', route: true })}
         </div>
       </section>

@@ -96,8 +96,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>51 Math Block (Interactive Derivation Steps)</code></header>
-        <div class="ds-math-target">
+<div class="ds-math-target">
           ${renderMathBlock({
             label: `Derivation Step 1 of ${SAMPLE_STEPS.length}`,
             steps: SAMPLE_STEPS,

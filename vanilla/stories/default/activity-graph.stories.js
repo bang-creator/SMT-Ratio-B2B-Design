@@ -111,8 +111,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>50 Activity Graph (Interactive Heatmap &amp; Event Stream)</code></header>
-        <div class="ds-activity-target">
+<div class="ds-activity-target">
           ${renderActivityGraph({ seed: 1, total: '1,842 requests' })}
         </div>
       </section>

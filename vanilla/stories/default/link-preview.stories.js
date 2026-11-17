@@ -64,8 +64,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>34 Link Preview (Interactive Card &amp; Compact Layout)</code></header>
-        <div class="ds-link-preview-target">
+<div class="ds-link-preview-target">
           ${renderLinkPreview({ layout: 'card' })}
         </div>
       </section>

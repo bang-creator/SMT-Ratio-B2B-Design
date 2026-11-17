@@ -90,8 +90,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>30 Computer Use (Interactive Browser Simulation)</code></header>
-        <div class="ds-computer-target">
+<div class="ds-computer-target">
           ${renderComputerUse()}
         </div>
       </section>

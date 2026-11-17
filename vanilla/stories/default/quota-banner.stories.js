@@ -93,11 +93,7 @@ export const Default = {
       const state = states[currentStep];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">74 Quota Banner</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${currentStep === 0 ? 'Normal Capacity' : currentStep === 1 ? 'Tight (Amber Alert)' : 'Exhausted (Red Limit)'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderQuotaBanner(state)}
           </div>
         </div>
@@ -132,11 +128,7 @@ export const Default = {
 
 export const Exhausted = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">74 Quota Banner (Exhausted Limit)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Quota Depleted</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderQuotaBanner({
         used: 2500000,
         limit: 2500000,

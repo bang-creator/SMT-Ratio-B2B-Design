@@ -117,11 +117,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">93 Shared conversation</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${bodyHtml}
           </div>
         </div>
@@ -145,11 +141,7 @@ export const Default = {
 
 export const Empty = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">93 Shared conversation (Empty)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">No Turns</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderSharedConversation({
         title: 'Untitled conversation',
         sharedBy: 'harry',
@@ -162,11 +154,7 @@ export const Empty = story(`
 
 export const SingleTurn = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">93 Shared conversation (Question Only)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Awaiting Reply</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderSharedConversation({
         title: 'Converter drops empty parts',
         sharedBy: 'simon',
@@ -185,11 +173,7 @@ export const SingleTurn = story(`
 
 export const LongContent = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">93 Shared conversation (Long Thread)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Full Dialogue</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderSharedConversation({
         title: 'Draft restore across threads after a reload on remote thread lists',
         sharedBy: 'harry.mitchell@assistant-ui.com',

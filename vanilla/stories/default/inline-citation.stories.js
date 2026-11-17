@@ -91,8 +91,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>33 Inline Citation (Interactive Source Popover)</code></header>
-        <div class="ds-citation-target">
+<div class="ds-citation-target">
           ${renderInlineCitation({ activeSource: null })}
         </div>
       </section>

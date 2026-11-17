@@ -43,8 +43,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>04 Typing Indicator (Interactive Variant Toggle: Bubble / Bare)</code></header>
-        <div class="ds-typing-target">
+<div class="ds-typing-target">
           ${renderTypingIndicator({ variant })}
         </div>
       </section>

@@ -91,8 +91,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>16 Speaker Identity (Interactive Speaker Turns Toggle)</code></header>
-        <div class="ds-speaker-target">
+<div class="ds-speaker-target">
           ${renderSpeakerIdentity({ turns: MODES[modeIdx] })}
         </div>
       </section>

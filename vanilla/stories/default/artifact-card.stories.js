@@ -51,11 +51,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">65 Artifact Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${isGen ? 'Generating (Click to settle)' : 'Settled (Click to regenerate)'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderArtifact({
               title: 'Draft persistence RFC',
               meta: 'Document · v3 · just now',
@@ -89,11 +85,7 @@ export const Default = {
 
 export const LongTitle = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">65 Artifact Card (Long Title)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Truncated Variant</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderArtifact({
         title: 'Migrating the thread list from local storage to the remote adapter',
         meta: 'Document · v14 · edited yesterday at 18:42 by Ana Ruiz',

@@ -83,8 +83,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>31 Code Runner (Interactive Code Execution)</code></header>
-        <div class="ds-code-runner-target">
+<div class="ds-code-runner-target">
           ${renderCodeRunner()}
         </div>
       </section>

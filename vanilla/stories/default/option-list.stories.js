@@ -55,11 +55,7 @@ export const Default = {
         const chosen = options.filter((o) => selected.includes(o.id));
         root.innerHTML = `
           <div class="ds-story-stage">
-            <div class="ds-story-stage__header">
-              <span class="ds-story-stage__title">62 Option List (Receipt)</span>
-              <span class="ds-badge ds-badge--subtle ds-badge--sm">${chosen.length} Selected (Click to reset)</span>
-            </div>
-            <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
               <div data-slot="option-list" data-state="receipt" class="ds-option-list" role="button" tabindex="0">
                 ${chosen.map((o) => `
                   <div class="ds-option-receipt-row">
@@ -84,11 +80,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">62 Option List</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Multiple Selection (${selected.length} of ${options.length})</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             <div data-slot="option-list" class="ds-option-list">
               ${options.map((o) => renderOptionItem(o, selected.includes(o.id), true)).join('')}
               <div class="ds-option-footer">
@@ -129,11 +121,7 @@ export const Default = {
 
 export const SingleSelection = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">62 Option List (Single Pick)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Instant Commit Mode</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       <div data-slot="option-list" class="ds-option-list">
         ${renderOptionItem({ id: 'merge', label: 'Merge duplicates', description: 'Combine each pair into one contact, keeping every field.' }, true, false)}
         ${renderOptionItem({ id: 'keep', label: 'Keep both', description: 'Leave the pairs as separate contacts.' }, false, false)}

@@ -56,8 +56,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>10 Error State (Interactive Retry Lifecycle)</code></header>
-        <div class="ds-error-target">
+<div class="ds-error-target">
           ${renderErrorState({ retrying: false })}
         </div>
       </section>

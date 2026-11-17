@@ -96,11 +96,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">55 Job Progress</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Phase ${current + 1} of ${STAGES_FLOW.length} (${stateObj.state})</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderJobCard(stateObj)}
           </div>
         </div>
@@ -131,11 +127,7 @@ export const Default = {
 
 export const Failed = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">55 Job Progress (Failed Variant)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Terminated Early</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderJobCard({
         state: 'failed',
         pct: '40',

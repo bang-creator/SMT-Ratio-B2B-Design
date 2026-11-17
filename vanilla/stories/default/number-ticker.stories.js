@@ -73,8 +73,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>44 Number Ticker (Interactive Rolling Digit Counter)</code></header>
-        <div class="ds-ticker-target">
+<div class="ds-ticker-target">
           ${renderNumberTicker({
             value: 142857,
             label: 'Total tokens processed this session',

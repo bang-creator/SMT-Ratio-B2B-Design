@@ -85,8 +85,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>09 Message Actions (Interactive 5-Button Suite)</code></header>
-        <div class="ds-actions-target">
+<div class="ds-actions-target">
           ${renderMessageActions({ copied, reaction, regenerating })}
         </div>
       </section>

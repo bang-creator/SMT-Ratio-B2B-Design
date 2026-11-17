@@ -85,8 +85,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>25 File Tree (Interactive Repository Scope)</code></header>
-        <div class="ds-tree-target">
+<div class="ds-tree-target">
           ${renderFileTree({ nodes: FULL_NODES, totalAdditions: 84, totalDeletions: 15 })}
         </div>
       </section>

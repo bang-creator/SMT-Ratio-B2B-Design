@@ -86,11 +86,7 @@ export const Default = {
       const m = models[current];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">56 Score Breakdown</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${m.name}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderScoreCard(m)}
           </div>
         </div>
@@ -117,11 +113,7 @@ export const Default = {
 
 export const Streaming = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">56 Score Breakdown (Streaming)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">1 of 3 Criteria Arrived</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderScoreCard({
         total: '4.5',
         outOf: '5',

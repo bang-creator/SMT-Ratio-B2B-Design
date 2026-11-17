@@ -107,11 +107,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">89 Empty state</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${bodyHtml}
           </div>
         </div>
@@ -157,11 +153,7 @@ export const Default = {
 
 export const NoSuggestions = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">89 Empty state (No Suggestions)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Quiet Surface</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderEmptyState({
         greeting: 'What are we building?',
         suggestions: [],
@@ -172,11 +164,7 @@ export const NoSuggestions = story(`
 
 export const ManySuggestions = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">89 Empty state (Many Prompts)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Multi-row Wrap</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderEmptyState({
         greeting: 'Good morning, Harry. Where do we start?',
         suggestions: MANY_SUGGESTIONS,

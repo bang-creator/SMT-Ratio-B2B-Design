@@ -165,8 +165,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>48 Diagram (Interactive Architecture Pan &amp; Zoom)</code></header>
-        <div class="ds-diagram-target">
+<div class="ds-diagram-target">
           ${renderDiagram({ zoom: 1 })}
         </div>
       </section>

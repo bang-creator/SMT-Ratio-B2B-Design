@@ -79,8 +79,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>11 Message Queue</code></header>
-        <div class="ds-queue-target">
+<div class="ds-queue-target">
           ${renderMessageQueue()}
         </div>
       </section>

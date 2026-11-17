@@ -80,8 +80,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>13 Feedback Dialog (Interactive Feedback Form)</code></header>
-        <div class="ds-feedback-target">
+<div class="ds-feedback-target">
           ${renderFeedbackDialog({ selected, note, sent })}
         </div>
       </section>

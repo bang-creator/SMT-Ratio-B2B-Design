@@ -50,8 +50,7 @@ function createLoaderStory(initialConfig) {
 
       root.innerHTML = `
         <section class="ds-story-stage">
-          <header><code>01 Loading State (${config.variant})</code></header>
-          <div class="ds-loader-viewport">
+<div class="ds-loader-viewport">
             <div class="ds-loader-target">
               ${renderGenerationLoader({ ...config, tick })}
             </div>

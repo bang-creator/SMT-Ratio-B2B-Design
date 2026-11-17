@@ -62,11 +62,7 @@ export const Default = {
       const s = states[current];
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">60 Agent Status</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">State: ${s.state} (Click pill to cycle)</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderStatusPill(s)}
           </div>
         </div>
@@ -108,11 +104,7 @@ export const Default = {
 
 export const LongLabel = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">60 Agent Status (Truncated Label)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Long Overflow Variant</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderStatusPill({
         state: 'working',
         label: 'Regenerating the API reference for every package in the monorepo',

@@ -136,11 +136,7 @@ export const Default = {
       const activeReason = currentRec ? (REASONS[currentRec] || REASONS.none) : REASONS.none;
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">53 Comparison Card</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Interactive Option Selection</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             <div id="comp-mount">
               ${renderComparisonCard({
                 recommendedId: currentRec,
@@ -177,11 +173,7 @@ export const Default = {
 
 export const ThreeOptions = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">53 Comparison Card (Three Columns)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Narrow Width Variant</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderComparisonCard({
         options: THREE_OPTIONS,
         traitLabels: THREE_TRAIT_LABELS,

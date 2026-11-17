@@ -77,8 +77,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>19 Tool Call (Interactive Collapsible Disclosure)</code></header>
-        <div class="ds-tool-target">
+<div class="ds-tool-target">
           ${renderToolCall({ open: false })}
         </div>
       </section>

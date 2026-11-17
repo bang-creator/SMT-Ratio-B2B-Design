@@ -105,11 +105,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">83 Context breakdown</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${active.name}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderContextBreakdown(active)}
           </div>
         </div>
@@ -128,11 +124,7 @@ export const Default = {
 
 export const NearLimit = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">83 Context breakdown (Near Limit)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">95% Utilized</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderContextBreakdown({ conversation: 78200, files: 38500 })}
     </div>
   </div>
@@ -140,11 +132,7 @@ export const NearLimit = story(`
 
 export const OverLimit = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">83 Context breakdown (Over Limit)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Zero Headroom</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderContextBreakdown({ conversation: 94600, files: 38500 })}
     </div>
   </div>

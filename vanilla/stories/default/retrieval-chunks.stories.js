@@ -126,8 +126,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>37 Retrieval Chunks (Interactive Vector Passages)</code></header>
-        <div class="ds-retrieval-target">
+<div class="ds-retrieval-target">
           ${renderRetrievalChunks()}
         </div>
       </section>

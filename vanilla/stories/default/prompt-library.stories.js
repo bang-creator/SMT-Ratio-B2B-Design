@@ -143,11 +143,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">84 Prompt library</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${badgeText}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderPromptLibrary({
               query: currentQuery,
               prompts: PROMPTS,
@@ -208,11 +204,7 @@ export const Default = {
 
 export const Filtered = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">84 Prompt library (Filtered)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Query: "write"</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderPromptLibrary({
         query: 'write',
         prompts: PROMPTS,
@@ -224,11 +216,7 @@ export const Filtered = story(`
 
 export const NoMatches = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">84 Prompt library (No Matches)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Empty State</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderPromptLibrary({
         query: 'deploy checklist',
         prompts: PROMPTS,
@@ -240,11 +228,7 @@ export const NoMatches = story(`
 
 export const LongContent = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">84 Prompt library (Long Prompt)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">5 Variables</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderPromptLibrary({
         query: '',
         prompts: [LONG_PROMPT, ...PROMPTS],

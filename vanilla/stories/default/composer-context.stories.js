@@ -172,11 +172,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">81 Context</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${active.name} · ${pct}% used</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderContextComposer({
               usage: active.usage,
               popoverOpen: popoverVisible,
@@ -205,11 +201,7 @@ export const Default = {
 
 export const Warning = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">81 Context (Warning)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Near Limit (91%)</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderContextComposer({
         usage: { system: 12, tools: 8, messages: 162, total: 200 },
         popoverOpen: true,
@@ -220,11 +212,7 @@ export const Warning = story(`
 
 export const Full = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">81 Context (Full)</span>
-      <span class="ds-badge ds-badge--danger ds-badge--sm">Capacity Exhausted</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderContextComposer({
         usage: { system: 12, tools: 8, messages: 196, total: 200 },
         popoverOpen: true,

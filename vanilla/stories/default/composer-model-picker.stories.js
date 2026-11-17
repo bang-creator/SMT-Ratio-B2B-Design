@@ -135,11 +135,7 @@ export const Default = {
     const render = () => {
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">79 Models</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${selectedModel} · ${isOpen ? 'Menu Open' : 'Menu Closed'}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderModelPickerComposer({
               open: isOpen,
               model: selectedModel,
@@ -170,11 +166,7 @@ export const Default = {
 
 export const LongNames = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">79 Models (Long Names)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Extended Thinking</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderModelPickerComposer({
         open: true,
         model: 'Opus 5 with extended thinking (preview)',

@@ -54,8 +54,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>14 Stopped Run (Interactive Continuation Lifecycle)</code></header>
-        <div class="ds-stopped-target">
+<div class="ds-stopped-target">
           ${renderStoppedRun({ words: INITIAL_WORDS, reason: 'interrupted' })}
         </div>
       </section>

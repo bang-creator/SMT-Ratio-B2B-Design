@@ -90,11 +90,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">57 Agent Plan</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">Step ${currentStep} of ${steps.length} (${pct}%)</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderPlanCard({
               title: 'Composer draft implementation',
               completed: currentStep,
@@ -130,11 +126,7 @@ export const Default = {
 
 export const Bare = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">57 Agent Plan (Bare Variant)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Embedded Inline</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderPlanCard({
         title: 'Background migration',
         completed: 3,

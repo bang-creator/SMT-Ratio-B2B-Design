@@ -152,8 +152,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>42 Geo Map (Interactive Geospatial Canvas &amp; Places)</code></header>
-        <div class="ds-geo-target">
+<div class="ds-geo-target">
           ${renderGeoMap({ activeId: 'place-1', route: true })}
         </div>
       </section>

@@ -127,11 +127,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">77 Mentions</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${statusBadge}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderMentionComposer({
               value: currentVal,
               people: PEOPLE,
@@ -202,11 +198,7 @@ export const Default = {
 
 export const LongNames = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">77 Mentions (Long Names)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Role Tag Priority</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderMentionComposer({
         value: 'Hand this to @R',
         people: LONG_PEOPLE,

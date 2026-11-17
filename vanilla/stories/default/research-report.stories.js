@@ -157,8 +157,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>40 Research Report (Interactive Deep Research Progress)</code></header>
-        <div class="ds-report-target">
+<div class="ds-report-target">
           ${renderResearchReport()}
         </div>
       </section>

@@ -113,8 +113,7 @@ export const Default = {
     root.className = 'ds-story';
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>47 Web Preview (Interactive Isolated Webview Frame)</code></header>
-        <div class="ds-preview-target">
+<div class="ds-preview-target">
           ${renderWebPreview({ loading: false })}
         </div>
       </section>

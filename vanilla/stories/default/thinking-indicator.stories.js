@@ -47,8 +47,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-        <header><code>02 Thinking Indicator (Live)</code></header>
-        <div class="ds-thinking-target">
+<div class="ds-thinking-target">
           ${renderThinkingIndicator({ label: LABELS[labelIdx], elapsed: formatElapsed(seconds) })}
         </div>
       </section>

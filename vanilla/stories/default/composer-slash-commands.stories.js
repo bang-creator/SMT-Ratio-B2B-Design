@@ -139,11 +139,7 @@ export const Default = {
 
       root.innerHTML = `
         <div class="ds-story-stage">
-          <div class="ds-story-stage__header">
-            <span class="ds-story-stage__title">76 Slash commands</span>
-            <span class="ds-badge ds-badge--subtle ds-badge--sm">${statusBadge}</span>
-          </div>
-          <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
             ${renderSlashComposer({
               value: currentVal,
               commands: COMMANDS,
@@ -207,11 +203,7 @@ export const Default = {
 
 export const LongDescriptions = story(`
   <div class="ds-story-stage">
-    <div class="ds-story-stage__header">
-      <span class="ds-story-stage__title">76 Slash commands (Long Descriptions)</span>
-      <span class="ds-badge ds-badge--subtle ds-badge--sm">Text Truncation</span>
-    </div>
-    <div class="ds-story-stage__body">
+<div class="ds-story-stage__body">
       ${renderSlashComposer({
         value: '/',
         commands: LONG_COMMANDS,

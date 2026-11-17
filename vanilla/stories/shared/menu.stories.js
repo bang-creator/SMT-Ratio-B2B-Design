@@ -5,109 +5,147 @@ export default {
   parameters: { layout: 'padded' },
 };
 
-/* Source: Context and Organization dropdown menus on platform.openai.com
+/* Source: Context and Overflow menus on platform.openai.com
  * Ground truth:
- * - Floating card: 12px radius (--radius-xl), shadow-menu, background: var(--color-semantic-background-menu)
- * - Item height: 32px (standard) / 28px (compact)
- * - Hover: sublayer ::before with smooth opacity transition
- * - Danger action: red text and background tint
- * - Keyboard navigation: ArrowUp/ArrowDown, Home/End, Escape to close */
+ * - Default: Overflow Action Menu from https://platform.openai.com/chat/edit?models=gpt-6-astra
+ * - Arrow: Action Dropdown with trailing external arrow icons (Open in ChatGPT ↗, View as Markdown ↗)
+ * - Typography: 14px (var(--font-size-sm)), 400 normal weight across options and headers
+ * - State architecture: Enabled and Disabled states staged directly within each variant story
+ * - Disabled cursor: Unavailable macOS cursor (cursor: not-allowed !important) on hover */
 
-const USER_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ds-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-const SETTINGS_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ds-icon"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`;
-const BILLING_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ds-icon"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>`;
-const LOGOUT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ds-icon"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>`;
-const MORE_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="ds-icon"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>`;
+const MORE_HORIZONTAL_ICON = `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="4" cy="8" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="12" cy="8" r="1.25"/></svg>`;
+const CHECK_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5 6.5 11.5 3 8"/></svg>`;
+const LIGHTNING_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 1.5 2.5 9h5l-1 5.5 6-7.5h-5z"/></svg>`;
+const TARGET_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><circle cx="8" cy="8" r="2.5"/><circle cx="8" cy="8" r="0.75" fill="currentColor"/></svg>`;
+const HISTORY_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.6-3.9L2 6"/><path d="M2 2.5V6h3.5"/><path d="M8 5v3.5l2.5 1.5"/></svg>`;
+const ARROW_UP_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13.5V2.5M3.5 7 8 2.5 12.5 7"/></svg>`;
+
+const COPY_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M3.5 10.5h-.5a1.5 1.5 0 0 1-1.5-1.5v-6a1.5 1.5 0 0 1 1.5-1.5h6a1.5 1.5 0 0 1 1.5 1.5v.5"/></svg>`;
+const CHEVRON_DOWN = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>`;
+const CHATGPT_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.8 6.5a3.3 3.3 0 0 0-.3-2.6 3.4 3.4 0 0 0-3.3-1.6 3.4 3.4 0 0 0-2.4-.8 3.4 3.4 0 0 0-3.1 1.9 3.4 3.4 0 0 0-2 1.5 3.3 3.3 0 0 0 .4 3.5 3.3 3.3 0 0 0 .3 2.6 3.4 3.4 0 0 0 3.3 1.6 3.4 3.4 0 0 0 2.4.8 3.4 3.4 0 0 0 3.1-1.9 3.4 3.4 0 0 0 2-1.5 3.3 3.3 0 0 0-.4-3.5z"/><path d="M8 8v3.5M8 8 5 6.2M8 8l3-1.8"/></svg>`;
+const EXTERNAL_ARROW = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l5-5M4 3.5h4.5V8"/></svg>`;
+const CODE_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 5-3 3 3 3M11 5l3 3-3 3M9.5 3.5l-3 9"/></svg>`;
+
+/* ── Variant 1: Default (platform.openai.com/chat/edit?models=gpt-6-astra Ground Truth) ── */
 
 export const Default = story(
   'Default / Shared / Menu / Default',
   stage(
-    'Organization & Account Menu',
-    `<div class="ds-menu" data-ds-menu>
-      <button type="button" class="ds-button ds-button--secondary ds-menu__trigger" aria-haspopup="true" aria-expanded="false">
-        <span>Bang Thai</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <div class="ds-menu__content" role="menu">
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span class="ds-menu__item-left">
-            ${USER_ICON}
-            <span>Profile & preferences</span>
-          </span>
-          <span class="ds-menu__shortcut">⌘P</span>
-        </button>
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span class="ds-menu__item-left">
-            ${SETTINGS_ICON}
-            <span>Organization settings</span>
-          </span>
-          <span class="ds-menu__shortcut">⌘S</span>
-        </button>
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span class="ds-menu__item-left">
-            ${BILLING_ICON}
-            <span>Billing & limits</span>
-          </span>
-        </button>
-        <hr class="ds-menu__separator" role="separator">
-        <button type="button" class="ds-menu__item ds-menu__item--danger" role="menuitem" data-color="danger">
-          <span class="ds-menu__item-left">
-            ${LOGOUT_ICON}
-            <span>Log out</span>
-          </span>
-        </button>
-      </div>
+    'Chat Overflow Action Menu (https://platform.openai.com/chat/edit?models=gpt-6-astra)',
+    `<div class="ds-story-sections">
+      <!-- Enabled: Interactive Overflow Menu -->
+      <section class="ds-story-section">
+<div class="ds-menu" data-ds-menu data-ds-open="true">
+          <button type="button" class="ds-menu__trigger--icon ds-menu__trigger" aria-label="More options" aria-haspopup="true" aria-expanded="true">
+            ${MORE_HORIZONTAL_ICON}
+          </button>
+          <div class="ds-menu__content" role="menu">
+            <div class="ds-menu__header">API</div>
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="responses">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__check">${CHECK_ICON}</span>
+                <span>Responses</span>
+              </span>
+            </button>
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="chat-completions">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__check-spacer"></span>
+                <span>Chat Completions</span>
+              </span>
+            </button>
+            <hr class="ds-menu__separator" role="separator">
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="optimize">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${LIGHTNING_ICON}</span>
+                <span>Optimize</span>
+              </span>
+            </button>
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="evaluate">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${TARGET_ICON}</span>
+                <span>Evaluate</span>
+              </span>
+            </button>
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="history">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${HISTORY_ICON}</span>
+                <span>History</span>
+              </span>
+            </button>
+            <hr class="ds-menu__separator" role="separator">
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="publish-prompt">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${ARROW_UP_ICON}</span>
+                <span>Publish prompt</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Disabled: Unavailable Cursor on Hover -->
+      <section class="ds-story-section">
+<div class="ds-menu" data-ds-menu data-disabled="true">
+          <button type="button" class="ds-menu__trigger--icon ds-menu__trigger" aria-label="More options" aria-haspopup="true" aria-expanded="false" disabled>
+            ${MORE_HORIZONTAL_ICON}
+          </button>
+        </div>
+      </section>
     </div>`
   )
 );
 
-export const ContextMenu = story(
-  'Default / Shared / Menu / Context Menu',
-  stage(
-    'Row Actions Menu (Three Dots)',
-    `<div class="ds-menu" data-ds-menu>
-      <button type="button" class="ds-icon-button ds-menu__trigger" aria-label="Row actions" aria-haspopup="true" aria-expanded="false">
-        ${MORE_ICON}
-      </button>
-      <div class="ds-menu__content" role="menu">
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span>Edit key name</span>
-        </button>
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span>Copy tracking ID</span>
-          <span class="ds-menu__shortcut">⌘C</span>
-        </button>
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span>View usage logs</span>
-        </button>
-        <hr class="ds-menu__separator" role="separator">
-        <button type="button" class="ds-menu__item ds-menu__item--danger" role="menuitem" data-color="danger">
-          <span>Revoke secret key</span>
-        </button>
-      </div>
-    </div>`
-  )
-);
+/* ── Variant 2: Arrow (Dạng arrow — platform.openai.com Ground Truth) ── */
 
-export const Compact = story(
-  'Default / Shared / Menu / Compact',
+export const Arrow = story(
+  'Default / Shared / Menu / Arrow',
   stage(
-    'Compact Density (28px Items)',
-    `<div class="ds-menu ds-menu--compact" data-ds-menu>
-      <button type="button" class="ds-button ds-button--outline ds-button--sm ds-menu__trigger" aria-haspopup="true" aria-expanded="false">
-        <span>Filters</span>
-      </button>
-      <div class="ds-menu__content" role="menu">
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span>Sort by newest</span>
-        </button>
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span>Sort by size</span>
-        </button>
-        <button type="button" class="ds-menu__item" role="menuitem">
-          <span>Sort by cost</span>
-        </button>
-      </div>
+    'Action Menu with Chevron Trigger (https://platform.openai.com/chat/edit?models=gpt-6-astra)',
+    `<div class="ds-story-sections">
+      <!-- Enabled: Interactive Arrow Menu (Khi xổ ra thì chevron hướng ngược xuống) -->
+      <section class="ds-story-section">
+<div class="ds-menu" data-ds-menu data-ds-open="true">
+          <button type="button" class="ds-button ds-button--secondary ds-menu__trigger" aria-haspopup="true" aria-expanded="true">
+            <span class="ds-menu__icon">${COPY_ICON}</span>
+            <span>Copy Markdown</span>
+            <span class="ds-menu__chevron" aria-hidden="true">${CHEVRON_DOWN}</span>
+          </button>
+          <div class="ds-menu__content" role="menu">
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="open-chatgpt">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${CHATGPT_ICON}</span>
+                <span>Open in ChatGPT</span>
+              </span>
+              <span class="ds-menu__item-right" aria-hidden="true">${EXTERNAL_ARROW}</span>
+            </button>
+            <hr class="ds-menu__separator" role="separator">
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="copy-markdown">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${COPY_ICON}</span>
+                <span>Copy Markdown</span>
+              </span>
+            </button>
+            <button type="button" class="ds-menu__item" role="menuitem" data-value="view-markdown">
+              <span class="ds-menu__item-left">
+                <span class="ds-menu__icon">${CODE_ICON}</span>
+                <span>View as Markdown</span>
+              </span>
+              <span class="ds-menu__item-right" aria-hidden="true">${EXTERNAL_ARROW}</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Disabled: Unavailable Cursor on Hover -->
+      <section class="ds-story-section">
+<div class="ds-menu" data-ds-menu data-disabled="true">
+          <button type="button" class="ds-button ds-button--secondary ds-menu__trigger" aria-haspopup="true" aria-expanded="false" disabled>
+            <span class="ds-menu__icon">${COPY_ICON}</span>
+            <span>Copy Markdown</span>
+            <span class="ds-menu__chevron" aria-hidden="true">${CHEVRON_DOWN}</span>
+          </button>
+        </div>
+      </section>
     </div>`
   )
 );

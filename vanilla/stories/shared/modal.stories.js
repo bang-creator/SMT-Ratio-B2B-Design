@@ -5,46 +5,54 @@ export default {
   parameters: { layout: 'padded' },
 };
 
-/* Source: .htOZM + ._5XoXU on platform.openai.com
- * Ground truth:
- * - Backdrop: blurred canvas overlay with fade-in
- * - Dialog: max-width 480px, 12px radius, elevated surface, shadow-lg
- * - Entrance: scale(0.96) translateY(8px) -> scale(1) translateY(0)
- * - Header: title + 28px close icon button
- * - Footer: action buttons (Cancel / Confirm)
- * - Keyboard: Escape closes, backdrop click closes */
-
 export const Default = story(
   'Default / Shared / Modal / Default',
   stage(
-    'Standard Action Modal',
-    `<div class="ds-row">
-      <button class="ds-button ds-button--primary" data-ds-dialog-open="#modal-standard" type="button">
-        <span>Create secret key</span>
-      </button>
-      <div class="ds-dialog__backdrop" id="modal-standard" role="dialog" aria-modal="true" hidden>
-        <section class="ds-dialog">
-          <div class="ds-dialog__header">
-            <h3>Create new secret key</h3>
-            <button class="ds-icon-button" data-ds-dialog-close aria-label="Close dialog" type="button">
-              <svg viewBox="0 0 24 24" class="ds-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <div class="ds-row">
+            <button class="ds-button ds-button--primary" data-ds-dialog-open="#modal-domain" type="button">
+              <span>Add allowed domains</span>
+            </button>
+            <button class="ds-button ds-button--primary" type="button" disabled>
+              <span>Add allowed domains</span>
             </button>
           </div>
-          <div class="ds-dialog__body">
-            <div class="ds-stack">
-              <label>
-                <span class="ds-label">Key name</span>
-                <input type="text" class="ds-input" placeholder="e.g. CI/CD Pipeline Deployment" autofocus>
-              </label>
-              <span class="ds-muted">You will only be able to view this secret key once after creation.</span>
+
+          <div class="ds-dialog">
+            <div class="ds-dialog__header">
+              <h3 class="ds-dialog__title">Add allowed domains</h3>
+              <p class="ds-dialog__description">Generate a public key for use on the specified domains.</p>
+            </div>
+            <div class="ds-dialog__body">
+              <textarea class="ds-textarea" placeholder="example.com, example-staging.com" rows="3"></textarea>
+              <div class="ds-dialog__counter">0/20</div>
+            </div>
+            <div class="ds-dialog__footer">
+              <button class="ds-button ds-button--secondary" type="button">Cancel</button>
+              <button class="ds-button ds-button--primary" type="button">Generate key</button>
             </div>
           </div>
-          <div class="ds-dialog__footer">
-            <button class="ds-button ds-button--secondary" data-ds-dialog-close type="button">Cancel</button>
-            <button class="ds-button ds-button--primary" type="button">Create key</button>
+
+          <div class="ds-dialog__backdrop" id="modal-domain" role="dialog" aria-modal="true" hidden>
+            <div class="ds-dialog">
+              <div class="ds-dialog__header">
+                <h3 class="ds-dialog__title">Add allowed domains</h3>
+                <p class="ds-dialog__description">Generate a public key for use on the specified domains.</p>
+              </div>
+              <div class="ds-dialog__body">
+                <textarea class="ds-textarea" placeholder="example.com, example-staging.com" rows="3"></textarea>
+                <div class="ds-dialog__counter">0/20</div>
+              </div>
+              <div class="ds-dialog__footer">
+                <button class="ds-button ds-button--secondary" data-ds-dialog-close type="button">Cancel</button>
+                <button class="ds-button ds-button--primary" type="button">Generate key</button>
+              </div>
+            </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>`
   )
 );
@@ -52,28 +60,43 @@ export const Default = story(
 export const Destructive = story(
   'Default / Shared / Modal / Destructive',
   stage(
-    'Destructive Confirmation Dialog',
-    `<div class="ds-row">
-      <button class="ds-button ds-button--danger" data-ds-dialog-open="#modal-destructive" type="button">
-        <span>Revoke API key</span>
-      </button>
-      <div class="ds-dialog__backdrop" id="modal-destructive" role="dialog" aria-modal="true" hidden>
-        <section class="ds-dialog">
-          <div class="ds-dialog__header">
-            <h3>Revoke secret key</h3>
-            <button class="ds-icon-button" data-ds-dialog-close aria-label="Close dialog" type="button">
-              <svg viewBox="0 0 24 24" class="ds-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    `<div class="ds-story-sections">
+      <section class="ds-story-section">
+        <div class="ds-stack">
+          <div class="ds-row">
+            <button class="ds-button ds-button--danger" data-ds-dialog-open="#modal-revoke" type="button">
+              <span>Revoke API key</span>
+            </button>
+            <button class="ds-button ds-button--danger" type="button" disabled>
+              <span>Revoke API key</span>
             </button>
           </div>
-          <div class="ds-dialog__body">
-            <p>Are you sure you want to revoke key <strong>sk-prod-9xK2048</strong>? Any application or script relying on this token will immediately fail with a 401 Unauthorized error.</p>
+
+          <div class="ds-dialog">
+            <div class="ds-dialog__header">
+              <h3 class="ds-dialog__title">Revoke secret key</h3>
+              <p class="ds-dialog__description">Are you sure you want to revoke key <strong>sk-prod-2048</strong>? Any application relying on this token will immediately fail with a 401 Unauthorized error.</p>
+            </div>
+            <div class="ds-dialog__footer">
+              <button class="ds-button ds-button--secondary" type="button">Cancel</button>
+              <button class="ds-button ds-button--danger" type="button">Revoke key</button>
+            </div>
           </div>
-          <div class="ds-dialog__footer">
-            <button class="ds-button ds-button--secondary" data-ds-dialog-close type="button">Cancel</button>
-            <button class="ds-button ds-button--danger" type="button">Revoke key</button>
+
+          <div class="ds-dialog__backdrop" id="modal-revoke" role="dialog" aria-modal="true" hidden>
+            <div class="ds-dialog">
+              <div class="ds-dialog__header">
+                <h3 class="ds-dialog__title">Revoke secret key</h3>
+                <p class="ds-dialog__description">Are you sure you want to revoke key <strong>sk-prod-2048</strong>? Any application relying on this token will immediately fail with a 401 Unauthorized error.</p>
+              </div>
+              <div class="ds-dialog__footer">
+                <button class="ds-button ds-button--secondary" data-ds-dialog-close type="button">Cancel</button>
+                <button class="ds-button ds-button--danger" type="button">Revoke key</button>
+              </div>
+            </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>`
   )
 );
