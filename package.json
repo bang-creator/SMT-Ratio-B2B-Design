@@ -27,7 +27,7 @@
     "build:vanilla": "node scripts/build_vanilla.mjs",
     "tokens:build": "node scripts/build_tokens.mjs",
     "tokens:check": "node scripts/check_tokens.mjs",
-    "ds:check": "node scripts/check-literals.mjs",
+    "ds:check": "node scripts/check-literals.mjs && node scripts/check-ui-contract.mjs",
     "ds:verify": "npm run tokens:check && npm run ds:check && npm run build:vanilla && npm run build-storybook"
   },
   "devDependencies": {

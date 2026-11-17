@@ -23,7 +23,7 @@ function renderStreamingHtml(words, count, streaming) {
 
   const wordsHtml = shown
     .map(({ word, mono }, i) => {
-      const isFresh = streaming && shown.length - 1 - i < 2;
+      const isFresh = streaming && shown.length - 1 - i < 3;
       const wordCls = isFresh ? 'ds-streaming-word ds-streaming-word--fresh' : 'ds-streaming-word';
       const content = mono
         ? `<span class="ds-streaming-code">${word}</span>`
@@ -42,9 +42,9 @@ function renderStreamingHtml(words, count, streaming) {
 
 /**
  * Default: Live Interactive Streaming Text
- * Starts streaming tokens naturally with 95ms cadence, highlighting fresh words in blue,
- * pulsing the caret, and transitioning words smoothly to settled state.
- * Clicking on the text pauses, resumes, or replays stream.
+ * Streams words smoothly via requestAnimationFrame with punctuation-aware cadence,
+ * blur-slide token reveal, 3-word fresh highlight trail, and graceful caret settle.
+ * Clicking on the text pauses, resumes, or replays the stream.
  */
 export const Default = {
   render: () => {
@@ -53,7 +53,7 @@ export const Default = {
 
     root.innerHTML = `
       <section class="ds-story-stage">
-<div class="ds-stream-viewport">
+        <div class="ds-stream-viewport">
           <p data-slot="streaming-text" class="ds-streaming-text" title="Click text to pause or replay"></p>
         </div>
       </section>
@@ -61,28 +61,43 @@ export const Default = {
 
     const textEl = root.querySelector('.ds-streaming-text');
     let currentIndex = 0;
-    let timer = null;
+    let rafId = 0;
+    let nextWordAt = 0;
     let isPlaying = true;
+    const decayTimers = [];
     const wordSpans = [];
 
     const caret = document.createElement('span');
     caret.setAttribute('aria-hidden', 'true');
     caret.className = 'ds-streaming-caret';
 
-    function addNextWord() {
-      if (currentIndex >= WORDS.length) {
-        if (caret.parentNode) caret.parentNode.removeChild(caret);
-        wordSpans.forEach((span) => span.classList.remove('ds-streaming-word--fresh'));
-        isPlaying = false;
-        return;
-      }
+    const isReduced = () => (
+      (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      || Boolean(root.closest('[data-reduced-motion="true"]'))
+    );
 
-      const item = WORDS[currentIndex];
+    const clearPending = () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      while (decayTimers.length) {
+        clearTimeout(decayTimers.pop());
+      }
+    };
+
+    const cadenceFor = (word) => {
+      if (/[.!?]$/.test(word)) return 175;
+      if (/[,;:]$/.test(word)) return 125;
+      return 65;
+    };
+
+    const appendWord = (item, fresh) => {
       const token = document.createElement('span');
       token.className = 'ds-streaming-token';
 
       const wordSpan = document.createElement('span');
-      wordSpan.className = 'ds-streaming-word ds-streaming-word--fresh';
+      wordSpan.className = fresh ? 'ds-streaming-word ds-streaming-word--fresh' : 'ds-streaming-word';
 
       if (item.mono) {
         const code = document.createElement('span');
@@ -97,46 +112,92 @@ export const Default = {
       token.appendChild(document.createTextNode(' '));
       wordSpans.push(wordSpan);
 
-      if (caret.parentNode) {
-        textEl.insertBefore(token, caret);
+      if (fresh) {
+        if (caret.parentNode) textEl.insertBefore(token, caret);
+        else {
+          textEl.appendChild(token);
+          textEl.appendChild(caret);
+        }
       } else {
         textEl.appendChild(token);
-        textEl.appendChild(caret);
       }
+    };
 
-      for (let j = 0; j < wordSpans.length - 2; j++) {
-        wordSpans[j].classList.remove('ds-streaming-word--fresh');
+    const finishStream = () => {
+      isPlaying = false;
+      const tailSpans = wordSpans.slice(Math.max(0, wordSpans.length - 3));
+      tailSpans.forEach((span, idx) => {
+        decayTimers.push(window.setTimeout(() => {
+          span.classList.remove('ds-streaming-word--fresh');
+        }, idx * 85));
+      });
+      decayTimers.push(window.setTimeout(() => {
+        caret.classList.add('ds-streaming-caret--done');
+        decayTimers.push(window.setTimeout(() => {
+          if (!isPlaying && caret.parentNode) caret.parentNode.removeChild(caret);
+        }, 210));
+      }, tailSpans.length * 85));
+    };
+
+    const tick = (ts) => {
+      rafId = 0;
+      if (!isPlaying || !textEl.isConnected) return;
+      if (ts >= nextWordAt) {
+        const item = WORDS[currentIndex];
+        appendWord(item, true);
+        for (let j = 0; j < wordSpans.length - 3; j++) {
+          wordSpans[j].classList.remove('ds-streaming-word--fresh');
+        }
+        currentIndex++;
+        if (currentIndex >= WORDS.length) {
+          finishStream();
+          return;
+        }
+        nextWordAt = ts + cadenceFor(item.word);
       }
-
-      currentIndex++;
-      timer = setTimeout(addNextWord, 95);
-    }
+      rafId = requestAnimationFrame(tick);
+    };
 
     function resetAndStart() {
-      clearTimeout(timer);
+      clearPending();
       currentIndex = 0;
       wordSpans.length = 0;
       textEl.innerHTML = '';
+      caret.classList.remove('ds-streaming-caret--done');
+      if (isReduced()) {
+        WORDS.forEach((item) => appendWord(item, false));
+        currentIndex = WORDS.length;
+        isPlaying = false;
+        return;
+      }
       textEl.appendChild(caret);
       isPlaying = true;
-      addNextWord();
+      nextWordAt = performance.now();
+      rafId = requestAnimationFrame(tick);
     }
 
     textEl.addEventListener('click', () => {
       if (currentIndex >= WORDS.length) {
         resetAndStart();
       } else if (isPlaying) {
-        clearTimeout(timer);
+        clearPending();
         isPlaying = false;
       } else {
         isPlaying = true;
-        addNextWord();
+        nextWordAt = performance.now();
+        rafId = requestAnimationFrame(tick);
       }
     });
 
-    setTimeout(() => {
-      resetAndStart();
-    }, 50);
+    requestAnimationFrame(() => {
+      if (root.isConnected) {
+        resetAndStart();
+      } else {
+        requestAnimationFrame(() => {
+          if (root.isConnected) resetAndStart();
+        });
+      }
+    });
 
     return root;
   },

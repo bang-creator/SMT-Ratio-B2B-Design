@@ -1,0 +1,131 @@
+import { story } from '../../story-helpers.js';
+
+export default {
+  title: 'SMT Ratio / Application / Sidebar',
+  parameters: { layout: 'fullscreen' },
+};
+
+const SMT_RATIO_LOGO = `<svg class="ds-sidebar__logo" width="103" height="26" viewBox="0 0 103 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M46.4118 8.11424C46.5223 8.11424 46.6119 8.20378 46.6119 8.31424V9.54613C46.6119 9.65659 46.5223 9.74613 46.4118 9.74613H42.7878C42.6773 9.74613 42.5878 9.83568 42.5878 9.94613V24.478C42.5878 24.5885 42.4982 24.678 42.3878 24.678H38.3544C38.244 24.678 38.1544 24.5885 38.1544 24.478V9.94613C38.1544 9.83568 38.0649 9.74613 37.9544 9.74613H34.4876C34.3772 9.74613 34.2876 9.65659 34.2876 9.54613V8.31424C34.2876 8.20378 34.3772 8.11424 34.4876 8.11424H46.4118Z" fill="currentColor"/>
+<path d="M14.7242 24.6781C14.6138 24.6781 14.5242 24.5885 14.5242 24.4781V8.3143C14.5242 8.20385 14.6138 8.1143 14.7242 8.1143H19.1793C19.2593 8.1143 19.3316 8.16198 19.3631 8.23552L23.2277 17.2529C23.6006 18.2119 23.6866 18.4925 23.7921 19.3723C23.796 19.4043 23.8231 19.4288 23.8553 19.4288C23.8857 19.4288 23.9119 19.4069 23.9177 19.3771C24.0743 18.5729 24.1598 18.2656 24.506 17.2801L27.8844 8.24426C27.9136 8.1661 27.9883 8.1143 28.0717 8.1143H32.7919C32.9023 8.1143 32.9919 8.20385 32.9919 8.3143V24.4781C32.9919 24.5885 32.9023 24.6781 32.7919 24.6781H28.7586C28.6481 24.6781 28.5586 24.5885 28.5586 24.4781V14.5603C28.5586 13.4725 28.5586 13.2647 28.6595 12.1947C28.6637 12.1508 28.6292 12.1125 28.5852 12.1125C28.553 12.1125 28.5244 12.1333 28.5142 12.1638C28.2837 12.8516 28.2179 12.9673 27.6338 14.5603L23.9829 24.5467C23.954 24.6256 23.879 24.6781 23.795 24.6781H21.9716C21.892 24.6781 21.82 24.6309 21.7883 24.5579L17.4345 14.5603C16.8254 13.2097 16.7578 12.8647 16.6542 12.1697C16.6493 12.1369 16.6212 12.1125 16.588 12.1125C16.5469 12.1125 16.5155 12.1491 16.5214 12.1898C16.5939 12.6926 16.6185 13.3192 16.6185 14.5603V24.4781C16.6185 24.5885 16.529 24.6781 16.4185 24.6781H14.7242Z" fill="currentColor"/>
+<path d="M0.454127 23.5938C0.453513 23.5953 0.452469 23.5966 0.451839 23.5981C0.450509 23.6012 0.451871 23.6051 0.455288 23.6065C2.54777 24.4769 4.77711 24.9549 7.04925 25.0318C10.4837 25.0318 13.7894 23.3718 13.7894 19.5213C13.7894 17.1254 12.4328 15.3714 8.51749 14.0024C5.88154 13.1039 4.06985 12.5478 4.06985 10.9819C4.06985 9.71552 5.27191 9.11656 6.49973 9.11656C8.82406 9.11656 11.0038 11.2947 12.8443 13.4073C12.8611 13.4266 12.8854 13.4376 12.911 13.4376C12.9599 13.4376 12.9995 13.398 12.9995 13.3491V9.12223C12.9995 9.04115 12.9506 8.96798 12.8753 8.93776C10.9962 8.1831 8.98801 7.7812 6.96339 7.75608C2.83344 7.75608 0 9.6214 0 12.8387C0 15.5426 2.03492 17.1598 5.53809 18.4175C8.25133 19.3759 9.8741 19.9492 9.8741 21.5064C9.8741 22.9012 8.63771 23.5685 7.3326 23.5685C4.84217 23.5685 2.54794 20.9589 0.568939 18.9675C0.556424 18.9549 0.539526 18.948 0.521772 18.948C0.484927 18.948 0.455057 18.9779 0.455057 19.0147V23.5891C0.455057 23.5907 0.454741 23.5923 0.454127 23.5938Z" fill="currentColor"/>
+<path d="M54.627 1.98227L50.5801 12.8155C50.3685 13.3608 49.5532 13.1615 49.617 12.5801L50.1461 6.01822C50.2728 5.06689 49.8158 4.63811 48.8287 4.63811H41.6759C41.093 4.67799 40.9266 3.85661 41.4791 3.66649L52.8054 0.0883742C54.0125 -0.327043 55.0889 0.792145 54.627 1.98227Z" fill="currentColor"/>
+<path d="M58.0036 24.6736H55.5522V9.53083H62.0822C63.4417 9.53083 64.512 9.94302 65.293 10.7674C66.074 11.5773 66.4645 12.6838 66.4645 14.0867C66.4645 15.1714 66.2114 16.0753 65.7052 16.7985C65.2134 17.5072 64.4831 18.0061 63.514 18.2954L66.7899 24.6736H64.0564L61.0192 18.5557H58.0036V24.6736ZM61.9086 16.4948C62.5306 16.4948 63.0151 16.3357 63.3622 16.0175C63.7093 15.6848 63.8828 15.2148 63.8828 14.6073V13.566C63.8828 12.9586 63.7093 12.4957 63.3622 12.1776C63.0151 11.8449 62.5306 11.6786 61.9086 11.6786H58.0036V16.4948H61.9086Z" fill="currentColor"/>
+<path d="M77.2143 24.6736C76.5924 24.6736 76.1151 24.5 75.7824 24.1529C75.4498 23.7913 75.2473 23.3358 75.175 22.7862H75.0665C74.8496 23.4949 74.4519 24.03 73.8733 24.3916C73.2948 24.7531 72.5934 24.9339 71.769 24.9339C70.5975 24.9339 69.6935 24.6302 69.0572 24.0228C68.4352 23.4153 68.1243 22.5981 68.1243 21.5713C68.1243 20.4432 68.5293 19.5971 69.3392 19.033C70.1636 18.469 71.364 18.1869 72.9405 18.1869H74.9798V17.2324C74.9798 16.5382 74.7917 16.003 74.4157 15.627C74.0397 15.2509 73.4539 15.0629 72.6584 15.0629C71.9931 15.0629 71.4508 15.2076 71.0313 15.4968C70.6119 15.7861 70.2576 16.1549 69.9683 16.6032L68.5582 15.3233C68.9342 14.6869 69.4621 14.1662 70.1419 13.7613C70.8216 13.3418 71.7111 13.1321 72.8103 13.1321C74.2711 13.1321 75.392 13.472 76.173 14.1518C76.9539 14.8315 77.3445 15.8078 77.3445 17.0805V22.7428H78.5377V24.6736H77.2143ZM72.4415 23.1333C73.1791 23.1333 73.7866 22.9742 74.2638 22.656C74.7411 22.3233 74.9798 21.8822 74.9798 21.3326V19.7055H72.9839C71.3495 19.7055 70.5324 20.2118 70.5324 21.2242V21.6147C70.5324 22.1209 70.6987 22.5041 71.0313 22.7645C71.3785 23.0103 71.8485 23.1333 72.4415 23.1333Z" fill="currentColor"/>
+<path d="M83.4818 24.6736C82.6574 24.6736 82.0355 24.4639 81.6161 24.0444C81.1966 23.6106 80.9869 23.0031 80.9869 22.2221V15.3233H79.2297V13.3924H80.1842C80.5747 13.3924 80.8423 13.3057 80.9869 13.1321C81.146 12.9586 81.2256 12.6765 81.2256 12.286V10.3118H83.3516V13.3924H85.7163V15.3233H83.3516V22.7428H85.5428V24.6736H83.4818Z" fill="currentColor"/>
+<path d="M89.0407 11.3749C88.5489 11.3749 88.1873 11.2592 87.9559 11.0278C87.739 10.7963 87.6305 10.4998 87.6305 10.1383V9.76947C87.6305 9.40789 87.739 9.1114 87.9559 8.87999C88.1873 8.64859 88.5489 8.53288 89.0407 8.53288C89.5324 8.53288 89.8867 8.64859 90.1037 8.87999C90.3206 9.1114 90.4291 9.40789 90.4291 9.76947V10.1383C90.4291 10.4998 90.3206 10.7963 90.1037 11.0278C89.8867 11.2592 89.5324 11.3749 89.0407 11.3749ZM87.8475 13.3924H90.2122V24.6736H87.8475V13.3924Z" fill="currentColor"/>
+<path d="M97.5807 24.9339C96.7997 24.9339 96.0837 24.7965 95.4329 24.5217C94.7965 24.2469 94.2542 23.8564 93.8058 23.3502C93.3575 22.8296 93.0104 22.2076 92.7645 21.4845C92.5186 20.7469 92.3957 19.9297 92.3957 19.033C92.3957 18.1363 92.5186 17.3264 92.7645 16.6032C93.0104 15.8656 93.3575 15.2437 93.8058 14.7375C94.2542 14.2168 94.7965 13.8191 95.4329 13.5443C96.0837 13.2695 96.7997 13.1321 97.5807 13.1321C98.3617 13.1321 99.0704 13.2695 99.7067 13.5443C100.358 13.8191 100.907 14.2168 101.356 14.7375C101.804 15.2437 102.151 15.8656 102.397 16.6032C102.643 17.3264 102.766 18.1363 102.766 19.033C102.766 19.9297 102.643 20.7469 102.397 21.4845C102.151 22.2076 101.804 22.8296 101.356 23.3502C100.907 23.8564 100.358 24.2469 99.7067 24.5217C99.0704 24.7965 98.3617 24.9339 97.5807 24.9339ZM97.5807 22.9814C98.3906 22.9814 99.0414 22.7355 99.5332 22.2438C100.025 21.7376 100.271 20.9855 100.271 19.9876V18.0785C100.271 17.0805 100.025 16.3357 99.5332 15.8439C99.0414 15.3377 98.3906 15.0846 97.5807 15.0846C96.7707 15.0846 96.1199 15.3377 95.6282 15.8439C95.1364 16.3357 94.8905 17.0805 94.8905 18.0785V19.9876C94.8905 20.9855 95.1364 21.7376 95.6282 22.2438C96.1199 22.7355 96.7707 22.9814 97.5807 22.9814Z" fill="currentColor"/>
+</svg>`;
+
+const COLLAPSE_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M6 5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2V5H6Zm4 0v14h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-8ZM3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Z" clip-rule="evenodd"/></svg>`;
+const SEARCH_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.875 4.5C7.35418 4.5 4.5 7.35418 4.5 10.875C4.5 14.3958 7.35418 17.25 10.875 17.25C14.3958 17.25 17.25 14.3958 17.25 10.875C17.25 7.35418 14.3958 4.5 10.875 4.5ZM2.5 10.875C2.5 6.24962 6.24962 2.5 10.875 2.5C15.5004 2.5 19.25 6.24962 19.25 10.875C19.25 12.8273 18.582 14.6236 17.462 16.0478L21.2071 19.7929C21.5976 20.1834 21.5976 20.8166 21.2071 21.2071C20.8166 21.5976 20.1834 21.5976 19.7929 21.2071L16.0478 17.462C14.6236 18.582 12.8273 19.25 10.875 19.25C6.24962 19.25 2.5 15.5004 2.5 10.875Z"/></svg>`;
+const LIST_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.94845 4.68299C5.32822 4.24896 5.87687 4 6.4536 4H17.5461C18.1228 4 18.6714 4.24896 19.0512 4.68299L22.5512 8.68299C23.6827 9.97616 22.7644 12 21.0461 12H2.9536C1.23528 12 0.316926 9.97616 1.44845 8.68299L4.94845 4.68299ZM17.5461 6L6.4536 6L2.9536 10H21.0461L17.5461 6ZM1.99983 15C1.99983 14.4477 2.44755 14 2.99983 14H20.9998C21.5521 14 21.9998 14.4477 21.9998 15C21.9998 15.5523 21.5521 16 20.9998 16H2.99983C2.44755 16 1.99983 15.5523 1.99983 15ZM2.99983 19C2.99983 18.4477 3.44755 18 3.99983 18H19.9998C20.5521 18 20.9998 18.4477 20.9998 19C20.9998 19.5523 20.5521 20 19.9998 20H3.99983C3.44755 20 2.99983 19.5523 2.99983 19Z"/></svg>`;
+const HISTORY_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.954 7.807A1 1 0 0 0 3.968 9c.064.002.13-.003.196-.014l3-.5a1 1 0 0 0-.328-1.972l-.778.13a8 8 0 1 1-2.009 6.247 1 1 0 0 0-1.988.219C2.614 18.11 6.852 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2a9.975 9.975 0 0 0-7.434 3.312l-.08-.476a1 1 0 0 0-1.972.328l.44 2.643ZM12 7a1 1 0 0 1 1 1v3.586l2.207 2.207a1 1 0 0 1-1.414 1.414l-2.5-2.5A1 1 0 0 1 11 12V8a1 1 0 0 1 1-1Z" clip-rule="evenodd"/></svg>`;
+const RULE_MANAGEMENT_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.4008 3.76689C12.1453 3.6551 11.8547 3.6551 11.5992 3.76689L5.59918 6.39189C5.23519 6.55113 5 6.91075 5 7.30804V13C5 16.866 8.13401 20 12 20C15.866 20 19 16.866 19 13V7.30804C19 6.91075 18.7648 6.55113 18.4008 6.39189L12.4008 3.76689ZM10.7975 1.93457C11.5641 1.5992 12.4359 1.5992 13.2025 1.93457L19.2025 4.55957C20.2944 5.03731 21 6.11615 21 7.30804V13C21 17.9706 16.9706 22 12 22C7.02944 22 3 17.9706 3 13V7.30804C3 6.11615 3.70558 5.03731 4.79754 4.55957L10.7975 1.93457Z"/><path d="M12 9.00001C12.5523 9.00001 13 9.44773 13 10H11C11 9.44773 11.4477 9.00001 12 9.00001ZM15 10.3558V10C15 8.34316 13.6569 7.00001 12 7.00001C10.3431 7.00001 9 8.34316 9 10V10.3558C8.39796 10.7483 8 11.4277 8 12.2V14.3C8 15.515 8.98497 16.5 10.2 16.5H13.8C15.015 16.5 16 15.515 16 14.3V12.2C16 11.4277 15.602 10.7483 15 10.3558ZM10.2 12H13.8C13.9105 12 14 12.0896 14 12.2V14.3C14 14.4105 13.9105 14.5 13.8 14.5H10.2C10.0895 14.5 10 14.4105 10 14.3V12.2C10 12.0896 10.0895 12 10.2 12Z"/></svg>`;
+const GLOBE_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>`;
+const CHECK_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5 6.5 11.5 3 8"/></svg>`;
+
+export const Default = story(
+  'SMT Ratio / Application / Sidebar / Default',
+  `
+    <div class="ds-shell">
+      <aside class="ds-sidebar" data-ds-sidebar aria-label="SMT Ratio navigation">
+        <div class="ds-sidebar__header">
+          <button type="button" class="ds-sidebar__brand" aria-label="SMT Ratio">
+            ${SMT_RATIO_LOGO}
+          </button>
+          <button type="button" class="ds-sidebar__collapse" data-ds-sidebar-collapse aria-label="Collapse sidebar" aria-expanded="true">
+            ${COLLAPSE_ICON}
+          </button>
+        </div>
+
+        <button type="button" class="ds-search-trigger ds-sidebar__search" data-ds-search-trigger aria-haspopup="dialog" aria-expanded="false" aria-keyshortcuts="Meta+K Control+K">
+          <span class="ds-search-trigger__icon" aria-hidden="true">${SEARCH_ICON}</span>
+          <span class="ds-search-trigger__label">Search</span>
+          <kbd class="ds-search-trigger__kbd" aria-hidden="true">⌘K</kbd>
+        </button>
+
+        <nav class="ds-nav" aria-label="Primary navigation">
+          <a class="ds-nav__item is-active" href="#list" data-nav-id="list" aria-current="page">
+            ${LIST_ICON}
+            <span class="ds-nav__label">List</span>
+          </a>
+          <a class="ds-nav__item" href="#history" data-nav-id="history">
+            ${HISTORY_ICON}
+            <span class="ds-nav__label">History</span>
+          </a>
+          <a class="ds-nav__item" href="#rule-management" data-nav-id="rule-management">
+            ${RULE_MANAGEMENT_ICON}
+            <span class="ds-nav__label">Rule Management</span>
+          </a>
+        </nav>
+
+        <div class="ds-sidebar__footer">
+          <div class="ds-menu ds-menu--top ds-menu--block" data-ds-menu>
+            <button type="button" class="ds-nav__item ds-menu__trigger" aria-haspopup="menu" aria-expanded="false">
+              ${GLOBE_ICON}
+              <span class="ds-nav__label">Language</span>
+            </button>
+            <div class="ds-menu__content" role="menu" aria-label="Language" hidden>
+              <button type="button" class="ds-menu__item" role="menuitemradio" aria-checked="false" data-value="ko">
+                <span class="ds-menu__item-left">
+                  <span class="ds-menu__check">${CHECK_ICON}</span>
+                  <span>한국어</span>
+                </span>
+              </button>
+              <button type="button" class="ds-menu__item" role="menuitemradio" aria-checked="false" data-value="en">
+                <span class="ds-menu__item-left">
+                  <span class="ds-menu__check">${CHECK_ICON}</span>
+                  <span>English</span>
+                </span>
+              </button>
+              <button type="button" class="ds-menu__item" role="menuitemradio" aria-checked="true" data-value="vi">
+                <span class="ds-menu__item-left">
+                  <span class="ds-menu__check">${CHECK_ICON}</span>
+                  <span>Tiếng Việt</span>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="ds-sidebar__account" aria-label="Thai Bang Organization">
+            <span class="ds-avatar" aria-hidden="true">T</span>
+            <span class="ds-sidebar__account-info">
+              <span class="ds-sidebar__account-title">Thai Bang</span>
+              <span class="ds-sidebar__account-support">Organization</span>
+            </span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="ds-dialog__backdrop" data-ds-search-dialog role="dialog" aria-modal="true" aria-label="Search" hidden>
+        <section class="ds-cmd-palette" data-slot="command-palette">
+          <div class="ds-cmd-palette-header">
+            <span class="ds-cmd-palette-icon" aria-hidden="true">${SEARCH_ICON}</span>
+            <input type="text" class="ds-cmd-palette-input" data-slot="command-palette-input" placeholder="Search for anything..." aria-label="Search for anything" role="combobox" aria-expanded="true" autocomplete="off">
+            <span class="ds-cmd-palette-kbd">esc</span>
+          </div>
+          <div class="ds-cmd-palette-list" role="listbox" aria-label="Navigation items">
+            <div class="ds-cmd-palette-group-title">Navigation</div>
+            <button type="button" class="ds-cmd-palette-item ds-cmd-palette-item--active" role="option" data-slot="command-palette-item" data-id="list" aria-selected="true">
+              <span class="ds-cmd-palette-item-icon" aria-hidden="true">${LIST_ICON}</span>
+              <span class="ds-cmd-palette-label">List</span>
+            </button>
+            <button type="button" class="ds-cmd-palette-item" role="option" data-slot="command-palette-item" data-id="history" aria-selected="false">
+              <span class="ds-cmd-palette-item-icon" aria-hidden="true">${HISTORY_ICON}</span>
+              <span class="ds-cmd-palette-label">History</span>
+            </button>
+            <button type="button" class="ds-cmd-palette-item" role="option" data-slot="command-palette-item" data-id="rule-management" aria-selected="false">
+              <span class="ds-cmd-palette-item-icon" aria-hidden="true">${RULE_MANAGEMENT_ICON}</span>
+              <span class="ds-cmd-palette-label">Rule Management</span>
+            </button>
+            <div class="ds-cmd-palette-empty" data-slot="command-palette-empty" hidden>No matching pages</div>
+          </div>
+        </section>
+      </div>
+
+      <main class="ds-main" aria-label="SMT Ratio workspace canvas"></main>
+    </div>
+  `,
+  { layout: 'fullscreen' }
+);

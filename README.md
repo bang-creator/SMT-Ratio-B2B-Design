@@ -15,7 +15,7 @@ Open:
 http://127.0.0.1:6006
 ```
 
-The Storybook tree is the shared review surface for every component, state, token decision, and motion hook. Start at `Default/Shared` for the 33 shared components, then compare `Default/Application` and `AMS B2B/Application`.
+The Storybook tree is the shared review surface for every component, state, token decision, and motion hook. Start at `Default/Shared` for the shared components, then compare `Default/Application` and `SMT Ratio/Application`.
 
 ## Use in a plain HTML project
 
@@ -53,4 +53,4 @@ Edit `docs/design-system/tokens.json`, regenerate `tokens/`, then review the cat
 
 ## Feedback workflow
 
-Product feedback becomes a shared DS change only after owner approval. Update the CSS/JS/token source, the Storybook catalog, and `docs/design-system/CHANGELOG.md` together. Rules live in `AGENTS.md`; the cross-project handoff is in `docs/design-system/HANDOFF.md`; the parallel-AI workflow is in `docs/design-system/AI-HANDOFF.md`.
+Product feedback becomes a shared DS change only after owner approval. Update the CSS/JS/token source, the Storybook catalog, and `docs/design-system/CHANGELOG.md` together. Fast AI lookup lives in `docs/design-system/AI-QUICK-REFERENCE.md`; rules live in `AGENTS.md`; the cross-project handoff is in `docs/design-system/HANDOFF.md`; the parallel-AI workflow is in `docs/design-system/AI-HANDOFF.md`.

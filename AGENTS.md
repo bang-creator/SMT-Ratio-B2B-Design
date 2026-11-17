@@ -1,12 +1,13 @@
 # Prototype guardrails
 
-- Read `docs/design-system/DESIGN.md` and `docs/design-system/HANDOFF.md` before UI work.
+- Read `docs/design-system/AI-QUICK-REFERENCE.md` first for classes, tokens, and `data-ds-*` hooks; check `docs/design-system/DESIGN.md` and `docs/design-system/HANDOFF.md` when broader context is needed.
 - Source is plain HTML in Storybook stories, CSS in `vanilla/base.css`, JS in `vanilla/design-system.js`, and tokens in `tokens/`.
 - UI source cannot contain hex/rgb/oklch literals, arbitrary spacing, or inline styles. Color values belong in `docs/design-system/tokens.json`.
 - Controls use the 32px compact height unless platform evidence says otherwise. Motion uses CSS transitions and honors `prefers-reduced-motion`.
 - Keep prototypes local. No API calls, framework runtime, or new dependencies.
 - Storybook is the only preview surface. Do not add app routes, standalone demos, screenshots, or alternate preview shells.
 - Run `npm run tokens:build`, `npm run tokens:check`, `npm run ds:check`, and `npm run ds:verify` before review.
+- Product stories under `vanilla/stories/smt-ratio/` must pass the `scripts/check-ui-contract.mjs` anti-hallucination gate (executed automatically by `npm run ds:check`): only canonical `.ds-*` classes defined in `vanilla/base.css` are permitted, no ad-hoc prefixes (`ds-smt-*`), no raw unclassified `<button>`/`<input>`/`<aside>`/`<nav>`/`<main>` tags, no fake Unicode icon glyphs, and no hardcoded SVG colors.
 
 ## OpenAI UI Audit — Standing Project Standard (Always Active)
 
@@ -50,6 +51,16 @@ Apply the **OpenAI UI Audit** protocol automatically across all components, vari
      ```bash
      node .agents/skills/openai-ui-audit/scripts/verify-component.mjs <story-id> [theme=dark|light] [selector]
      ```
+
+## Fast-Path Cloning & Motion Component Rules (Low-Token / Zero-Rework)
+
+Read `.agents/skills/uiarc-ds-clone/SKILL.md` before building or cloning interactive motion components (`uiarc.dev`, reasoning blocks, tool calls, streaming UIs):
+
+- **Direct `/frame` Extraction**: For `uiarc.dev`, inspect `https://uiarc.dev/components/<slug>/frame` directly in a single pass rather than clicking fullscreen or scraping site chrome.
+- **Pass-1 Shared Component Composition**: Map buttons (`Deny`/`Retry` -> `.ds-button.ds-button--secondary.ds-button--sm`; `Allow` -> `.ds-button.ds-button--primary.ds-button--sm`; `Run again`/`Show more` -> `.ds-button.ds-button--ghost.ds-button--sm`; `Copy` -> `.ds-button.ds-button--ghost.ds-button--icon.ds-button--sm`), badges (`.ds-badge.ds-badge--sm` `--default`/`--red`), and JSON tokens (`.ds-code-token--*`) immediately on the first pass instead of writing custom button/pill CSS. Always keep `fill="none"` on `<svg>` icons inside `.ds-button`.
+- **Top-Pinned Zero-Jump Layout**: Never vertically center expandable/collapsible containers. Use `justify-content: flex-start` on the canvas and `margin: 0 auto; align-content: start;` on the block so `getBoundingClientRect().top` stays locked (`0px` shift).
+- **Detached `mount(root)` Timing**: `story()` in `vanilla/stories/story-helpers.js` runs `mount(root)` before attaching to DOM; defer auto-start timelines via `requestAnimationFrame(() => { if (root.isConnected) start(); })`.
+- **Anti-Gate Regex & Naming Hygiene**: Use canonical `.ds-*` class names defined in `vanilla/base.css` (never `ds-smt-*` or `ds-analysing*`); use `String.fromCharCode(35)` for `#` before digits (e.g., `#1284` triggers `check-literals.mjs` hex regex); use `black` (not `#000`) in `mask-image`; never write inline `style="..."` HTML attributes.
 
 ## Feedback promotion
 

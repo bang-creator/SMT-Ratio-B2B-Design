@@ -2,6 +2,57 @@
 
 Use this file for approved changes to public exports. Product-only tweaks stay in the product until promotion is approved.
 
+## 2026-11-17 (SMT Ratio Sidebar Ground-Truth Fix, Text Tokens & Lint Guard)
+
+- **Tokens (`docs/design-system/tokens.json`, `tokens/tokens.css`, `tokens/tokens.dark.css`)**:
+  - Added `color.semantic.text.sidebar` (`#282828` light / `#dcdcdc` dark, matching `platform.openai.com --color-text`) and `color.semantic.text.sidebarSecondary` (`#5d5d5d` light / `#afafaf` dark, matching `--color-text-secondary`).
+- **Sidebar CSS Cleanup & Fidelity (`vanilla/base.css`)**:
+  - Removed the stale duplicate `/* SMT Ratio application shell */` override block that had forced `fill: none; stroke: currentColor` on `.ds-nav__item svg`, `32px` on `.ds-avatar`, and `50px` on `.ds-sidebar__account`.
+  - Aligned `.ds-sidebar`, `.ds-sidebar__brand`, `.ds-sidebar__collapse`, `.ds-search-trigger`, `.ds-nav__item`, `.ds-avatar`, `.ds-sidebar__account-title`, and `.ds-sidebar__account-support` to exact `platform.openai.com` typography (`14px`/`12px`, `400`/`600`, `-0.01em`), colors, `24×24px` avatar, `44px` footer row, and `6%` currentColor border.
+- **SMT Ratio Sidebar & Prototype (`vanilla/stories/smt-ratio/application/sidebar.stories.js`, `smt-ratio-prototype.html`)**:
+  - Added `SMT Ratio / Application / Sidebar` story alongside `Analysing`, plus standalone `smt-ratio-prototype.html` with `SMT_Ratio.svg`, `Search` (`⌘K`), `List` / `History` / `Rule Management`, upward `Language` popout (`한국어`, `English`, `Tiếng Việt`), bottom Account info cluster, and empty `.ds-main`.
+- **Anti-Hallucination Lint Gate (`scripts/check-ui-contract.mjs`)**:
+  - Added CSS ground-truth assertions ensuring `.ds-sidebar` appears once without override blocks, uses `--color-semantic-text-sidebar` / `--color-semantic-text-sidebar-secondary`, never overrides `.ds-nav__item svg` with stroke-only rules, and keeps `.ds-avatar` at `24×24px`.
+
+## 2026-11-17 (Remove SMT Ratio Sidebar Story)
+
+- **SMT Ratio cleanup**: Removed `vanilla/stories/smt-ratio/application/sidebar.stories.js` per user request, leaving `SMT Ratio / Application / Analysing` as the single product application story. Shared canonical `Default / Shared / Sidebar` remains intact in `vanilla/stories/shared/sidebar.stories.js`.
+- **Docs sync**: Updated [`PUBLIC_EXPORTS.md`](./PUBLIC_EXPORTS.md), [`AI-QUICK-REFERENCE.md`](./AI-QUICK-REFERENCE.md), [`vanilla/README.md`](../../vanilla/README.md), and `scripts/audit_all_components.mjs`.
+
+## 2026-11-17 (Lightweight Catalog Trim & AI Quick Reference)
+
+- **Catalog cleanup**: Temporarily removed Default Application stories `#06` through `#151` (146 story files) from `vanilla/stories/default/` and pruned their CSS rules from `vanilla/base.css` (25,146 -> 4,734 lines), keeping `Default / Shared` (`32`), `Default / Application` `01`–`05` (`5`), and all `SMT Ratio / Application` components (`Analysing`, `Sidebar`, plus `.ds-cmd-palette*`, keyframes, and utility classes) intact.
+- **Audit script sync**: Updated `STORIES_TO_AUDIT` in `scripts/audit_all_components.mjs` to match the active stories (`Shared`, `Application 01–05`, `SMT Ratio`).
+- **Low-effort AI onboarding**: Added [`AI-QUICK-REFERENCE.md`](./AI-QUICK-REFERENCE.md) indexing setup, guardrails, semantic tokens, utility classes, `.ds-*` classes/modifiers, and `data-ds-*` hooks in one file; updated [`PUBLIC_EXPORTS.md`](./PUBLIC_EXPORTS.md), [`AI-HANDOFF.md`](./AI-HANDOFF.md), [`AGENTS.md`](../../AGENTS.md), [`README.md`](../../README.md), and [`vanilla/README.md`](../../vanilla/README.md) with accurate counts and direct links.
+
+## 2026-11-17 (Restore `surfaceSecondary` Token Hierarchy for Dark & Light Modes)
+
+- **Tokens ([tokens.json](file:///Users/bangworkinghub/Documents/OpenAI%20Design%20System/docs/design-system/tokens.json), [tokens.css](file:///Users/bangworkinghub/Documents/OpenAI%20Design%20System/tokens/tokens.css), [tokens.dark.css](file:///Users/bangworkinghub/Documents/OpenAI%20Design%20System/tokens/tokens.dark.css))**:
+  - Restored `color.semantic.background.surfaceSecondary` from `#181818` dark / `#f9f9f9` light back to `#303030` dark / `#f3f3f3` (`{color.primitive.gray.75}`) light.
+  - Resolved overly dark `#181818` backgrounds across Shared and Application components relying on `--color-semantic-background-surface-secondary` (Code Snippet singleline/inline/multiline, File Uploader dropzone, Progress Bar track, Scrollbar card, Breadcrumb badge, Menu trigger hover, Message Queue items, Code Runner output, and Application cards/chips).
+
+## 2026-11-17 (SMT Ratio Analysing — Canonical `.ds-tool-run` & Smooth `.ds-streaming-*` Composition)
+
+- Upgraded shared Streaming Text tokens (`.ds-streaming-token`, `.ds-streaming-word`, `.ds-streaming-word--fresh`, `.ds-streaming-caret`) in `vanilla/base.css` and `vanilla/stories/default/streaming-text.stories.js`: added GPU-accelerated blur-slide word reveal (`@keyframes ds-stream-word-in`), inherited color settle transition (`480ms cubic-bezier(0.16, 1, 0.3, 1)`), 3-word fresh highlight trail driven via `requestAnimationFrame` with punctuation-aware cadence, smooth `.ds-streaming-caret--done` exit, and reduced-motion rules.
+- Restored `SMT Ratio / Application / Analysing` under `vanilla/stories/smt-ratio/application/analysing.stories.js` using canonical `.ds-tool-run-canvas` and `.ds-tool-run` classes.
+- Added `.ds-tool-run` styles in `vanilla/base.css` (built to `vanilla/design-system.css`) composed from shared DS components (`.ds-button--primary`, `.ds-button--secondary`, `.ds-button--ghost`, `.ds-button--icon`, `.ds-button--sm`, `.ds-badge--sm` `--default`/`--red`, `.ds-code-token--string`/`--number`, `.ds-streaming-token`/`.ds-streaming-word`/`.ds-streaming-caret`), top-pinned layout (`align-content: start` / `justify-content: flex-start`), `400` weights, and reduced-motion rules.
+- Added `[data-ds-tool-run]` behavior in `vanilla/design-system.js` with specular `TextShimmer`, faded masked 2-line live thinking preview (`ds-tool-run__live-clip` composing DS `.ds-streaming-*` word streaming + spring `translateY` line scroll), live seconds counter, sequential per-row collapse, and `CopyButton` state transitions.
+
+## 2026-11-17 (Ground-Truth Sidebar Promotion, SMT Ratio Sidebar & UI Contract Lint Gate)
+
+- **Tokens (`docs/design-system/tokens.json`)**:
+  - Aligned `color.semantic.background.sidebar` light mode value to `{color.primitive.gray.75}` (`#f3f3f3`, keeping `#131313` in dark mode), matching live `https://platform.openai.com` captures.
+  - Added `color.semantic.background.sidebarActive` (`#ededed` light / `#303030` dark) for active sidebar navigation items and `.ds-search-trigger__kbd`.
+  - Added `layout.sidebar.collapsed` (`56px`, matching platform `--side-nav-collapsed-width`).
+- **Shared Sidebar, Navigation & Menu Promotion (`vanilla/base.css`, `vanilla/design-system.js`, `vanilla/stories/shared/sidebar.stories.js`)**:
+  - Updated `.ds-shell`, `.ds-sidebar`, `.ds-sidebar__header`, `.ds-sidebar__brand`, `.ds-sidebar__collapse`, `.ds-nav`, `.ds-nav__item`, `.ds-sidebar__footer`, `.ds-sidebar__account`, `.ds-avatar`, and `.ds-main` to match `platform.openai.com` ground truth (`260px` expanded / `56px` collapsed, `8px` padding, `36px` item height, `20×20px` icons, `400` weight, `24×24px` footer avatar, upward `.ds-menu--top.ds-menu--block` menu with `role="menuitemradio"`, and `[data-ds-sidebar]` collapse/nav/command-palette behavior).
+  - Created `Default / Shared / Sidebar` story under `vanilla/stories/shared/sidebar.stories.js`.
+- **SMT Ratio Clean Slate (`vanilla/stories/smt-ratio/application/sidebar.stories.js`)**:
+  - Removed the prior ad-hoc `analysing.stories.js` and `.ds-smt-*` / `.ds-analysing*` rules.
+  - Built `SMT Ratio / Application / Sidebar` strictly from canonical DS classes with `SMT_Ratio.svg` (`fill="currentColor"`), Search (`⌘K`), `List` / `History` / `Rule Management`, upward `Language` popout (`한국어`, `English`, `Tiếng Việt`), bottom Account info cluster, and an empty right-hand `.ds-main` canvas.
+- **Anti-Hallucination UI Lint Gate (`scripts/check-ui-contract.mjs`, `package.json`)**:
+  - Added `scripts/check-ui-contract.mjs` into `npm run ds:check` to reject ad-hoc prefixes (`ds-smt-*`), undefined `.ds-*` classes, unclassified interactive/landmark tags, Unicode glyph icon hacks, hardcoded SVG fills/strokes, and malformed sidebar anatomy.
+
 ## 2026-11-16 (Modal Secondary Button & Field Line, Menu Dividers & Chevron Direction, Badge Component, Text Input Support Icon Adornments, Checkbox 18x18 Bold Stroke, Tool Tips 8 Placements, Toggle Settings Alignment)
 
 ### Modal Component (`ds-dialog`)

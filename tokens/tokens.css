@@ -130,8 +130,9 @@
   --color-semantic-background-canvas: #fff;
   --color-semantic-background-surface: #fff;
   --color-semantic-background-surface-elevated: #fff;
-  --color-semantic-background-surface-secondary: #f9f9f9;
-  --color-semantic-background-sidebar: #f9f9f9;
+  --color-semantic-background-surface-secondary: #f3f3f3;
+  --color-semantic-background-sidebar: #f3f3f3;
+  --color-semantic-background-sidebar-active: #ededed;
   --color-semantic-background-segmented: #ededed;
   --color-semantic-background-segmented-thumb: #fff;
   --color-semantic-background-segmented-hover: #cdcdcd;
@@ -146,6 +147,8 @@
   --color-semantic-text-success: #008635;
   --color-semantic-text-warning: #ba8e00;
   --color-semantic-text-info: #0169cc;
+  --color-semantic-text-sidebar: #282828;
+  --color-semantic-text-sidebar-secondary: #5d5d5d;
   --color-semantic-border-subtle: #dfdfdf;
   --color-semantic-border-default: #b9b9b9;
   --color-semantic-border-strong: #8f8f8f;
@@ -267,6 +270,7 @@
   --motion-easing-exit: cubic-bezier(0.8, 0, 0.4, 1);
   --motion-easing-move: cubic-bezier(0.65, 0, 0.35, 1);
   --layout-sidebar-desktop: 260px;
+  --layout-sidebar-collapsed: 56px;
   --layout-sidebar-mobile-rail: 24px;
   --layout-topbar-height: 54px;
 }

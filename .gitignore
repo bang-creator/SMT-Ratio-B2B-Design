@@ -8,3 +8,4 @@ dist-package/
 storybook-static/
 *.tsbuildinfo
 scratch/*.png
+.DS_Store

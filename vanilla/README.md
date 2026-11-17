@@ -5,10 +5,9 @@ Plain HTML/CSS/JS source for prototyping. Runtime has no dependencies. Storybook
 - `base.css`: editable CSS source.
 - `design-system.css`: generated token CSS + base CSS.
 - `design-system.js`: data-attribute behaviors.
-- `stories/shared/`: 33 shared components.
-- `stories/default/`: Default application components.
-- `stories/ams-b2b/`: AMS B2B application components.
-- `stories/supplemental/`: existing exports outside the required list.
+- `stories/shared/`: 32 shared components.
+- `stories/default/`: Default application components (`01`–`05`).
+- `stories/smt-ratio/application/`: SMT Ratio application components (`Analysing`, `Sidebar`).
 
 Regenerate and review:
 

@@ -22,9 +22,8 @@ Do not add React, TypeScript, a router, a component library, an API client, a se
 ```text
 You are editing a framework-free HTML/CSS/JS design system.
 
-Read AGENTS.md, README.md, docs/design-system/DESIGN.md,
-docs/design-system/HANDOFF.md, docs/design-system/PUBLIC_EXPORTS.md,
-and docs/design-system/AI-HANDOFF.md.
+Read AGENTS.md, docs/design-system/AI-QUICK-REFERENCE.md, and docs/design-system/PUBLIC_EXPORTS.md.
+(Read DESIGN.md, HANDOFF.md, and AI-HANDOFF.md only if you are changing shared rules or Git workflows.)
 
 Task:
 <one concrete component or visual feedback item>

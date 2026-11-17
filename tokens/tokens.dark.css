@@ -31,8 +31,9 @@
   --color-semantic-background-canvas: #212121;
   --color-semantic-background-surface: #212121;
   --color-semantic-background-surface-elevated: #303030;
-  --color-semantic-background-surface-secondary: #181818;
+  --color-semantic-background-surface-secondary: #303030;
   --color-semantic-background-sidebar: #131313;
+  --color-semantic-background-sidebar-active: #303030;
   --color-semantic-background-segmented: #0d0d0d;
   --color-semantic-background-segmented-thumb: #303030;
   --color-semantic-background-segmented-hover: #303030;
@@ -47,6 +48,8 @@
   --color-semantic-text-success: #04b84c;
   --color-semantic-text-warning: #ffc300;
   --color-semantic-text-info: #0285ff;
+  --color-semantic-text-sidebar: #dcdcdc;
+  --color-semantic-text-sidebar-secondary: #afafaf;
   --color-semantic-border-subtle: #303030;
   --color-semantic-border-default: #4f4f4f;
   --color-semantic-border-strong: #767676;
@@ -144,8 +147,9 @@
   --color-semantic-background-canvas: #212121;
   --color-semantic-background-surface: #212121;
   --color-semantic-background-surface-elevated: #303030;
-  --color-semantic-background-surface-secondary: #181818;
+  --color-semantic-background-surface-secondary: #303030;
   --color-semantic-background-sidebar: #131313;
+  --color-semantic-background-sidebar-active: #303030;
   --color-semantic-background-segmented: #0d0d0d;
   --color-semantic-background-segmented-thumb: #303030;
   --color-semantic-background-segmented-hover: #303030;
@@ -160,6 +164,8 @@
   --color-semantic-text-success: #04b84c;
   --color-semantic-text-warning: #ffc300;
   --color-semantic-text-info: #0285ff;
+  --color-semantic-text-sidebar: #dcdcdc;
+  --color-semantic-text-sidebar-secondary: #afafaf;
   --color-semantic-border-subtle: #303030;
   --color-semantic-border-default: #4f4f4f;
   --color-semantic-border-strong: #767676;
