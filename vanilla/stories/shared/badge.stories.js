@@ -25,6 +25,7 @@ export const Default = story(
           <span class="ds-badge ds-badge--purple">Purple</span>
           <span class="ds-badge ds-badge--yellow">Yellow</span>
           <span class="ds-badge ds-badge--orange">Orange</span>
+          <span class="ds-badge ds-badge--cyan">Cyan</span>
         </div>
       </section>
 
@@ -37,6 +38,7 @@ export const Default = story(
           <span class="ds-badge ds-badge--purple">${INDICATOR}Processing</span>
           <span class="ds-badge ds-badge--yellow">${INDICATOR}Warning</span>
           <span class="ds-badge ds-badge--orange">${INDICATOR}Pending</span>
+          <span class="ds-badge ds-badge--cyan">${INDICATOR}Syncing</span>
         </div>
       </section>
 
@@ -49,6 +51,7 @@ export const Default = story(
           <span class="ds-badge ds-badge--purple">Features ${ICON_INFO}</span>
           <span class="ds-badge ds-badge--yellow">Review ${ICON_CHEVRON}</span>
           <span class="ds-badge ds-badge--orange">Details ${ICON_EXTERNAL}</span>
+          <span class="ds-badge ds-badge--cyan">Stream ${ICON_CHEVRON}</span>
         </div>
       </section>
     </div>`
@@ -68,6 +71,7 @@ export const Pill = story(
           <span class="ds-badge ds-badge--pill ds-badge--purple">Purple</span>
           <span class="ds-badge ds-badge--pill ds-badge--yellow">Yellow</span>
           <span class="ds-badge ds-badge--pill ds-badge--orange">Orange</span>
+          <span class="ds-badge ds-badge--pill ds-badge--cyan">Cyan</span>
         </div>
       </section>
 
@@ -80,6 +84,7 @@ export const Pill = story(
           <span class="ds-badge ds-badge--pill ds-badge--purple">${INDICATOR}Staging</span>
           <span class="ds-badge ds-badge--pill ds-badge--yellow">${INDICATOR}Degraded</span>
           <span class="ds-badge ds-badge--pill ds-badge--orange">${INDICATOR}Paused</span>
+          <span class="ds-badge ds-badge--pill ds-badge--cyan">${INDICATOR}Live Stream</span>
         </div>
       </section>
 
@@ -92,6 +97,7 @@ export const Pill = story(
           <span class="ds-badge ds-badge--pill ds-badge--purple">Premium ${ICON_INFO}</span>
           <span class="ds-badge ds-badge--pill ds-badge--yellow">Limited ${ICON_CHEVRON}</span>
           <span class="ds-badge ds-badge--pill ds-badge--orange">Beta ${ICON_EXTERNAL}</span>
+          <span class="ds-badge ds-badge--pill ds-badge--cyan">Preview ${ICON_CHEVRON}</span>
         </div>
       </section>
     </div>`
@@ -111,6 +117,7 @@ export const Small = story(
           <span class="ds-badge ds-badge--sm ds-badge--purple">Pro</span>
           <span class="ds-badge ds-badge--sm ds-badge--yellow">Warn</span>
           <span class="ds-badge ds-badge--sm ds-badge--orange">Tier 1</span>
+          <span class="ds-badge ds-badge--sm ds-badge--cyan">Beta</span>
         </div>
       </section>
 
@@ -118,6 +125,7 @@ export const Small = story(
         <div class="ds-row">
           <span class="ds-badge ds-badge--sm ds-badge--pill ds-badge--green">${INDICATOR}Live</span>
           <span class="ds-badge ds-badge--sm ds-badge--pill ds-badge--blue">${INDICATOR}Sync</span>
+          <span class="ds-badge ds-badge--sm ds-badge--pill ds-badge--cyan">${INDICATOR}Feed</span>
           <span class="ds-badge ds-badge--sm ds-badge--pill ds-badge--red">${INDICATOR}Error</span>
           <span class="ds-badge ds-badge--sm ds-badge--default">${INDICATOR}Idle</span>
           <span class="ds-badge ds-badge--sm ds-badge--yellow">${INDICATOR}Busy</span>

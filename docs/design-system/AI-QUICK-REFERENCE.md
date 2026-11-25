@@ -16,7 +16,7 @@ Single-stop cheat sheet for AI agents using the **OpenAI Platform Design System*
 </script>
 ```
 
-- **Catalog counts**: `32` Shared components (`vanilla/stories/shared/`), `5` Default Application components (`01`–`05` in `vanilla/stories/default/`), `2` SMT Ratio Application components (`vanilla/stories/smt-ratio/application/`).
+- **Catalog counts**: `33` Shared components (`vanilla/stories/shared/`), `5` Default Application components (`01`–`05` in `vanilla/stories/default/`), `2` SMT Ratio Application components (`vanilla/stories/smt-ratio/application/`).
 - **Source of truth**: `docs/design-system/tokens.json` → `tokens/tokens.css` & `tokens/tokens.dark.css`; styles in `vanilla/base.css`; interactive behaviors in `vanilla/design-system.js`.
 
 ---
@@ -47,7 +47,7 @@ npm run tokens:build && npm run tokens:check && npm run ds:check && npm run buil
 - **Text**: `--color-semantic-text-primary`, `--color-semantic-text-secondary`, `--color-semantic-text-tertiary`, `--color-semantic-text-inverse`, `--color-semantic-text-danger`, `--color-semantic-text-success`, `--color-semantic-text-warning`, `--color-semantic-text-info`, `--color-semantic-text-sidebar`, `--color-semantic-text-sidebar-secondary`
 - **Borders & focus**: `--color-semantic-border-subtle`, `--color-semantic-border-default`, `--color-semantic-border-strong`, `--color-semantic-ring-focus`, `--color-semantic-accent-control`
 - **Buttons**: `--color-semantic-button-secondary-background` / `-hover` / `-border`, `--color-semantic-button-danger-solid-background` / `-hover` / `-text`, `--color-semantic-button-danger-soft-hover-background`, `--color-semantic-button-ultra-background` / `-hover` / `-text`
-- **Badges**: `--color-semantic-badge-{default,green,red,blue,purple,yellow,orange}-{background,text,border,dot,halo}`
+- **Badges**: `--color-semantic-badge-{default,green,red,blue,purple,yellow,orange,cyan,success,danger,warning,info}-{background,text,border,dot,halo}`
 - **Typography**: `--font-family-sans`, `--font-family-mono`, `--font-size-{3xs,2xs,xs,sm,md,lg}`, `--font-size-heading-{xs,sm,md,lg,xl}`, `--font-size-heading{2xl,3xl}`, `--font-weight-{normal,medium,semibold,bold}`, `--font-line-height-{tight,normal,body}`
 - **Spacing, radii, motion, layout**: `--space-{0,1,2,3,4,5,6,7,8,10}`, `--radius-{2xs,xs,sm,md,lg,xl,2xl,3xl,4xl,full}`, `--shadow-{hairline,sm,md,lg,thumb,menu}`, `--motion-duration-{basic,moderate,reveal,content}`, `--motion-easing-{enter,exit,move}`, `--layout-{sidebar-desktop,sidebar-collapsed,sidebar-mobile-rail,topbar-height}`
 
@@ -64,13 +64,13 @@ npm run tokens:build && npm run tokens:check && npm run ds:check && npm run buil
 
 ## 5. Component Quick Map
 
-### A. Default / Shared (32 components)
+### A. Default / Shared (33 components)
 
 | Component | Root & Modifiers | Key Children / Slots | JS Hook (`data-ds-*`) |
 | --- | --- | --- | --- |
-| **Badge** | `.ds-badge` `--{default,green,red,blue,purple,yellow,orange}` `--pill` `--sm` | `.ds-badge__indicator` + `.ds-badge__dot`, `.ds-badge__icon` | — |
+| **Badge** | `.ds-badge` `--{default,green,red,blue,purple,yellow,orange,cyan,success,danger,warning,info}` `--pill` `--sm` | `.ds-badge__indicator` + `.ds-badge__dot`, `.ds-badge__icon` | — |
 | **Breadcrumb** | `.ds-breadcrumb` | `.ds-breadcrumb__link`, `.ds-breadcrumb__separator`, `.ds-breadcrumb__current`, `.ds-breadcrumb__dropdown`, `.ds-breadcrumb__trigger`, `.ds-breadcrumb__badge` | `data-ds-dropdown`, `data-ds-dropdown-value` |
-| **Button** | `.ds-button` `--{primary,secondary,outline,ghost,danger,danger-solid,danger-soft,ultra}` `--sm` `--pill` `--icon` `--block` `--loading` | `.ds-button__spinner`, `.ds-button__sparkles`, `.ds-icon-button` | — (`disabled` / `data-disabled`) |
+| **Button** | `.ds-button` `--{primary,secondary,outline,ghost,danger,danger-solid,danger-soft,ultra}` `--sm` `--pill` `--icon` `--block` `--loading` `--action` | `.ds-button__spinner`, `.ds-button__sparkles`, `.ds-button__action-{content,morph,label,icon-slot,phase,arrow,spinner,check}`, `.ds-icon-button` | `data-ds-action-button` (`disabled` / `data-disabled`) |
 | **Checkbox** | `label.ds-checkbox` | `input[type="checkbox"]`, `.ds-checkbox__control`, `.ds-checkbox__check`, `.ds-checkbox__dash` | — (`disabled`, `indeterminate`) |
 | **Code Snippet** | `.ds-code-snippet` `--{singleline,inline,multiline}` | `__header`, `__lang`, `__body`, `__lines`, `__pre`, `__code`, `__copy-btn`, `.ds-code-token--{keyword,function,string,number}` | Copy button wired in JS |
 | **Contained List** | `.ds-contained-list` | `__top`, `__title`, `__metrics`, `__table-wrap`, `__table`, `__model`, `__tier-select` | Optional `data-ds-select` |
@@ -79,6 +79,7 @@ npm run tokens:build && npm run tokens:check && npm run ds:check && npm run buil
 | **Date Picker** | `.ds-date-picker` `--navigation` `--single-month` | `__trigger`, `__dialog`, `__presets`, `__preset`, `__dual-calendar` / `__single-calendar`, `__month-header`, `__day` (`--start`/`--end`/`--empty`), `__cell--range-{start,mid,end}` | `data-ds-date-picker`, `data-ds-open` |
 | **Dropdown** | `.ds-dropdown` `--sm` | `__trigger`, `__value`, `__menu`, `.ds-search-input`, `__list`, `__item`, `__check` (`--empty`) | `data-ds-dropdown`, `data-ds-dropdown-value`, `data-ds-open` |
 | **File Uploader** | `.ds-dropzone` | `__input`, `__icon`, `__text`, `__file-icon` | `data-ds-dropzone` |
+| **Filter** | `.ds-filter`, `.ds-filter-bar` | `__trigger`, `__icon`, `__clear`, `__menu`, `__list`, `__item`, `__check`, `.ds-filter-reset`, `.ds-filter-bar__{group,actions}` | `data-ds-filter`, `data-ds-filter-value`, `data-ds-filter-reset`, `data-ds-open`, `data-active` |
 | **Form** | `.ds-form-panel` | `.ds-form-section` (`__header`, `__chevron`, `__body`), `.ds-form-row` (`--stack`, `__top`, `__label`, `__helper`), `.ds-form-slider` | Composes Switch, Slider, Dropdown, Segmented |
 | **Link** | `a.ds-link` `--external` `--subtle` | `__text`, `__icon` | `aria-disabled="true"` / `.is-disabled` |
 | **Menu** | `.ds-menu` `--block` `--top` | `__trigger` (`--icon`), `__content`, `__header`, `__item` (`__item-left`, `__item-right`, `__icon`, `__check`, `__chevron`), `__separator` | `data-ds-menu`, `data-ds-open` |

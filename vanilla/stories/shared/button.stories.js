@@ -14,13 +14,35 @@ const TRASH_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
 
 const SPARKLES = `<span class="ds-button__sparkles" aria-hidden="true"><span class="ds-button__sparkle ds-button__sparkle--1"></span><span class="ds-button__sparkle ds-button__sparkle--2"></span><span class="ds-button__sparkle ds-button__sparkle--3"></span><span class="ds-button__sparkle ds-button__sparkle--4"></span><span class="ds-button__sparkle ds-button__sparkle--5"></span></span>`;
 const SPINNER = `<svg class="ds-button__spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>`;
+const ACTION_ARROW_ICON = `<svg class="ds-button__action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>`;
 
 /* ── Helpers ── */
 
 /**
+ * Render an interactive Action Button (idle -> pending -> success -> idle)
+ * @param {string} cls   - base button classes
+ * @param {string} inner - optional extra markup placed inside button (e.g. sparkles)
+ */
+function actionButtonMarkup(cls, inner = '') {
+  return `<button type="button" class="${cls} ds-button--action" data-ds-action-button data-state="idle" data-label="Save changes" data-pending-label="Saving" data-success-label="Saved" aria-busy="false">` +
+    `<span class="ds-button__sr-only" data-action-sr-label="true">Save changes</span>` +
+    `<span class="ds-button__sr-only" role="status" data-action-sr-status="true"></span>` +
+    `<span class="ds-button__action-content" aria-hidden="true">` +
+      `<span class="ds-button__action-morph">` +
+        `<span class="ds-button__action-sizer">Save changes</span>` +
+        `<span class="ds-button__action-label">Save changes</span>` +
+      `</span>` +
+      `<span class="ds-button__action-icon-slot">` +
+        `<span class="ds-button__action-phase" data-phase="idle">${ACTION_ARROW_ICON}</span>` +
+      `</span>` +
+    `</span>` +
+    `${inner}</button>`;
+}
+
+/**
  * Build one style section showing:
  *   Heading (SF Mono 12px)
- *   Row: text-only | icon-left | icon-right | icon-both | icon-only | disabled | loading
+ *   Row: text-only | icon-left | icon-right | icon-both | icon-only | disabled | loading | action
  *
  * @param {string} styleTitle - section title in SF Mono 12px
  * @param {string} cls        - full class string for the button
@@ -43,6 +65,7 @@ function styleSection(styleTitle, cls, label, { leadIcon = PLUS_ICON, trailIcon 
       ${btn(leadIcon, 'ds-button--icon', label)}
       ${btn(`<span>Disabled</span>`, '', '', 'disabled')}
       ${btn(`${SPINNER}<span>Loading…</span>`, 'ds-button--loading', '', 'aria-busy="true"')}
+      ${actionButtonMarkup(cls, inner)}
     </div>
   </section>`;
 }

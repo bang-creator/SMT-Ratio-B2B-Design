@@ -78,7 +78,7 @@ export const Default = {
 
     const clearPending = () => {
       if (rafId) {
-        cancelAnimationFrame(rafId);
+        clearTimeout(rafId);
         rafId = 0;
       }
       while (decayTimers.length) {
@@ -87,9 +87,8 @@ export const Default = {
     };
 
     const cadenceFor = (word) => {
-      if (/[.!?]$/.test(word)) return 175;
-      if (/[,;:]$/.test(word)) return 125;
-      return 65;
+      if (/[.!?]$/.test(word)) return 75;
+      return 48;
     };
 
     const appendWord = (item, fresh) => {
@@ -139,23 +138,20 @@ export const Default = {
       }, tailSpans.length * 85));
     };
 
-    const tick = (ts) => {
+    const tick = () => {
       rafId = 0;
       if (!isPlaying || !textEl.isConnected) return;
-      if (ts >= nextWordAt) {
-        const item = WORDS[currentIndex];
-        appendWord(item, true);
-        for (let j = 0; j < wordSpans.length - 3; j++) {
-          wordSpans[j].classList.remove('ds-streaming-word--fresh');
-        }
-        currentIndex++;
-        if (currentIndex >= WORDS.length) {
-          finishStream();
-          return;
-        }
-        nextWordAt = ts + cadenceFor(item.word);
+      const item = WORDS[currentIndex];
+      appendWord(item, true);
+      if (wordSpans.length > 3) {
+        wordSpans[wordSpans.length - 4].classList.remove('ds-streaming-word--fresh');
       }
-      rafId = requestAnimationFrame(tick);
+      currentIndex++;
+      if (currentIndex >= WORDS.length) {
+        finishStream();
+        return;
+      }
+      rafId = window.setTimeout(tick, cadenceFor(item.word));
     };
 
     function resetAndStart() {
@@ -172,8 +168,7 @@ export const Default = {
       }
       textEl.appendChild(caret);
       isPlaying = true;
-      nextWordAt = performance.now();
-      rafId = requestAnimationFrame(tick);
+      tick();
     }
 
     textEl.addEventListener('click', () => {
@@ -184,8 +179,7 @@ export const Default = {
         isPlaying = false;
       } else {
         isPlaying = true;
-        nextWordAt = performance.now();
-        rafId = requestAnimationFrame(tick);
+        tick();
       }
     });
 

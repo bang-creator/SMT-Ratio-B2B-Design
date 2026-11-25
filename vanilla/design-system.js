@@ -1,7 +1,7 @@
 const closeAll = (scope, except) => scope.querySelectorAll('[data-ds-open="true"]').forEach((root) => {
   if (root !== except) {
     root.dataset.dsOpen = 'false';
-    const menu = root.querySelector('.ds-menu__content, .ds-popover__content, .ds-select__menu, .ds-date-picker__dialog, .ds-dropdown__menu');
+    const menu = root.querySelector('.ds-menu__content, .ds-popover__content, .ds-select__menu, .ds-date-picker__dialog, .ds-dropdown__menu, .ds-filter__menu');
     if (menu) menu.hidden = true;
     const trigger = root.querySelector('[aria-expanded]');
     if (trigger) {
@@ -254,6 +254,199 @@ export function mount(scope = document) {
           }));
         }
       });
+    });
+  });
+
+  const syncFilterBarReset = (barScope) => {
+    const bar = barScope?.closest?.('.ds-filter-bar') || barScope;
+    if (!bar) return;
+    const filters = Array.from(bar.querySelectorAll('[data-ds-filter]'));
+    const hasActiveFilter = filters.some((f) => f.dataset.active === 'true');
+    const searchField = bar.querySelector('[data-ds-search-input] .ds-search-input__field');
+    const hasSearchQuery = Boolean(searchField && searchField.value.trim().length > 0);
+    bar.querySelectorAll('[data-ds-filter-reset]').forEach((btn) => {
+      btn.hidden = !(hasActiveFilter || hasSearchQuery);
+    });
+  };
+
+  scope.querySelectorAll('[data-ds-filter]').forEach((root) => {
+    const trigger = root.querySelector('.ds-filter__trigger, .ds-filter-pill');
+    const menu = root.querySelector('.ds-filter__menu');
+    const searchInput = root.querySelector('.ds-filter__menu .ds-search-input__field');
+    const labelSpan = root.querySelector('[data-ds-filter-value]');
+    const clearBtn = root.querySelector('.ds-filter__clear, .ds-filter-pill__close');
+    const isMulti = root.hasAttribute('data-multi') || root.dataset.multi === 'true';
+    const defaultLabel = root.dataset.label || root.dataset.placeholder || labelSpan?.textContent?.trim() || 'Filter';
+    const checkSvg = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 4.5 6.5 11.5 3 8"/></svg>';
+
+    const setFilterActiveState = (active) => {
+      root.dataset.active = String(active);
+      if (trigger) trigger.dataset.active = String(active);
+      if (clearBtn) clearBtn.hidden = !active;
+      syncFilterBarReset(root);
+    };
+
+    const resetFilter = (emit = true) => {
+      root.querySelectorAll('.ds-filter__item').forEach((item) => {
+        const isAll = item.dataset.value === 'all';
+        item.dataset.checked = isAll ? 'true' : 'false';
+        item.setAttribute(isMulti ? 'aria-checked' : 'aria-selected', isAll ? 'true' : 'false');
+        const checkEl = item.querySelector('.ds-filter__check');
+        if (checkEl) {
+          checkEl.classList.toggle('ds-filter__check--empty', !isAll);
+          checkEl.innerHTML = isAll ? checkSvg : '';
+        }
+      });
+      if (labelSpan) labelSpan.textContent = defaultLabel;
+      setFilterActiveState(false);
+      root.dataset.dsOpen = 'false';
+      trigger?.setAttribute('aria-expanded', 'false');
+      if (menu) menu.hidden = true;
+      if (emit) {
+        root.dispatchEvent(new CustomEvent('ds-change', {
+          bubbles: true,
+          detail: { value: 'all', values: [], active: false }
+        }));
+      }
+    };
+
+    root._dsResetFilter = resetFilter;
+
+    trigger?.addEventListener('click', (e) => {
+      if (e.target.closest('.ds-filter__clear, .ds-filter-pill__close')) return;
+      e.stopPropagation();
+      if (trigger.disabled) return;
+      closeAll(scope, root);
+      const open = root.dataset.dsOpen !== 'true';
+      root.dataset.dsOpen = String(open);
+      trigger.setAttribute('aria-expanded', String(open));
+      if (menu) menu.hidden = !open;
+      if (!open) trigger.blur();
+      if (open && searchInput) {
+        setTimeout(() => searchInput.focus(), 50);
+      }
+    });
+
+    const handleClear = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (trigger?.disabled) return;
+      resetFilter(true);
+      clearBtn?.blur();
+      trigger?.blur();
+    };
+
+    clearBtn?.addEventListener('click', handleClear);
+    clearBtn?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') handleClear(e);
+    });
+
+    searchInput?.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      root.querySelectorAll('.ds-filter__item').forEach((item) => {
+        const text = item.textContent.trim().toLowerCase();
+        item.hidden = q.length > 0 && !text.includes(q);
+      });
+    });
+
+    searchInput?.addEventListener('click', (e) => e.stopPropagation());
+    searchInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        root.dataset.dsOpen = 'false';
+        trigger?.setAttribute('aria-expanded', 'false');
+        if (menu) menu.hidden = true;
+      }
+    });
+
+    root.querySelectorAll('.ds-filter__item').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (item.disabled) return;
+
+        if (isMulti) {
+          const isChecked = item.dataset.checked === 'true' || item.getAttribute('aria-checked') === 'true';
+          const next = !isChecked;
+          item.dataset.checked = String(next);
+          item.setAttribute('aria-checked', String(next));
+          const checkEl = item.querySelector('.ds-filter__check');
+          if (checkEl) {
+            checkEl.classList.toggle('ds-filter__check--empty', !next);
+            checkEl.innerHTML = next ? checkSvg : '';
+          }
+          const checkedItems = Array.from(root.querySelectorAll('.ds-filter__item[data-checked="true"], .ds-filter__item[aria-checked="true"]'));
+          const isActive = checkedItems.length > 0;
+          if (labelSpan) {
+            if (!isActive) labelSpan.textContent = defaultLabel;
+            else if (checkedItems.length === 1) {
+              labelSpan.textContent = checkedItems[0].querySelector('span:last-child')?.textContent?.trim() || checkedItems[0].textContent.trim();
+            } else {
+              labelSpan.textContent = `${defaultLabel} (${checkedItems.length})`;
+            }
+          }
+          setFilterActiveState(isActive);
+          item.blur();
+          const values = checkedItems.map((i) => i.dataset.value || i.textContent.trim());
+          root.dispatchEvent(new CustomEvent('ds-change', {
+            bubbles: true,
+            detail: { value: values[0] || 'all', values, active: isActive }
+          }));
+        } else {
+          root.querySelectorAll('.ds-filter__item').forEach((option) => {
+            option.dataset.checked = 'false';
+            option.setAttribute('aria-selected', 'false');
+            const c = option.querySelector('.ds-filter__check');
+            if (c) {
+              c.classList.add('ds-filter__check--empty');
+              c.innerHTML = '';
+            }
+          });
+          item.dataset.checked = 'true';
+          item.setAttribute('aria-selected', 'true');
+          const checkEl = item.querySelector('.ds-filter__check');
+          if (checkEl) {
+            checkEl.classList.remove('ds-filter__check--empty');
+            checkEl.innerHTML = checkSvg;
+          }
+          const val = item.dataset.value || item.textContent.trim();
+          const itemText = item.querySelector('span:last-child')?.textContent?.trim() || item.textContent.trim();
+          const isActive = val !== 'all';
+          if (labelSpan) labelSpan.textContent = isActive ? itemText : defaultLabel;
+          setFilterActiveState(isActive);
+          root.dataset.dsOpen = 'false';
+          trigger?.setAttribute('aria-expanded', 'false');
+          trigger?.blur();
+          item.blur();
+          if (menu) menu.hidden = true;
+          root.dispatchEvent(new CustomEvent('ds-change', {
+            bubbles: true,
+            detail: { value: val, values: isActive ? [val] : [], active: isActive }
+          }));
+        }
+      });
+    });
+
+    syncFilterBarReset(root);
+  });
+
+  scope.querySelectorAll('[data-ds-filter-reset]').forEach((resetBtn) => {
+    const bar = resetBtn.closest('.ds-filter-bar') || scope;
+    bar.querySelector('[data-ds-search-input] .ds-search-input__field')?.addEventListener('input', () => {
+      syncFilterBarReset(resetBtn);
+    });
+    bar.querySelector('[data-ds-search-input] .ds-search-input__clear')?.addEventListener('click', () => {
+      queueMicrotask(() => syncFilterBarReset(resetBtn));
+    });
+    resetBtn.addEventListener('click', () => {
+      bar.querySelectorAll('[data-ds-filter]').forEach((filterRoot) => {
+        filterRoot._dsResetFilter?.(true);
+      });
+      const searchInput = bar.querySelector('[data-ds-search-input] .ds-search-input__field');
+      if (searchInput && searchInput.value) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      resetBtn.blur();
+      syncFilterBarReset(resetBtn);
     });
   });
   scope.querySelectorAll('[data-ds-date-picker]').forEach((root) => {
@@ -3628,30 +3821,25 @@ export function mount(scope = document) {
         caret.setAttribute('aria-hidden', 'true');
         tail.appendChild(caret);
 
-        let wordIdx = 0;
-        let prevOverflow = 0;
-        let burstIndex = 0;
         const wordSpans = [];
-        while (wordIdx < words.length) {
-          const burstSize = wordIdx + 1 < words.length && burstIndex % 3 === 1 ? 2 : 1;
-          const nextIdx = Math.min(words.length, wordIdx + burstSize);
-          let lastWord = '';
+        let prevOverflow = 0;
+        const WORD_INTERVAL_MS = 42;
 
-          for (let w = wordIdx; w < nextIdx; w++) {
-            lastWord = words[w];
-            const tokenEl = document.createElement('span');
-            tokenEl.className = 'ds-streaming-token';
-            const wordEl = document.createElement('span');
-            wordEl.className = 'ds-streaming-word ds-streaming-word--fresh';
-            wordEl.textContent = lastWord;
-            tokenEl.appendChild(wordEl);
-            tokenEl.appendChild(document.createTextNode(' '));
-            tail.insertBefore(tokenEl, caret);
-            wordSpans.push(wordEl);
-          }
+        for (let wordIdx = 0; wordIdx < words.length; wordIdx++) {
+          if (runId !== expectedRunId || entry.thinkToken !== token || !root.isConnected) return false;
 
-          for (let j = 0; j < wordSpans.length - 3; j++) {
-            wordSpans[j].classList.remove('ds-streaming-word--fresh');
+          const tokenEl = document.createElement('span');
+          tokenEl.className = 'ds-streaming-token';
+          const wordEl = document.createElement('span');
+          wordEl.className = 'ds-streaming-word ds-streaming-word--fresh';
+          wordEl.textContent = words[wordIdx];
+          tokenEl.appendChild(wordEl);
+          tokenEl.appendChild(document.createTextNode(' '));
+          tail.insertBefore(tokenEl, caret);
+          wordSpans.push(wordEl);
+
+          if (wordSpans.length > 3) {
+            wordSpans[wordSpans.length - 4].classList.remove('ds-streaming-word--fresh');
           }
 
           const newOverflow = Math.max(0, tail.offsetHeight - slot.clientHeight);
@@ -3661,20 +3849,22 @@ export function mount(scope = document) {
           const delta = newOverflow - prevOverflow;
           prevOverflow = newOverflow;
           if (delta > 0) {
-            if (tail._yAnim) tail._yAnim.cancel();
+            let currentY = 0;
+            if (tail._yAnim) {
+              const tf = getComputedStyle(tail).transform;
+              if (tf && tf !== 'none') {
+                currentY = new DOMMatrixReadOnly(tf).m42 || 0;
+              }
+              tail._yAnim.cancel();
+            }
             tail._yAnim = tail.animate(
-              [{ transform: `translateY(${delta}px)` }, { transform: 'translateY(0px)' }],
-              { duration: 220, easing: ANALYSING_SPRING_EASING }
+              [{ transform: `translateY(${currentY + delta}px)` }, { transform: 'translateY(0px)' }],
+              { duration: 300, easing: ANALYSING_EASE_STANDARD }
             );
           }
 
-          wordIdx = nextIdx;
-          burstIndex++;
-
-          if (wordIdx < words.length) {
-            const extraPause = /[.!?]$/.test(lastWord) ? 75 : /[,;:]$/.test(lastWord) ? 45 : 0;
-            const stepDelay = 52 + extraPause;
-            if (!(await waitMs(stepDelay, expectedRunId))) return false;
+          if (wordIdx + 1 < words.length) {
+            if (!(await waitMs(WORD_INTERVAL_MS, expectedRunId))) return false;
             if (entry.thinkToken !== token) return false;
           }
         }
@@ -3685,15 +3875,15 @@ export function mount(scope = document) {
             if (span.isConnected && entry.thinkToken === token) {
               span.classList.remove('ds-streaming-word--fresh');
             }
-          }, (idx + 1) * 70);
+          }, (idx + 1) * 65);
         });
         window.setTimeout(() => {
           if (!caret.isConnected || entry.thinkToken !== token) return;
           caret.classList.add('ds-streaming-caret--done');
           window.setTimeout(() => {
             if (caret.isConnected) caret.remove();
-          }, 210);
-        }, tailFresh.length * 70);
+          }, 260);
+        }, tailFresh.length * 65);
       }
 
       if (!(await waitMs(380, expectedRunId))) return false;
@@ -3831,6 +4021,273 @@ export function mount(scope = document) {
   });
 
 
+  // ── Action Button State (idle -> pending -> success -> idle) ──
+  const ACTION_SPRING_EASING = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timing-function', 'linear(0, 1)')
+    ? 'linear(0,.0213,.0739,.1443,.2235,.305,.3849,.4606,.5305,.594,.6508,.7011,.7452,.7836,.8168,.8454,.8699,.8907,.9084,.9234,.9361,.9467,.9557,.9632,.9694,.9747,.979,.9826,.9857,.9882,.9902,.992,.9934,.9946,.9955,.9963,1)'
+    : 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const ACTION_ARROW_SVG = '<svg class="ds-button__action-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
+  const ACTION_CHECK_SVG = '<svg class="ds-button__action-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="ds-button__action-check-path" d="M4 12l5 5L20 6" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg>';
+
+  const isActionReducedMotion = (el) => (
+    (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    || Boolean(el?.closest?.('[data-reduced-motion="true"]'))
+  );
+
+  scope.querySelectorAll('[data-ds-action-button], .ds-button--action').forEach((btn) => {
+    if (btn.dataset.actionMounted === 'true') return;
+    btn.dataset.actionMounted = 'true';
+
+    const idleLabel = btn.dataset.label || btn.querySelector('.ds-button__action-sizer')?.textContent?.trim() || 'Save changes';
+    const pendingLabel = btn.dataset.pendingLabel || 'Saving';
+    const successLabel = btn.dataset.successLabel || 'Saved';
+    const actionDuration = Math.max(0, Number(btn.dataset.actionDuration) || 440);
+    const resetAfterMs = btn.dataset.resetAfter !== undefined ? Number(btn.dataset.resetAfter) : 2400;
+
+    if (!btn.querySelector('.ds-button__action-content')) {
+      const sparklesEl = btn.querySelector('.ds-button__sparkles');
+      const rawText = btn.textContent?.trim() || idleLabel;
+      btn.textContent = '';
+
+      const srLabel = document.createElement('span');
+      srLabel.className = 'ds-button__sr-only';
+      srLabel.dataset.actionSrLabel = 'true';
+      srLabel.textContent = rawText;
+
+      const srStatus = document.createElement('span');
+      srStatus.className = 'ds-button__sr-only';
+      srStatus.setAttribute('role', 'status');
+      srStatus.dataset.actionSrStatus = 'true';
+
+      const content = document.createElement('span');
+      content.className = 'ds-button__action-content';
+      content.setAttribute('aria-hidden', 'true');
+
+      const morph = document.createElement('span');
+      morph.className = 'ds-button__action-morph';
+      const sizer = document.createElement('span');
+      sizer.className = 'ds-button__action-sizer';
+      sizer.textContent = rawText;
+      const label = document.createElement('span');
+      label.className = 'ds-button__action-label';
+      label.textContent = rawText;
+      morph.appendChild(sizer);
+      morph.appendChild(label);
+
+      const iconSlot = document.createElement('span');
+      iconSlot.className = 'ds-button__action-icon-slot';
+      const phase = document.createElement('span');
+      phase.className = 'ds-button__action-phase';
+      phase.dataset.phase = 'idle';
+      phase.innerHTML = ACTION_ARROW_SVG;
+      iconSlot.appendChild(phase);
+
+      content.appendChild(morph);
+      content.appendChild(iconSlot);
+      btn.appendChild(srLabel);
+      btn.appendChild(srStatus);
+      btn.appendChild(content);
+      if (sparklesEl) btn.appendChild(sparklesEl);
+    }
+
+    const srStatusEl = btn.querySelector('[data-action-sr-status]');
+    const morphEl = btn.querySelector('.ds-button__action-morph');
+    const sizerEl = btn.querySelector('.ds-button__action-sizer');
+    const iconSlotEl = btn.querySelector('.ds-button__action-icon-slot');
+
+    let currentState = btn.dataset.state || 'idle';
+    let actionTimer = 0;
+    let resetTimer = 0;
+    let widthAnim = null;
+
+    btn.dataset.state = currentState;
+    if (!btn.hasAttribute('aria-busy')) btn.setAttribute('aria-busy', String(currentState === 'pending'));
+
+    const buildPhaseElement = (phaseName, reduced) => {
+      const wrap = document.createElement('span');
+      wrap.className = 'ds-button__action-phase';
+      wrap.dataset.phase = phaseName;
+
+      if (phaseName === 'pending') {
+        const spinner = document.createElement('span');
+        spinner.className = 'ds-button__action-spinner';
+        spinner.setAttribute('aria-hidden', 'true');
+        wrap.appendChild(spinner);
+        if (!reduced) {
+          wrap.animate(
+            [
+              { opacity: 0, transform: 'scale(0.6)', filter: 'blur(2px)' },
+              { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' },
+            ],
+            { duration: 200, easing: ACTION_SPRING_EASING }
+          );
+        }
+        return wrap;
+      }
+
+      if (phaseName === 'success') {
+        wrap.innerHTML = ACTION_CHECK_SVG;
+        if (!reduced) {
+          wrap.animate(
+            [
+              { opacity: 0, transform: 'scale(0.6)', filter: 'blur(2px)' },
+              { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' },
+            ],
+            { duration: 200, easing: ACTION_SPRING_EASING }
+          );
+          const pathEl = wrap.querySelector('.ds-button__action-check-path');
+          if (pathEl) {
+            pathEl.animate(
+              [{ strokeDashoffset: 1, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }],
+              { duration: 200, delay: 50, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'both' }
+            );
+          }
+        }
+        return wrap;
+      }
+
+      wrap.innerHTML = ACTION_ARROW_SVG;
+      if (!reduced) {
+        wrap.animate(
+          [
+            { opacity: 0, transform: 'translateX(-6px)', filter: 'blur(2px)' },
+            { opacity: 1, transform: 'translateX(0px)', filter: 'blur(0px)' },
+          ],
+          { duration: 200, easing: ACTION_SPRING_EASING }
+        );
+      }
+      return wrap;
+    };
+
+    const setActionState = (nextState) => {
+      if (nextState === currentState) return;
+      const prevState = currentState;
+      currentState = nextState;
+
+      const reduced = isActionReducedMotion(btn);
+      const nextText = nextState === 'pending'
+        ? pendingLabel
+        : nextState === 'success'
+          ? successLabel
+          : idleLabel;
+
+      btn.dataset.state = nextState;
+      btn.setAttribute('aria-busy', String(nextState === 'pending'));
+      if (nextState === 'pending') btn.setAttribute('aria-disabled', 'true');
+      else btn.removeAttribute('aria-disabled');
+
+      if (srStatusEl) {
+        srStatusEl.textContent = nextState === 'pending'
+          ? pendingLabel
+          : nextState === 'success'
+            ? successLabel
+            : '';
+      }
+
+      if (morphEl && sizerEl) {
+        const prevWidth = morphEl.getBoundingClientRect().width;
+        const activeLabels = Array.from(morphEl.querySelectorAll('.ds-button__action-label:not([data-exiting])'));
+        activeLabels.forEach((oldLabel) => {
+          if (reduced) {
+            oldLabel.remove();
+            return;
+          }
+          oldLabel.dataset.exiting = 'true';
+          oldLabel.classList.add('ds-button__action-label--exiting');
+          oldLabel.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            { duration: 100, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+          ).onfinish = () => oldLabel.remove();
+        });
+
+        sizerEl.textContent = nextText;
+        const nextLabel = document.createElement('span');
+        nextLabel.className = 'ds-button__action-label';
+        nextLabel.textContent = nextText;
+        morphEl.appendChild(nextLabel);
+
+        if (widthAnim) {
+          widthAnim.cancel();
+          widthAnim = null;
+        }
+        morphEl.style.removeProperty('width');
+        const nextWidth = morphEl.getBoundingClientRect().width;
+
+        if (!reduced) {
+          nextLabel.animate(
+            [{ opacity: 0, transform: 'translateY(2px)' }, { opacity: 1, transform: 'translateY(0px)' }],
+            { duration: 150, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+          );
+
+          if (prevWidth > 0 && Math.abs(prevWidth - nextWidth) > 0.5) {
+            morphEl.dataset.morphing = 'true';
+            morphEl.style.setProperty('width', `${prevWidth}px`);
+            void morphEl.offsetWidth;
+            const anim = morphEl.animate(
+              [{ width: `${prevWidth}px` }, { width: `${nextWidth}px` }],
+              { duration: 300, easing: ACTION_SPRING_EASING, fill: 'forwards' }
+            );
+            widthAnim = anim;
+            anim.onfinish = () => {
+              if (widthAnim === anim) widthAnim = null;
+              anim.cancel();
+              morphEl.style.removeProperty('width');
+              delete morphEl.dataset.morphing;
+            };
+          } else {
+            delete morphEl.dataset.morphing;
+          }
+        } else {
+          delete morphEl.dataset.morphing;
+        }
+      }
+
+      if (iconSlotEl) {
+        const activePhases = Array.from(iconSlotEl.querySelectorAll('.ds-button__action-phase:not([data-exiting])'));
+        activePhases.forEach((oldPhase) => {
+          if (reduced) {
+            oldPhase.remove();
+            return;
+          }
+          oldPhase.dataset.exiting = 'true';
+          const outKeyframes = prevState === 'idle'
+            ? [
+                { opacity: 1, transform: 'translateX(0px)', filter: 'blur(0px)' },
+                { opacity: 0, transform: 'translateX(8px)', filter: 'blur(2px)' },
+              ]
+            : [
+                { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' },
+                { opacity: 0, transform: 'scale(0.6)', filter: 'blur(2px)' },
+              ];
+          oldPhase.animate(outKeyframes, { duration: 150, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }).onfinish = () => oldPhase.remove();
+        });
+
+        iconSlotEl.appendChild(buildPhaseElement(nextState, reduced));
+      }
+    };
+
+    btn.addEventListener('click', () => {
+      if (currentState === 'pending' || btn.disabled || btn.hasAttribute('data-disabled')) return;
+      clearTimeout(actionTimer);
+      clearTimeout(resetTimer);
+      actionTimer = 0;
+      resetTimer = 0;
+
+      setActionState('pending');
+      actionTimer = window.setTimeout(() => {
+        actionTimer = 0;
+        if (!btn.isConnected) return;
+        setActionState('success');
+        if (resetAfterMs > 0) {
+          resetTimer = window.setTimeout(() => {
+            resetTimer = 0;
+            if (!btn.isConnected) return;
+            setActionState('idle');
+          }, resetAfterMs);
+        }
+      }, actionDuration);
+    });
+  });
+
   // Prevent navigation on disabled links
   scope.querySelectorAll('.ds-link[aria-disabled="true"], .ds-link:disabled, .ds-link.is-disabled').forEach((link) => {
     link.addEventListener('click', (e) => {
@@ -3845,7 +4302,7 @@ export function mount(scope = document) {
       '.ds-menu__trigger, .ds-menu__item, [role="menuitem"], [role="menuitemradio"], ' +
       '.ds-dropdown__trigger, .ds-dropdown__item, .ds-select__trigger, .ds-select__option, [role="option"], ' +
       '.ds-date-picker__trigger, .ds-date-picker__nav-arrow, .ds-date-picker__nav-trigger, .ds-date-picker__day, .ds-date-picker__preset, .ds-date-picker__nav-btn, ' +
-      '.ds-search-trigger, .ds-search-input__clear, .ds-filter-pill, .ds-cmd-palette-item, [data-slot="command-palette-item"], .ds-pagination__menu-item, .ds-popover__trigger, .ds-progress-step'
+      '.ds-search-trigger, .ds-search-input__clear, .ds-filter__trigger, .ds-filter__item, .ds-filter__clear, .ds-filter-reset, .ds-filter-pill, .ds-cmd-palette-item, [data-slot="command-palette-item"], .ds-pagination__menu-item, .ds-popover__trigger, .ds-progress-step'
     );
     if (popoutEl && typeof popoutEl.blur === 'function') {
       popoutEl.blur();
@@ -3853,7 +4310,7 @@ export function mount(scope = document) {
   });
 
   scope.addEventListener('pointerdown', (event) => {
-    if (!event.target.closest('[data-ds-select], [data-ds-menu], [data-ds-date-picker], [data-ds-dropdown], [data-ds-popover]')) closeAll(scope);
+    if (!event.target.closest('[data-ds-select], [data-ds-menu], [data-ds-date-picker], [data-ds-dropdown], [data-ds-filter], [data-ds-popover]')) closeAll(scope);
     if (event.target.matches('.ds-dialog__backdrop')) event.target.closest('[role="dialog"]')?.setAttribute('hidden', '');
   });
   scope.addEventListener('keydown', (event) => {

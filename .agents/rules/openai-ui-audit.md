@@ -49,14 +49,20 @@ This rule is ALWAYS ACTIVE for all component design, implementation, refinement,
 
 ---
 
-## 3. Verification Protocol
+## 3. Scoped Verification Protocol (Target-Only, Zero Unrelated Scans)
 
-Always execute verification before completing any task:
-```bash
-npm run tokens:build && npm run tokens:check && npm run ds:check && npm run build:vanilla
-node scripts/audit_all_components.mjs
-```
-Single component check:
-```bash
-node .agents/skills/openai-ui-audit/scripts/verify-component.mjs <story-id> [theme=dark|light] [selector]
-```
+Verify only what was touched — never run repo-wide component sweeps (`audit_all_components.mjs`) or rebuild untouched layers unless explicitly requested:
+- **Prototype files only (`smt-ratio-*`)**:
+  ```bash
+  npm run ds:check
+  ```
+  (plus `node --check smt-ratio-workflows.js` only when JS changed, and targeted `agent-desktop snapshot --root '<target-ref>' -i --compact` on the edited region).
+- **Token changes (`tokens/` or `docs/design-system/tokens.json`)**:
+  ```bash
+  npm run tokens:build && npm run tokens:check && npm run ds:check
+  ```
+- **Single shared DS component change (`vanilla/`, when explicitly approved)**:
+  ```bash
+  npm run build:vanilla && npm run ds:check
+  node .agents/skills/openai-ui-audit/scripts/verify-component.mjs <story-id> [theme=dark|light] [selector]
+  ```

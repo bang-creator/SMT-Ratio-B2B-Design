@@ -18,7 +18,8 @@ const CHECKBOX = (checked = false) => `
   <label class="ds-checkbox">
     <input type="checkbox"${checked ? ' checked' : ''}>
     <span class="ds-checkbox__control">
-      <svg class="ds-checkbox__check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6"/></svg>
+      <svg class="ds-checkbox__check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 8.25L6.5 11L12.25 5.25"></path></svg>
+      <svg class="ds-checkbox__dash" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 8h8.5"></path></svg>
     </span>
   </label>`;
 

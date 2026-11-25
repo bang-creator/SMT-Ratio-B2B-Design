@@ -2,6 +2,40 @@
 
 Use this file for approved changes to public exports. Product-only tweaks stay in the product until promotion is approved.
 
+## 2026-11-23 (Badge Color Palette Update & `cyan` Variant — Figma `SMT-Ratio-B2B` `24:26`)
+
+- **Tokens (`docs/design-system/tokens.json`, `tokens/tokens.css`, `tokens/tokens.dark.css`)**:
+  - Updated all 7 existing non-feedback color badge groups (`default`, `green`, `red`, `blue`, `purple`, `yellow`, `orange`) and added `cyan` using main colors + `10%` alpha backgrounds from Figma section `24:26` (`default`: `#dcdddf` / `rgba(220, 221, 223, 0.1)`; `orange`: `#fdab4b` / `rgba(253, 171, 75, 0.1)`; `yellow`: `#ffd748` / `rgba(255, 215, 72, 0.1)`; `green`: `#48fcbf` / `rgba(72, 252, 191, 0.1)`; `cyan`: `#5eaae4` / `rgba(94, 170, 228, 0.1)`; `purple`: `#cf8cff` / `rgba(207, 140, 255, 0.1)`; `blue`: `#536bff` / `rgba(83, 107, 255, 0.1)`; `red`: `#ff4d78` / `rgba(255, 77, 120, 0.1)` in dark mode, paired with accessible light-mode text/dot shades on the same `10%` fills).
+  - Decoupled feedback badge tokens (`success`, `danger`, `warning`, `info`) from the palette tokens so `.ds-badge--{success,danger,warning,info}` preserve the existing OpenAI Platform semantic feedback colors unchanged.
+- **Shared Component & Docs (`vanilla/base.css`, `vanilla/design-system.css`, `vanilla/stories/shared/badge.stories.js`, `docs/design-system/AI-QUICK-REFERENCE.md`)**:
+  - Added `.ds-badge--cyan` (with `__indicator` and `__dot` support) and mapped `.ds-badge--{success,danger,warning,info}` to their dedicated `--color-semantic-badge-{success,danger,warning,info}-*` tokens.
+  - Updated `Default / Shared / Badge` (`Default`, `Pill`, `Small`) to showcase `Cyan` and documented the updated token/variant names.
+
+## 2026-11-17 (Shared `Filter` Component & Thinner `Checkbox` Line — `platform.openai.com/settings/organization/projects`)
+
+- **New Shared Component `Default / Shared / Filter` (`vanilla/stories/shared/filter.stories.js`, `vanilla/base.css`, `vanilla/design-system.js`)**:
+  - Added `.ds-filter` / `.ds-filter__trigger` (`32px` pill capsule with muted `--color-semantic-text-secondary` resting color, subtle `1px solid var(--color-semantic-border-default)` border, and transparent background; `[data-active="true"]` selected pill state with `12%` neutral fill, `--color-semantic-text-sidebar` `500`-weight label, and inline `.ds-filter__clear` `×` clear button), `.ds-filter__menu` popover, `.ds-filter-reset` circular clear-all button, and `.ds-filter-bar` (`__group` / `__actions` single-row layout).
+  - Removed the stale duplicate `.ds-filter-bar` / `.ds-filter` rule from the legacy charts section in `vanilla/base.css`.
+  - Wired `[data-ds-filter]` (single/multi-select, inline clear, search filtering) and `[data-ds-filter-reset]` in `vanilla/design-system.js`.
+- **Checkbox Checkmark Line Weight (`vanilla/base.css`, `vanilla/stories/shared/data-table.stories.js`)**:
+  - Updated `.ds-checkbox__check` and `.ds-checkbox__dash` to `12×12px` with `stroke-width: 1.75` for crisp, lighter checkmark strokes matching `platform.openai.com`.
+- **Docs & QA Registry**:
+  - Updated [`PUBLIC_EXPORTS.md`](./PUBLIC_EXPORTS.md), [`AI-QUICK-REFERENCE.md`](./AI-QUICK-REFERENCE.md), [`vanilla/README.md`](../../vanilla/README.md), and `scripts/audit_all_components.mjs` (`32` -> `33` shared components).
+
+## 2026-11-17 (Borderless `.ds-badge` & `400` Weight `.ds-table th` Alignment)
+
+- **Tokens (`docs/design-system/tokens.json`, `tokens/tokens.css`, `tokens/tokens.dark.css`)**:
+  - Updated all 7 semantic badge border tokens (`color.semantic.badge.{default,green,red,blue,purple,yellow,orange}.border`) to `"transparent"` in light and dark modes per owner approval to match `platform.openai.com` borderless pills/badges.
+- **Shared Components (`vanilla/base.css`, `vanilla/design-system.css`)**:
+  - Removed borders from `.ds-badge` (`border: 0;`) and cleared `border-color` declarations on `.ds-badge--*` variants.
+  - Aligned `.ds-table th` `font-weight` to `var(--font-weight-normal)` (`400`) to match the OpenAI Platform table header specification.
+
+## 2026-11-17 (Shared Button Action State — `.ds-button--action`)
+
+- **Shared Button (`vanilla/base.css`, `vanilla/design-system.js`, `vanilla/stories/shared/button.stories.js`, `docs/design-system/AI-QUICK-REFERENCE.md`)**:
+  - Added `.ds-button--action` (`[data-ds-action-button]`) as an interactive async state alongside `disabled` and `.ds-button--loading` across all 7 button variants (`Primary`, `Secondary`, `Outline`, `Ghost`, `Danger`, `Danger Solid`, `Ultrafast`) and all sizes/shapes (`Default` 32px, `Pill`, `Small` 28px, `Small Pill`).
+  - Cloned the 3-phase `idle` -> `pending` -> `success` -> `idle` timeline: press scale `0.97`, spring width morphing (`300ms`), vertical text swap (`Save changes` -> `Saving` -> `Saved`), horizontal blur-slide `ArrowRight` exit/enter, CSS spinner (`700ms` loop, `cursor: progress`), and SVG stroke `pathLength` checkmark draw (`200ms`, `fill="none"`), plus screen-reader status region and full reduced-motion support.
+
 ## 2026-11-17 (SMT Ratio Sidebar Ground-Truth Fix, Text Tokens & Lint Guard)
 
 - **Tokens (`docs/design-system/tokens.json`, `tokens/tokens.css`, `tokens/tokens.dark.css`)**:
