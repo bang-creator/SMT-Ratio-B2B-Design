@@ -1481,14 +1481,14 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 0;
-      box-shadow: none;
+      box-shadow: var(--ux-video-badge-ring);
       font-family: var(--font-family-sans);
       font-size: var(--font-size-xs);
       font-weight: var(--font-weight-normal);
       line-height: 1;
       letter-spacing: 0.01em;
       font-variant-numeric: tabular-nums;
-      color: var(--color-semantic-button-ultra-text);
+      color: var(--ux-video-badge-fg);
       white-space: nowrap;
       pointer-events: none;
       transform-origin: top left;
@@ -1598,7 +1598,8 @@
 
     .ds-button.ux-video-exit-full-btn {
       position: absolute;
-      top: 12px;
+      top: auto;
+      bottom: 12px;
       right: 12px;
       z-index: 6;
       width: 32px;
@@ -1608,15 +1609,15 @@
       padding: 0;
       border-radius: var(--radius-full);
       background: var(--ux-video-badge-bg);
-      color: var(--color-semantic-button-ultra-text);
+      color: var(--ux-video-badge-fg);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      box-shadow: none;
+      box-shadow: var(--ux-video-badge-ring);
     }
 
     .ds-button.ux-video-exit-full-btn:hover:not(:disabled) {
       background: var(--ux-video-badge-bg-hover);
-      color: var(--color-semantic-button-ultra-text);
+      color: var(--ux-video-badge-fg);
     }
 
     .ds-button.ux-video-exit-full-btn svg {
@@ -2349,16 +2350,16 @@
     }
 
     :root[data-theme="light"] .ds-agent-msg--user {
-      background: var(--color-primitive-gray-100);
+      background: var(--color-primitive-gray-50);
       color: var(--color-semantic-text-primary);
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent) inset;
+      box-shadow: var(--ux-control-ring);
     }
 
     @media (prefers-color-scheme: light) {
       :root:not([data-theme="dark"]) .ds-agent-msg--user {
-        background: var(--color-primitive-gray-100);
+        background: var(--color-primitive-gray-50);
         color: var(--color-semantic-text-primary);
-        box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent) inset;
+        box-shadow: var(--ux-control-ring);
       }
     }
 
@@ -2391,13 +2392,13 @@
 
     :root[data-theme="light"] .ds-agent-panel__composer,
     :root[data-theme="light"] .ds-agent-panel__composer:focus-within {
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 7%, transparent) inset;
+      box-shadow: none;
     }
 
     @media (prefers-color-scheme: light) {
       :root:not([data-theme="dark"]) .ds-agent-panel__composer,
       :root:not([data-theme="dark"]) .ds-agent-panel__composer:focus-within {
-        box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 7%, transparent) inset;
+        box-shadow: none;
       }
     }
 
@@ -3499,7 +3500,7 @@
                     <li class="ds-progress-step" id="ux-step-tab-2" data-ux-step="2" data-step="2" data-state="upcoming" data-show-check="false">
                       <span class="ds-progress-step__marker" data-step-num="2" aria-hidden="true"><span class="ux-step-icon ux-step-icon--base ux-step-num">2</span><span class="ux-step-icon ux-step-icon--check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 14L8.5 17.5L19 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg></span></span>
                       <div class="ds-progress-step__content">
-                        <span class="ds-progress-step__title">Evidence</span>
+                        <span class="ds-progress-step__title">Validate evidence</span>
                       </div>
                       <span class="ds-progress-step__line" aria-hidden="true"></span>
                     </li>
@@ -3543,6 +3544,11 @@
               </div>
               <div class="ux-float-bar-dock" data-ux-float-bar-dock></div>
             </div>
+          </div>
+
+          <div class="ux-reanalyse-layer" data-ux-reanalyse-layer hidden>
+            <div class="ux-reanalyse-scrim" data-ux-reanalyse-scrim aria-hidden="true"></div>
+            <div class="ds-dialog ux-dialog ux-reanalyse-sheet" data-ux-reanalyse-sheet role="dialog" aria-modal="false" aria-label="Re-analyse" tabindex="-1"></div>
           </div>
 
           <aside id="smt-agent-panel" class="ds-agent-panel" data-agent-panel role="dialog" aria-label="SMT Case Agent" hidden>
@@ -3775,53 +3781,6 @@
       </div>
       <div class="ds-dialog__footer ux-dialog__footer">
         <button type="button" class="ds-button ds-button--secondary" data-ux-dialog-close data-ds-dialog-close data-ux-lib-dismiss>Close</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="ds-dialog__backdrop ux-dialog-backdrop" id="modal-add-evidence" role="dialog" aria-modal="true" aria-labelledby="dlg-ev-title" data-size="sm" data-closedby="any" hidden>
-    <div class="ds-dialog ux-dialog">
-      <div class="ds-dialog__header ux-dialog__header">
-        <div class="ux-dialog__title-wrap">
-          <h2 id="dlg-ev-title" class="ds-dialog__title ux-dialog__title">Add evidence</h2>
-        </div>
-      </div>
-      <div class="ds-dialog__body ux-dialog__body">
-        <form id="ux-add-evidence-form" class="ux-form" data-ux-add-evidence-form>
-          <div class="ux-field">
-            <label class="ds-label" for="ux-add-ev-title">Evidence title</label>
-            <input id="ux-add-ev-title" class="ds-input" type="text" placeholder="e.g. Brake lights visible before impact" required />
-          </div>
-          <div class="ux-field">
-            <label class="ds-label" for="ux-add-ev-desc">Observation</label>
-            <input id="ux-add-ev-desc" class="ds-input" type="text" placeholder="e.g. Observed on Cam 1 before stop line" />
-          </div>
-          <div class="ux-field">
-            <label class="ds-label" for="ux-add-ev-time">Timestamp</label>
-            <div class="ux-ev-time-bar">
-              <input id="ux-add-ev-time" class="ds-input ux-num ux-ev-time-bar__input" type="text" value="00:12.4" placeholder="00:12.4" required />
-              <div class="ux-ev-time-bar__steps" role="group" aria-label="Adjust timestamp">
-                <button type="button" class="ds-button ds-button--secondary" data-ux-ev-time-step="-0.5">-0.5s</button>
-                <button type="button" class="ds-button ds-button--secondary" data-ux-ev-time-step="0.5">+0.5s</button>
-                <button type="button" class="ds-button ds-button--secondary" data-ux-ev-time-now>Playhead</button>
-              </div>
-            </div>
-          </div>
-          <div class="ux-field">
-            <span class="ds-label">Camera</span>
-            <div class="ds-segmented" data-ds-segmented data-ux-add-ev-cam role="radiogroup" aria-label="Camera feed">
-              <div class="ds-segmented__thumb"></div>
-              <button type="button" role="radio" aria-checked="true" aria-pressed="true" data-state="on" data-value="1">Front</button>
-              <button type="button" role="radio" aria-checked="false" aria-pressed="false" data-state="off" data-value="2">Rear</button>
-              <button type="button" role="radio" aria-checked="false" aria-pressed="false" data-state="off" data-value="3">Other</button>
-              <button type="button" role="radio" aria-checked="false" aria-pressed="false" data-state="off" data-value="4">CCTV</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="ds-dialog__footer ux-dialog__footer">
-        <button type="button" class="ds-button ds-button--secondary" data-ux-dialog-close data-ds-dialog-close>Cancel</button>
-        <button type="submit" form="ux-add-evidence-form" class="ds-button ds-button--primary">Add evidence</button>
       </div>
     </div>
   </div>
@@ -4975,8 +4934,25 @@
         return '';
       };
 
+      const formatContextLine = (ctx) => {
+        if (!ctx || !ctx.text) return '';
+        const prefix = ctx.mode === 'none' ? '' : (ctx.cueLabel ? `${ctx.cueLabel} — ` : '');
+        return `${prefix}${ctx.text}`;
+      };
+
       const buildStepsForRecord = (rec) => {
-        const { caseId, plate, scenario, baseRatio, profile } = rec;
+        const { caseId, plate, scenario, baseRatio, profile, guidance, contexts } = rec;
+        const cleanContexts = Array.isArray(contexts) ? contexts.filter((item) => item?.text) : [];
+        const cleanGuidance = String(guidance || '').trim();
+        const contextLines = cleanContexts.map(formatContextLine).filter(Boolean);
+        const guidanceLines = cleanGuidance ? cleanGuidance.split(/\s*\|\s*/).filter(Boolean) : [];
+        const allNotes = contextLines.length ? contextLines : guidanceLines;
+        const hasContext = allNotes.length > 0;
+        const primaryNote = allNotes[0] || '';
+        const confNum = hasContext ? Math.min(99.4, 96.4 + allNotes.length * 1.1) : 96.4;
+        const fitNum = hasContext ? Math.min(99.2, 94.2 + allNotes.length * 1.6) : 94.2;
+        const confVal = `${confNum.toFixed(1)}% conf`;
+        const matchFit = `${fitNum.toFixed(1)}%`;
         return [
           {
             id: 'video-sync',
@@ -5036,26 +5012,38 @@
           {
             id: 'kinematics-eval',
             tool: 'kinematics-eval',
-            title: 'Evaluated kinematics and right-of-way rules',
-            runningTitle: 'Evaluating speed, lane state, and right-of-way',
+            title: hasContext
+              ? `Refined kinematics & right-of-way (${confVal})`
+              : 'Evaluated kinematics and right-of-way rules',
+            runningTitle: hasContext
+              ? `Re-evaluating trajectories with ${allNotes.length} context${allNotes.length === 1 ? '' : 's'}`
+              : 'Evaluating speed, lane state, and right-of-way',
             durationMs: 3000,
-            summary: '96.4% conf',
+            summary: confVal,
             thinkingSteps: [
-              'Reconstructing optical-flow velocity vectors, braking reaction latency, and lane boundary compliance leading into contact at 00:12.4...',
-              `${profile.violation}. Geometric reconstruction confirms right-of-way attribution at 96.4% confidence.`
+              hasContext
+                ? `Incorporating adjuster context (${allNotes.join('; ')}) into optical-flow velocity vectors, braking latency, and right-of-way alignment...`
+                : 'Reconstructing optical-flow velocity vectors, braking reaction latency, and lane boundary compliance leading into contact at 00:12.4...',
+              `${profile.violation}. Geometric reconstruction confirms right-of-way attribution at ${confVal}.`
             ],
             input: {
               Impact: '00:12.4',
               'Insured speed': `${profile.insuredSpeed} km/h`,
               'Counterparty speed': `${profile.counterpartySpeed} km/h`,
-              Checks: 'Right-of-way, signal phase, braking',
+              ...(hasContext ? { Contexts: `${allNotes.length} applied (${primaryNote.slice(0, 48)})` } : { Checks: 'Right-of-way, signal phase, braking' }),
             },
             output: {
               type: 'list',
               items: [
                 { lead: `${profile.insuredSpeed} km/h`, title: 'Insured approach speed', tag: 'Insured' },
                 { lead: `${profile.counterpartySpeed} km/h`, title: 'Counterparty approach speed', tag: 'Counterparty' },
-                { lead: '00:12.4', title: profile.violation, tag: 'Verified' },
+                ...(cleanContexts.length
+                  ? cleanContexts.map((ctx) => ({
+                      lead: ctx.mode === 'none' ? 'Context' : (ctx.cueLabel || 'Video'),
+                      title: ctx.text,
+                      tag: 'User cue',
+                    }))
+                  : [{ lead: '00:12.4', title: hasContext ? `${profile.violation} · Refined (${primaryNote})` : profile.violation, tag: 'Verified' }]),
               ],
             },
           },
@@ -5068,13 +5056,14 @@
             summary: baseRatio,
             thinkingSteps: [
               `Cross-referencing collision vector against ${profile.chart} (${scenario}) and checking applicable speed/reaction negligence modifiers...`,
-              `Matched ${profile.chart} with 94.2% precedent fit; ${profile.modifierSummary.toLowerCase()}, yielding finalized base ratio ${baseRatio}.`
+              `Matched ${profile.chart} with ${matchFit} precedent fit; ${profile.modifierSummary.toLowerCase()}, yielding finalized base ratio ${baseRatio}.`
             ],
             input: {
               Standard: 'KNIA Assessment Guide',
               'Accident scenario': profile.chart,
               Type: scenario,
               'Base ratio': baseRatio,
+              ...(hasContext ? { Context: allNotes.join(' · ').slice(0, 72) } : {}),
             },
             output: {
               type: 'table',
@@ -5083,7 +5072,7 @@
                 [profile.chart, scenario, 'Baseline', profile.baseSplit],
                 ['Signal & lane', profile.signalState.slice(0, 34), '0%', baseRatio],
                 ['Speed & reaction', profile.modifierSummary.slice(0, 34), '0%', baseRatio],
-                ['Base fault ratio', `Confidence 96.4% (${caseId})`, 'Ready', baseRatio],
+                ['Base fault ratio', `Confidence ${confVal} (${caseId})`, 'Ready', baseRatio],
               ],
             },
           },
@@ -5147,7 +5136,7 @@
         clearTimers();
 
         const steps = Array.isArray(rec?.steps) ? rec.steps : buildStepsForRecord(rec);
-        const doneGroupLabel = rec?.doneGroupLabel || 'Analysed 4 cameras · 4 keyframes';
+        const doneGroupLabel = rec?.doneGroupLabel || '4 keyframes';
         const runningPrefix = rec?.runningPrefix || 'Analysing step';
         const reduced = isReducedMotion();
         const callsState = [];
@@ -5212,14 +5201,18 @@
           rerunBtn.className = 'ds-button ds-button--ghost ds-button--sm ux-tool-run__rerun';
           rerunBtn.dataset.uxToolRerun = 'true';
           rerunBtn.setAttribute('aria-label', 'Re-analyse');
-          rerunBtn.setAttribute('title', 'Re-analyse');
+          rerunBtn.setAttribute('aria-expanded', 'false');
+          rerunBtn.setAttribute('title', 'Re-analyse with context');
           rerunBtn.disabled = Boolean(rerunDisabled);
           rerunBtn.innerHTML = `${UI_SVGS.rotateMd}<span>Re-analyse</span>`;
           rerunBtn.hidden = !instantCollapsed;
+
           rerunBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            onRerun();
+            if (rerunBtn.disabled) return;
+            onRerun('', rerunBtn);
           });
+
           groupActionsEl.appendChild(rerunBtn);
           groupHead.appendChild(groupActionsEl);
         }
@@ -5720,7 +5713,15 @@
     };
 
     const caseAnalysingController = createCaseAnalysingController(analysingRoot);
-    const startCaseAnalysis = (caseId, opts) => caseAnalysingController.start(getCaseAnalysisRecord(caseId), opts);
+    const startCaseAnalysis = (caseId, opts) => {
+      const rec = {
+        ...getCaseAnalysisRecord(caseId),
+        guidance: opts?.guidance || '',
+        contexts: Array.isArray(opts?.contexts) ? opts.contexts : [],
+        ...(opts?.doneGroupLabel ? { doneGroupLabel: opts.doneGroupLabel } : {}),
+      };
+      return caseAnalysingController.start(rec, opts);
+    };
     const stopCaseAnalysis = () => caseAnalysingController.stop();
     const skipCaseAnalysis = () => caseAnalysingController.completeNow();
 
@@ -5767,6 +5768,7 @@
     let lastScrubberEmitMs = 0;
     let activeCamId = '1';
     let isGridMode = false;
+    let isTimelineDraftMode = false;
     let currentMasterSec = MASTER_IMPACT_SEC;
     let activeFocusRange = null;
     let nlePlayheadEl = null;
@@ -5774,6 +5776,8 @@
     let nleStageEl = null;
     let nleScrubSliderEl = null;
     let nleRangeEl = null;
+    let nleCtxMarkersEl = null;
+    let activeContextMarkers = [];
     let videoTrackHeads = [];
     let videoTrackLanes = [];
     let activeStageAnims = [];
@@ -5793,6 +5797,29 @@
       return `${mins}:${String(secs).padStart(2, '0')}.${String(centi).padStart(2, '0')}`;
     };
 
+    const syncPlayheadNodeHighlight = () => {
+      const hasImpact = gridTimelineEl?.dataset.hasImpact === 'true';
+      const atImpact = Boolean(hasImpact && Math.abs(currentMasterSec - MASTER_IMPACT_SEC) <= 0.12);
+      const atCtx = Boolean(
+        !atImpact
+        && activeContextMarkers.some((m) => m.mode !== 'range' && Math.abs(currentMasterSec - (Number(m.masterSec) || 0)) <= 0.18)
+      );
+      const atImpactStr = String(atImpact);
+      const atCtxStr = String(atCtx);
+      if (nleStageEl && nleStageEl.dataset.atImpact !== atImpactStr) {
+        nleStageEl.dataset.atImpact = atImpactStr;
+      }
+      if (nlePlayheadEl && nlePlayheadEl.dataset.atImpact !== atImpactStr) {
+        nlePlayheadEl.dataset.atImpact = atImpactStr;
+      }
+      if (nleStageEl && nleStageEl.dataset.atCtx !== atCtxStr) {
+        nleStageEl.dataset.atCtx = atCtxStr;
+      }
+      if (nlePlayheadEl && nlePlayheadEl.dataset.atCtx !== atCtxStr) {
+        nlePlayheadEl.dataset.atCtx = atCtxStr;
+      }
+    };
+
     const syncAllVideoDisplays = ({ emitEvent = true } = {}) => {
       const pct = Math.max(0, Math.min(100, (currentMasterSec / MASTER_TOTAL_SEC) * 100));
       if (gridTimelineEl) {
@@ -5801,15 +5828,7 @@
       if (nlePlayheadEl) {
         nlePlayheadEl.style.setProperty('--playhead-pct', `${pct.toFixed(3)}%`);
       }
-      const hasImpact = gridTimelineEl?.dataset.hasImpact === 'true';
-      const atImpact = Boolean(hasImpact && Math.abs(currentMasterSec - MASTER_IMPACT_SEC) <= 0.12);
-      const atImpactStr = String(atImpact);
-      if (nleStageEl && nleStageEl.dataset.atImpact !== atImpactStr) {
-        nleStageEl.dataset.atImpact = atImpactStr;
-      }
-      if (nlePlayheadEl && nlePlayheadEl.dataset.atImpact !== atImpactStr) {
-        nlePlayheadEl.dataset.atImpact = atImpactStr;
-      }
+      syncPlayheadNodeHighlight();
 
       Object.entries(CAM_SOURCES).forEach(([camId, cam]) => {
         const inRangeStr = String(currentMasterSec >= cam.masterStartSec - 0.02 && currentMasterSec <= cam.masterEndSec + 0.02);
@@ -5893,8 +5912,11 @@
                 <span class="ux-nle-impact-node__dot" aria-hidden="true"></span>
               </button>
             </div>
+            <div class="ux-nle-ctx-markers" data-nle-ctx-markers></div>
             <div class="ux-nle-range-band" data-nle-range hidden>
               <span class="ux-nle-range-band__fill"></span>
+              <span class="ux-nle-range-band__handle ux-nle-range-band__handle--start" data-nle-range-handle="start" role="slider" aria-label="Range start" tabindex="0"></span>
+              <span class="ux-nle-range-band__handle ux-nle-range-band__handle--end" data-nle-range-handle="end" role="slider" aria-label="Range end" tabindex="0"></span>
             </div>
             <div class="ux-nle-lanes" data-video-cards-list role="listbox" aria-label="Camera angles">
               ${lanesMarkup}
@@ -5916,6 +5938,8 @@
       nlePlayheadEl = gridTimelineEl.querySelector('[data-nle-playhead]');
       nlePlayheadTimeEl = gridTimelineEl.querySelector('[data-nle-playhead-time]');
       nleRangeEl = gridTimelineEl.querySelector('[data-nle-range]');
+      nleCtxMarkersEl = gridTimelineEl.querySelector('[data-nle-ctx-markers]');
+      renderTimelineContextMarkers();
       const nleImpactNodeEl = gridTimelineEl.querySelector('[data-nle-impact-node]');
       if (nleStageEl) {
         nleStageEl.style.setProperty('--impact-pct', `${((MASTER_IMPACT_SEC / MASTER_TOTAL_SEC) * 100).toFixed(3)}%`);
@@ -5926,7 +5950,7 @@
       nleImpactNodeEl?.addEventListener('click', (event) => {
         event.stopPropagation();
         setVideoPlaying(false);
-        setMasterTime(MASTER_IMPACT_SEC);
+        setMasterTime(MASTER_IMPACT_SEC, { emitDraft: true });
       });
       videoTrackHeads = Array.from(gridTimelineEl.querySelectorAll('[data-video-card]'));
       videoTrackLanes = Array.from(gridTimelineEl.querySelectorAll('[data-nle-lane]'));
@@ -5943,21 +5967,140 @@
         clipEl.style.setProperty('--clip-span', `${((cam.durationSec / MASTER_TOTAL_SEC) * 100).toFixed(3)}%`);
       });
 
+      const getCamAtClientY = (clientY) => {
+        if (!Number.isFinite(clientY)) return null;
+        for (const lane of videoTrackLanes) {
+          const r = lane.getBoundingClientRect();
+          if (clientY >= r.top && clientY <= r.bottom && lane.dataset.missing !== 'true') {
+            return lane.dataset.nleLane;
+          }
+        }
+        return null;
+      };
+
+      const syncRangeBandCss = () => {
+        if (activeFocusRange && nleRangeEl && gridTimelineEl) {
+          const startPct = Math.max(0, Math.min(100, (activeFocusRange.startMasterSec / MASTER_TOTAL_SEC) * 100));
+          const spanPct = Math.max(1, Math.min(100 - startPct, ((activeFocusRange.endMasterSec - activeFocusRange.startMasterSec) / MASTER_TOTAL_SEC) * 100));
+          nleRangeEl.hidden = false;
+          nleRangeEl.style.setProperty('--range-start', `${startPct.toFixed(2)}%`);
+          nleRangeEl.style.setProperty('--range-span', `${spanPct.toFixed(2)}%`);
+          gridTimelineEl.dataset.rangeFocused = 'true';
+        }
+      };
+
+      if (nleRangeEl) {
+        let rangeMode = '';
+        let rangeStartX = 0;
+        let origStartSec = 0;
+        let origEndSec = 0;
+        let rangeRafId = 0;
+        let lastRangeX = 0;
+
+        const applyRangeDrag = (clientX, clientY) => {
+          if (!nleStageEl || !activeFocusRange) return;
+          const rect = nleStageEl.getBoundingClientRect();
+          if (!rect.width) return;
+          const deltaSec = ((clientX - rangeStartX) / rect.width) * MASTER_TOTAL_SEC;
+          const minSpan = 0.4;
+          if (rangeMode === 'start') {
+            const nextStart = Math.max(0, Math.min(origEndSec - minSpan, origStartSec + deltaSec));
+            activeFocusRange.startMasterSec = nextStart;
+            activeFocusRange.startSec = nextStart - CAM_SOURCES['1'].masterStartSec;
+            setMasterTime(nextStart);
+          } else if (rangeMode === 'end') {
+            const nextEnd = Math.min(MASTER_TOTAL_SEC, Math.max(origStartSec + minSpan, origEndSec + deltaSec));
+            activeFocusRange.endMasterSec = nextEnd;
+            activeFocusRange.endSec = nextEnd - CAM_SOURCES['1'].masterStartSec;
+            setMasterTime(nextEnd);
+          } else {
+            const span = Math.max(minSpan, origEndSec - origStartSec);
+            const nextStart = Math.max(0, Math.min(MASTER_TOTAL_SEC - span, origStartSec + deltaSec));
+            activeFocusRange.startMasterSec = nextStart;
+            activeFocusRange.endMasterSec = nextStart + span;
+            activeFocusRange.startSec = nextStart - CAM_SOURCES['1'].masterStartSec;
+            activeFocusRange.endSec = nextStart + span - CAM_SOURCES['1'].masterStartSec;
+            setMasterTime(nextStart);
+          }
+          const hitCam = getCamAtClientY(clientY);
+          if (hitCam && hitCam !== activeCamId) setActiveCamera(hitCam);
+          syncRangeBandCss();
+          emitTimelineDraftChange('range');
+        };
+
+        nleRangeEl.addEventListener('pointerdown', (event) => {
+          if (!isTimelineDraftMode || !activeFocusRange || event.button !== 0) return;
+          event.stopPropagation();
+          const handleEl = event.target.closest('[data-nle-range-handle]');
+          rangeMode = handleEl?.dataset.nleRangeHandle || 'move';
+          rangeStartX = event.clientX;
+          lastRangeX = event.clientX;
+          origStartSec = Number(activeFocusRange.startMasterSec) || 12;
+          origEndSec = Number(activeFocusRange.endMasterSec) || 15;
+          setVideoPlaying(false);
+          if (nleStageEl) {
+            nleStageEl.dataset.dragging = 'true';
+            nleStageEl.classList.add('is-scrubbing');
+          }
+          nleRangeEl.setPointerCapture?.(event.pointerId);
+        });
+
+        nleRangeEl.addEventListener('pointermove', (event) => {
+          if (!rangeMode) return;
+          lastRangeX = event.clientX;
+          const lastY = event.clientY;
+          if (!rangeRafId) {
+            rangeRafId = requestAnimationFrame(() => {
+              rangeRafId = 0;
+              if (rangeMode) applyRangeDrag(lastRangeX, lastY);
+            });
+          }
+        });
+
+        const endRangeDrag = (event) => {
+          if (!rangeMode) return;
+          if (rangeRafId) {
+            cancelAnimationFrame(rangeRafId);
+            rangeRafId = 0;
+          }
+          applyRangeDrag(event.clientX ?? lastRangeX, event.clientY);
+          rangeMode = '';
+          if (nleStageEl) {
+            delete nleStageEl.dataset.dragging;
+            nleStageEl.classList.remove('is-scrubbing');
+          }
+          try {
+            if (nleRangeEl.hasPointerCapture?.(event.pointerId)) {
+              nleRangeEl.releasePointerCapture(event.pointerId);
+            }
+          } catch (_) {}
+        };
+        nleRangeEl.addEventListener('pointerup', endRangeDrag);
+        nleRangeEl.addEventListener('pointercancel', endRangeDrag);
+      }
+
       videoTrackLanes.forEach((laneRow) => {
         const camId = laneRow.dataset.nleLane;
         let startX = 0;
+        let startY = 0;
         let pendingLaneX = 0;
+        let pendingLaneY = 0;
         let laneRafId = 0;
         let dragged = false;
         let activeDrag = false;
         let suppressClick = false;
         let suppressTimer = 0;
 
-        const scrubLane = (clientX) => {
+        const scrubLane = (clientX, clientY) => {
           const rect = laneRow.getBoundingClientRect();
           if (!rect.width) return;
           const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+          if (isTimelineDraftMode) {
+            const hitCam = getCamAtClientY(clientY);
+            if (hitCam && hitCam !== activeCamId) setActiveCamera(hitCam);
+          }
           setMasterTime(ratio * MASTER_TOTAL_SEC);
+          emitTimelineDraftChange('point');
         };
 
         laneRow.addEventListener('pointerdown', (event) => {
@@ -5965,14 +6108,20 @@
           activeDrag = true;
           dragged = false;
           startX = event.clientX;
+          startY = event.clientY;
           pendingLaneX = event.clientX;
+          pendingLaneY = event.clientY;
           laneRow.setPointerCapture?.(event.pointerId);
+          if (isTimelineDraftMode) {
+            scrubLane(event.clientX, event.clientY);
+          }
         });
 
         laneRow.addEventListener('pointermove', (event) => {
           if (!activeDrag) return;
           pendingLaneX = event.clientX;
-          if (!dragged && Math.abs(event.clientX - startX) > 4) {
+          pendingLaneY = event.clientY;
+          if (!dragged && (Math.abs(event.clientX - startX) > 4 || (isTimelineDraftMode && Math.abs(event.clientY - startY) > 4))) {
             dragged = true;
             setVideoPlaying(false);
             if (nleStageEl) {
@@ -5983,7 +6132,7 @@
           if (dragged && !laneRafId) {
             laneRafId = requestAnimationFrame(() => {
               laneRafId = 0;
-              if (activeDrag) scrubLane(pendingLaneX);
+              if (activeDrag) scrubLane(pendingLaneX, pendingLaneY);
             });
           }
         });
@@ -5995,7 +6144,7 @@
             cancelAnimationFrame(laneRafId);
             laneRafId = 0;
           }
-          if (shouldFlush) scrubLane(pendingLaneX);
+          if (shouldFlush) scrubLane(pendingLaneX, pendingLaneY);
           activeDrag = false;
           if (nleStageEl) {
             delete nleStageEl.dataset.dragging;
@@ -6023,6 +6172,7 @@
             return;
           }
           if (camId) setActiveCamera(camId, { animateSingle: !isGridMode });
+          if (isTimelineDraftMode) emitTimelineDraftChange('point');
         });
 
         laneRow.addEventListener('dblclick', () => {
@@ -6032,33 +6182,41 @@
 
       let dragging = false;
       let pendingStageX = 0;
+      let pendingStageY = 0;
       let stageRafId = 0;
-      const scrubFromPointer = (clientX) => {
+      const scrubFromPointer = (clientX, clientY) => {
         if (!nleStageEl) return;
         const rect = nleStageEl.getBoundingClientRect();
         if (!rect.width) return;
         const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        if (isTimelineDraftMode) {
+          const hitCam = getCamAtClientY(clientY);
+          if (hitCam && hitCam !== activeCamId) setActiveCamera(hitCam);
+        }
         setMasterTime(ratio * MASTER_TOTAL_SEC);
+        emitTimelineDraftChange('point');
       };
 
       nleStageEl?.addEventListener('pointerdown', (event) => {
-        if (event.button !== 0 || event.target.closest('.ux-nle-lane-row, [data-nle-impact-node]')) return;
+        if (event.button !== 0 || event.target.closest('.ux-nle-lane-row, [data-nle-impact-node], [data-nle-range], [data-nle-ctx-markers]')) return;
         dragging = true;
         pendingStageX = event.clientX;
+        pendingStageY = event.clientY;
         nleStageEl.dataset.dragging = 'true';
         nleStageEl.classList.add('is-scrubbing');
         setVideoPlaying(false);
         nleStageEl.setPointerCapture?.(event.pointerId);
-        scrubFromPointer(event.clientX);
+        scrubFromPointer(event.clientX, event.clientY);
       });
 
       nleStageEl?.addEventListener('pointermove', (event) => {
         if (!dragging) return;
         pendingStageX = event.clientX;
+        pendingStageY = event.clientY;
         if (!stageRafId) {
           stageRafId = requestAnimationFrame(() => {
             stageRafId = 0;
-            if (dragging) scrubFromPointer(pendingStageX);
+            if (dragging) scrubFromPointer(pendingStageX, pendingStageY);
           });
         }
       });
@@ -6070,7 +6228,7 @@
           cancelAnimationFrame(stageRafId);
           stageRafId = 0;
         }
-        if (shouldFlush) scrubFromPointer(pendingStageX);
+        if (shouldFlush) scrubFromPointer(pendingStageX, pendingStageY);
         dragging = false;
         if (nleStageEl) {
           delete nleStageEl.dataset.dragging;
@@ -6085,35 +6243,110 @@
         if (event.key === 'Home') {
           event.preventDefault();
           setVideoPlaying(false);
-          setMasterTime(0);
+          setMasterTime(0, { emitDraft: true });
           return;
         }
         if (event.key === 'End') {
           event.preventDefault();
           setVideoPlaying(false);
-          setMasterTime(MASTER_TOTAL_SEC);
+          setMasterTime(MASTER_TOTAL_SEC, { emitDraft: true });
           return;
         }
         if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
         event.preventDefault();
         setVideoPlaying(false);
         const step = event.shiftKey ? 1.0 : 0.2;
-        setMasterTime(currentMasterSec + (event.key === 'ArrowRight' ? step : -step));
+        setMasterTime(currentMasterSec + (event.key === 'ArrowRight' ? step : -step), { emitDraft: true });
       });
     };
 
-    const setMasterTime = (seconds) => {
-      currentMasterSec = Math.max(0, Math.min(MASTER_TOTAL_SEC, Number(seconds) || 0));
-      syncAllVideoDisplays();
+    const emitTimelineDraftChange = (kind = 'point') => {
+      if (!isTimelineDraftMode) return;
+      const cam1Sec = Math.max(0, Math.min(24, currentMasterSec - CAM_SOURCES['1'].masterStartSec));
+      const startCam1Sec = activeFocusRange
+        ? Math.max(0, Math.min(24, activeFocusRange.startMasterSec - CAM_SOURCES['1'].masterStartSec))
+        : cam1Sec;
+      const endCam1Sec = activeFocusRange
+        ? Math.max(startCam1Sec + 0.4, Math.min(24, activeFocusRange.endMasterSec - CAM_SOURCES['1'].masterStartSec))
+        : Math.min(24, cam1Sec + 1.2);
+      document.dispatchEvent(new CustomEvent('ux-timeline-draft-change', {
+        detail: {
+          kind,
+          camId: activeCamId,
+          cam1Sec,
+          masterSec: currentMasterSec,
+          startCam1Sec,
+          endCam1Sec,
+          startMasterSec: activeFocusRange?.startMasterSec ?? currentMasterSec,
+          endMasterSec: activeFocusRange?.endMasterSec ?? currentMasterSec,
+        },
+      }));
     };
 
-    const setScrubberValue = (cam1RefSec) => {
+    const renderTimelineContextMarkers = () => {
+      if (!nleCtxMarkersEl) return;
+      if (!activeContextMarkers.length) {
+        nleCtxMarkersEl.innerHTML = '';
+        syncPlayheadNodeHighlight();
+        return;
+      }
+      const escAttr = (val) => String(val ?? '').replace(/[&<>"']/g, (ch) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[ch]));
+      nleCtxMarkersEl.innerHTML = activeContextMarkers.map((m) => {
+        const activeAttr = m.active ? ' data-active="true"' : '';
+        const titleAttr = m.title ? ` title="${escAttr(m.title)}"` : '';
+        if (m.mode === 'range') {
+          const startPct = Math.max(0, Math.min(100, ((Number(m.startMasterSec) || 0) / MASTER_TOTAL_SEC) * 100));
+          const spanPct = Math.max(1.2, Math.min(100 - startPct, (((Number(m.endMasterSec) || 0) - (Number(m.startMasterSec) || 0)) / MASTER_TOTAL_SEC) * 100));
+          return `<button type="button" class="ds-button ds-button--ghost ux-nle-ctx-span" data-nle-ctx-id="${escAttr(m.id)}"${activeAttr}${titleAttr} aria-label="${escAttr(m.title || 'Context range')}" style="--ctx-start:${startPct.toFixed(2)}%;--ctx-span:${spanPct.toFixed(2)}%"></button>`;
+        }
+        const xPct = Math.max(0, Math.min(100, ((Number(m.masterSec) || 0) / MASTER_TOTAL_SEC) * 100));
+        return `<button type="button" class="ds-button ds-button--ghost ux-nle-ctx-pin" data-nle-ctx-id="${escAttr(m.id)}"${activeAttr}${titleAttr} aria-label="${escAttr(m.title || 'Context moment')}" style="--ctx-x:${xPct.toFixed(2)}%"><span class="ux-nle-ctx-pin__dot" aria-hidden="true"></span></button>`;
+      }).join('');
+      nleCtxMarkersEl.querySelectorAll('[data-nle-ctx-id]').forEach((btn) => {
+        btn.addEventListener('pointerdown', (event) => event.stopPropagation());
+        btn.addEventListener('click', (event) => {
+          event.stopPropagation();
+          document.dispatchEvent(new CustomEvent('ux-timeline-context-marker-click', { detail: { id: btn.dataset.nleCtxId } }));
+        });
+      });
+      syncPlayheadNodeHighlight();
+    };
+
+    const setTimelineContextMarkers = (markers = []) => {
+      activeContextMarkers = Array.isArray(markers) ? markers : [];
+      renderTimelineContextMarkers();
+    };
+
+    const getVideoPlayheadState = () => ({
+      activeCamId,
+      masterSec: currentMasterSec,
+      cam1Sec: Math.max(0, Math.min(24, currentMasterSec - CAM_SOURCES['1'].masterStartSec)),
+      activeFocusRange: activeFocusRange ? { ...activeFocusRange } : null,
+    });
+
+    const setMasterTime = (seconds, { emitDraft = false } = {}) => {
+      currentMasterSec = Math.max(0, Math.min(MASTER_TOTAL_SEC, Number(seconds) || 0));
+      syncAllVideoDisplays();
+      if (emitDraft && isTimelineDraftMode) emitTimelineDraftChange('point');
+    };
+
+    const setScrubberValue = (cam1RefSec, opts) => {
       const masterSec = MASTER_IMPACT_SEC + ((Number(cam1RefSec) || 0) - 12.4);
-      setMasterTime(masterSec);
+      setMasterTime(masterSec, opts);
+    };
+
+    const setTimelineDraftMode = (enabled) => {
+      isTimelineDraftMode = Boolean(enabled);
+      if (gridTimelineEl) {
+        if (isTimelineDraftMode) gridTimelineEl.dataset.draftPicking = 'true';
+        else delete gridTimelineEl.dataset.draftPicking;
+      }
     };
 
     const setTimelineFocusRange = (rangeSpec) => {
-      activeFocusRange = rangeSpec || null;
+      activeFocusRange = rangeSpec ? { ...rangeSpec } : null;
       if (activeFocusRange && nleRangeEl && gridTimelineEl) {
         const startPct = Math.max(0, Math.min(100, (activeFocusRange.startMasterSec / MASTER_TOTAL_SEC) * 100));
         const spanPct = Math.max(1, Math.min(100 - startPct, ((activeFocusRange.endMasterSec - activeFocusRange.startMasterSec) / MASTER_TOTAL_SEC) * 100));
@@ -6496,12 +6729,12 @@
 
     videoStepBackBtn?.addEventListener('click', () => {
       setVideoPlaying(false);
-      setMasterTime(currentMasterSec - 1.0);
+      setMasterTime(currentMasterSec - 1.0, { emitDraft: true });
     });
 
     videoStepForwardBtn?.addEventListener('click', () => {
       setVideoPlaying(false);
-      setMasterTime(currentMasterSec + 1.0);
+      setMasterTime(currentMasterSec + 1.0, { emitDraft: true });
     });
 
     videoViewFullBtn?.addEventListener('click', () => {
@@ -6521,6 +6754,10 @@
 
     videoJumpImpactBtn?.addEventListener('click', () => {
       setVideoPlaying(false);
+      if (isTimelineDraftMode) {
+        setMasterTime(MASTER_IMPACT_SEC, { emitDraft: true });
+        return;
+      }
       setTimelineFocusRange(null);
       document.dispatchEvent(new CustomEvent('ux-range-clear'));
       setMasterTime(MASTER_IMPACT_SEC);
@@ -6632,6 +6869,7 @@
     const setAgentPanelOpen = (open) => {
       const nextOpen = Boolean(open);
       if (!agentPanel || !agentFab || nextOpen === isAgentOpen) return;
+      if (nextOpen) document.dispatchEvent(new CustomEvent('ux-agent-panel-opened'));
       isAgentOpen = nextOpen;
       const token = ++agentAnimToken;
 
@@ -6778,6 +7016,10 @@
         setVideoFullView(false);
         return;
       }
+      if (workflowCtrl?.isStep1ReanalyseOpen?.() && !document.querySelector('.ux-dialog-backdrop:not([hidden])')) {
+        workflowCtrl.closeStep1ReanalyseSheet?.();
+        return;
+      }
       if (isAgentOpen) {
         setAgentPanelOpen(false);
       }
@@ -6801,6 +7043,9 @@
       stopStep3Analysis,
       skipStep3Analysis,
       setTimelineFocusRange,
+      setTimelineDraftMode,
+      setTimelineContextMarkers,
+      getVideoPlayheadState,
       setAgentPanelOpen,
       agentMessages,
       agentWelcome,

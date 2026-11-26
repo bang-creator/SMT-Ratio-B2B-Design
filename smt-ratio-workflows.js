@@ -19,11 +19,11 @@ const STAGE_META = {
   pending_analysis: { label: 'Queued', badge: 'ds-badge--default', step: 1 },
   analyzing: { label: 'Analysing', badge: 'ds-badge--blue', step: 1 },
   undetermined: { label: 'Needs input', badge: 'ds-badge--red', step: 1 },
-  pending_chart: { label: 'Select scenario', badge: 'ds-badge--blue', step: 1 },
-  pending_report: { label: 'Confirm baseline', badge: 'ds-badge--cyan', step: 2 },
+  pending_chart: { label: 'Select scenario', badge: 'ds-badge--purple', step: 1 },
+  pending_report: { label: 'Validate evidence', badge: 'ds-badge--cyan', step: 2 },
   negotiating: { label: 'Negotiating', badge: 'ds-badge--orange', step: 3 },
   agreed: { label: 'Settled', badge: 'ds-badge--green', step: 4 },
-  closed: { label: 'Closed', badge: 'ds-badge--purple', step: 4 },
+  closed: { label: 'Closed', badge: 'ds-badge--neutral', step: 4 },
 };
 
 const ACTIVITY_CATEGORY_BADGES = {
@@ -1282,6 +1282,7 @@ export function initSmtWorkflows(bridge) {
     activeConditionTarget: null,
     activeTimelineRange: null,
     activeStep2EvidenceTag: null,
+    step1ReanalyseDraft: null,
     furthestStepByCase: {},
     openNoteFactorIds: new Set(),
     openPdfSectionId: null,
@@ -1310,7 +1311,8 @@ export function initSmtWorkflows(bridge) {
   const ICON_ALERT_TRIANGLE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 21L12 3L2 21H22Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 15L12 10M12 16.5L12 18" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
   const ICON_ALERT_CIRCLE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 14L12 7M12 15.5L12 17" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
   const ICON_INFO_CIRCLE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 10H12.75V9.25H12V10ZM11.25 10V17H12.75V10H11.25ZM10 10.75H12V9.25H10V10.75ZM11.25 6.5V8H12.75V6.5H11.25Z" fill="currentColor"/></svg>';
-  const ICON_PLUS = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4V20" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  const ICON_PLUS = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.75 13.25V20H13.25V13.25H20V10.75H13.25V4H10.75V10.75H4V13.25H10.75Z" fill="currentColor"/></svg>';
+  const ICON_CLOCK_SM = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM13 11.5858V7H11V12.4142L13.7929 15.2071L15.2071 13.7929L13 11.5858Z" fill="currentColor"/></svg>';
   const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 14L8.5 17.5L19 6.5" stroke="currentColor" stroke-width="1.5"/></svg>';
   const ICON_ARROW_RIGHT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.00005 6L15 12L9 18" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="16"/></svg>';
   const ICON_EXPORT_DOC = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 22L21 19L18 16M21 19L13 19" stroke="currentColor" stroke-width="1.5"/><path d="M3 22H2.25C2.25 22.4142 2.58579 22.75 3 22.75V22ZM20 2H20.75C20.75 1.58579 20.4142 1.25 20 1.25V2ZM10 2V1.25H9.68934L9.46967 1.46967L10 2ZM3 9L2.46967 8.46967L2.25 8.68934V9H3ZM10 9V9.75H10.75V9H10ZM11 21.25H3V22.75H11V21.25ZM20 1.25H10V2.75H20V1.25ZM2.25 9V22H3.75V9H2.25ZM9.46967 1.46967L2.46967 8.46967L3.53033 9.53033L10.5303 2.53033L9.46967 1.46967ZM9.25 2V9H10.75V2H9.25ZM10 8.25H3V9.75H10V8.25ZM19.25 2V13H20.75V2H19.25Z" fill="currentColor"/></svg>';
@@ -1320,6 +1322,8 @@ export function initSmtWorkflows(bridge) {
   const ICON_FILE_VIDEO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.75 15.75H11.75V22.75H18.75V15.75Z" fill="currentColor"/><path d="M21.75 16.75V21.75L19.8606 20.7428V17.7657L21.75 16.75Z" fill="currentColor"/><path d="M20.75 2.22727C20.75 1.68754 20.3141 1.25 19.7763 1.25H9.63616L2.25 8.66338V21.7727C2.25 22.3125 2.68593 22.75 3.22368 22.75H9.01306V20.7955H4.19727V10.0455H11.0131L11.0131 3.20459H18.8025V13H20.75V2.22727Z" fill="currentColor"/></svg>';
   const ICON_CLOSE_SM = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10.2623L18.0123 4.25L19.75 5.98775L13.7377 12L19.75 18.0123L18.0123 19.75L12 13.7377L5.98775 19.75L4.25 18.0123L10.2623 12L4.25 5.98775L5.98775 4.25L12 10.2623Z" fill="currentColor"/></svg>';
   const ICON_DETAILS = '<svg class="ux-mcard__note-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.75 21.7727C2.75 22.3125 3.18593 22.75 3.72368 22.75H13.8638L21.25 15.3366V2.22727C21.25 1.68754 20.8141 1.25 20.2763 1.25H2.75V21.7727ZM12.4869 20.7954H4.69747V3.2045H19.3027V13.9545H12.4869L12.4869 20.7954Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16 8H8V6H16V8ZM12 12H8V10H12V12Z" fill="currentColor"/></svg>';
+  const ICON_EDIT_SM = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M22 22L13 22L13 20L22 20L22 22Z" fill="currentColor"/><path d="M18.5298 11.4693L21.9991 8L15.9991 2L12.5302 5.46912L18.5298 11.4693Z" fill="currentColor"/><path d="M17.4691 12.53L11.4696 6.52981L2 16V22H7.99908L17.4691 12.53Z" fill="currentColor"/></svg>';
+  const ICON_TRASH_SM = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.58085 1.85608C8.73843 1.4884 9.09997 1.25 9.5 1.25H14.5C14.9 1.25 15.2616 1.4884 15.4191 1.85608L16.6594 4.75H22V6.75H2V4.75H7.3406L8.58085 1.85608ZM9.51654 4.75H14.4835L13.8406 3.25H10.1594L9.51654 4.75Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2492 22.0449L20.2492 5.54492H3.75195L4.75195 22.0449C4.77595 22.4408 5.10399 22.7495 5.50058 22.7495H18.5006C18.8972 22.7495 19.2252 22.4408 19.2492 22.0449ZM10.501 16.9995V10.9995H8.50098L8.50098 16.9995H10.501ZM15.501 16.9995V10.9995H13.501V16.9995H15.501Z" fill="currentColor"/></svg>';
 
   const renderVideoSlotMetaHtml = ({ hasFile, error, name, durationSec, sizeMb }) => {
     if (error) return `<span class="ux-video-slot__meta ux-video-slot__meta--error">${esc(error)}</span>`;
@@ -1462,11 +1466,24 @@ export function initSmtWorkflows(bridge) {
 
   const getChartsForCase = (c) => {
     const manualSet = new Set(c.manualCharts || []);
+    const ctxList = Array.isArray(c?.step1Contexts) ? c.step1Contexts.filter((item) => item?.text) : [];
+    const ctxBoost = ctxList.reduce((sum, item) => sum + (item.mode === 'none' ? 2 : 4), 0);
+    const legacyBoost = Number(c?.guidanceBoostByStep?.[1]) || 0;
+    const baseBoost = Math.min(7, Math.max(0, ctxBoost || legacyBoost));
+    const ctxBlob = ctxList.map((item) => item.text.toLowerCase()).join(' ');
     const aiMatches = c.lowMatchSimulation
       ? []
       : KNIA_CHART_CATALOG
           .map((ch) => {
-            const fit = ch.fitByScenario?.[c.scenario] ?? (ch.code === c.selectedChart ? 78 : 14);
+            const rawFit = ch.fitByScenario?.[c.scenario] ?? (ch.code === c.selectedChart ? 78 : 14);
+            let kwBonus = 0;
+            if (ctxBlob) {
+              const haystack = `${ch.title || ''} ${(ch.criteria || []).join(' ')} ${ch.kniaProse || ''}`.toLowerCase();
+              const hits = ['red', 'green', 'left', 'right', 'cut-in', 'u-turn', 'rotary', 'reverse', 'speed', 'lane', 'rear', 'brake', 'signal']
+                .filter((kw) => ctxBlob.includes(kw) && haystack.includes(kw)).length;
+              kwBonus = Math.min(4, hits * 2);
+            }
+            const fit = rawFit >= 20 ? Math.min(99, rawFit + baseBoost + kwBonus) : rawFit;
             return { ...ch, fit, manual: Boolean(ch.isManual) };
           })
           .filter((ch) => ch.fit >= 20 && !ch.isManual)
@@ -1639,7 +1656,6 @@ export function initSmtWorkflows(bridge) {
     scenarioRef: document.getElementById('modal-scenario-reference'),
     chartCompare: document.getElementById('modal-chart-compare'),
     kniaLibrary: document.getElementById('modal-knia-library'),
-    addEvidence: document.getElementById('modal-add-evidence'),
     addModifier: document.getElementById('modal-add-modifier'),
     versionWarning: document.getElementById('modal-version-warning'),
     closeCase: document.getElementById('modal-close-case'),
@@ -2151,7 +2167,7 @@ export function initSmtWorkflows(bridge) {
     ['analyzing', 'Analysing'],
     ['undetermined', 'Needs input'],
     ['pending_chart', 'Select scenario'],
-    ['pending_report', 'Confirm baseline'],
+    ['pending_report', 'Validate evidence'],
     ['negotiating', 'Negotiating'],
     ['agreed', 'Settled'],
     ['closed', 'Closed'],
@@ -2299,6 +2315,9 @@ export function initSmtWorkflows(bridge) {
     if (splitResizerEl) {
       splitResizerEl.setAttribute('aria-valuenow', String(Math.round(pct)));
     }
+    if (typeof syncReanalyseSheetPosition === 'function') {
+      requestAnimationFrame(syncReanalyseSheetPosition);
+    }
     if (persist) {
       try { window.localStorage?.setItem(VIDEO_SPLIT_KEY, pct.toFixed(2)); } catch {}
     }
@@ -2396,6 +2415,10 @@ export function initSmtWorkflows(bridge) {
     }
     bridge.setVideoPlaying(false);
     if (navId !== 'case-detail') {
+      hideCondThumbTip();
+      closeStep1ReanalyseSheet({ discardDraft: true });
+      store.evidenceDraft = null;
+      bridge.setTimelineDraftMode?.(false);
       bridge.setVideoFullView?.(false);
       bridge.stopCaseAnalysis();
       bridge.stopStep2Analysis?.();
@@ -2490,32 +2513,41 @@ export function initSmtWorkflows(bridge) {
 
   const syncLinkedEvidenceHighlight = () => {
     const activeEvKey = store.activeTimelineRange?.key || store.activeStep2EvidenceTag?.key || '';
+    const activePillKey = store.activeTimelineRange?.key || store.activeStep2EvidenceTag?.pillKey || activeEvKey;
     document.querySelectorAll('[data-ux-ev-tag-key]').forEach((el) => {
-      el.dataset.active = String(Boolean(activeEvKey) && el.dataset.uxEvTagKey === activeEvKey);
+      el.dataset.active = String(Boolean(activePillKey) && el.dataset.uxEvTagKey === activePillKey);
     });
     document.querySelectorAll('[data-ux-ev-item-key]').forEach((el) => {
       el.dataset.active = String(Boolean(activeEvKey) && el.dataset.uxEvItemKey === activeEvKey);
     });
   };
 
-  const jumpToStep2Keyframe = (c, chart, ev) => {
+  const jumpToStep2Keyframe = (c, chart, ev, momentIdx = -1) => {
     if (!c || !chart || !ev) return;
     if (store.activeTimelineRange) clearTimelineRangeFocus(c, false);
-    const sec = parseTimeSec(ev.time);
+    const moments = Array.isArray(ev.moments) ? ev.moments : [];
+    const targetM = momentIdx >= 0 && moments[momentIdx] ? moments[momentIdx] : null;
+    const sec = targetM
+      ? (Number.isFinite(targetM.cam1Sec) ? targetM.cam1Sec : (Number.isFinite(targetM.masterSec) ? Math.max(0, Math.min(24, targetM.masterSec - 2.6)) : parseTimeSec(targetM.time || ev.time)))
+      : parseTimeSec(ev.time);
+    const cam = Number(targetM?.cam || ev.cam || 1);
     const evKey = getEvidenceTagKey(chart, ev);
-    store.activeStep2EvidenceTag = { chartCode: chart.code, evId: ev.id, key: evKey };
+    const pillKey = targetM ? `${evKey}:m${momentIdx}` : evKey;
+    store.activeStep2EvidenceTag = { chartCode: chart.code, evId: ev.id, key: evKey, pillKey };
     store.activeConditionTarget = {
-      key: evKey,
+      key: pillKey,
       sec,
-      cam: ev.cam,
-      frame: `0:${String(ev.time || '').replace(/^00:/, '')}`,
+      cam,
+      frame: targetM && Number.isFinite(targetM.masterSec)
+        ? formatMasterShort(targetM.masterSec)
+        : `0:${String(targetM?.time || ev.time || '').replace(/^00:/, '')}`,
       highlight: ev.title,
-      hud: ev.hud || ev.title,
-      reticle: ev.reticle || 'impact',
+      hud: targetM?.hud || ev.hud || ev.title,
+      reticle: targetM?.reticle || ev.reticle || 'impact',
     };
     bridge.setVideoPlaying(false);
     bridge.setScrubberValue(sec);
-    bridge.setActiveCamera(String(ev.cam));
+    bridge.setActiveCamera(String(cam));
     flashActiveVideoStage();
     renderStageOverlay(store.activeConditionTarget);
     renderVideoTimeline(c);
@@ -2618,7 +2650,7 @@ export function initSmtWorkflows(bridge) {
     `;
   };
 
-  const selectEvidenceTag = (c, chart, ev) => {
+  const selectEvidenceTag = (c, chart, ev, momentIdx = -1) => {
     if (!c || !chart || !ev) return;
     const evKey = getEvidenceTagKey(chart, ev);
     if (ev.type === 'range') {
@@ -2631,14 +2663,15 @@ export function initSmtWorkflows(bridge) {
       }
       focusStep2TimelineRange(c, chart, ev);
     } else {
-      if (!store.activeTimelineRange && store.activeConditionTarget?.key === evKey) {
+      const targetKey = momentIdx >= 0 ? `${evKey}:m${momentIdx}` : evKey;
+      if (!store.activeTimelineRange && store.activeConditionTarget?.key === targetKey) {
         store.activeConditionTarget = null;
         store.activeStep2EvidenceTag = null;
         renderStageOverlay(null);
         syncLinkedEvidenceHighlight();
         return;
       }
-      jumpToStep2Keyframe(c, chart, ev);
+      jumpToStep2Keyframe(c, chart, ev, momentIdx);
     }
   };
 
@@ -2648,6 +2681,14 @@ export function initSmtWorkflows(bridge) {
       btn.addEventListener('click', () => {
         const ev = list.find((x, i) => String(x.id ?? i) === String(btn.dataset.uxEvJump));
         if (ev) selectEvidenceTag(c, chart, ev);
+      });
+    });
+    containerEl.querySelectorAll('[data-ux-ev-moment-jump]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const ev = list.find((x, i) => String(x.id ?? i) === String(btn.dataset.uxEvMomentJump));
+        const mIdx = Number(btn.dataset.uxEvMomentIdx);
+        if (ev) selectEvidenceTag(c, chart, ev, Number.isFinite(mIdx) ? mIdx : 0);
       });
     });
   };
@@ -2683,17 +2724,55 @@ export function initSmtWorkflows(bridge) {
         durationSec: match?.durationSec ?? fb.durationSec,
       };
     });
-    const momentDefs = Array.isArray(ev?.moments) && ev.moments.length
-      ? ev.moments
-      : [
-          { id: `${ev.id || 'kf'}-m0`, label: 'Pre-event', cam1Sec: Math.max(0.4, baseSec - 0.4), hud: `Pre · ${ev.hud || ev.title}`, isPrimary: false, reticle: 'lane' },
-          { id: `${ev.id || 'kf'}-m1`, label: ev.hud || ev.title || 'Peak', cam1Sec: baseSec, hud: ev.hud || ev.title, isPrimary: true, reticle: ev.reticle || 'impact' },
-          { id: `${ev.id || 'kf'}-m2`, label: 'Follow-through', cam1Sec: Math.min(23.6, baseSec + 0.4), hud: `Post · ${ev.hud || ev.title}`, isPrimary: false, reticle: ev.reticle || 'impact' },
-        ];
+
+    let momentDefs;
+    if (ev?.type === 'range') {
+      const sSec = parseTimeSec(ev.startTime || '00:09.6');
+      const eSec = Math.max(sSec + 0.6, parseTimeSec(ev.endTime || formatSecMMSS(Math.min(24, sSec + 1.6))));
+      const existingKfs = Array.isArray(ev?.keyframes) ? ev.keyframes : [];
+      if (existingKfs.length >= 3) {
+        momentDefs = existingKfs.map((kf, i) => ({
+          id: kf.id || `${ev.id || 'kf'}-k${i}`,
+          label: kf.label || `Keyframe ${i + 1}`,
+          cam1Sec: parseTimeSec(kf.time || ev.startTime || '00:09.6'),
+          hud: kf.hud || kf.label || `Keyframe ${i + 1}`,
+          isPrimary: i === 0,
+          reticle: kf.reticle || ev.reticle || 'lane',
+        }));
+      } else {
+        const kfCount = 4;
+        momentDefs = Array.from({ length: kfCount }, (_, i) => {
+          const seed = existingKfs[i];
+          const sec = seed?.time
+            ? parseTimeSec(seed.time)
+            : Number((sSec + ((eSec - sSec) * i) / (kfCount - 1)).toFixed(1));
+          return {
+            id: seed?.id || `${ev.id || 'kf'}-k${i}`,
+            label: seed?.label || `Keyframe ${i + 1}`,
+            cam1Sec: Math.max(0, Math.min(24, sec)),
+            hud: seed?.hud || seed?.label || `Keyframe ${i + 1}`,
+            isPrimary: i === 0,
+            reticle: seed?.reticle || ev.reticle || 'lane',
+          };
+        });
+      }
+    } else if (Array.isArray(ev?.moments) && ev.moments.length) {
+      momentDefs = ev.moments;
+    } else {
+      momentDefs = [
+        { id: `${ev?.id || 'kf'}-m0`, label: 'Pre-event', cam1Sec: Math.max(0.4, baseSec - 0.4), hud: `Pre · ${ev?.hud || ev?.title || ''}`, isPrimary: false, reticle: 'lane' },
+        { id: `${ev?.id || 'kf'}-m1`, label: ev?.hud || ev?.title || 'Peak', cam1Sec: baseSec, hud: ev?.hud || ev?.title || '', isPrimary: true, reticle: ev?.reticle || 'impact' },
+        { id: `${ev?.id || 'kf'}-m2`, label: 'Follow-through', cam1Sec: Math.min(23.6, baseSec + 0.4), hud: `Post · ${ev?.hud || ev?.title || ''}`, isPrimary: false, reticle: ev?.reticle || 'impact' },
+      ];
+    }
 
     const moments = momentDefs.map((m) => {
-      const cam1Sec = typeof m.cam1Sec === 'number' ? m.cam1Sec : parseTimeSec(m.time || ev.time);
-      const masterSec = 15.0 + (cam1Sec - 12.4);
+      const mCam = m?.cam ? Math.max(1, Math.min(4, Number(m.cam) || primaryCam)) : null;
+      const cam1Sec = typeof m.cam1Sec === 'number'
+        ? m.cam1Sec
+        : (typeof m.masterSec === 'number' ? Math.max(0, Math.min(24, m.masterSec - 2.6)) : parseTimeSec(m.time || ev.time));
+      const masterSec = typeof m.masterSec === 'number' ? m.masterSec : 15.0 + (cam1Sec - 12.4);
+      const frameCam = mCam || primaryCam;
       const frames = camSpecs.map((cam) => {
         const localSec = Math.max(0, Math.min(cam.durationSec, masterSec - cam.masterStartSec));
         return {
@@ -2704,16 +2783,18 @@ export function initSmtWorkflows(bridge) {
           localTime: formatSecShort(localSec),
           frameNo: `F${Math.max(1, Math.round(localSec * 60))}`,
           imgSrc: `./assets/video-thumbs/cam-0${cam.slot}.jpg`,
-          isPrimaryCam: cam.slot === primaryCam,
-          reticle: cam.slot === primaryCam ? (m.reticle || ev.reticle || 'impact') : 'lane',
+          isPrimaryCam: cam.slot === frameCam,
+          reticle: cam.slot === frameCam ? (m.reticle || ev.reticle || 'impact') : 'lane',
         };
       });
       return {
         id: m.id,
         label: m.label,
+        cam: mCam,
         cam1Sec,
+        masterSec,
         time: formatSecMMSS(cam1Sec),
-        shortTime: formatSecShort(cam1Sec),
+        shortTime: typeof m.masterSec === 'number' ? formatMasterShort(masterSec) : formatSecShort(cam1Sec),
         hud: m.hud || m.label,
         isPrimary: Boolean(m.isPrimary),
         reticle: m.reticle || ev.reticle || 'impact',
@@ -2722,7 +2803,9 @@ export function initSmtWorkflows(bridge) {
     });
 
     const primaryMomentIdx = Math.max(0, moments.findIndex((m) => m.isPrimary));
-    const totalCount = moments.reduce((sum, m) => sum + m.frames.length, 0);
+    const totalCount = ev?.type === 'range'
+      ? moments.length
+      : moments.reduce((sum, m) => sum + m.frames.length, 0);
     return { moments, primaryMomentIdx, primaryCam, totalCount };
   };
 
@@ -2730,22 +2813,49 @@ export function initSmtWorkflows(bridge) {
     const evId = ev.id ?? idx;
     const { moments, primaryMomentIdx, primaryCam, totalCount } = buildEvidenceKeyframeMoments(c, ev);
     const primaryMoment = moments[primaryMomentIdx] || moments[0];
-    const camOrder = [primaryCam, 1, 4, 2, 3].filter((v, i, arr) => arr.indexOf(v) === i);
-    const previewFrames = camOrder
-      .slice(0, 3)
-      .map((slot) => primaryMoment.frames.find((f) => f.cam === slot))
-      .filter(Boolean);
+    let previewFrames;
+    if (ev?.type === 'range') {
+      previewFrames = moments
+        .slice(0, 3)
+        .map((m) => m.frames.find((f) => f.cam === primaryCam) || m.frames[0])
+        .filter(Boolean);
+    } else if (Array.isArray(ev?.moments) && ev.moments.length > 1) {
+      previewFrames = moments
+        .slice(0, 3)
+        .map((m) => m.frames.find((f) => f.cam === (m.cam || primaryCam)) || m.frames[0])
+        .filter(Boolean);
+      if (previewFrames.length < 3 && primaryMoment?.frames?.length) {
+        const usedCams = new Set(previewFrames.map((f) => f.cam));
+        const camOrder = [1, 4, 2, 3];
+        for (const slot of camOrder) {
+          if (previewFrames.length >= 3) break;
+          if (!usedCams.has(slot)) {
+            const extra = primaryMoment.frames.find((f) => f.cam === slot);
+            if (extra) {
+              previewFrames.push(extra);
+              usedCams.add(slot);
+            }
+          }
+        }
+      }
+    } else {
+      const camOrder = [primaryCam, 1, 4, 2, 3].filter((v, i, arr) => arr.indexOf(v) === i);
+      previewFrames = camOrder
+        .slice(0, 3)
+        .map((slot) => primaryMoment.frames.find((f) => f.cam === slot))
+        .filter(Boolean);
+    }
     const remainingCount = Math.max(0, totalCount - previewFrames.length);
 
     return `
       <div class="ux-ev-kf-row">
-        <button type="button" class="ux-ev-kf-stack" data-ux-ev-kf-open="${esc(evId)}" data-ux-ev-kf-moment="${primaryMomentIdx}" data-ux-ev-kf-cam="${primaryCam}" data-ux-ev-kf-view="grid" aria-label="View all ${totalCount} keyframes for ${esc(ev.title)}">
+        <button type="button" class="ux-ev-kf-stack" data-ux-ev-kf-open="${esc(evId)}" data-ux-ev-kf-moment="${primaryMomentIdx}" data-ux-ev-kf-cam="${primaryCam}" data-ux-ev-kf-view="single" aria-label="View all ${totalCount} keyframes for ${esc(ev.title)}">
           ${previewFrames.map((pf) => `
             <span class="ux-ev-kf-thumb" aria-hidden="true">
               <img class="ux-ev-kf-thumb__img" src="${pf.imgSrc}" alt="" decoding="async" />
             </span>
           `).join('')}
-          <span class="ux-ev-kf-more" aria-hidden="true">+${remainingCount}</span>
+          ${remainingCount > 0 ? `<span class="ux-ev-kf-more" aria-hidden="true">+${remainingCount}</span>` : ''}
         </button>
       </div>
     `;
@@ -2780,12 +2890,24 @@ export function initSmtWorkflows(bridge) {
     const bodyEl = dlg.querySelector('[data-ux-lightbox-body]');
     if (!bodyEl) return;
 
+    const isRangeGallery = st.ev?.type === 'range';
     const activeMoment = st.moments[st.momentIdx] || st.moments[0];
     const activeFrame = activeMoment.frames.find((f) => f.cam === st.activeCam) || activeMoment.frames[0];
 
     if (titleEl) titleEl.textContent = st.ev.title || 'Keyframe inspection';
     if (subtitleEl) {
-      subtitleEl.textContent = `${st.totalCount} keyframes · ${st.moments.length} moments × 4 cams`;
+      if (isRangeGallery) {
+        const sLabel = formatSecShort(parseTimeSec(st.ev.startTime || '00:09.6'));
+        const eLabel = formatSecShort(parseTimeSec(st.ev.endTime || '00:11.2'));
+        subtitleEl.textContent = `${getCamShortName(st.activeCam)} · ${sLabel}–${eLabel} · ${st.moments.length} keyframes`;
+      } else {
+        subtitleEl.textContent = `${st.totalCount} keyframes · ${st.moments.length} moments × 4 cams`;
+      }
+    }
+
+    const kfMetaEl = bodyEl.querySelector('[data-ux-lb-kf-meta]');
+    if (kfMetaEl) {
+      kfMetaEl.textContent = `Keyframe ${st.momentIdx + 1} of ${st.moments.length} · ${activeMoment.shortTime}`;
     }
 
     bodyEl.querySelectorAll('[data-ux-lb-moment]').forEach((btn) => {
@@ -2800,9 +2922,11 @@ export function initSmtWorkflows(bridge) {
     const posEl = bodyEl.querySelector('[data-ux-lb-pos]');
     if (prevBtn) prevBtn.disabled = st.momentIdx <= 0;
     if (nextBtn) nextBtn.disabled = st.momentIdx >= st.moments.length - 1;
-    const totalFrames = st.moments.reduce((sum, m) => sum + (m.frames?.length || 0), 0);
-    if (stagePrevBtn) stagePrevBtn.disabled = totalFrames <= 1;
-    if (stageNextBtn) stageNextBtn.disabled = totalFrames <= 1;
+    const totalNavItems = isRangeGallery
+      ? st.moments.length
+      : st.moments.reduce((sum, m) => sum + (m.frames?.length || 0), 0);
+    if (stagePrevBtn) stagePrevBtn.disabled = totalNavItems <= 1;
+    if (stageNextBtn) stageNextBtn.disabled = totalNavItems <= 1;
     if (posEl) posEl.textContent = `${st.momentIdx + 1}/${st.moments.length}`;
 
     bodyEl.querySelectorAll('[data-ux-lb-view]').forEach((btn) => {
@@ -2826,27 +2950,47 @@ export function initSmtWorkflows(bridge) {
     setImgSrcIfChanged(mainImg, activeFrame.imgSrc, `${activeMoment.label} · ${activeFrame.camLabel}`);
     setReticleIfChanged(mainReticle, activeFrame.reticle);
     if (hudCam) hudCam.textContent = activeFrame.camLabel;
-    if (hudTime) hudTime.textContent = activeFrame.localTime;
+    if (hudTime) hudTime.textContent = isRangeGallery ? activeMoment.shortTime : activeFrame.localTime;
     if (hudDesc) hudDesc.textContent = activeMoment.hud;
 
     const camGroup = bodyEl.querySelector('.ux-lb-cam-group');
     const camStrip = bodyEl.querySelector('.ux-lb-cam-strip');
-    if (camGroup) camGroup.setAttribute('aria-label', `4 camera angles at ${activeMoment.shortTime}`);
-    if (camStrip) camStrip.setAttribute('aria-label', `Camera angles for ${activeMoment.shortTime}`);
+    if (isRangeGallery) {
+      if (camGroup) camGroup.setAttribute('aria-label', `Range keyframes (${st.moments.length})`);
+      if (camStrip) camStrip.setAttribute('aria-label', 'Keyframes in range');
+      st.moments.forEach((m, mIdx) => {
+        const kfFrame = m.frames.find((f) => f.cam === st.activeCam) || m.frames[0];
+        const card = bodyEl.querySelector(`.ux-lb-cam-card[data-ux-lb-kf-idx="${mIdx}"]`);
+        if (card && kfFrame) {
+          const isActive = mIdx === st.momentIdx;
+          card.setAttribute('aria-selected', String(isActive));
+          card.dataset.active = String(isActive);
+          setImgSrcIfChanged(card.querySelector('.ux-lb-cam-card__img'), kfFrame.imgSrc, '');
+          const nameEl = card.querySelector('[data-ux-lb-cam-name]');
+          const timeEl = card.querySelector('[data-ux-lb-cam-time]');
+          if (nameEl) nameEl.textContent = mIdx === st.primaryMomentIdx ? 'Main' : `Frame ${mIdx + 1}`;
+          if (timeEl) timeEl.textContent = m.shortTime;
+        }
+      });
+    } else {
+      if (camGroup) camGroup.setAttribute('aria-label', `4 camera angles at ${activeMoment.shortTime}`);
+      if (camStrip) camStrip.setAttribute('aria-label', `Camera angles for ${activeMoment.shortTime}`);
+      activeMoment.frames.forEach((fr) => {
+        const card = bodyEl.querySelector(`.ux-lb-cam-card[data-ux-lb-cam="${fr.cam}"]`);
+        if (card) {
+          const isActive = fr.cam === st.activeCam;
+          card.setAttribute('aria-selected', String(isActive));
+          card.dataset.active = String(isActive);
+          setImgSrcIfChanged(card.querySelector('.ux-lb-cam-card__img'), fr.imgSrc, '');
+          const nameEl = card.querySelector('[data-ux-lb-cam-name]');
+          const timeEl = card.querySelector('[data-ux-lb-cam-time]');
+          if (nameEl) nameEl.textContent = fr.camShort;
+          if (timeEl) timeEl.textContent = fr.localTime;
+        }
+      });
+    }
 
     activeMoment.frames.forEach((fr) => {
-      const card = bodyEl.querySelector(`.ux-lb-cam-card[data-ux-lb-cam="${fr.cam}"]`);
-      if (card) {
-        const isActive = fr.cam === st.activeCam;
-        card.setAttribute('aria-selected', String(isActive));
-        card.dataset.active = String(isActive);
-        setImgSrcIfChanged(card.querySelector('.ux-lb-cam-card__img'), fr.imgSrc, '');
-        const nameEl = card.querySelector('[data-ux-lb-cam-name]');
-        const timeEl = card.querySelector('[data-ux-lb-cam-time]');
-        if (nameEl) nameEl.textContent = fr.camShort;
-        if (timeEl) timeEl.textContent = fr.localTime;
-      }
-
       const cell = bodyEl.querySelector(`.ux-lb-grid-cell[data-ux-lb-grid-cam="${fr.cam}"]`);
       if (cell) {
         const isActive = fr.cam === st.activeCam;
@@ -2883,26 +3027,31 @@ export function initSmtWorkflows(bridge) {
 
   const mountKeyframeModalSkeleton = (bodyEl, st) => {
     if (!bodyEl || !st) return;
+    const isRangeGallery = st.ev?.type === 'range';
     const baseFrames = (st.moments[0] && st.moments[0].frames) || [];
     bodyEl.innerHTML = `
-      <div class="ux-lb-shell">
+      <div class="ux-lb-shell" data-lb-kind="${isRangeGallery ? 'range' : 'moment'}">
         <div class="ux-lb-moments-bar">
-          <div class="ux-lb-moments-rail ds-scrollbar" role="tablist" aria-label="Moments">
-            ${st.moments.map((m, mIdx) => `
-              <button type="button" class="ux-lb-moment-tab" role="tab" aria-selected="false" data-ux-lb-moment="${mIdx}">
-                ${m.isPrimary ? '<span class="ux-lb-moment-tab__dot" aria-hidden="true"></span>' : ''}
-                <span class="ux-lb-moment-tab__time ux-num">${esc(m.shortTime)}</span>
-                <span class="ux-lb-moment-tab__label">${esc(m.label)}</span>
-              </button>
-            `).join('')}
-          </div>
+          ${isRangeGallery ? `
+            <span class="ux-lb-kf-meta ux-num" data-ux-lb-kf-meta>Keyframe 1 of ${st.moments.length}</span>
+          ` : `
+            <div class="ux-lb-moments-rail ds-scrollbar" role="tablist" aria-label="Moments">
+              ${st.moments.map((m, mIdx) => `
+                <button type="button" class="ux-lb-moment-tab" role="tab" aria-selected="false" data-ux-lb-moment="${mIdx}">
+                  ${m.isPrimary ? '<span class="ux-lb-moment-tab__dot" aria-hidden="true"></span>' : ''}
+                  <span class="ux-lb-moment-tab__time ux-num">${esc(m.shortTime)}</span>
+                  <span class="ux-lb-moment-tab__label">${esc(m.label)}</span>
+                </button>
+              `).join('')}
+            </div>
+          `}
           <div class="ux-lb-bar-actions">
-            <div class="ux-lb-step-btns" role="group" aria-label="Navigate moments">
-              <button type="button" class="ds-button ds-button--secondary ds-button--icon" data-ux-lb-prev-moment aria-label="Previous moment">
+            <div class="ux-lb-step-btns" role="group" aria-label="Navigate keyframes">
+              <button type="button" class="ds-button ds-button--secondary ds-button--icon" data-ux-lb-prev-moment aria-label="Previous keyframe">
                 ${LB_ARROW_LEFT_SVG}
               </button>
               <span class="ux-lb-step-pos ux-num" data-ux-lb-pos>1/${st.moments.length}</span>
-              <button type="button" class="ds-button ds-button--secondary ds-button--icon" data-ux-lb-next-moment aria-label="Next moment">
+              <button type="button" class="ds-button ds-button--secondary ds-button--icon" data-ux-lb-next-moment aria-label="Next keyframe">
                 ${LB_ARROW_RIGHT_SVG}
               </button>
             </div>
@@ -2923,10 +3072,10 @@ export function initSmtWorkflows(bridge) {
           <div class="ux-lb-single-pane" data-ux-lb-single-pane>
             <div class="ux-lb-stage">
               <img class="ux-lb-stage__img" data-ux-lb-main-img src="" alt="" decoding="async" />
-              <button type="button" class="ds-button ds-button--ghost ds-button--icon ux-lb-stage__nav ux-lb-stage__nav--prev" data-ux-lb-stage-prev aria-label="Previous camera frame">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon ux-lb-stage__nav ux-lb-stage__nav--prev" data-ux-lb-stage-prev aria-label="${isRangeGallery ? 'Previous keyframe' : 'Previous camera frame'}">
                 ${LB_ARROW_LEFT_SVG}
               </button>
-              <button type="button" class="ds-button ds-button--ghost ds-button--icon ux-lb-stage__nav ux-lb-stage__nav--next" data-ux-lb-stage-next aria-label="Next camera frame">
+              <button type="button" class="ds-button ds-button--ghost ds-button--icon ux-lb-stage__nav ux-lb-stage__nav--next" data-ux-lb-stage-next aria-label="${isRangeGallery ? 'Next keyframe' : 'Next camera frame'}">
                 ${LB_ARROW_RIGHT_SVG}
               </button>
               <div class="ux-lb-stage__hud-top">
@@ -2938,9 +3087,22 @@ export function initSmtWorkflows(bridge) {
               </div>
             </div>
 
-            <div class="ux-lb-cam-group" role="region" aria-label="4 camera angles">
-              <div class="ux-lb-cam-strip" role="listbox" aria-label="Camera angles">
-                ${baseFrames.map((fr) => `
+            <div class="ux-lb-cam-group" role="region" aria-label="${isRangeGallery ? 'Keyframes in range' : '4 camera angles'}">
+              <div class="ux-lb-cam-strip" role="listbox" aria-label="${isRangeGallery ? 'Keyframes' : 'Camera angles'}">
+                ${isRangeGallery ? st.moments.map((m, mIdx) => {
+                  const kfFrame = m.frames.find((f) => f.cam === st.activeCam) || m.frames[0];
+                  return `
+                    <button type="button" class="ux-lb-cam-card" role="option" aria-selected="false" data-active="false" data-ux-lb-kf-idx="${mIdx}">
+                      <div class="ux-lb-cam-card__media">
+                        <img class="ux-lb-cam-card__img" src="${kfFrame?.imgSrc || ''}" alt="" decoding="async" />
+                      </div>
+                      <div class="ux-lb-cam-card__foot">
+                        <span class="ux-lb-cam-card__name" data-ux-lb-cam-name></span>
+                        <span class="ux-lb-cam-card__time ux-num" data-ux-lb-cam-time></span>
+                      </div>
+                    </button>
+                  `;
+                }).join('') : baseFrames.map((fr) => `
                   <button type="button" class="ux-lb-cam-card" role="option" aria-selected="false" data-active="false" data-ux-lb-cam="${fr.cam}">
                     <div class="ux-lb-cam-card__media">
                       <img class="ux-lb-cam-card__img" src="${fr.imgSrc}" alt="" decoding="async" />
@@ -2976,6 +3138,11 @@ export function initSmtWorkflows(bridge) {
       if (!activeLightboxState) return;
       const mLen = activeLightboxState.moments.length;
       if (!mLen) return;
+      if (activeLightboxState.ev?.type === 'range') {
+        activeLightboxState.momentIdx = ((activeLightboxState.momentIdx + dir) % mLen + mLen) % mLen;
+        syncKeyframeModalInPlace();
+        return;
+      }
       const curMoment = activeLightboxState.moments[activeLightboxState.momentIdx] || activeLightboxState.moments[0];
       if (!curMoment || !curMoment.frames.length) return;
       const camIdx = Math.max(0, curMoment.frames.findIndex((f) => f.cam === activeLightboxState.activeCam));
@@ -2996,22 +3163,38 @@ export function initSmtWorkflows(bridge) {
     bodyEl.querySelector('[data-ux-lb-stage-prev]')?.addEventListener('click', () => stepLightboxKeyframe(-1));
     bodyEl.querySelector('[data-ux-lb-stage-next]')?.addEventListener('click', () => stepLightboxKeyframe(1));
 
+    bodyEl.querySelectorAll('[data-ux-lb-kf-idx]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (!activeLightboxState) return;
+        const mLen = activeLightboxState.moments.length;
+        const nextIdx = Math.max(0, Math.min(mLen - 1, Number(btn.dataset.uxLbKfIdx) || 0));
+        activeLightboxState.momentIdx = nextIdx;
+        syncKeyframeModalInPlace();
+      });
+    });
+
     bodyEl.querySelectorAll('[data-ux-lb-moment]').forEach((btn) => {
       btn.addEventListener('click', () => {
         if (!activeLightboxState) return;
         activeLightboxState.momentIdx = Number(btn.dataset.uxLbMoment) || 0;
+        const nextM = activeLightboxState.moments[activeLightboxState.momentIdx];
+        if (nextM?.cam && activeLightboxState.ev?.type !== 'range') activeLightboxState.activeCam = nextM.cam;
         syncKeyframeModalInPlace();
       });
     });
     bodyEl.querySelector('[data-ux-lb-prev-moment]')?.addEventListener('click', () => {
       if (activeLightboxState && activeLightboxState.momentIdx > 0) {
         activeLightboxState.momentIdx -= 1;
+        const nextM = activeLightboxState.moments[activeLightboxState.momentIdx];
+        if (nextM?.cam && activeLightboxState.ev?.type !== 'range') activeLightboxState.activeCam = nextM.cam;
         syncKeyframeModalInPlace();
       }
     });
     bodyEl.querySelector('[data-ux-lb-next-moment]')?.addEventListener('click', () => {
       if (activeLightboxState && activeLightboxState.momentIdx + 1 < activeLightboxState.moments.length) {
         activeLightboxState.momentIdx += 1;
+        const nextM = activeLightboxState.moments[activeLightboxState.momentIdx];
+        if (nextM?.cam && activeLightboxState.ev?.type !== 'range') activeLightboxState.activeCam = nextM.cam;
         syncKeyframeModalInPlace();
       }
     });
@@ -3037,6 +3220,7 @@ export function initSmtWorkflows(bridge) {
         activeLightboxState.viewMode = 'single';
         syncKeyframeModalInPlace();
         const targetFocus = bodyEl.querySelector(`.ux-lb-cam-card[data-ux-lb-cam="${nextCam}"]`)
+          || bodyEl.querySelector(`.ux-lb-cam-card[data-ux-lb-kf-idx="${activeLightboxState.momentIdx}"]`)
           || bodyEl.querySelector('[data-ux-lb-view="single"]');
         targetFocus?.focus({ preventScroll: true });
       });
@@ -3047,9 +3231,25 @@ export function initSmtWorkflows(bridge) {
     if (!isDialogOpen(dialogs.frameLightbox) || !activeLightboxState) return;
     if (e.target.closest('input, textarea, select, [contenteditable]')) return;
 
-    const camCard = e.target.closest('.ux-lb-cam-card[data-ux-lb-cam]');
+    const camCard = e.target.closest('.ux-lb-cam-card[data-ux-lb-cam], .ux-lb-cam-card[data-ux-lb-kf-idx]');
     if (camCard && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
       e.preventDefault();
+      if (camCard.hasAttribute('data-ux-lb-kf-idx')) {
+        const cards = Array.from(dialogs.frameLightbox.querySelectorAll('.ux-lb-cam-card[data-ux-lb-kf-idx]'));
+        const curIdx = activeLightboxState.momentIdx;
+        let nextIdx = curIdx >= 0 ? curIdx : 0;
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIdx = (nextIdx - 1 + cards.length) % cards.length;
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIdx = (nextIdx + 1) % cards.length;
+        else if (e.key === 'Home') nextIdx = 0;
+        else if (e.key === 'End') nextIdx = cards.length - 1;
+        const targetCard = cards[nextIdx];
+        if (targetCard) {
+          activeLightboxState.momentIdx = nextIdx;
+          syncKeyframeModalInPlace();
+          targetCard.focus({ preventScroll: true });
+        }
+        return;
+      }
       const cards = Array.from(dialogs.frameLightbox.querySelectorAll('.ux-lb-cam-card[data-ux-lb-cam]'));
       const curIdx = cards.findIndex((cEl) => Number(cEl.dataset.uxLbCam) === activeLightboxState.activeCam);
       let nextIdx = curIdx >= 0 ? curIdx : 0;
@@ -3320,7 +3520,7 @@ export function initSmtWorkflows(bridge) {
       }
 
       let isDone = false;
-      if (s === 1 && c.analysisDone && Boolean(c.selectedChart) && c.stage !== 'undetermined' && furthestStep >= 2) isDone = true;
+      if (s === 1 && (c.analysisDone || furthestStep >= 2 || store.activeStep >= 2) && Boolean(c.selectedChart) && c.stage !== 'undetermined') isDone = true;
       else if (s === 2 && c.versions.length > 0) isDone = true;
       else if (s === 3 && (c.stage === 'agreed' || c.stage === 'closed')) isDone = true;
       else if (s === 4 && c.isClosed) isDone = true;
@@ -4272,8 +4472,689 @@ export function initSmtWorkflows(bridge) {
     `;
   };
 
-  const rerunStep1 = (c) => {
+  let condThumbTipEl = null;
+  const getCondThumbTipEl = () => {
+    if (condThumbTipEl && condThumbTipEl.isConnected) return condThumbTipEl;
+    const tip = document.createElement('div');
+    tip.className = 'ux-cond-thumb-tip';
+    tip.setAttribute('role', 'tooltip');
+    tip.hidden = true;
+    tip.innerHTML = (
+      '<div class="ux-cond-thumb-tip__media"><img class="ux-cond-thumb-tip__img" src="" alt="" decoding="async" /></div>' +
+      '<div class="ux-cond-thumb-tip__meta"><span class="ux-cond-thumb-tip__cam" data-ux-tip-cam></span><span class="ux-num" data-ux-tip-time></span></div>'
+    );
+    document.body.appendChild(tip);
+    condThumbTipEl = tip;
+    return tip;
+  };
+
+  const showCondThumbTip = (btn) => {
+    if (!btn) return;
+    const cam = Math.max(1, Math.min(4, Number(btn.dataset.uxCondCam) || 1));
+    const time = btn.dataset.uxCondTime || '12.4';
+    const tip = getCondThumbTipEl();
+    const img = tip.querySelector('.ux-cond-thumb-tip__img');
+    const camEl = tip.querySelector('[data-ux-tip-cam]');
+    const timeEl = tip.querySelector('[data-ux-tip-time]');
+    const src = `./assets/video-thumbs/cam-0${cam}.jpg`;
+    if (img && img.getAttribute('src') !== src) img.setAttribute('src', src);
+    if (camEl) camEl.textContent = getCamShortName(cam);
+    if (timeEl) timeEl.textContent = `0:${time}`;
+
+    tip.hidden = false;
+    tip.dataset.open = 'false';
+    const r = btn.getBoundingClientRect();
+    const tipW = 184;
+    const tipH = 132;
+    const vw = window.innerWidth || 1280;
+    const left = Math.max(8, Math.min(vw - tipW - 8, r.left + (r.width - tipW) / 2));
+    const aboveTop = r.top - tipH - 8;
+    const top = aboveTop >= 8 ? aboveTop : Math.min((window.innerHeight || 800) - tipH - 8, r.bottom + 8);
+    tip.style.left = `${Math.round(left)}px`;
+    tip.style.top = `${Math.round(top)}px`;
+    requestAnimationFrame(() => {
+      if (tip.isConnected && !tip.hidden) tip.dataset.open = 'true';
+    });
+  };
+
+  const hideCondThumbTip = () => {
+    if (!condThumbTipEl) return;
+    condThumbTipEl.dataset.open = 'false';
+    condThumbTipEl.hidden = true;
+  };
+
+  const reanalyseLayerEl = document.querySelector('[data-ux-reanalyse-layer]');
+  const reanalyseScrimEl = document.querySelector('[data-ux-reanalyse-scrim]');
+  const reanalyseSheetEl = document.querySelector('[data-ux-reanalyse-sheet]');
+  const videoPanelScrollEl = document.querySelector('[data-video-panel]');
+  let reanalyseCloseTimer = 0;
+  let silentReanalyseVideoSync = false;
+
+  const formatMasterShort = (sec) => {
+    const clamped = Math.max(0, Math.min(30, Number(sec) || 0));
+    const mins = Math.floor(clamped / 60);
+    const secs = (clamped % 60).toFixed(1).padStart(4, '0');
+    return `${mins}:${secs}`;
+  };
+
+  const formatStep1ContextCue = (ctx) => {
+    if (!ctx || ctx.mode === 'none') return '';
+    const camName = getCamShortName(ctx.cam || 1);
+    if (ctx.mode === 'range') {
+      return `${camName} · ${formatMasterShort(ctx.startMasterSec)}–${formatMasterShort(ctx.endMasterSec)}`;
+    }
+    return `${camName} · ${formatMasterShort(ctx.masterSec)}`;
+  };
+
+  const renderStep2ContextBadgeHtml = (ctx, { interactive = true, active = false } = {}) => {
+    if (!ctx) return '';
+    const camName = getCamShortName(ctx.cam || 1);
+    if (ctx.mode === 'none') {
+      return '<span class="ds-badge ds-badge--default ds-badge--pill">General</span>';
+    }
+    if (ctx.mode === 'range') {
+      const sSec = Math.max(0, Math.min(29.5, Number(ctx.startMasterSec) || 0));
+      const eSec = Math.max(sSec + 0.5, Math.min(30, Number(ctx.endMasterSec) || sSec + 1));
+      const mapX = (sec) => Math.max(4, Math.min(156, Math.round((Math.max(0, Math.min(30, sec)) / 30) * 152) + 4));
+      const x1 = Math.min(138, mapX(sSec));
+      const segW = Math.max(18, Math.min(156 - x1, mapX(eSec) - x1));
+      const sLabel = formatMasterShort(sSec);
+      const eLabel = formatMasterShort(eSec);
+      const inner = `
+        <span class="ux-cue-track__cam">${esc(camName)}</span>
+        <span class="ux-cue-track__time ux-num">${esc(sLabel)}</span>
+        <svg class="ux-cue-track__svg" viewBox="0 0 160 14" width="156" height="14" fill="none" aria-hidden="true">
+          <rect class="ux-cue-track__bg" x="2" y="5" width="156" height="4" rx="2" />
+          <rect class="ux-cue-track__seg" x="${x1}" y="5" width="${segW}" height="4" rx="2" />
+        </svg>
+        <span class="ux-cue-track__time ux-num">${esc(eLabel)}</span>
+      `;
+      if (!interactive) {
+        return `<span class="ux-cue-track" data-active="${active}">${inner}</span>`;
+      }
+      return `<button type="button" class="ux-cue-track" data-ux-reanalyse-cue-jump="${esc(ctx.id)}" data-active="${active}" aria-label="Jump to ${esc(camName)} ${esc(sLabel)} to ${esc(eLabel)}">${inner}</button>`;
+    }
+    const tLabel = formatMasterShort(ctx.masterSec);
+    if (!interactive) {
+      return `<span class="ux-ev-tag" data-active="${active}">${ICON_CLOCK_SM}<span>${esc(camName)} · ${esc(tLabel)}</span></span>`;
+    }
+    return `<button type="button" class="ux-ev-tag" data-ux-reanalyse-cue-jump="${esc(ctx.id)}" data-active="${active}" aria-label="Jump to ${esc(camName)} at ${esc(tLabel)}">${ICON_CLOCK_SM}<span>${esc(camName)} · ${esc(tLabel)}</span></button>`;
+  };
+
+  const getStep1RerunTriggerBtn = () => step1WrapEl?.querySelector('[data-ux-tool-rerun]') || null;
+
+  const isStep1ReanalyseOpen = () => Boolean(
+    store.step1ReanalyseDraft?.open
+    && reanalyseLayerEl
+    && !reanalyseLayerEl.hidden
+  );
+
+  const isStep2EvidenceSheetOpen = () => Boolean(
+    store.evidenceDraft?.open
+    && reanalyseLayerEl
+    && !reanalyseLayerEl.hidden
+  );
+
+  const isTimelineSpotlightOpen = () => isStep1ReanalyseOpen() || isStep2EvidenceSheetOpen();
+
+  function syncReanalyseSheetPosition() {
+    if (!reanalyseSheetEl || !detailWorkspacesEl || !isTimelineSpotlightOpen()) return;
+    if (window.innerWidth <= 900) {
+      reanalyseSheetEl.style.removeProperty('--reanalyse-top');
+      reanalyseSheetEl.style.removeProperty('--reanalyse-caret-y');
+      return;
+    }
+    const wsRect = detailWorkspacesEl.getBoundingClientRect();
+    const tlRect = document.querySelector('.ds-video-timeline')?.getBoundingClientRect();
+    const sheetH = reanalyseSheetEl.offsetHeight || 480;
+    const pad = 16;
+    if (tlRect && wsRect.height > 0) {
+      const maxTop = Math.max(pad, wsRect.height - sheetH - pad);
+      const idealTop = tlRect.top - wsRect.top;
+      const clampedTop = Math.max(pad, Math.min(maxTop, idealTop));
+      const tlAnchorY = tlRect.top + Math.min(96, Math.max(40, tlRect.height * 0.28));
+      const caretY = Math.max(40, Math.min(Math.max(40, sheetH - 40), tlAnchorY - (wsRect.top + clampedTop)));
+      reanalyseSheetEl.style.setProperty('--reanalyse-top', `${Math.round(clampedTop)}px`);
+      reanalyseSheetEl.style.setProperty('--reanalyse-caret-y', `${Math.round(caretY)}px`);
+    }
+  }
+
+  const silentJumpVideoForReanalyse = (camId, masterSec) => {
+    silentReanalyseVideoSync = true;
+    try {
+      bridge.setVideoPlaying(false);
+      if (camId) bridge.setActiveCamera(String(camId));
+      if (Number.isFinite(masterSec)) bridge.setScrubberValue(masterSec - 2.6);
+    } finally {
+      silentReanalyseVideoSync = false;
+    }
+  };
+
+  const syncReanalyseDraftToTimeline = (draft, { jumpVideo = false } = {}) => {
+    if (!draft?.open) {
+      bridge.setTimelineDraftMode?.(false);
+      bridge.setTimelineFocusRange?.(null);
+      bridge.setTimelineContextMarkers?.([]);
+      return;
+    }
+    bridge.setTimelineDraftMode?.(true);
+    const activeJumpId = draft.editingId || draft.focusedItemId || null;
+    const markers = (draft.items || [])
+      .filter((item) => item.mode === 'moment' || item.mode === 'range')
+      .map((item) => ({
+        id: item.id,
+        mode: item.mode,
+        masterSec: item.masterSec,
+        startMasterSec: item.startMasterSec,
+        endMasterSec: item.endMasterSec,
+        active: activeJumpId === item.id,
+        title: `${formatStep1ContextCue(item)}: ${item.text}`,
+      }));
+    bridge.setTimelineContextMarkers?.(markers);
+
+    if (draft.mode === 'range') {
+      const sMaster = Math.max(0, Math.min(29.4, Number(draft.startMasterSec) || 13.5));
+      const eMaster = Math.max(sMaster + 0.5, Math.min(30, Number(draft.endMasterSec) || sMaster + 3.0));
+      draft.startMasterSec = sMaster;
+      draft.endMasterSec = eMaster;
+      bridge.setTimelineFocusRange?.({
+        key: 'step1-draft:range',
+        startTime: formatSecMMSS(Math.max(0, sMaster - 2.6)),
+        endTime: formatSecMMSS(Math.max(0.4, eMaster - 2.6)),
+        startSec: sMaster - 2.6,
+        endSec: eMaster - 2.6,
+        startMasterSec: sMaster,
+        endMasterSec: eMaster,
+        cam: draft.cam,
+      });
+      if (jumpVideo) silentJumpVideoForReanalyse(draft.cam, sMaster);
+    } else {
+      bridge.setTimelineFocusRange?.(null);
+      if (jumpVideo) silentJumpVideoForReanalyse(draft.cam, draft.masterSec);
+    }
+  };
+
+  const syncReanalyseCueBadgeDom = (draft) => {
+    if (!reanalyseSheetEl || !draft) return;
+    const liveWrapEl = reanalyseSheetEl.querySelector('[data-ux-reanalyse-live-wrap]');
+    if (!liveWrapEl) return;
+    liveWrapEl.hidden = false;
+    liveWrapEl.innerHTML = renderStep2ContextBadgeHtml(draft, { interactive: false, active: draft.mode !== 'none' });
+  };
+
+  const hideSpotlightLayer = () => {
+    clearTimeout(reanalyseCloseTimer);
+    reanalyseCloseTimer = 0;
+    if (detailWorkspacesEl) delete detailWorkspacesEl.dataset.reanalyseOpen;
+    bridge.setTimelineDraftMode?.(false);
+    bridge.setTimelineFocusRange?.(null);
+    bridge.setTimelineContextMarkers?.([]);
+    const triggerBtn = getStep1RerunTriggerBtn();
+    if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'false');
+    if (reanalyseLayerEl && !reanalyseLayerEl.hidden) {
+      reanalyseLayerEl.dataset.open = 'false';
+      const skipAnim = Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.documentElement.dataset.reducedMotion === 'true');
+      if (skipAnim) {
+        reanalyseLayerEl.hidden = true;
+      } else {
+        reanalyseCloseTimer = window.setTimeout(() => {
+          reanalyseCloseTimer = 0;
+          if (!isTimelineSpotlightOpen() && reanalyseLayerEl) {
+            reanalyseLayerEl.hidden = true;
+          }
+        }, 190);
+      }
+    }
+  };
+
+  const closeStep1ReanalyseSheet = ({ discardDraft = false } = {}) => {
+    if (store.step1ReanalyseDraft) {
+      if (discardDraft) store.step1ReanalyseDraft = null;
+      else store.step1ReanalyseDraft.open = false;
+    }
+    if (store.evidenceDraft) {
+      store.evidenceDraft = null;
+      const curCase = getCase(store.activeCaseId);
+      if (curCase && store.activeStep === 2) renderVideoTimeline(curCase);
+    }
+    hideSpotlightLayer();
+  };
+
+  const normalizeContextItem = (source, fallbackId) => {
+    const mode = source?.mode === 'range' || source?.mode === 'none' ? source.mode : 'moment';
+    const cam = Math.max(1, Math.min(4, Number(source?.cam) || 1));
+    const masterSec = Math.max(0, Math.min(30, Number(source?.masterSec ?? 15.0)));
+    const startMasterSec = Math.max(0, Math.min(29.4, Number(source?.startMasterSec ?? Math.max(0, masterSec - 1.5))));
+    const endMasterSec = Math.max(startMasterSec + 0.5, Math.min(30, Number(source?.endMasterSec ?? Math.min(30, startMasterSec + 3.0))));
+    const item = {
+      id: source?.id || fallbackId || `ctx-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      text: String(source?.text || '').trim(),
+      mode,
+      cam,
+      masterSec,
+      startMasterSec,
+      endMasterSec,
+    };
+    item.cueLabel = formatStep1ContextCue(item);
+    return item;
+  };
+
+  const commitComposerContextToDraft = (c, draft) => {
+    const cleanText = String(draft?.text || '').trim();
+    if (!cleanText) return false;
+    let savedId = null;
+    if (draft.editingId) {
+      const idx = draft.items.findIndex((x) => x.id === draft.editingId);
+      if (idx >= 0) {
+        draft.items[idx] = normalizeContextItem({ ...draft, id: draft.editingId, text: cleanText }, draft.editingId);
+        savedId = draft.editingId;
+      } else {
+        const created = normalizeContextItem({ ...draft, text: cleanText });
+        draft.items.push(created);
+        savedId = created.id;
+      }
+      draft.editingId = null;
+    } else {
+      const created = normalizeContextItem({ ...draft, text: cleanText });
+      draft.items.push(created);
+      savedId = created.id;
+    }
+    draft.focusedItemId = savedId;
+    draft.text = '';
+    const ph = bridge.getVideoPlayheadState?.() || {};
+    draft.masterSec = Number.isFinite(ph.masterSec) ? ph.masterSec : draft.masterSec;
+    draft.startMasterSec = Math.max(0, Math.min(27.0, draft.masterSec - 1.5));
+    draft.endMasterSec = Math.min(30, draft.startMasterSec + 3.0);
+    return true;
+  };
+
+  const renderStep1ReanalyseSheet = (c) => {
+    if (!reanalyseSheetEl || !c) return;
+    const draft = store.step1ReanalyseDraft;
+    if (!draft) return;
+
+    const items = draft.items || [];
+    const hasDraftText = Boolean(draft.text?.trim());
+    const pendingCount = items.length + (draft.editingId ? 0 : (hasDraftText ? 1 : 0));
+
+    reanalyseSheetEl.innerHTML = `
+      <div class="ux-dialog__header">
+        <div class="ux-dialog__title-wrap">
+          <h3 class="ux-dialog__title">Re-analyse</h3>
+        </div>
+      </div>
+
+      <div class="ux-dialog__body ux-reanalyse-sheet__body ds-scrollbar" data-ux-reanalyse-body>
+        <form class="ux-reanalyse-composer" data-ux-reanalyse-form>
+          <label class="ds-label" for="ux-reanalyse-input">Context</label>
+          <div class="ux-reanalyse-composer-card">
+            <textarea id="ux-reanalyse-input" class="ds-textarea ux-reanalyse-input" data-ux-reanalyse-input rows="2" placeholder="Describe what AI missed...">${esc(draft.text || '')}</textarea>
+            <div class="ux-reanalyse-composer-card__foot">
+              <div class="ux-reanalyse-composer-card__bar">
+                <span class="ds-label">Evidence</span>
+                <div class="ds-segmented ds-segmented--sm ux-reanalyse-mode" data-ds-segmented data-ux-reanalyse-mode role="radiogroup" aria-label="Timestamp attachment">
+                  <div class="ds-segmented__thumb"></div>
+                  <button type="button" role="radio" data-value="none" aria-checked="${draft.mode === 'none'}" aria-pressed="${draft.mode === 'none'}" data-state="${draft.mode === 'none' ? 'on' : 'off'}">None</button>
+                  <button type="button" role="radio" data-value="moment" aria-checked="${draft.mode === 'moment'}" aria-pressed="${draft.mode === 'moment'}" data-state="${draft.mode === 'moment' ? 'on' : 'off'}">Moment</button>
+                  <button type="button" role="radio" data-value="range" aria-checked="${draft.mode === 'range'}" aria-pressed="${draft.mode === 'range'}" data-state="${draft.mode === 'range' ? 'on' : 'off'}">Range</button>
+                </div>
+              </div>
+              <div class="ux-reanalyse-composer-card__bar">
+                <div class="ux-reanalyse-anchor-box__live" data-ux-reanalyse-live-wrap>
+                  ${renderStep2ContextBadgeHtml(draft, { interactive: false, active: draft.mode !== 'none' })}
+                </div>
+                <div class="ux-reanalyse-composer__actions">
+                  ${draft.editingId ? `<button type="button" class="ds-button ds-button--ghost ds-button--sm" data-ux-reanalyse-cancel-edit>Cancel</button>` : ''}
+                  <button type="submit" class="ds-button ds-button--outline ds-button--sm" data-ux-reanalyse-add${hasDraftText ? '' : ' disabled'}>
+                    <span>${draft.editingId ? 'Update' : 'Save'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="ux-reanalyse-added">
+          <div class="ux-reanalyse-added__head">
+            <span class="ds-label">Saved contexts</span>
+            <span class="ds-badge ds-badge--pill ds-badge--default ux-num" data-ux-reanalyse-saved-count>${items.length}</span>
+          </div>
+          <div class="ux-reanalyse-added__list" data-ux-reanalyse-list>
+            ${items.length ? items.map((item) => {
+              const isEditing = draft.editingId === item.id;
+              const isFocused = (draft.editingId || draft.focusedItemId) === item.id;
+              return `
+                <div class="ux-reanalyse-card" data-ux-reanalyse-item="${esc(item.id)}"${isEditing ? ' data-editing="true"' : ''}${isFocused ? ' data-active="true"' : ''}>
+                  <div class="ux-reanalyse-card__head">
+                    <p class="ux-reanalyse-card__text">${esc(item.text)}</p>
+                    <div class="ux-reanalyse-card__actions">
+                      <button type="button" class="ds-button ds-button--ghost ds-button--icon ds-button--sm" data-ux-reanalyse-edit="${esc(item.id)}" aria-label="Edit context" title="Edit">
+                        ${ICON_EDIT_SM}
+                      </button>
+                      <button type="button" class="ds-button ds-button--ghost ds-button--icon ds-button--sm" data-ux-reanalyse-del="${esc(item.id)}" aria-label="Remove context" title="Remove">
+                        ${ICON_TRASH_SM}
+                      </button>
+                    </div>
+                  </div>
+                  <div class="ux-reanalyse-card__meta">
+                    ${renderStep2ContextBadgeHtml(item, { interactive: true, active: isFocused })}
+                  </div>
+                </div>
+              `;
+            }).join('') : '<div class="ux-reanalyse-empty">No saved contexts</div>'}
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-dialog__footer">
+        <button type="button" class="ds-button ds-button--secondary" data-ux-reanalyse-close>Cancel</button>
+        <button type="button" class="ds-button ds-button--primary" data-ux-reanalyse-run>
+          <span>${pendingCount > 0 ? `Re-analyse (${pendingCount})` : 'Re-analyse'}</span>
+        </button>
+      </div>
+    `;
+
+    const modeSeg = reanalyseSheetEl.querySelector('[data-ux-reanalyse-mode]');
+    const textareaEl = reanalyseSheetEl.querySelector('[data-ux-reanalyse-input]');
+    const addBtnEl = reanalyseSheetEl.querySelector('[data-ux-reanalyse-add]');
+    const runBtnEl = reanalyseSheetEl.querySelector('[data-ux-reanalyse-run]');
+
+    if (modeSeg) {
+      requestAnimationFrame(() => syncSegmentedThumb(modeSeg));
+      modeSeg.querySelectorAll('[role="radio"]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const nextMode = btn.dataset.value || 'moment';
+          if (draft.mode === nextMode) return;
+          draft.mode = nextMode;
+          const ph = bridge.getVideoPlayheadState?.() || {};
+          if (nextMode === 'moment') {
+            draft.masterSec = Number.isFinite(ph.masterSec) ? ph.masterSec : draft.masterSec;
+            draft.cam = Number(ph.activeCamId || draft.cam || 1);
+          } else if (nextMode === 'range') {
+            const center = Number.isFinite(ph.masterSec) ? ph.masterSec : draft.masterSec;
+            draft.startMasterSec = Math.max(0, Math.min(27.0, center - 1.5));
+            draft.endMasterSec = Math.min(30, draft.startMasterSec + 3.0);
+            draft.cam = Number(ph.activeCamId || draft.cam || 1);
+          }
+          modeSeg.querySelectorAll('[role="radio"]').forEach((rb) => {
+            const on = rb.dataset.value === nextMode;
+            rb.setAttribute('aria-checked', String(on));
+            rb.setAttribute('aria-pressed', String(on));
+            rb.dataset.state = on ? 'on' : 'off';
+          });
+          syncSegmentedThumb(modeSeg);
+          syncReanalyseCueBadgeDom(draft);
+          syncReanalyseDraftToTimeline(draft, { jumpVideo: false });
+          textareaEl?.focus({ preventScroll: true });
+        });
+      });
+    }
+
+    textareaEl?.addEventListener('input', () => {
+      draft.text = textareaEl.value;
+      const nonEmpty = Boolean(draft.text.trim());
+      if (addBtnEl) addBtnEl.disabled = !nonEmpty;
+      if (runBtnEl) {
+        const countNow = draft.items.length + (draft.editingId ? 0 : (nonEmpty ? 1 : 0));
+        const span = runBtnEl.querySelector('span');
+        if (span) span.textContent = countNow > 0 ? `Re-analyse (${countNow})` : 'Re-analyse';
+      }
+    });
+
+    const handleCommitDraft = () => {
+      const wasEditing = Boolean(draft.editingId);
+      if (!commitComposerContextToDraft(c, draft)) {
+        textareaEl?.focus({ preventScroll: true });
+        return;
+      }
+      syncReanalyseDraftToTimeline(draft, { jumpVideo: false });
+      renderStep1ReanalyseSheet(c);
+      requestAnimationFrame(() => {
+        if (!wasEditing) {
+          reanalyseSheetEl.querySelector('[data-ux-reanalyse-body]')?.scrollTo?.({ top: 99999 });
+        }
+        reanalyseSheetEl.querySelector('[data-ux-reanalyse-input]')?.focus({ preventScroll: true });
+      });
+    };
+
+    textareaEl?.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        runBtnEl?.click();
+        return;
+      }
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (draft.text?.trim()) handleCommitDraft();
+      }
+    });
+
+    reanalyseSheetEl.querySelector('[data-ux-reanalyse-form]')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleCommitDraft();
+    });
+
+    reanalyseSheetEl.querySelectorAll('[data-ux-reanalyse-cue-jump]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.uxReanalyseCueJump;
+        const item = draft.items.find((x) => x.id === id);
+        if (!item || item.mode === 'none') return;
+        draft.focusedItemId = item.id;
+        if (item.mode === 'range') {
+          silentJumpVideoForReanalyse(item.cam, item.startMasterSec);
+        } else {
+          silentJumpVideoForReanalyse(item.cam, item.masterSec);
+        }
+        syncReanalyseDraftToTimeline(draft, { jumpVideo: false });
+        reanalyseSheetEl.querySelectorAll('[data-ux-reanalyse-item]').forEach((cardEl) => {
+          cardEl.dataset.active = String(cardEl.dataset.uxReanalyseItem === id);
+        });
+        reanalyseSheetEl.querySelectorAll('[data-ux-reanalyse-cue-jump]').forEach((el) => {
+          el.dataset.active = String(el.dataset.uxReanalyseCueJump === id);
+        });
+      });
+    });
+
+    reanalyseSheetEl.querySelectorAll('[data-ux-reanalyse-edit]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.uxReanalyseEdit;
+        const item = draft.items.find((x) => x.id === id);
+        if (!item) return;
+        draft.editingId = item.id;
+        draft.focusedItemId = item.id;
+        draft.text = item.text;
+        draft.mode = item.mode;
+        draft.cam = item.cam;
+        draft.masterSec = item.masterSec;
+        draft.startMasterSec = item.startMasterSec;
+        draft.endMasterSec = item.endMasterSec;
+        syncReanalyseDraftToTimeline(draft, { jumpVideo: item.mode !== 'none' });
+        renderStep1ReanalyseSheet(c);
+        requestAnimationFrame(() => {
+          const inp = reanalyseSheetEl.querySelector('[data-ux-reanalyse-input]');
+          if (inp) {
+            inp.focus({ preventScroll: true });
+            inp.setSelectionRange?.(inp.value.length, inp.value.length);
+          }
+        });
+      });
+    });
+
+    reanalyseSheetEl.querySelectorAll('[data-ux-reanalyse-del]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.uxReanalyseDel;
+        draft.items = draft.items.filter((x) => x.id !== id);
+        if (draft.editingId === id) {
+          draft.editingId = null;
+          draft.text = '';
+        }
+        if (draft.focusedItemId === id) draft.focusedItemId = null;
+        syncReanalyseDraftToTimeline(draft, { jumpVideo: false });
+        renderStep1ReanalyseSheet(c);
+      });
+    });
+
+    reanalyseSheetEl.querySelector('[data-ux-reanalyse-cancel-edit]')?.addEventListener('click', () => {
+      draft.editingId = null;
+      draft.text = '';
+      syncReanalyseDraftToTimeline(draft, { jumpVideo: false });
+      renderStep1ReanalyseSheet(c);
+    });
+
+    reanalyseSheetEl.querySelectorAll('[data-ux-reanalyse-close]').forEach((btn) => {
+      btn.addEventListener('click', () => closeStep1ReanalyseSheet({ discardDraft: false }));
+    });
+
+    runBtnEl?.addEventListener('click', () => {
+      if (draft.text?.trim()) commitComposerContextToDraft(c, draft);
+      const finalContexts = (draft.items || []).map((item) => normalizeContextItem(item, item.id));
+      closeStep1ReanalyseSheet({ discardDraft: true });
+      rerunStep1(c, finalContexts);
+    });
+  };
+
+    const openStep1ReanalyseSheet = (c) => {
+    if (!c || c.isClosed || !reanalyseLayerEl || !reanalyseSheetEl) return;
+    clearTimeout(reanalyseCloseTimer);
+    reanalyseCloseTimer = 0;
+    store.evidenceDraft = null;
+    delete reanalyseSheetEl.dataset.sheetMode;
+    bridge.setAgentPanelOpen?.(false);
+
+    const ph = bridge.getVideoPlayheadState?.() || {};
+    const curCam = Math.max(1, Math.min(4, Number(ph.activeCamId || videoCanvasEl?.dataset.activeCam || 1)));
+    const curMaster = Number.isFinite(ph.masterSec) ? ph.masterSec : 15.0;
+
+    if (!store.step1ReanalyseDraft || store.step1ReanalyseDraft.caseId !== c.id) {
+      store.step1ReanalyseDraft = {
+        caseId: c.id,
+        open: true,
+        items: (c.step1Contexts || []).map((item) => normalizeContextItem(item, item.id)),
+        editingId: null,
+        focusedItemId: null,
+        text: '',
+        mode: 'moment',
+        cam: curCam,
+        masterSec: curMaster,
+        startMasterSec: Math.max(0, Math.min(27.0, curMaster - 1.5)),
+        endMasterSec: Math.min(30, Math.max(0, Math.min(27.0, curMaster - 1.5)) + 3.0),
+      };
+    } else {
+      store.step1ReanalyseDraft.open = true;
+    }
+
+    const triggerBtn = getStep1RerunTriggerBtn();
+    if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
+    if (detailWorkspacesEl) detailWorkspacesEl.dataset.reanalyseOpen = 'true';
+
+    renderStep1ReanalyseSheet(c);
+    syncReanalyseDraftToTimeline(store.step1ReanalyseDraft, { jumpVideo: false });
+
+    reanalyseLayerEl.hidden = false;
+    syncReanalyseSheetPosition();
+    requestAnimationFrame(() => {
+      if (store.step1ReanalyseDraft?.open && reanalyseLayerEl) {
+        syncReanalyseSheetPosition();
+        reanalyseLayerEl.dataset.open = 'true';
+        reanalyseSheetEl.querySelector('[data-ux-reanalyse-input]')?.focus({ preventScroll: true });
+      }
+    });
+  };
+
+  reanalyseScrimEl?.addEventListener('click', () => {
+    if (isTimelineSpotlightOpen()) closeStep1ReanalyseSheet({ discardDraft: false });
+  });
+
+  window.addEventListener('resize', () => {
+    if (isTimelineSpotlightOpen()) syncReanalyseSheetPosition();
+  });
+
+  videoPanelScrollEl?.addEventListener('scroll', () => {
+    if (isTimelineSpotlightOpen()) syncReanalyseSheetPosition();
+  }, { passive: true });
+
+  document.addEventListener('ux-agent-panel-opened', () => {
+    if (isTimelineSpotlightOpen()) closeStep1ReanalyseSheet({ discardDraft: false });
+  });
+
+  document.addEventListener('ux-camera-change', (e) => {
+    if (silentReanalyseVideoSync) return;
+    const step1Draft = store.step1ReanalyseDraft;
+    if (step1Draft?.open && store.activeStep === 1) {
+      const nextCam = Math.max(1, Math.min(4, Number(e.detail?.camId) || step1Draft.cam));
+      if (step1Draft.cam === nextCam) return;
+      step1Draft.cam = nextCam;
+      syncReanalyseCueBadgeDom(step1Draft);
+      return;
+    }
+    const evDraft = store.evidenceDraft;
+    if (evDraft?.open && store.activeStep === 2) {
+      const nextCam = Math.max(1, Math.min(4, Number(e.detail?.camId) || evDraft.cam));
+      if (evDraft.cam === nextCam) return;
+      evDraft.cam = nextCam;
+      syncStep2EvidenceBadgeDom(evDraft);
+    }
+  });
+
+  document.addEventListener('ux-timeline-context-marker-click', (e) => {
+    if (store.activeStep === 2 && store.evidenceDraft?.open && store.evidenceDraft.type !== 'range') {
+      const evDraft = store.evidenceDraft;
+      const item = (evDraft.momentItems || []).find((x) => String(x.id) === String(e.detail?.id));
+      if (!item) return;
+      evDraft.activeMomentId = item.id;
+      evDraft.cam = item.cam;
+      evDraft.masterSec = item.masterSec;
+      silentJumpVideoForReanalyse(item.cam, item.masterSec);
+      syncStep2EvidenceBadgeDom(evDraft);
+      syncStep2EvidenceDraftToTimeline(evDraft, { jumpVideo: false });
+      return;
+    }
+    const draft = store.step1ReanalyseDraft;
+    if (!draft?.open || store.activeStep !== 1) return;
+    const item = draft.items.find((x) => x.id === e.detail?.id);
+    if (!item) return;
+    draft.focusedItemId = item.id;
+    if (item.mode === 'range') {
+      silentJumpVideoForReanalyse(item.cam, item.startMasterSec);
+    } else if (item.mode === 'moment') {
+      silentJumpVideoForReanalyse(item.cam, item.masterSec);
+    }
+    syncReanalyseDraftToTimeline(draft, { jumpVideo: false });
+    reanalyseSheetEl?.querySelectorAll('[data-ux-reanalyse-item]').forEach((cardEl) => {
+      cardEl.dataset.active = String(cardEl.dataset.uxReanalyseItem === item.id);
+    });
+    reanalyseSheetEl?.querySelectorAll('[data-ux-reanalyse-cue-jump]').forEach((el) => {
+      el.dataset.active = String(el.dataset.uxReanalyseCueJump === item.id);
+    });
+    reanalyseSheetEl?.querySelector(`[data-ux-reanalyse-item="${item.id}"]`)?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' });
+  });
+
+  const rerunStep1 = (c, contextsInput = []) => {
     if (!c || c.isClosed) return;
+    let normalizedContexts = [];
+    if (Array.isArray(contextsInput)) {
+      normalizedContexts = contextsInput
+        .map((item) => normalizeContextItem(item, item?.id))
+        .filter((item) => item.text);
+    } else if (typeof contextsInput === 'string' && contextsInput.trim()) {
+      normalizedContexts = [normalizeContextItem({ text: contextsInput.trim(), mode: 'none', cam: 1 })];
+    }
+    c.step1Contexts = normalizedContexts;
+    if (normalizedContexts.length) {
+      c.rerunGuidance = {
+        ...(c.rerunGuidance || {}),
+        1: normalizedContexts.map((x) => (x.cueLabel ? `${x.cueLabel}: ${x.text}` : x.text)).join(' | '),
+      };
+      c.guidanceBoostByStep = {
+        ...(c.guidanceBoostByStep || {}),
+        1: normalizedContexts.reduce((sum, item) => sum + (item.mode === 'none' ? 2 : 4), 0),
+      };
+    } else {
+      if (c.rerunGuidance) delete c.rerunGuidance[1];
+      if (c.guidanceBoostByStep) delete c.guidanceBoostByStep[1];
+    }
+    hideCondThumbTip();
     c.analysisDone = false;
     c.lowMatchSimulation = false;
     if (c.stage === 'undetermined') c.stage = 'pending_chart';
@@ -4286,7 +5167,14 @@ export function initSmtWorkflows(bridge) {
     bridge.setScrubberValue(0);
     renderVideoTimeline(c);
     if (analysingEl) delete analysingEl.dataset.renderedKey;
-    logActivity(c.id, 'ANALYSIS', 'Re-ran 4-cam AI reasoning pipeline', 'Adjuster');
+    logActivity(
+      c.id,
+      'ANALYSIS',
+      normalizedContexts.length
+        ? `Re-ran Step 1 analysis (${normalizedContexts.length} context${normalizedContexts.length === 1 ? '' : 's'})`
+        : 'Re-ran 4-cam AI reasoning pipeline',
+      'Adjuster'
+    );
     renderBanners(c);
     renderCaseQueueRows();
     renderStep1(c, true);
@@ -4310,7 +5198,7 @@ export function initSmtWorkflows(bridge) {
         const condKey = `${ch.code}:${cond.id}`;
         const isActiveCond = activeCondKey === condKey;
         const cleanTime = String(cond.time || '').replace(/^00:/, '');
-        html += `<button type="button" class="ux-as-cond-hl" data-ux-cond-key="${esc(condKey)}" data-ux-cond-chart="${esc(ch.code)}" data-ux-cond-id="${esc(cond.id)}" data-active="${isActiveCond}" title="Jump to 0:${esc(cleanTime)} (Cam ${esc(cond.cam)})">${esc(cond.highlight)}</button>`;
+        html += `<button type="button" class="ux-as-cond-hl" data-ux-cond-key="${esc(condKey)}" data-ux-cond-chart="${esc(ch.code)}" data-ux-cond-id="${esc(cond.id)}" data-ux-cond-cam="${esc(cond.cam)}" data-ux-cond-time="${esc(cleanTime)}" data-active="${isActiveCond}" aria-label="Jump to ${esc(getCamShortName(cond.cam))} at 0:${esc(cleanTime)}">${esc(cond.highlight)}</button>`;
       } else {
         html += esc(match[0]);
       }
@@ -4626,7 +5514,12 @@ export function initSmtWorkflows(bridge) {
     });
 
     step1ChartsEl.querySelectorAll('[data-ux-cond-id]').forEach((btn) => {
+      btn.addEventListener('pointerenter', () => showCondThumbTip(btn));
+      btn.addEventListener('pointerleave', hideCondThumbTip);
+      btn.addEventListener('focusin', () => showCondThumbTip(btn));
+      btn.addEventListener('focusout', hideCondThumbTip);
       btn.addEventListener('click', () => {
+        hideCondThumbTip();
         const ch = KNIA_CHART_CATALOG.find((x) => x.code === btn.dataset.uxCondChart);
         const cond = ch?.kniaBasis?.find((x) => x.id === btn.dataset.uxCondId);
         if (!ch || !cond) return;
@@ -4654,6 +5547,11 @@ export function initSmtWorkflows(bridge) {
 
     if (step1WrapEl) step1WrapEl.hidden = false;
 
+    const ctxList = Array.isArray(c.step1Contexts) ? c.step1Contexts : [];
+    const step1DoneLabel = ctxList.length
+      ? `4 keyframes · ${ctxList.length} context${ctxList.length === 1 ? '' : 's'}`
+      : '4 keyframes';
+
     if (!c.analysisDone || forceRun) {
       const targetKey = `${c.id}:live:${forceRun ? Date.now() : 'init'}`;
       if (analysingEl?.dataset.renderedKey === targetKey && !forceRun) return;
@@ -4667,7 +5565,13 @@ export function initSmtWorkflows(bridge) {
       renderFloatBar(c);
       bridge.startCaseAnalysis(c.id, {
         instantCollapsed: false,
-        onRerun: () => rerunStep1(c),
+        doneGroupLabel: step1DoneLabel,
+        guidance: c.rerunGuidance?.[1] || '',
+        contexts: ctxList,
+        onRerun: () => {
+          if (isStep1ReanalyseOpen()) closeStep1ReanalyseSheet({ discardDraft: false });
+          else openStep1ReanalyseSheet(c);
+        },
         rerunDisabled: Boolean(c.isClosed),
         onComplete: () => {
           runningStepState[1] = false;
@@ -4694,7 +5598,13 @@ export function initSmtWorkflows(bridge) {
         analysingEl.dataset.renderedKey = doneKey;
         bridge.startCaseAnalysis(c.id, {
           instantCollapsed: true,
-          onRerun: () => rerunStep1(c),
+          doneGroupLabel: step1DoneLabel,
+          guidance: c.rerunGuidance?.[1] || '',
+          contexts: ctxList,
+          onRerun: () => {
+            if (isStep1ReanalyseOpen()) closeStep1ReanalyseSheet({ discardDraft: false });
+            else openStep1ReanalyseSheet(c);
+          },
           rerunDisabled: Boolean(c.isClosed),
         });
       }
@@ -4790,6 +5700,7 @@ export function initSmtWorkflows(bridge) {
   const buildStep2AnalysisRecord = (c, chart) => {
     const label = scenarioLabel(chart);
     const evList = getEvidenceList(c, chart);
+    const guidance = String(c?.rerunGuidance?.[2] || '').trim();
     const ev0 = evList[0] || { title: 'Approach check', supportText: chart.title, conf: 92, cam: 1, type: 'keyframe', time: '00:10.4' };
     const ev1 = evList[1] || ev0;
     const ev2 = evList[2] || ev1;
@@ -4800,25 +5711,29 @@ export function initSmtWorkflows(bridge) {
     return {
       caseId: c.id,
       scenario: chart.title,
-      doneGroupLabel: `Verified ${evList.length} supporting items · ${label}`,
-      runningPrefix: 'Verifying evidence step',
-      liveAnnouncement: `${label} supporting evidence verified`,
+      guidance,
+      doneGroupLabel: `Corroborated ${evList.length} proof items · ${label}`,
+      runningPrefix: 'Corroborating proof step',
+      liveAnnouncement: `${label} supporting proof corroborated`,
       steps: [
         {
           id: 's2-entry-check',
           tool: 'frame-detection',
-          title: `Extracted ${ev0.title} (${formatEvidenceCue(ev0)})`,
-          runningTitle: `Checking ${ev0.title.toLowerCase()}`,
+          title: `Verified ${ev0.title} (${formatEvidenceCue(ev0)})`,
+          runningTitle: `Checking proof for ${ev0.title.toLowerCase()}`,
           durationMs: 2200,
           summary: `${ev0.conf}% conf`,
           thinkingSteps: [
-            `Inspecting Cam ${ev0.cam} against ${label} (${chart.category}) criteria at ${formatEvidenceCue(ev0)}...`,
-            `${ev0.supportText} Confidence locked at ${ev0.conf}%.`,
+            guidance
+              ? `Re-checking Cam ${ev0.cam} (${formatEvidenceCue(ev0)}) against ${label} with adjuster context "${guidance}"...`
+              : `Inspecting Cam ${ev0.cam} to corroborate ${label} (${chart.category}) at ${formatEvidenceCue(ev0)}...`,
+            `${ev0.supportText} Proof confidence verified at ${ev0.conf}%.`,
           ],
           input: {
             Scenario: `${label} (${chart.baseRatio})`,
-            Check: ev0.title,
+            Proof: ev0.title,
             Source: `Cam ${ev0.cam} · ${formatEvidenceCue(ev0)}`,
+            ...(guidance ? { Guidance: guidance } : {}),
           },
           output: {
             type: 'list',
@@ -4828,13 +5743,13 @@ export function initSmtWorkflows(bridge) {
         {
           id: 's2-conflict-window',
           tool: 'kinematics-eval',
-          title: `Corroborated ${ev1.title} (${formatEvidenceCue(ev1)})`,
-          runningTitle: `Tracking ${ev1.title.toLowerCase()}`,
+          title: `Reinforced ${ev1.title} (${formatEvidenceCue(ev1)})`,
+          runningTitle: `Corroborating ${ev1.title.toLowerCase()}`,
           durationMs: 2400,
           summary: `${ev1.conf}% conf`,
           thinkingSteps: [
             `Cross-checking trajectory continuity across Cam ${ev1.cam} (${formatEvidenceCue(ev1)}) for ${chart.partyARole} vs ${chart.partyBRole}...`,
-            `${ev1.supportText} Match verified at ${ev1.conf}% confidence.`,
+            `${ev1.supportText} Finding reinforced at ${ev1.conf}% confidence.`,
           ],
           input: {
             Target: ev1.title,
@@ -4849,22 +5764,23 @@ export function initSmtWorkflows(bridge) {
         {
           id: 's2-impact-corroboration',
           tool: 'knia-engine',
-          title: `Confirmed ${ev2.title} for ${label} (${chart.baseRatio})`,
-          runningTitle: `Corroborating ${label} supporting evidence`,
+          title: `Strengthened ${label} fault finding (${chart.baseRatio})`,
+          runningTitle: `Consolidating ${label} proof & legal precedents`,
           durationMs: 2200,
           summary: `${avgConf}% avg`,
           thinkingSteps: [
-            `Validating impact posture and ${evList.length || 3} supporting cues against ${label} (${chart.baseRatio})...`,
-            `${ev2.supportText} Supporting evidence bundle ready (${avgConf}% mean confidence).`,
+            `Aligning ${evList.length || 3} proof cues, matching cases, and rulings with ${label} (${chart.baseRatio})...`,
+            `${ev2.supportText} Corroboration package ready (${avgConf}% mean confidence).`,
           ],
           input: {
             Scenario: label,
             'Base ratio': chart.baseRatio,
-            Items: `${evList.length} cues verified`,
+            Proof: `${evList.length} cues verified`,
+            ...(guidance ? { Guidance: guidance } : {}),
           },
           output: {
             type: 'table',
-            columns: ['Evidence', 'Source', 'Confidence'],
+            columns: ['Proof item', 'Source', 'Confidence'],
             rows: evList.map((item) => [item.title, `${formatEvidenceCue(item)} · Cam ${item.cam}`, `${item.conf}%`]),
           },
         },
@@ -4872,10 +5788,20 @@ export function initSmtWorkflows(bridge) {
     };
   };
 
-  const getEvidenceList = (c, chart) => [
-    ...(chart?.evidenceTemplate || []),
-    ...((c?.customEvidenceByChart?.[chart?.code]) || []),
-  ];
+  const getEvidenceList = (c, chart) => {
+    const overrides = c?.evidenceOverridesByChart?.[chart?.code] || {};
+    const boost = Math.min(6, Math.max(0, Number(c?.guidanceBoostByStep?.[2]) || 0));
+    const applyBoost = (ev) => {
+      const merged = overrides[ev.id] ? { ...ev, ...overrides[ev.id] } : { ...ev };
+      if (!merged.manual && typeof merged.conf === 'number' && boost > 0) {
+        merged.conf = Math.min(99, merged.conf + boost);
+      }
+      return merged;
+    };
+    const templateItems = (chart?.evidenceTemplate || []).map(applyBoost);
+    const customItems = (c?.customEvidenceByChart?.[chart?.code] || []).map((ev) => ({ ...ev }));
+    return [...templateItems, ...customItems];
+  };
 
   const isEvidenceSelected = (c, chartCode, evId) => {
     const key = `${chartCode}:${evId}`;
@@ -4968,7 +5894,7 @@ export function initSmtWorkflows(bridge) {
       return;
     }
     if (c.isClosed) return;
-    c.interpretation = c.interpretation || 'Confirmed 4-cam synchronized baseline.';
+    c.interpretation = c.interpretation || 'Corroborated 4-cam synchronized proof bundle.';
     const hasNegoActivity = c.versions.length > 0 && (c.factors || []).length > 0;
     if (hasNegoActivity) {
       const dlg = dialogs.versionWarning;
@@ -4981,8 +5907,16 @@ export function initSmtWorkflows(bridge) {
     commitNewReportVersion(c);
   };
 
-  const rerunStep2 = (c, chart) => {
+  const rerunStep2 = (c, chart, guidance = '') => {
     if (!c || !chart || c.isClosed) return;
+    const cleanGuidance = String(guidance || '').trim();
+    if (cleanGuidance) {
+      c.rerunGuidance = { ...(c.rerunGuidance || {}), 2: cleanGuidance };
+      c.guidanceBoostByStep = { ...(c.guidanceBoostByStep || {}), 2: (c.guidanceBoostByStep?.[2] || 0) + 2 };
+    }
+    store.evidenceDraft = null;
+    if (isStep2EvidenceSheetOpen()) hideSpotlightLayer();
+    else bridge.setTimelineDraftMode?.(false);
     c.evidenceAnalysedChart = null;
     c.step3AnalysedKey = null;
     delete store.expandedRefByCase[c.id];
@@ -4990,9 +5924,572 @@ export function initSmtWorkflows(bridge) {
     if (step2AnalysingEl) delete step2AnalysingEl.dataset.renderedKey;
     if (step3AnalysingEl) delete step3AnalysingEl.dataset.renderedKey;
     clearTimelineRangeFocus(c, true);
-    logActivity(c.id, 'ANALYSIS', `Re-ran Step 2 evidence verification for ${scenarioLabel(chart)}`, 'Adjuster');
+    logActivity(c.id, 'ANALYSIS', cleanGuidance ? `Re-corroborated Step 2 proof (${cleanGuidance})` : `Re-ran Step 2 corroboration for ${scenarioLabel(chart)}`, 'Adjuster');
     renderStep2(c, true);
   };
+
+  const parseDraftSec = (val, fallback = 12.4) => {
+    const match = String(val || '').trim().match(/^(?:(\d{1,2}):)?(\d{1,2}(?:\.\d+)?)$/);
+    if (!match) return fallback;
+    return Math.max(0, Math.min(24, (parseInt(match[1] || '0', 10) * 60) + (parseFloat(match[2]) || 0)));
+  };
+
+  const normalizeEvidenceMomentItem = (source, fallbackCam = 1, fallbackMaster = 15.0, idx = 0) => {
+    const cam = Math.max(1, Math.min(4, Number(source?.cam || fallbackCam) || 1));
+    const parsedCam1 = source?.time != null ? parseDraftSec(source.time, Math.max(0, fallbackMaster - 2.6)) : null;
+    const rawMaster = Number.isFinite(source?.masterSec)
+      ? Number(source.masterSec)
+      : (parsedCam1 != null ? parsedCam1 + 2.6 : Number(fallbackMaster));
+    const masterSec = Math.max(0, Math.min(30, Number.isFinite(rawMaster) ? rawMaster : 15.0));
+    return {
+      id: String(source?.id || `evm-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 5)}`),
+      label: source?.label ? String(source.label) : '',
+      cam,
+      masterSec,
+    };
+  };
+
+  const getActiveDraftMomentItem = (draft) => {
+    if (!draft) return null;
+    if (!Array.isArray(draft.momentItems) || draft.momentItems.length === 0) {
+      draft.momentItems = [normalizeEvidenceMomentItem({ cam: draft.cam, masterSec: draft.masterSec }, draft.cam || 1, draft.masterSec || 15.0, 0)];
+    }
+    let active = draft.momentItems.find((x) => x.id === draft.activeMomentId);
+    if (!active) {
+      active = draft.momentItems[0];
+      draft.activeMomentId = active.id;
+    }
+    return active;
+  };
+
+  const toStep2CueBadgeModel = (draft) => ({
+    id: draft?.editId || 'ev-draft',
+    mode: draft?.type === 'range' ? 'range' : 'moment',
+    cam: Math.max(1, Math.min(4, Number(draft?.cam) || 1)),
+    masterSec: Math.max(0, Math.min(30, Number(draft?.masterSec) || 15.0)),
+    startMasterSec: Math.max(0, Math.min(29.5, Number(draft?.startMasterSec) || 13.5)),
+    endMasterSec: Math.max(0.5, Math.min(30, Number(draft?.endMasterSec) || 16.5)),
+  });
+
+  const renderStep2DraftCuesHtml = (draft) => {
+    if (!draft) return '';
+    if (draft.type === 'range') {
+      return renderStep2ContextBadgeHtml(toStep2CueBadgeModel(draft), { interactive: false, active: true });
+    }
+    const active = getActiveDraftMomentItem(draft);
+    const items = draft.momentItems || [];
+    const canDelete = items.length > 1;
+    return `
+      <div class="ux-ev-moment-list">
+        ${items.map((m, idx) => {
+          const isActive = m.id === active?.id;
+          const camName = getCamShortName(m.cam || 1);
+          const tLabel = formatMasterShort(m.masterSec);
+          return `
+            <span class="ux-ev-moment-chip" data-ux-s2-moment-chip="${esc(m.id)}" data-active="${isActive}">
+              <button type="button" class="ds-button ds-button--ghost ux-ev-moment-chip__pick" data-ux-s2-moment-pick="${esc(m.id)}" aria-pressed="${isActive}" aria-label="Select moment ${idx + 1}: ${esc(camName)} at ${esc(tLabel)}">
+                ${ICON_CLOCK_SM}
+                <span class="ux-num" data-ux-s2-moment-label>${esc(camName)} · ${esc(tLabel)}</span>
+              </button>
+              ${canDelete ? `<button type="button" class="ds-button ds-button--ghost ds-button--icon ux-ev-moment-chip__del" data-ux-s2-moment-del="${esc(m.id)}" aria-label="Remove moment ${esc(tLabel)}">${ICON_CLOSE_SM}</button>` : ''}
+            </span>
+          `;
+        }).join('')}
+        <button type="button" class="ds-button ds-button--outline ds-button--sm ux-ev-moment-add" data-ux-s2-moment-add aria-label="Add another moment">${ICON_PLUS}<span>Add</span></button>
+      </div>
+    `;
+  };
+
+  const syncStep2EvidenceDraftToTimeline = (draft, { jumpVideo = false } = {}) => {
+    if (!draft?.open) {
+      bridge.setTimelineDraftMode?.(false);
+      bridge.setTimelineFocusRange?.(null);
+      bridge.setTimelineContextMarkers?.([]);
+      return;
+    }
+    bridge.setTimelineDraftMode?.(true);
+
+    if (draft.type === 'range') {
+      bridge.setTimelineContextMarkers?.([]);
+      const sMaster = Math.max(0, Math.min(29.4, Number(draft.startMasterSec) || 13.5));
+      const eMaster = Math.max(sMaster + 0.5, Math.min(30, Number(draft.endMasterSec) || sMaster + 3.0));
+      draft.startMasterSec = sMaster;
+      draft.endMasterSec = eMaster;
+      bridge.setTimelineFocusRange?.({
+        key: 'step2-draft:range',
+        startTime: formatSecMMSS(Math.max(0, sMaster - 2.6)),
+        endTime: formatSecMMSS(Math.max(0.4, eMaster - 2.6)),
+        startSec: sMaster - 2.6,
+        endSec: eMaster - 2.6,
+        startMasterSec: sMaster,
+        endMasterSec: eMaster,
+        cam: draft.cam,
+      });
+      if (jumpVideo) silentJumpVideoForReanalyse(draft.cam, sMaster);
+    } else {
+      bridge.setTimelineFocusRange?.(null);
+      const active = getActiveDraftMomentItem(draft);
+      const markers = (draft.momentItems || []).map((m, idx) => ({
+        id: String(m.id),
+        mode: 'moment',
+        masterSec: m.masterSec,
+        active: m.id === active?.id,
+        title: `${getCamShortName(m.cam)} · ${formatMasterShort(m.masterSec)} (Moment ${idx + 1})`,
+      }));
+      bridge.setTimelineContextMarkers?.(markers);
+      if (jumpVideo && active) silentJumpVideoForReanalyse(active.cam, active.masterSec);
+    }
+  };
+
+  const bindStep2DraftCueEvents = (draft) => {
+    if (!reanalyseSheetEl || !draft || draft.type === 'range') return;
+    const liveWrapEl = reanalyseSheetEl.querySelector('[data-ux-s2-ev-live-wrap]');
+    if (!liveWrapEl) return;
+
+    liveWrapEl.querySelectorAll('[data-ux-s2-moment-pick]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const m = (draft.momentItems || []).find((x) => String(x.id) === String(btn.dataset.uxS2MomentPick));
+        if (!m) return;
+        draft.activeMomentId = m.id;
+        draft.cam = m.cam;
+        draft.masterSec = m.masterSec;
+        silentJumpVideoForReanalyse(m.cam, m.masterSec);
+        liveWrapEl.querySelectorAll('[data-ux-s2-moment-chip]').forEach((chipEl) => {
+          const on = String(chipEl.dataset.uxS2MomentChip) === String(m.id);
+          chipEl.dataset.active = String(on);
+          chipEl.querySelector('[data-ux-s2-moment-pick]')?.setAttribute('aria-pressed', String(on));
+        });
+        syncStep2EvidenceDraftToTimeline(draft, { jumpVideo: false });
+      });
+    });
+
+    liveWrapEl.querySelectorAll('[data-ux-s2-moment-del]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!Array.isArray(draft.momentItems) || draft.momentItems.length <= 1) return;
+        const removeId = String(btn.dataset.uxS2MomentDel);
+        const removedIdx = draft.momentItems.findIndex((x) => String(x.id) === removeId);
+        if (removedIdx < 0) return;
+        const wasActive = String(draft.activeMomentId) === removeId;
+        draft.momentItems.splice(removedIdx, 1);
+        const nextActive = draft.momentItems[Math.min(removedIdx, draft.momentItems.length - 1)] || draft.momentItems[0];
+        if (wasActive && nextActive) {
+          draft.activeMomentId = nextActive.id;
+          draft.cam = nextActive.cam;
+          draft.masterSec = nextActive.masterSec;
+          silentJumpVideoForReanalyse(nextActive.cam, nextActive.masterSec);
+        }
+        syncStep2EvidenceBadgeDom(draft);
+        syncStep2EvidenceDraftToTimeline(draft, { jumpVideo: false });
+      });
+    });
+
+    liveWrapEl.querySelector('[data-ux-s2-moment-add]')?.addEventListener('click', () => {
+      if (!Array.isArray(draft.momentItems)) draft.momentItems = [];
+      const ph = bridge.getVideoPlayheadState?.() || {};
+      let nextMaster = Number.isFinite(ph.masterSec) ? ph.masterSec : (draft.masterSec || 15.0);
+      const nextCam = Math.max(1, Math.min(4, Number(ph.activeCamId || draft.cam || 1)));
+      if (draft.momentItems.some((m) => Math.abs(m.masterSec - nextMaster) < 0.25)) {
+        nextMaster = nextMaster + 1.5 <= 30 ? nextMaster + 1.5 : Math.max(0, nextMaster - 1.5);
+      }
+      const created = normalizeEvidenceMomentItem({ cam: nextCam, masterSec: nextMaster }, nextCam, nextMaster, draft.momentItems.length);
+      draft.momentItems.push(created);
+      draft.activeMomentId = created.id;
+      draft.cam = created.cam;
+      draft.masterSec = created.masterSec;
+      silentJumpVideoForReanalyse(created.cam, created.masterSec);
+      syncStep2EvidenceBadgeDom(draft);
+      syncStep2EvidenceDraftToTimeline(draft, { jumpVideo: false });
+    });
+  };
+
+  function syncStep2EvidenceBadgeDom(draft, { activeLabelOnly = false } = {}) {
+    if (!reanalyseSheetEl || !draft) return;
+    const liveWrapEl = reanalyseSheetEl.querySelector('[data-ux-s2-ev-live-wrap]');
+    if (!liveWrapEl) return;
+    if (activeLabelOnly && draft.type !== 'range') {
+      const active = getActiveDraftMomentItem(draft);
+      const chipEl = active ? liveWrapEl.querySelector(`[data-ux-s2-moment-chip="${CSS.escape(String(active.id))}"]`) : null;
+      const labelEl = chipEl?.querySelector('[data-ux-s2-moment-label]');
+      if (labelEl && active) {
+        labelEl.textContent = `${getCamShortName(active.cam || 1)} · ${formatMasterShort(active.masterSec)}`;
+        return;
+      }
+    }
+    liveWrapEl.innerHTML = renderStep2DraftCuesHtml(draft);
+    bindStep2DraftCueEvents(draft);
+  }
+
+  const closeStep2EvidenceSheet = ({ reRender = true } = {}) => {
+    const draftCaseId = store.evidenceDraft?.caseId;
+    const draftChartCode = store.evidenceDraft?.chartCode;
+    store.evidenceDraft = null;
+    hideSpotlightLayer();
+    if (reRender && draftCaseId) {
+      const curCase = getCase(draftCaseId);
+      const curChart = curCase
+        ? (getChartsForCase(curCase).find((ch) => ch.code === draftChartCode) || getSelectedChart(curCase))
+        : null;
+      if (curCase && curChart && store.activeStep === 2) {
+        renderStep2Body(curCase, curChart, false);
+        renderVideoTimeline(curCase);
+      }
+    }
+  };
+
+  const renderStep2EvidenceSheet = (c, chart) => {
+    if (!reanalyseSheetEl || !c || !chart) return;
+    const draft = store.evidenceDraft;
+    if (!draft) return;
+
+    const isRange = draft.type === 'range';
+    const hasTitle = Boolean(String(draft.title || '').trim());
+    reanalyseSheetEl.dataset.sheetMode = 'evidence';
+
+    reanalyseSheetEl.innerHTML = `
+      <div class="ux-dialog__header">
+        <div class="ux-dialog__title-wrap">
+          <h3 class="ux-dialog__title">${draft.editId ? 'Edit evidence' : 'Add evidence'}</h3>
+        </div>
+      </div>
+
+      <div class="ux-dialog__body ux-reanalyse-sheet__body ds-scrollbar" data-ux-reanalyse-body>
+        <form id="ux-s2-evidence-form" class="ux-reanalyse-composer" data-ux-s2-ev-form>
+          <div class="ux-ev-sheet-field">
+            <label class="ds-label" for="ux-ev-sheet-title">Title</label>
+            <input id="ux-ev-sheet-title" class="ds-input ux-ev-sheet-title" data-ux-ev-sheet-title type="text" value="${esc(draft.title || '')}" placeholder="e.g. Late red cross-traffic window" required />
+          </div>
+
+          <div class="ux-ev-sheet-field">
+            <label class="ds-label" for="ux-ev-sheet-desc">Description</label>
+            <div class="ux-reanalyse-composer-card">
+              <textarea id="ux-ev-sheet-desc" class="ds-textarea ux-reanalyse-input" data-ux-ev-sheet-desc rows="2" placeholder="Describe supporting observation...">${esc(draft.supportText || '')}</textarea>
+              <div class="ux-reanalyse-composer-card__foot">
+                <div class="ux-reanalyse-composer-card__bar">
+                  <span class="ds-label">Evidence</span>
+                  <div class="ds-segmented ds-segmented--sm ux-reanalyse-mode" data-ds-segmented data-ux-s2-ev-mode role="radiogroup" aria-label="Evidence cue type">
+                    <div class="ds-segmented__thumb"></div>
+                    <button type="button" role="radio" data-value="keyframe" aria-checked="${!isRange}" aria-pressed="${!isRange}" data-state="${!isRange ? 'on' : 'off'}">Moment</button>
+                    <button type="button" role="radio" data-value="range" aria-checked="${isRange}" aria-pressed="${isRange}" data-state="${isRange ? 'on' : 'off'}">Range</button>
+                  </div>
+                </div>
+                <div class="ux-reanalyse-composer-card__bar ux-ev-sheet-cues-bar">
+                  <div class="ux-reanalyse-anchor-box__live" data-ux-s2-ev-live-wrap>
+                    ${renderStep2DraftCuesHtml(draft)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="ux-dialog__footer">
+        <button type="button" class="ds-button ds-button--secondary" data-ux-s2-ev-close>Cancel</button>
+        <button type="submit" form="ux-s2-evidence-form" class="ds-button ds-button--primary" data-ux-s2-ev-submit${hasTitle ? '' : ' disabled'}>
+          <span>${draft.editId ? 'Save changes' : 'Add evidence'}</span>
+        </button>
+      </div>
+    `;
+
+    const formEl = reanalyseSheetEl.querySelector('[data-ux-s2-ev-form]');
+    const titleInp = reanalyseSheetEl.querySelector('[data-ux-ev-sheet-title]');
+    const descInp = reanalyseSheetEl.querySelector('[data-ux-ev-sheet-desc]');
+    const modeSeg = reanalyseSheetEl.querySelector('[data-ux-s2-ev-mode]');
+    const submitBtn = reanalyseSheetEl.querySelector('[data-ux-s2-ev-submit]');
+
+    titleInp?.addEventListener('input', () => {
+      draft.title = titleInp.value;
+      if (submitBtn) submitBtn.disabled = !String(draft.title || '').trim();
+    });
+
+    descInp?.addEventListener('input', () => {
+      draft.supportText = descInp.value;
+    });
+
+    descInp?.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        formEl?.requestSubmit?.();
+      }
+    });
+
+    bindStep2DraftCueEvents(draft);
+
+    if (modeSeg) {
+      requestAnimationFrame(() => syncSegmentedThumb(modeSeg));
+      modeSeg.querySelectorAll('[role="radio"]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const nextType = btn.dataset.value === 'range' ? 'range' : 'keyframe';
+          if (draft.type === nextType) return;
+          draft.type = nextType;
+          const ph = bridge.getVideoPlayheadState?.() || {};
+          if (nextType === 'keyframe') {
+            const active = getActiveDraftMomentItem(draft);
+            if (active) {
+              draft.masterSec = active.masterSec;
+              draft.cam = active.cam;
+            } else {
+              draft.masterSec = Number.isFinite(ph.masterSec) ? ph.masterSec : draft.masterSec;
+              draft.cam = Number(ph.activeCamId || draft.cam || 1);
+            }
+          } else {
+            const center = Number.isFinite(ph.masterSec) ? ph.masterSec : draft.masterSec;
+            draft.startMasterSec = Math.max(0, Math.min(27.0, center - 1.5));
+            draft.endMasterSec = Math.min(30, draft.startMasterSec + 3.0);
+            draft.cam = Number(ph.activeCamId || draft.cam || 1);
+          }
+          modeSeg.querySelectorAll('[role="radio"]').forEach((rb) => {
+            const on = rb.dataset.value === nextType;
+            rb.setAttribute('aria-checked', String(on));
+            rb.setAttribute('aria-pressed', String(on));
+            rb.dataset.state = on ? 'on' : 'off';
+          });
+          syncSegmentedThumb(modeSeg);
+          syncStep2EvidenceBadgeDom(draft);
+          syncStep2EvidenceDraftToTimeline(draft, { jumpVideo: nextType === 'keyframe' });
+        });
+      });
+    }
+
+    reanalyseSheetEl.querySelector('[data-ux-s2-ev-close]')?.addEventListener('click', () => {
+      closeStep2EvidenceSheet({ reRender: false });
+    });
+
+    formEl?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (c.isClosed) return;
+      const title = String(titleInp?.value ?? draft.title ?? '').trim();
+      if (!title) {
+        titleInp?.focus({ preventScroll: true });
+        return;
+      }
+      const desc = String(descInp?.value ?? draft.supportText ?? '').trim();
+      const cam = Math.max(1, Math.min(4, Number(draft.cam) || 1));
+      const evId = draft.editId || `ev-custom-${Date.now()}`;
+      const isRangeSave = draft.type === 'range';
+
+      let payload;
+      if (isRangeSave) {
+        const sCam1 = Math.max(0, Math.min(23.5, (Number(draft.startMasterSec) || 13.5) - 2.6));
+        const eCam1 = Math.max(sCam1 + 0.5, Math.min(24, (Number(draft.endMasterSec) || 16.5) - 2.6));
+        const startTime = formatSecMMSS(sCam1);
+        const endTime = formatSecMMSS(eCam1);
+        payload = {
+          id: evId,
+          title,
+          supportText: desc || `Validated on ${getCamShortName(cam)} (${startTime.replace(/^00:/, '0:')}–${endTime.replace(/^00:/, '0:')}).`,
+          type: 'range',
+          startTime,
+          endTime,
+          cam,
+          hud: title.slice(0, 22),
+          reticle: 'lane',
+          moments: null,
+          keyframes: Array.isArray(draft.keyframes) && draft.keyframes.length
+            ? draft.keyframes
+            : [{ id: `${evId}-k0`, label: title.slice(0, 20), time: startTime, cam, hud: title.slice(0, 22), reticle: 'lane' }],
+        };
+      } else {
+        const rawMoments = Array.isArray(draft.momentItems) && draft.momentItems.length
+          ? draft.momentItems
+          : [normalizeEvidenceMomentItem({ cam, masterSec: draft.masterSec }, cam, draft.masterSec || 15.0, 0)];
+        const sortedMoments = [...rawMoments].sort((a, b) => a.masterSec - b.masterSec);
+        const savedMoments = sortedMoments.map((m, idx) => {
+          const mCam = Math.max(1, Math.min(4, Number(m.cam) || 1));
+          const mMaster = Math.max(0, Math.min(30, Number(m.masterSec) || 15.0));
+          const mCam1Sec = Math.max(0, Math.min(24, mMaster - 2.6));
+          const mTime = formatSecMMSS(mCam1Sec);
+          return {
+            id: m.id || `${evId}-m${idx}`,
+            label: m.label || `${getCamShortName(mCam)} · ${formatMasterShort(mMaster)}`,
+            cam: mCam,
+            masterSec: mMaster,
+            cam1Sec: mCam1Sec,
+            time: mTime,
+            hud: idx === 0 ? title.slice(0, 22) : `${getCamShortName(mCam)} · ${formatMasterShort(mMaster)}`,
+            isPrimary: idx === 0,
+            reticle: 'impact',
+          };
+        });
+        const primaryM = savedMoments[0];
+        const summaryCue = savedMoments.length > 1
+          ? `${savedMoments.length} moments · ${savedMoments.map((m) => `${getCamShortName(m.cam)} ${formatMasterShort(m.masterSec)}`).join(', ')}`
+          : `Validated on ${getCamShortName(primaryM.cam)} (${formatMasterShort(primaryM.masterSec)})`;
+        payload = {
+          id: evId,
+          title,
+          supportText: desc || `${summaryCue}.`,
+          type: 'keyframe',
+          time: primaryM.time,
+          cam: primaryM.cam,
+          masterSec: primaryM.masterSec,
+          startTime: undefined,
+          endTime: undefined,
+          hud: title.slice(0, 22),
+          reticle: 'impact',
+          moments: savedMoments,
+          keyframes: null,
+        };
+      }
+
+      if (draft.isTemplateEdit) {
+        if (!c.evidenceOverridesByChart) c.evidenceOverridesByChart = {};
+        if (!c.evidenceOverridesByChart[chart.code]) c.evidenceOverridesByChart[chart.code] = {};
+        const orig = (chart.evidenceTemplate || []).find((x) => x.id === evId) || {};
+        c.evidenceOverridesByChart[chart.code][evId] = { ...orig, ...payload };
+        logActivity(c.id, 'ANALYSIS', `Updated evidence item: ${title}`, 'Adjuster');
+      } else {
+        if (!c.customEvidenceByChart) c.customEvidenceByChart = {};
+        if (!Array.isArray(c.customEvidenceByChart[chart.code])) c.customEvidenceByChart[chart.code] = [];
+        const list = c.customEvidenceByChart[chart.code];
+        const existingIdx = draft.editId ? list.findIndex((x) => x.id === draft.editId) : -1;
+        if (existingIdx >= 0) {
+          list[existingIdx] = { ...list[existingIdx], ...payload };
+          logActivity(c.id, 'ANALYSIS', `Updated evidence item: ${title}`, 'Adjuster');
+        } else {
+          list.push({ conf: 100, manual: true, ...payload });
+          if (!c.selectedEvidenceMap) c.selectedEvidenceMap = {};
+          c.selectedEvidenceMap[`${chart.code}:${evId}`] = true;
+          logActivity(c.id, 'ANALYSIS', `Added supporting evidence: ${title} (${getCamShortName(cam)})`, 'Adjuster');
+        }
+      }
+
+      c.step3AnalysedKey = null;
+      if (step3AnalysingEl) delete step3AnalysingEl.dataset.renderedKey;
+      closeStep2EvidenceSheet({ reRender: true });
+      renderFloatBar(c);
+    });
+  };
+
+  const openEvidenceEditor = (c, chart, existingEv = null) => {
+    if (!c || !chart || c.isClosed || !reanalyseLayerEl || !reanalyseSheetEl) return;
+    clearTimeout(reanalyseCloseTimer);
+    reanalyseCloseTimer = 0;
+    if (store.step1ReanalyseDraft) store.step1ReanalyseDraft.open = false;
+    bridge.setAgentPanelOpen?.(false);
+
+    const ph = bridge.getVideoPlayheadState?.() || {};
+    const liveMaster = Number.isFinite(ph.masterSec) ? ph.masterSec : 15.0;
+    const liveCam = Math.max(1, Math.min(4, Number(ph.activeCamId || videoCanvasEl?.dataset.activeCam || 1)));
+
+    const isTemplateEdit = Boolean(existingEv && (chart.evidenceTemplate || []).some((t) => t.id === existingEv.id));
+    const draftType = existingEv?.type === 'range' ? 'range' : 'keyframe';
+
+    let masterSec = liveMaster;
+    let startMasterSec = Math.max(0, Math.min(27.0, liveMaster - 1.5));
+    let endMasterSec = Math.min(30, startMasterSec + 3.0);
+    let cam = liveCam;
+
+    if (existingEv) {
+      cam = Math.max(1, Math.min(4, Number(existingEv.cam) || liveCam));
+      if (draftType === 'range') {
+        const sCam1 = parseDraftSec(existingEv.startTime, Math.max(0, liveMaster - 2.6 - 1.5));
+        const eCam1 = Math.max(sCam1 + 0.4, parseDraftSec(existingEv.endTime, Math.min(24, sCam1 + 3.0)));
+        startMasterSec = Math.max(0, Math.min(29.4, sCam1 + 2.6));
+        endMasterSec = Math.max(startMasterSec + 0.5, Math.min(30, eCam1 + 2.6));
+        masterSec = startMasterSec;
+      } else {
+        const tCam1 = parseDraftSec(existingEv.time, Math.max(0, liveMaster - 2.6));
+        masterSec = Math.max(0, Math.min(30, tCam1 + 2.6));
+        startMasterSec = Math.max(0, Math.min(27.0, masterSec - 1.5));
+        endMasterSec = Math.min(30, startMasterSec + 3.0);
+      }
+    }
+
+    let momentItems;
+    if (existingEv && draftType !== 'range' && Array.isArray(existingEv.moments) && existingEv.moments.length) {
+      momentItems = existingEv.moments.map((m, i) => normalizeEvidenceMomentItem(m, cam, masterSec, i));
+    } else {
+      momentItems = [normalizeEvidenceMomentItem({
+        id: existingEv ? `${existingEv.id}-m0` : null,
+        cam,
+        masterSec,
+      }, cam, masterSec, 0)];
+    }
+
+    store.evidenceDraft = {
+      caseId: c.id,
+      chartCode: chart.code,
+      open: true,
+      editId: existingEv?.id || null,
+      isTemplateEdit,
+      title: existingEv?.title || '',
+      supportText: existingEv?.supportText || '',
+      type: draftType,
+      cam: momentItems[0]?.cam || cam,
+      masterSec: momentItems[0]?.masterSec ?? masterSec,
+      momentItems,
+      activeMomentId: momentItems[0]?.id || null,
+      startMasterSec,
+      endMasterSec,
+      origType: existingEv ? draftType : null,
+      origMasterSec: existingEv ? masterSec : null,
+      moments: Array.isArray(existingEv?.moments) ? existingEv.moments : null,
+      keyframes: Array.isArray(existingEv?.keyframes) ? existingEv.keyframes : null,
+    };
+
+    if (store.step2SubTab !== 'supporting') {
+      store.step2SubTab = 'supporting';
+      renderStep2Body(c, chart, false);
+    }
+
+    if (detailWorkspacesEl) detailWorkspacesEl.dataset.reanalyseOpen = 'true';
+    renderStep2EvidenceSheet(c, chart);
+    syncStep2EvidenceDraftToTimeline(store.evidenceDraft, { jumpVideo: Boolean(existingEv) });
+
+    reanalyseLayerEl.hidden = false;
+    syncReanalyseSheetPosition();
+    requestAnimationFrame(() => {
+      if (store.evidenceDraft?.open && reanalyseLayerEl) {
+        syncReanalyseSheetPosition();
+        reanalyseLayerEl.dataset.open = 'true';
+        const titleEl = reanalyseSheetEl.querySelector('[data-ux-ev-sheet-title]');
+        titleEl?.focus({ preventScroll: true });
+        if (titleEl && existingEv) titleEl.setSelectionRange?.(titleEl.value.length, titleEl.value.length);
+      }
+    });
+  };
+
+  document.addEventListener('ux-timeline-draft-change', (e) => {
+    if (silentReanalyseVideoSync) return;
+    const step1Draft = store.step1ReanalyseDraft;
+    if (store.activeStep === 1 && step1Draft?.open) {
+      const { kind, camId, masterSec, startMasterSec, endMasterSec } = e.detail || {};
+      if (camId) step1Draft.cam = Math.max(1, Math.min(4, Number(camId)));
+      if (kind === 'range' && step1Draft.mode === 'range') {
+        if (Number.isFinite(startMasterSec)) step1Draft.startMasterSec = startMasterSec;
+        if (Number.isFinite(endMasterSec)) step1Draft.endMasterSec = endMasterSec;
+      } else if (Number.isFinite(masterSec)) {
+        step1Draft.masterSec = masterSec;
+      }
+      syncReanalyseCueBadgeDom(step1Draft);
+      return;
+    }
+
+    const evDraft = store.evidenceDraft;
+    if (store.activeStep === 2 && evDraft?.open) {
+      const { kind, camId, masterSec, startMasterSec, endMasterSec } = e.detail || {};
+      if (evDraft.type === 'range') {
+        if (camId) evDraft.cam = Math.max(1, Math.min(4, Number(camId)));
+        if (kind === 'range') {
+          if (Number.isFinite(startMasterSec)) evDraft.startMasterSec = startMasterSec;
+          if (Number.isFinite(endMasterSec)) evDraft.endMasterSec = endMasterSec;
+        }
+        syncStep2EvidenceBadgeDom(evDraft);
+      } else {
+        const activeM = getActiveDraftMomentItem(evDraft);
+        if (activeM) {
+          if (camId) activeM.cam = Math.max(1, Math.min(4, Number(camId)));
+          if (Number.isFinite(masterSec)) activeM.masterSec = Math.max(0, Math.min(30, masterSec));
+          evDraft.cam = activeM.cam;
+          evDraft.masterSec = activeM.masterSec;
+        }
+        syncStep2EvidenceBadgeDom(evDraft, { activeLabelOnly: true });
+        syncStep2EvidenceDraftToTimeline(evDraft, { jumpVideo: false });
+      }
+    }
+  });
 
   const renderStep2Body = (c, chart, animateReveal = false) => {
     if (!step2BodyEl) return;
@@ -5001,7 +6498,6 @@ export function initSmtWorkflows(bridge) {
     const latest = hasReport ? c.versions[c.versions.length - 1] : null;
     const nextVer = `v${c.versions.length + 1}`;
     const chartChanged = Boolean(latest && latest.chartCode !== chart.code);
-    const needConfirm = !hasReport || chartChanged;
     if (store.step2SubTab === 'factors') store.step2SubTab = 'references';
     const evList = getEvidenceList(c, chart);
     const selectedList = getSelectedEvidenceList(c, chart);
@@ -5012,7 +6508,7 @@ export function initSmtWorkflows(bridge) {
     const allRefsCount = disputes.length + precedents.length;
 
     const renderSupportingEvidenceHtml = () => {
-      if (evList.length === 0) return '<p class="ux-subtitle">No supporting evidence linked</p>';
+      if (evList.length === 0) return '<p class="ux-subtitle">No evidence attached yet</p>';
       return `
         <div class="ux-ev-list">
           ${evList.map((ev, idx) => {
@@ -5020,6 +6516,8 @@ export function initSmtWorkflows(bridge) {
             const evKey = getEvidenceTagKey(chart, ev, idx);
             const isSelected = isEvidenceSelected(c, chart.code, evId);
             const isEvActive = isSelected && isEvidenceTagActive(evKey, ev.type === 'range');
+            const hasMultiMoments = (ev.type === 'range' && Array.isArray(ev.keyframes) && ev.keyframes.length > 0)
+              || (ev.type !== 'range');
             return `
               <div class="ux-ev-item" data-ux-ev-item-key="${esc(evKey)}" data-ux-ev-id="${esc(evId)}" data-selected="${isSelected}" data-active="${isEvActive}">
                 <div class="ux-ev-item__head">
@@ -5035,6 +6533,7 @@ export function initSmtWorkflows(bridge) {
                   </span>
                   <span class="ux-ev-item__actions">
                     ${ev.manual ? '<span class="ds-badge ds-badge--pill ds-badge--neutral">Manual</span>' : `<span class="ux-metric-meter">${renderRingMeterHtml(ev.conf || 0, { tone: (ev.conf || 0) >= 90 ? 'success' : (ev.conf || 0) >= 75 ? 'warning' : 'danger', size: 'sm' })}<span class="ux-metric-meter__val ux-num">${esc(ev.conf)}%</span></span>`}
+                    ${c.isClosed ? '' : `<button type="button" class="ds-button ds-button--ghost ds-button--icon ds-button--sm ux-ev-item__edit-btn" data-ux-ev-edit="${esc(evId)}" aria-label="Edit ${esc(ev.title)}" title="Edit evidence">${ICON_EDIT_SM}</button>`}
                   </span>
                 </div>
                 <p class="ux-ev-item__desc">${esc(ev.supportText)}</p>
@@ -5042,7 +6541,19 @@ export function initSmtWorkflows(bridge) {
                   <div class="ux-ev-item__tags">
                     ${renderCueTrackHtml(chart, ev, idx)}
                   </div>
-                ` : renderEvidenceKeyframeStackHtml(c, chart, ev, idx)}
+                ` : (Array.isArray(ev.moments) && ev.moments.length > 0 ? `
+                  <div class="ux-ev-item__tags">
+                    ${ev.moments.map((m, mIdx) => {
+                      const mMaster = Number.isFinite(m.masterSec) ? m.masterSec : (parseTimeSec(m.time || ev.time) + 2.6);
+                      const mCam = getCamShortName(m.cam || ev.cam || 1);
+                      const mLabel = `${mCam} · ${formatMasterShort(mMaster)}`;
+                      const pillKey = `${evKey}:m${mIdx}`;
+                      const isPillActive = !store.activeTimelineRange && store.activeConditionTarget?.key === pillKey;
+                      return `<button type="button" class="ux-ev-tag" data-ux-ev-moment-jump="${esc(evId)}" data-ux-ev-moment-idx="${mIdx}" data-ux-ev-tag-key="${esc(pillKey)}" data-active="${isPillActive}" aria-label="Jump to ${esc(mLabel)}">${ICON_CLOCK_SM}<span class="ux-num">${esc(mLabel)}</span></button>`;
+                    }).join('')}
+                  </div>
+                ` : '')}
+                ${hasMultiMoments ? renderEvidenceKeyframeStackHtml(c, chart, ev, idx) : ''}
               </div>
             `;
           }).join('')}
@@ -5054,7 +6565,7 @@ export function initSmtWorkflows(bridge) {
       const toastKey = `${c.id}:${latest.chartCode}->${chart.code}:${nextVer}`;
       if (toastKey !== lastScenarioToastKey) {
         lastScenarioToastKey = toastKey;
-        showUxToast(`${esc(scenarioLabel(latest.chartCode))} ${ICON_ARROW_RIGHT} ${esc(scenarioLabel(chart))} · Confirm creates ${esc(nextVer)}`);
+        showUxToast(`${esc(scenarioLabel(latest.chartCode))} ${ICON_ARROW_RIGHT} ${esc(scenarioLabel(chart))} · Corroborating creates ${esc(nextVer)}`);
       }
     } else {
       lastScenarioToastKey = '';
@@ -5063,7 +6574,7 @@ export function initSmtWorkflows(bridge) {
 
     step2BodyEl.innerHTML = `
       <div class="ux-section${animateReveal ? ' ux-reveal' : ''}">
-        <section class="ux-heading-block ux-heading-block--s2" aria-label="Selected scenario reference">
+        <section class="ux-heading-block ux-heading-block--s2" aria-label="Scenario conclusion to corroborate">
           <div class="ux-heading-block__head">
             <span class="ux-heading-block__kicker ux-num">${esc(scenarioLabel(chart))} · ${esc(chart.title)}</span>
           </div>
@@ -5102,17 +6613,17 @@ export function initSmtWorkflows(bridge) {
           </div>
         </section>
 
-        <section class="ux-info-canvas" aria-label="Evidence verification">
+        <section class="ux-info-canvas" aria-label="Corroboration and proof">
           <div class="ux-s2-tabs-row">
-            <div class="ds-tabs ux-s2-tabs" data-ds-tabs role="tablist" aria-label="Evidence">
+            <div class="ds-tabs ux-s2-tabs" data-ds-tabs role="tablist" aria-label="Corroboration sections">
               <button type="button" class="ds-tab" role="tab" data-value="supporting" data-panel="ux-s2-panel-supporting" aria-controls="ux-s2-panel-supporting" aria-selected="${store.step2SubTab === 'supporting'}">
-                <span class="ds-tab__content">Evidence <span class="ds-badge ds-badge--pill ds-badge--default ux-num" data-ux-s2-ev-count>${selectedList.length}</span></span>
+                <span class="ds-tab__content">Evidences <span class="ds-badge ds-badge--pill ds-badge--default ux-num" data-ux-s2-ev-count>${selectedList.length}</span></span>
               </button>
               <button type="button" class="ds-tab" role="tab" data-value="references" data-panel="ux-s2-panel-references" aria-controls="ux-s2-panel-references" aria-selected="${store.step2SubTab === 'references'}">
-                <span class="ds-tab__content">Reference <span class="ds-badge ds-badge--pill ds-badge--default ux-num">${similarCases.length}</span></span>
+                <span class="ds-tab__content">Matching cases <span class="ds-badge ds-badge--pill ds-badge--default ux-num">${similarCases.length}</span></span>
               </button>
               <button type="button" class="ds-tab" role="tab" data-value="precedents" data-panel="ux-s2-panel-precedents" aria-controls="ux-s2-panel-precedents" aria-selected="${store.step2SubTab === 'precedents'}">
-                <span class="ds-tab__content">Precedents <span class="ds-badge ds-badge--pill ds-badge--default ux-num">${allRefsCount}</span></span>
+                <span class="ds-tab__content">Legal rulings <span class="ds-badge ds-badge--pill ds-badge--default ux-num">${allRefsCount}</span></span>
               </button>
               <span class="ds-tabs__indicator" aria-hidden="true"></span>
             </div>
@@ -5127,10 +6638,10 @@ export function initSmtWorkflows(bridge) {
           </div>
 
           <div id="ux-s2-panel-references" class="ds-tabpanel ux-tabpanel" role="tabpanel" ${store.step2SubTab === 'references' ? '' : 'hidden'}>
-            ${similarCases.length === 0 ? '<p class="ux-subtitle">No similar resolved cases yet</p>' : `
+            ${similarCases.length === 0 ? '<p class="ux-subtitle">No matching settled cases yet</p>' : `
               <div class="ux-ref-group">
                 <div class="ux-section-head">
-                  <h3 class="ux-title">Resolved cases</h3>
+                  <h3 class="ux-title">Corroborating settled cases</h3>
                 </div>
                 <div class="ux-ref-list">
                   ${similarCases.map((rc, idx) => {
@@ -5190,10 +6701,10 @@ export function initSmtWorkflows(bridge) {
           </div>
 
           <div id="ux-s2-panel-precedents" class="ds-tabpanel ux-tabpanel" role="tabpanel" ${store.step2SubTab === 'precedents' ? '' : 'hidden'}>
-            ${allRefsCount === 0 ? '<p class="ux-subtitle">No dispute decisions or precedents linked</p>' : `
+            ${allRefsCount === 0 ? '<p class="ux-subtitle">No dispute decisions or court precedents linked</p>' : `
               <div class="ux-ref-stack">
-                ${renderRefSectionHtml(c, chart, 'Dispute decisions', disputes, 'dispute')}
-                ${renderRefSectionHtml(c, chart, 'Court precedents', precedents, 'court')}
+                ${renderRefSectionHtml(c, chart, 'Supporting dispute decisions', disputes, 'dispute')}
+                ${renderRefSectionHtml(c, chart, 'Supporting court precedents', precedents, 'court')}
               </div>
             `}
           </div>
@@ -5223,7 +6734,7 @@ export function initSmtWorkflows(bridge) {
       if (svg) playScenarioSimulation(svg, { force: true });
     });
 
-    step2BodyEl.querySelector('[data-ux-s2-add-evidence]')?.addEventListener('click', () => openAddEvidenceModal(c, chart));
+    step2BodyEl.querySelector('[data-ux-s2-add-evidence]')?.addEventListener('click', () => openEvidenceEditor(c, chart, null));
 
     const s2TabsEl = step2BodyEl.querySelector('[data-ds-tabs]');
     const s2StageEl = step2BodyEl.querySelector('[data-ux-s2-tabstage]');
@@ -5285,9 +6796,9 @@ export function initSmtWorkflows(bridge) {
           store.activeStep2EvidenceTag = null;
           renderStageOverlay(null);
         }
-        logActivity(c.id, 'ANALYSIS', `Excluded evidence input: ${ev.title}`, 'Adjuster');
+        logActivity(c.id, 'ANALYSIS', `Excluded proof item: ${ev.title}`, 'Adjuster');
       } else {
-        logActivity(c.id, 'ANALYSIS', `Included evidence input: ${ev.title}`, 'Adjuster');
+        logActivity(c.id, 'ANALYSIS', `Included proof item: ${ev.title}`, 'Adjuster');
       }
       refreshEvidencePanel();
     };
@@ -5300,6 +6811,14 @@ export function initSmtWorkflows(bridge) {
       supportingPanel.querySelectorAll('[data-ux-ev-toggle]').forEach((inp) => {
         inp.addEventListener('change', () => {
           setEvidenceSelected(inp.dataset.uxEvToggle, inp.checked);
+        });
+      });
+
+      supportingPanel.querySelectorAll('[data-ux-ev-edit]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const ev = evList.find((x, i) => String(x.id ?? i) === String(btn.dataset.uxEvEdit));
+          if (ev) openEvidenceEditor(c, chart, ev);
         });
       });
 
@@ -5359,7 +6878,7 @@ export function initSmtWorkflows(bridge) {
       renderVideoTimeline(c);
       bridge.startStep2Analysis?.(buildStep2AnalysisRecord(c, chart), {
         instantCollapsed: false,
-        onRerun: () => rerunStep2(c, chart),
+        onRerun: (guidance) => rerunStep2(c, chart, guidance),
         rerunDisabled: Boolean(c.isClosed),
         onComplete: () => {
           runningStepState[2] = false;
@@ -5379,7 +6898,7 @@ export function initSmtWorkflows(bridge) {
       step2AnalysingEl.dataset.renderedKey = doneKey;
       bridge.startStep2Analysis?.(buildStep2AnalysisRecord(c, chart), {
         instantCollapsed: true,
-        onRerun: () => rerunStep2(c, chart),
+        onRerun: (guidance) => rerunStep2(c, chart, guidance),
         rerunDisabled: Boolean(c.isClosed),
       });
     }
@@ -5475,6 +6994,7 @@ export function initSmtWorkflows(bridge) {
 
   const buildStep3AnalysisRecord = (c, chart, selectedEvidence) => {
     const label = scenarioLabel(chart);
+    const guidance = String(c?.rerunGuidance?.[3] || '').trim();
     const activeFactors = (c.factors || []).filter((f) => !f.archivedUnder);
     const mods = activeFactors.length ? activeFactors : synthesizeStep3Modifiers(chart, selectedEvidence);
     const oppMods = mods.filter(isCounterpartyMod);
@@ -5483,7 +7003,8 @@ export function initSmtWorkflows(bridge) {
     return {
       caseId: c.id,
       scenario: chart.title,
-      doneGroupLabel: `Reasoned from ${selectedEvidence.length} evidence input${selectedEvidence.length === 1 ? '' : 's'} · ${mods.length} modifiers`,
+      guidance,
+      doneGroupLabel: `Reasoned from ${selectedEvidence.length} proof input${selectedEvidence.length === 1 ? '' : 's'} · ${mods.length} modifiers`,
       runningPrefix: 'Evaluating modifiers step',
       liveAnnouncement: `Proposed ${mods.length} fault modifiers for ${label}`,
       steps: [
@@ -5491,16 +7012,19 @@ export function initSmtWorkflows(bridge) {
           id: 's3-map-evidence',
           tool: 'frame-detection',
           title: `Mapped ${selectedEvidence.length} Step 2 cues to modifier rules`,
-          runningTitle: 'Scanning selected evidence for adjustment triggers',
+          runningTitle: 'Scanning selected proof for adjustment triggers',
           durationMs: 2100,
           summary: `${selectedEvidence.length} cues`,
           thinkingSteps: [
-            `Scanning the ${selectedEvidence.length} selected evidence cue(s) under ${label} (${chart.baseRatio}) for additive party fault triggers...`,
+            guidance
+              ? `Applying adjuster context ("${guidance}") to ${selectedEvidence.length} proof cue(s) under ${label} (${chart.baseRatio})...`
+              : `Scanning the ${selectedEvidence.length} selected proof cue(s) under ${label} (${chart.baseRatio}) for additive party fault triggers...`,
             `Matched ${selectedEvidence.map((e) => e.title).join(', ') || chart.title} against KNIA comparative fault rules.`,
           ],
           input: {
             Scenario: `${label} (${chart.baseRatio})`,
             'Selected cues': `${selectedEvidence.length} from Step 2`,
+            ...(guidance ? { Guidance: guidance } : {}),
           },
           output: {
             type: 'list',
@@ -5546,11 +7070,12 @@ export function initSmtWorkflows(bridge) {
           summary: `${mods.length} modifiers`,
           thinkingSteps: [
             `Finalizing additive modifier list with party allocation and rationale for adjuster review in Step 3...`,
-            `Ready: ${mods.length} modifier(s) prepared without altering Step 1 scenario or Step 2 evidence selection.`,
+            `Ready: ${mods.length} modifier(s) prepared without altering Step 1 scenario or Step 2 proof selection.`,
           ],
           input: {
             'Base ratio': chart.baseRatio,
             Modifiers: `${mods.length} proposed`,
+            ...(guidance ? { Guidance: guidance } : {}),
           },
           output: {
             type: 'table',
@@ -5567,11 +7092,15 @@ export function initSmtWorkflows(bridge) {
     };
   };
 
-  const rerunStep3 = (c) => {
+  const rerunStep3 = (c, guidance = '') => {
     if (!c || c.isClosed) return;
+    const cleanGuidance = String(guidance || '').trim();
+    if (cleanGuidance) {
+      c.rerunGuidance = { ...(c.rerunGuidance || {}), 3: cleanGuidance };
+    }
     c.step3AnalysedKey = null;
     if (step3AnalysingEl) delete step3AnalysingEl.dataset.renderedKey;
-    logActivity(c.id, 'NEGO', 'Re-ran Step 3 modifier reasoning', 'Adjuster');
+    logActivity(c.id, 'NEGO', cleanGuidance ? `Re-ran Step 3 modifier reasoning (${cleanGuidance})` : 'Re-ran Step 3 modifier reasoning', 'Adjuster');
     renderStep3(c, true);
   };
 
@@ -6525,8 +8054,8 @@ export function initSmtWorkflows(bridge) {
             <section class="ux-info-canvas" aria-label="Negotiation prerequisite">
               <div class="ux-empty-card">
                 <div class="ds-platform-empty">
-                  <strong>Confirm evidence in Step 2 first</strong>
-                  <p>Verify supporting cues before negotiating fault modifiers.</p>
+                  <strong>Corroborate proof in Step 2 first</strong>
+                  <p>Confirm supporting proof and rulings before negotiating fault modifiers.</p>
                 </div>
               </div>
             </section>
@@ -6555,7 +8084,7 @@ export function initSmtWorkflows(bridge) {
       renderFloatBar(c);
       bridge.startStep3Analysis?.(buildStep3AnalysisRecord(c, chart, selectedEvidence), {
         instantCollapsed: false,
-        onRerun: () => rerunStep3(c),
+        onRerun: (guidance) => rerunStep3(c, guidance),
         rerunDisabled: Boolean(c.isClosed),
         onComplete: () => {
           runningStepState[3] = false;
@@ -6577,7 +8106,7 @@ export function initSmtWorkflows(bridge) {
       step3AnalysingEl.dataset.renderedKey = doneKey;
       bridge.startStep3Analysis?.(buildStep3AnalysisRecord(c, chart, selectedEvidence), {
         instantCollapsed: true,
-        onRerun: () => rerunStep3(c),
+        onRerun: (guidance) => rerunStep3(c, guidance),
         rerunDisabled: Boolean(c.isClosed),
       });
     }
@@ -6857,7 +8386,7 @@ export function initSmtWorkflows(bridge) {
         leadTone: noEvidenceSelected ? 'warning' : '',
         leadOur: 0,
         leadHtml: noEvidenceSelected ? '<span class="ux-float-bar__dot" data-tone="warning"></span>' : '',
-        ctxText: noEvidenceSelected ? 'Select ≥1 item' : 'Evidence',
+        ctxText: noEvidenceSelected ? 'Select ≥1 evidence' : 'Validate evidence',
         contextTitle: '',
         pips: evList.length ? { total: evList.length, active: selectedList.length } : null,
         ctxSuffix: `${selectedList.length}/${evList.length}`,
@@ -6881,7 +8410,7 @@ export function initSmtWorkflows(bridge) {
           leadTone: 'warning',
           leadOur: 0,
           leadHtml: '<span class="ux-float-bar__dot" data-tone="warning"></span>',
-          ctxText: 'Confirm evidence first',
+          ctxText: 'Validate evidence first',
           contextTitle: '',
           pips: null,
           ctxSuffix: '',
@@ -6890,7 +8419,7 @@ export function initSmtWorkflows(bridge) {
           ctaDisabled: false,
           ctaLeadIconKey: '',
           ctaLeadIconHtml: '',
-          ctaLabel: 'Evidence',
+          ctaLabel: 'Validate evidence',
           ctaTrailIconKey: 'arrow',
           ctaTrailIconHtml: ICON_ARROW_RIGHT,
         };
@@ -7451,6 +8980,9 @@ export function initSmtWorkflows(bridge) {
       runningStepState[1] = false;
       bridge.stopCaseAnalysis();
       if (analysingEl) delete analysingEl.dataset.renderedKey;
+      if (stepNum >= 2 && c.selectedChart && c.stage !== 'undetermined') {
+        c.analysisDone = true;
+      }
     }
     if (prevStep === 2 && stepNum !== 2 && c.evidenceAnalysedChart !== (c.selectedChart || 'KNIA-205')) {
       runningStepState[2] = false;
@@ -7467,6 +8999,12 @@ export function initSmtWorkflows(bridge) {
       }
     }
     if (prevStep !== stepNum) {
+      hideCondThumbTip();
+      if (store.evidenceDraft) {
+        store.evidenceDraft = null;
+        bridge.setTimelineDraftMode?.(false);
+      }
+      closeStep1ReanalyseSheet({ discardDraft: false });
       store.activeStep2EvidenceTag = null;
       if (store.activeTimelineRange) {
         store.activeTimelineRange = null;
@@ -7476,6 +9014,19 @@ export function initSmtWorkflows(bridge) {
         store.activeConditionTarget = null;
         renderStageOverlay(null);
       }
+    }
+    if (stepNum >= 2 && c && c.stage !== 'undetermined') {
+      if (!c.selectedChart) {
+        const fallbackCode = getTopConfidenceChartCode(c) || 'KNIA-205';
+        const fallbackCh = KNIA_CHART_CATALOG.find((x) => x.code === fallbackCode) || KNIA_CHART_CATALOG[0];
+        if (fallbackCh) {
+          c.selectedChart = fallbackCh.code;
+          c.baseRatio = fallbackCh.baseRatio;
+          c.baseInsuredPct = fallbackCh.insuredFault;
+          c.baseOpponentPct = fallbackCh.counterpartyFault;
+        }
+      }
+      c.analysisDone = true;
     }
     store.activeStep = stepNum;
     if (c?.id) store.furthestStepByCase[c.id] = Math.max(getFurthestStep(c), stepNum);
@@ -8043,106 +9594,6 @@ export function initSmtWorkflows(bridge) {
     requestAnimationFrame(() => {
       syncSegmentedThumb(typeSeg);
       search?.focus({ preventScroll: true });
-    });
-  };
-
-  const openAddEvidenceModal = (c, chart) => {
-    const dlg = dialogs.addEvidence;
-    if (!dlg || !c || !chart || c.isClosed) return;
-    const form = dlg.querySelector('[data-ux-add-evidence-form]');
-    const titleInp = dlg.querySelector('#ux-add-ev-title');
-    const descInp = dlg.querySelector('#ux-add-ev-desc');
-    const timeInp = dlg.querySelector('#ux-add-ev-time');
-    const camSeg = dlg.querySelector('[data-ux-add-ev-cam]');
-    const playheadSec = typeof lastCam1RefSec === 'number' ? lastCam1RefSec : 12.4;
-    const defaultCam = String(Math.max(1, Math.min(4, Number(videoCanvasEl?.dataset.activeCam) || 1)));
-
-    if (titleInp) titleInp.value = '';
-    if (descInp) descInp.value = '';
-    if (timeInp) timeInp.value = formatSecMMSS(playheadSec);
-
-    dlg.querySelectorAll('[data-ux-ev-time-step]').forEach((btn) => {
-      btn.onclick = () => {
-        if (!timeInp) return;
-        const delta = Number(btn.dataset.uxEvTimeStep || 0);
-        const match = timeInp.value.trim().match(/^(?:(\d{1,2}):)?(\d{1,2}(?:\.\d+)?)$/);
-        const curSec = match
-          ? (parseInt(match[1] || '0', 10) * 60) + (parseFloat(match[2]) || 0)
-          : (typeof lastCam1RefSec === 'number' ? lastCam1RefSec : 12.4);
-        const nextSec = Math.max(0, Math.min(30, curSec + delta));
-        timeInp.value = formatSecMMSS(nextSec);
-        timeInp.focus({ preventScroll: true });
-      };
-    });
-
-    const playheadBtn = dlg.querySelector('[data-ux-ev-time-now]');
-    if (playheadBtn) {
-      playheadBtn.onclick = () => {
-        if (!timeInp) return;
-        const curPlayhead = typeof lastCam1RefSec === 'number' ? lastCam1RefSec : 12.4;
-        timeInp.value = formatSecMMSS(curPlayhead);
-        timeInp.focus({ preventScroll: true });
-      };
-    }
-
-    if (camSeg) {
-      camSeg.querySelectorAll('[role="radio"]').forEach((btn) => {
-        const isCurrent = btn.dataset.value === defaultCam;
-        btn.setAttribute('aria-checked', String(isCurrent));
-        btn.setAttribute('aria-pressed', String(isCurrent));
-        btn.dataset.state = isCurrent ? 'on' : 'off';
-      });
-    }
-
-    if (form) {
-      form.onsubmit = (e) => {
-        e.preventDefault();
-        if (c.isClosed) return;
-        const title = (titleInp?.value || '').trim();
-        if (!title) return;
-        const desc = (descInp?.value || '').trim();
-        const rawTime = (timeInp?.value || '').trim();
-        const timeMatch = rawTime.match(/^(?:(\d{1,2}):)?(\d{1,2}(?:\.\d+)?)$/);
-        const time = timeMatch
-          ? formatSecMMSS((parseInt(timeMatch[1] || '0', 10) * 60) + (parseFloat(timeMatch[2]) || 0))
-          : '00:11.6';
-        const activeCamBtn = camSeg?.querySelector('[aria-checked="true"], [data-state="on"]');
-        const cam = Math.max(1, Math.min(4, Number(activeCamBtn?.dataset.value || 1)));
-        const evId = `ev-custom-${Date.now()}`;
-
-        if (!c.customEvidenceByChart) c.customEvidenceByChart = {};
-        if (!Array.isArray(c.customEvidenceByChart[chart.code])) c.customEvidenceByChart[chart.code] = [];
-        c.customEvidenceByChart[chart.code].push({
-          id: evId,
-          title,
-          supportText: desc || `Added manually on Cam ${cam} (${formatEvidenceCue({ type: 'keyframe', time })}).`,
-          conf: 100,
-          manual: true,
-          type: 'keyframe',
-          time,
-          cam,
-          hud: title.slice(0, 22),
-          reticle: 'lane',
-        });
-
-        if (!c.selectedEvidenceMap) c.selectedEvidenceMap = {};
-        c.selectedEvidenceMap[`${chart.code}:${evId}`] = true;
-        c.step3AnalysedKey = null;
-        if (step3AnalysingEl) delete step3AnalysingEl.dataset.renderedKey;
-
-        logActivity(c.id, 'ANALYSIS', `Added custom evidence: ${title} (Cam ${cam})`, 'Adjuster');
-        closeDialogSmooth(dlg);
-        store.step2SubTab = 'supporting';
-        renderStep2Body(c, chart, false);
-        renderVideoTimeline(c);
-        renderFloatBar(c);
-      };
-    }
-
-    openDialogSmooth(dlg);
-    requestAnimationFrame(() => {
-      syncSegmentedThumb(camSeg);
-      titleInp?.focus({ preventScroll: true });
     });
   };
 
@@ -8853,6 +10304,10 @@ export function initSmtWorkflows(bridge) {
     store.activeCaseId = c.id;
     store.activeConditionTarget = null;
     store.activeStep2EvidenceTag = null;
+    store.evidenceDraft = null;
+    hideCondThumbTip();
+    closeStep1ReanalyseSheet({ discardDraft: true });
+    bridge.setTimelineDraftMode?.(false);
     clearTimelineRangeFocus(null, false);
     bridge.stopCaseAnalysis();
     bridge.stopStep2Analysis?.();
@@ -8981,6 +10436,8 @@ export function initSmtWorkflows(bridge) {
     openCaseWorkbench,
     selectStep,
     setActiveNavView,
+    closeStep1ReanalyseSheet,
+    isStep1ReanalyseOpen: isTimelineSpotlightOpen,
     getStore: () => store,
   };
 }

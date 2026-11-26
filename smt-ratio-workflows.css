@@ -36,37 +36,47 @@
   }
 }
 
-/* ── Neutral Subtle Gray Surface Ramp (Zero Literals, Strictly Monotonic Higher=Lighter, WCAG 2.1 AA) ── */
+/* ── Purpose-Built Light Mode: Clean Tonal Layering, Balanced Neutral Contrast & Scoped Brand Blue ── */
 :root,
 :root[data-theme="light"] {
-  --ux-surface-recessed: var(--color-primitive-gray-75);
-  --ux-surface-pane: var(--color-primitive-gray-75);
+  --ux-surface-recessed: color-mix(in srgb, var(--color-semantic-background-canvas) 62%, var(--color-primitive-gray-150));
+  --ux-ev-unselected-opacity: 0.68;
+  --ux-surface-pane: var(--color-primitive-gray-100);
   --ux-surface-nested-card: var(--color-primitive-gray-0);
   --ux-surface-nested-card-hover: var(--color-primitive-gray-0);
   --ux-surface-nested-card-drag: var(--color-primitive-gray-0);
-  --ux-surface-ring: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 7%, transparent), 0 1px 2px color-mix(in srgb, var(--color-primitive-gray-1000) 4%, transparent);
-  --ux-surface-selected-ring: 0 0 0 1.5px color-mix(in srgb, var(--color-primitive-gray-1000) 20%, transparent), 0 4px 12px -4px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent);
-  --ux-control-ring: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 10%, transparent), 0 1px 1px color-mix(in srgb, var(--color-primitive-gray-1000) 3%, transparent);
-  --ux-pane-ring: inset 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 6%, transparent);
-  --ux-mcard-shadow: var(--ux-surface-ring);
-  --ux-card-hover-shadow: var(--shadow-md), 0 0 0 1px var(--color-semantic-border-default);
+  --ux-scenario-idle-bg: color-mix(in srgb, var(--color-primitive-gray-0) 74%, var(--color-semantic-background-canvas));
+  --ux-card-hover-bg: var(--color-primitive-gray-0);
+  --ux-surface-ring: 0 1px 3px 0 color-mix(in srgb, var(--color-primitive-gray-900) 4%, transparent);
+  --ux-reasoning-shadow: 0 2px 8px -2px color-mix(in srgb, var(--color-primitive-gray-900) 6%, transparent), 0 1px 3px 0 color-mix(in srgb, var(--color-primitive-gray-900) 4%, transparent);
+  --ux-surface-selected-ring: 0 8px 24px -6px color-mix(in srgb, var(--color-primitive-gray-900) 9%, transparent), 0 2px 6px -2px color-mix(in srgb, var(--color-primitive-gray-900) 4%, transparent);
+  --ux-control-ring: none;
+  --ux-pane-ring: none;
+  --ux-mcard-shadow: 0 1px 3px 0 color-mix(in srgb, var(--color-primitive-gray-900) 5%, transparent);
+  --ux-card-hover-shadow: 0 6px 18px -4px color-mix(in srgb, var(--color-primitive-gray-900) 8%, transparent), 0 2px 6px -2px color-mix(in srgb, var(--color-primitive-gray-900) 4%, transparent);
   --ux-surface-drawer: var(--color-primitive-gray-0);
-  --ux-surface-composer: var(--color-primitive-gray-0);
-  --ux-surface-modal-item: var(--color-primitive-gray-50);
+  --ux-surface-composer: var(--color-primitive-gray-75);
+  --ux-surface-modal-item: var(--color-primitive-gray-75);
   --ux-surface-modal-control: var(--color-primitive-gray-100);
   --ux-surface-modal-control-hover: var(--color-primitive-gray-150);
   --ux-surface-modal-thumb: var(--color-primitive-gray-0);
   --ux-surface-modal-menu: var(--color-primitive-gray-0);
-  --ux-backdrop-bg: color-mix(in srgb, var(--color-primitive-gray-1000) 32%, transparent);
-  --ux-dialog-shadow: 0 24px 48px -12px color-mix(in srgb, var(--color-primitive-gray-1000) 18%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent);
-  --ux-lb-pill-bg: color-mix(in srgb, var(--color-primitive-gray-0) 88%, transparent);
-  --ux-lb-pill-ring: 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 10%, transparent);
+  --ux-backdrop-bg: color-mix(in srgb, var(--color-primitive-gray-900) 22%, transparent);
+  --ux-dialog-shadow: 0 24px 52px -12px color-mix(in srgb, var(--color-primitive-gray-900) 16%, transparent), 0 6px 16px -4px color-mix(in srgb, var(--color-primitive-gray-900) 6%, transparent);
+  --ux-lb-pill-bg: color-mix(in srgb, var(--color-primitive-gray-950) 58%, transparent);
+  --ux-lb-pill-fg: var(--color-semantic-button-ultra-text);
+  --ux-lb-pill-ring: none;
   --ux-surface-header: var(--color-semantic-background-canvas);
-  --ux-surface-media: var(--color-primitive-gray-100);
-  --ux-surface-media-hover: var(--color-primitive-gray-150);
-  --ux-media-ring: inset 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent);
-  --ux-video-badge-bg: color-mix(in srgb, var(--color-primitive-gray-1000) 76%, transparent);
-  --ux-video-badge-bg-hover: color-mix(in srgb, var(--color-primitive-gray-1000) 88%, transparent);
+  --ux-surface-media: var(--color-primitive-gray-150);
+  --ux-surface-media-hover: var(--color-primitive-gray-200);
+  --ux-media-ring: none;
+  --ux-video-badge-bg: color-mix(in srgb, var(--color-primitive-gray-950) 58%, transparent);
+  --ux-video-badge-bg-hover: color-mix(in srgb, var(--color-primitive-gray-950) 74%, transparent);
+  --ux-video-badge-fg: var(--color-semantic-button-ultra-text);
+  --ux-video-badge-ring: none;
+  --ux-nle-lane-hover-bg: color-mix(in srgb, var(--color-primitive-gray-0) 65%, transparent);
+  --ux-nle-lane-active-bg: color-mix(in srgb, var(--color-primitive-gray-0) 85%, transparent);
+  --ux-nle-lane-active-hover-bg: var(--color-primitive-gray-0);
   --ux-nle-clip-bg: var(--color-primitive-gray-200);
   --ux-nle-clip-hover: var(--color-primitive-gray-350);
   --ux-nle-clip-active: var(--color-primitive-gray-700);
@@ -75,6 +85,17 @@
   --ux-fill-success: var(--color-primitive-green-500);
   --ux-fill-warning: var(--color-primitive-orange-400);
   --ux-fill-info: var(--color-primitive-blue-400);
+  --ux-ctx-marker-color: var(--color-primitive-yellow-400);
+  --ux-ctx-marker-ink: var(--color-semantic-text-primary);
+  --ux-reanalyse-surface: var(--color-semantic-background-surface);
+  --ux-reanalyse-card-bg: var(--color-primitive-gray-75);
+  --ux-reanalyse-control-bg: var(--color-primitive-gray-0);
+  --ux-reanalyse-hover-subtle: color-mix(in srgb, var(--color-primitive-gray-900) 5%, transparent);
+  --ux-reanalyse-control-hover: var(--color-primitive-gray-50);
+  --ux-reanalyse-scrim-bg: color-mix(in srgb, var(--color-primitive-gray-900) 22%, transparent);
+  --ux-reanalyse-shadow: 0 24px 52px -12px color-mix(in srgb, var(--color-primitive-gray-900) 16%, transparent), 0 6px 18px -4px color-mix(in srgb, var(--color-primitive-gray-900) 6%, transparent);
+  --ux-as-detail-bg: var(--color-primitive-gray-50);
+  --ux-as-detail-divider: 0;
   --ux-party-a-color: var(--color-primitive-purple-400);
   --ux-party-b-color: var(--color-primitive-yellow-400);
   --ux-insured-fill: var(--color-semantic-accent-control);
@@ -82,62 +103,75 @@
   --ux-counterparty-dot: color-mix(in srgb, var(--color-semantic-text-primary) 28%, transparent);
   --ux-ratio-neutral-a: var(--ux-insured-fill);
   --ux-ratio-neutral-b: var(--ux-counterparty-fill);
+  --ux-active-brand: var(--color-semantic-text-primary);
+  --ux-active-brand-ink: var(--color-semantic-text-inverse);
+  --ux-orb-fg: var(--color-semantic-text-primary);
+  --ux-stepper-halo: color-mix(in srgb, var(--color-semantic-text-primary) 14%, transparent);
+  --ux-stepper-idle-marker: var(--color-primitive-gray-150);
+  --ux-stepper-line-bg: var(--color-primitive-gray-150);
+  --ux-cond-hl-bg: color-mix(in srgb, var(--color-semantic-text-primary) 7%, transparent);
+  --ux-cond-hl-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 13%, transparent);
+  --ux-cond-hl-hover-fg: var(--color-semantic-text-primary);
+  --ux-cond-hl-ring: none;
   --ux-surface-selected: var(--color-primitive-gray-0);
-  --color-semantic-background-sidebar: var(--color-primitive-gray-75);
-  --color-semantic-background-sidebar-active: var(--color-primitive-gray-150);
-  --color-semantic-background-canvas: var(--color-primitive-gray-50);
+  --color-semantic-background-sidebar: var(--color-primitive-gray-0);
+  --color-semantic-background-sidebar-active: var(--color-primitive-gray-75);
+  --color-semantic-background-canvas: color-mix(in srgb, var(--color-primitive-gray-75) 72%, var(--color-primitive-gray-50));
   --color-semantic-background-surface: var(--color-primitive-gray-0);
   --color-semantic-background-surface-secondary: var(--color-primitive-gray-75);
   --color-semantic-background-surface-elevated: var(--color-primitive-gray-0);
   --color-semantic-background-menu: var(--color-primitive-gray-0);
-  --color-semantic-background-menu-hover: var(--color-primitive-gray-50);
-  --color-semantic-background-segmented: var(--color-primitive-gray-75);
+  --color-semantic-background-menu-hover: var(--color-primitive-gray-75);
+  --color-semantic-background-segmented: var(--color-primitive-gray-150);
   --color-semantic-background-segmented-thumb: var(--color-primitive-gray-0);
-  --color-semantic-background-segmented-hover: var(--color-primitive-gray-100);
-  --color-semantic-button-secondary-background: var(--color-primitive-gray-75);
-  --color-semantic-button-secondary-background-hover: var(--color-primitive-gray-100);
+  --color-semantic-background-segmented-hover: var(--color-primitive-gray-200);
+  --color-semantic-button-secondary-background: var(--color-primitive-gray-0);
+  --color-semantic-button-secondary-background-hover: var(--color-primitive-gray-50);
+  --ux-card-secondary-btn-bg: var(--color-primitive-gray-100);
+  --ux-card-secondary-btn-hover: var(--color-primitive-gray-150);
   --color-semantic-table-header-background: transparent;
-  --color-semantic-table-row-hover-background: var(--color-primitive-gray-75);
+  --color-semantic-table-row-hover-background: color-mix(in srgb, var(--color-primitive-gray-0) 78%, var(--color-semantic-background-canvas));
   --color-semantic-table-row-selected-background: var(--color-primitive-gray-100);
-  --color-semantic-text-primary: var(--color-primitive-gray-1000);
+  --color-semantic-text-primary: var(--color-primitive-gray-800);
   --color-semantic-text-secondary: var(--color-primitive-gray-550);
-  --color-semantic-text-tertiary: var(--color-primitive-gray-500);
+  --color-semantic-text-tertiary: var(--color-primitive-gray-450);
   --color-semantic-text-info: var(--color-primitive-blue-500);
   --color-semantic-text-danger: var(--color-primitive-red-600);
-  --color-semantic-text-success: color-mix(in srgb, var(--color-primitive-green-600) 70%, var(--color-primitive-green-700));
+  --color-semantic-text-success: var(--color-primitive-green-600);
   --color-semantic-text-warning: var(--color-primitive-orange-600);
   --color-semantic-text-sidebar: var(--color-primitive-gray-800);
   --color-semantic-text-sidebar-secondary: var(--color-primitive-gray-550);
-  --color-semantic-border-subtle: color-mix(in srgb, var(--color-primitive-gray-1000) 9%, transparent);
-  --color-semantic-border-default: color-mix(in srgb, var(--color-primitive-gray-1000) 16%, transparent);
-  --color-semantic-border-strong: color-mix(in srgb, var(--color-primitive-gray-1000) 32%, transparent);
+  --color-semantic-border-subtle: color-mix(in srgb, var(--color-primitive-gray-800) 6%, transparent);
+  --color-semantic-border-default: color-mix(in srgb, var(--color-primitive-gray-800) 11%, transparent);
+  --color-semantic-border-strong: color-mix(in srgb, var(--color-primitive-gray-800) 20%, transparent);
   --color-semantic-table-divider: var(--color-semantic-border-subtle);
-  --ux-float-shadow: 0 12px 28px -6px color-mix(in srgb, var(--color-primitive-gray-1000) 14%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent);
+  --ux-float-shadow: 0 16px 36px -8px color-mix(in srgb, var(--color-primitive-gray-900) 12%, transparent), 0 4px 10px -2px color-mix(in srgb, var(--color-primitive-gray-900) 5%, transparent);
   --ux-float-bar-bg: color-mix(in srgb, var(--color-primitive-gray-0) 94%, transparent);
-  --ux-float-bar-shadow: 0 14px 34px -6px color-mix(in srgb, var(--color-primitive-gray-1000) 16%, transparent), 0 4px 12px -2px color-mix(in srgb, var(--color-primitive-gray-1000) 8%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-primitive-gray-1000) 9%, transparent);
+  --ux-float-bar-shadow: 0 14px 34px -6px color-mix(in srgb, var(--color-primitive-gray-900) 12%, transparent), 0 4px 12px -2px color-mix(in srgb, var(--color-primitive-gray-900) 5%, transparent);
   --ux-sim-stage-top: var(--color-primitive-gray-50);
-  --ux-sim-stage-bg: var(--color-primitive-gray-75);
-  --ux-sim-road-outer: var(--color-primitive-gray-150);
-  --ux-sim-road-mid: var(--color-primitive-gray-200);
-  --ux-sim-road-core: var(--color-primitive-gray-250);
-  --ux-sim-sig-top: var(--color-primitive-gray-800);
-  --ux-sim-sig-bot: var(--color-primitive-gray-950);
-  --ux-sim-lamp-off: var(--color-primitive-gray-650);
-  --ux-sim-marking: color-mix(in srgb, var(--color-primitive-gray-1000) 16%, transparent);
-  --ux-sim-stopbar: color-mix(in srgb, var(--color-primitive-gray-1000) 68%, transparent);
-  --ux-sim-arrow: color-mix(in srgb, var(--color-primitive-gray-1000) 32%, transparent);
-  --ux-sim-centerline: var(--color-primitive-yellow-500);
-  --ux-sim-car-a-0: var(--color-primitive-purple-100);
-  --ux-sim-car-a-1: var(--color-primitive-purple-200);
-  --ux-sim-car-a-2: var(--color-primitive-purple-300);
-  --ux-sim-car-a-3: var(--color-primitive-purple-400);
+  --ux-sim-stage-bg: var(--color-primitive-gray-100);
+  --ux-sim-stage-ring: none;
+  --ux-sim-road-outer: var(--color-primitive-gray-100);
+  --ux-sim-road-mid: var(--color-primitive-gray-150);
+  --ux-sim-road-core: var(--color-primitive-gray-200);
+  --ux-sim-sig-top: var(--color-primitive-gray-600);
+  --ux-sim-sig-bot: var(--color-primitive-gray-750);
+  --ux-sim-lamp-off: var(--color-primitive-gray-450);
+  --ux-sim-marking: color-mix(in srgb, var(--color-primitive-gray-0) 88%, transparent);
+  --ux-sim-stopbar: var(--color-primitive-gray-0);
+  --ux-sim-arrow: color-mix(in srgb, var(--color-primitive-gray-600) 48%, transparent);
+  --ux-sim-centerline: var(--color-primitive-yellow-400);
+  --ux-sim-car-a-0: var(--color-primitive-purple-200);
+  --ux-sim-car-a-1: var(--color-primitive-purple-300);
+  --ux-sim-car-a-2: var(--color-primitive-purple-400);
+  --ux-sim-car-a-3: var(--color-primitive-purple-500);
   --ux-sim-car-b-0: var(--color-primitive-yellow-100);
   --ux-sim-car-b-1: var(--color-primitive-yellow-200);
   --ux-sim-car-b-2: var(--color-primitive-yellow-300);
   --ux-sim-car-b-3: var(--color-primitive-yellow-400);
-  --ux-sim-glass-0: var(--color-primitive-gray-700);
-  --ux-sim-glass-1: var(--color-primitive-gray-850);
-  --ux-sim-glass-2: var(--color-primitive-gray-1000);
+  --ux-sim-glass-0: var(--color-primitive-gray-550);
+  --ux-sim-glass-1: var(--color-primitive-gray-650);
+  --ux-sim-glass-2: var(--color-primitive-gray-750);
   --ux-sim-party-a: var(--ux-party-a-color);
   --ux-sim-party-a-solid: var(--color-primitive-purple-400);
   --ux-sim-party-b: var(--ux-party-b-color);
@@ -150,25 +184,157 @@
   --ux-sim-info: var(--color-primitive-blue-400);
   --ux-sim-info-deep: var(--color-primitive-blue-500);
   --ux-sim-badge-text: var(--color-semantic-button-ultra-text);
-  --ux-sim-chevron: var(--color-primitive-gray-1000);
-  --ux-sim-shadow: var(--color-primitive-gray-1000);
+  --ux-sim-chevron: var(--color-primitive-gray-550);
+  --ux-sim-shadow: var(--color-primitive-gray-300);
   --ux-sim-sheen: var(--color-primitive-gray-0);
   --ux-sim-mask-white: var(--color-semantic-button-ultra-text);
 }
 
 :root[data-theme="light"] {
-  --color-semantic-badge-default-background: var(--color-primitive-gray-100);
-  --color-semantic-badge-default-text: var(--color-primitive-gray-650);
-  --color-semantic-badge-green-background: color-mix(in srgb, var(--color-primitive-green-500) 12%, var(--color-primitive-gray-0));
-  --color-semantic-badge-yellow-background: color-mix(in srgb, var(--color-primitive-yellow-500) 16%, var(--color-primitive-gray-0));
+  --color-semantic-badge-default-background: color-mix(in srgb, var(--color-primitive-gray-75) 65%, var(--color-primitive-gray-50));
+  --color-semantic-badge-default-text: var(--color-primitive-gray-600);
+  --color-semantic-badge-default-dot: var(--color-primitive-gray-500);
+  --color-semantic-badge-blue-background: color-mix(in srgb, var(--color-primitive-blue-50) 72%, var(--color-primitive-blue-25));
+  --color-semantic-badge-blue-text: var(--color-primitive-blue-500);
+  --color-semantic-badge-blue-dot: var(--color-primitive-blue-400);
+  --color-semantic-badge-cyan-background: color-mix(in srgb, var(--color-primitive-blue-50) 58%, var(--color-primitive-green-25));
+  --color-semantic-badge-cyan-text: color-mix(in srgb, var(--color-primitive-blue-600) 70%, var(--color-primitive-green-600));
+  --color-semantic-badge-cyan-dot: color-mix(in srgb, var(--color-primitive-blue-400) 65%, var(--color-primitive-green-400));
+  --color-semantic-badge-green-background: color-mix(in srgb, var(--color-primitive-green-50) 68%, var(--color-primitive-green-25));
+  --color-semantic-badge-green-text: var(--color-primitive-green-600);
+  --color-semantic-badge-green-dot: var(--color-primitive-green-500);
+  --color-semantic-badge-yellow-background: var(--color-primitive-yellow-50);
+  --color-semantic-badge-yellow-text: var(--color-primitive-yellow-700);
+  --color-semantic-badge-yellow-dot: var(--color-primitive-yellow-500);
+  --color-semantic-badge-orange-background: color-mix(in srgb, var(--color-primitive-orange-50) 68%, var(--color-primitive-orange-25));
+  --color-semantic-badge-orange-text: var(--color-primitive-orange-600);
+  --color-semantic-badge-orange-dot: var(--color-primitive-orange-400);
+  --color-semantic-badge-purple-background: color-mix(in srgb, var(--color-primitive-purple-50) 72%, var(--color-primitive-purple-25));
+  --color-semantic-badge-purple-text: var(--color-primitive-purple-600);
+  --color-semantic-badge-purple-dot: var(--color-primitive-purple-400);
+  --color-semantic-badge-red-background: color-mix(in srgb, var(--color-primitive-red-50) 62%, var(--color-primitive-red-25));
+  --color-semantic-badge-red-text: var(--color-primitive-red-600);
+  --color-semantic-badge-red-dot: var(--color-primitive-red-500);
+  --color-semantic-badge-success-background: color-mix(in srgb, var(--color-primitive-green-50) 68%, var(--color-primitive-green-25));
+  --color-semantic-badge-success-text: var(--color-primitive-green-600);
+  --color-semantic-badge-danger-background: color-mix(in srgb, var(--color-primitive-red-50) 62%, var(--color-primitive-red-25));
+  --color-semantic-badge-danger-text: var(--color-primitive-red-600);
+  --color-semantic-badge-warning-background: var(--color-primitive-yellow-50);
+  --color-semantic-badge-warning-text: var(--color-primitive-yellow-700);
+  --color-semantic-badge-info-background: color-mix(in srgb, var(--color-primitive-blue-50) 72%, var(--color-primitive-blue-25));
+  --color-semantic-badge-info-text: var(--color-primitive-blue-500);
+}
+
+:root[data-theme="light"] .ds-button--primary:not(.ux-ask-ai-btn):not([data-action="open-agent-panel"]) {
+  background: var(--color-semantic-button-ultra-background);
+  color: var(--color-semantic-button-ultra-text);
+}
+
+:root[data-theme="light"] .ds-button--primary:not(.ux-ask-ai-btn):not([data-action="open-agent-panel"]):hover:not(:disabled):not([data-disabled]) {
+  background: var(--color-semantic-button-ultra-background-hover);
+  color: var(--color-semantic-button-ultra-text);
+}
+
+:root[data-theme="light"] .ux-ask-ai-btn:not([data-active="true"]) {
+  color: var(--color-semantic-text-inverse);
+}
+
+:root[data-theme="light"] .ds-segmented button[aria-pressed="true"],
+:root[data-theme="light"] .ds-segmented button[aria-checked="true"],
+:root[data-theme="light"] .ds-segmented button[data-state="on"],
+:root[data-theme="light"] .ds-segmented button:not([aria-pressed="true"]):not([aria-checked="true"]):not([data-state="on"]):hover:not(:disabled):not([data-disabled]) {
+  color: var(--color-semantic-text-primary);
+}
+
+:root[data-theme="light"] .ds-sidebar .ds-nav__item.is-active,
+:root[data-theme="light"] .ds-sidebar .ds-nav__item[aria-current="page"] {
+  color: var(--color-semantic-text-primary);
+}
+
+:root[data-theme="light"] .ds-sidebar :is(.ds-nav__item.is-active, .ds-nav__item[aria-current="page"]) .ds-nav__icon {
+  color: var(--color-semantic-accent-control);
+}
+
+:root[data-theme="light"] .ds-sidebar .ds-search-trigger {
+  background: var(--color-semantic-background-canvas);
+}
+
+:root[data-theme="light"] .ds-sidebar .ds-search-trigger:hover {
+  background: var(--color-primitive-gray-100);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --color-semantic-badge-default-background: var(--color-primitive-gray-100);
-    --color-semantic-badge-default-text: var(--color-primitive-gray-650);
-    --color-semantic-badge-green-background: color-mix(in srgb, var(--color-primitive-green-500) 12%, var(--color-primitive-gray-0));
-    --color-semantic-badge-yellow-background: color-mix(in srgb, var(--color-primitive-yellow-500) 16%, var(--color-primitive-gray-0));
+    --color-semantic-badge-default-background: color-mix(in srgb, var(--color-primitive-gray-75) 65%, var(--color-primitive-gray-50));
+    --color-semantic-badge-default-text: var(--color-primitive-gray-600);
+    --color-semantic-badge-default-dot: var(--color-primitive-gray-500);
+    --color-semantic-badge-blue-background: color-mix(in srgb, var(--color-primitive-blue-50) 72%, var(--color-primitive-blue-25));
+    --color-semantic-badge-blue-text: var(--color-primitive-blue-500);
+    --color-semantic-badge-blue-dot: var(--color-primitive-blue-400);
+    --color-semantic-badge-cyan-background: color-mix(in srgb, var(--color-primitive-blue-50) 58%, var(--color-primitive-green-25));
+    --color-semantic-badge-cyan-text: color-mix(in srgb, var(--color-primitive-blue-600) 70%, var(--color-primitive-green-600));
+    --color-semantic-badge-cyan-dot: color-mix(in srgb, var(--color-primitive-blue-400) 65%, var(--color-primitive-green-400));
+    --color-semantic-badge-green-background: color-mix(in srgb, var(--color-primitive-green-50) 68%, var(--color-primitive-green-25));
+    --color-semantic-badge-green-text: var(--color-primitive-green-600);
+    --color-semantic-badge-green-dot: var(--color-primitive-green-500);
+    --color-semantic-badge-yellow-background: var(--color-primitive-yellow-50);
+    --color-semantic-badge-yellow-text: var(--color-primitive-yellow-700);
+    --color-semantic-badge-yellow-dot: var(--color-primitive-yellow-500);
+    --color-semantic-badge-orange-background: color-mix(in srgb, var(--color-primitive-orange-50) 68%, var(--color-primitive-orange-25));
+    --color-semantic-badge-orange-text: var(--color-primitive-orange-600);
+    --color-semantic-badge-orange-dot: var(--color-primitive-orange-400);
+    --color-semantic-badge-purple-background: color-mix(in srgb, var(--color-primitive-purple-50) 72%, var(--color-primitive-purple-25));
+    --color-semantic-badge-purple-text: var(--color-primitive-purple-600);
+    --color-semantic-badge-purple-dot: var(--color-primitive-purple-400);
+    --color-semantic-badge-red-background: color-mix(in srgb, var(--color-primitive-red-50) 62%, var(--color-primitive-red-25));
+    --color-semantic-badge-red-text: var(--color-primitive-red-600);
+    --color-semantic-badge-red-dot: var(--color-primitive-red-500);
+    --color-semantic-badge-success-background: color-mix(in srgb, var(--color-primitive-green-50) 68%, var(--color-primitive-green-25));
+    --color-semantic-badge-success-text: var(--color-primitive-green-600);
+    --color-semantic-badge-danger-background: color-mix(in srgb, var(--color-primitive-red-50) 62%, var(--color-primitive-red-25));
+    --color-semantic-badge-danger-text: var(--color-primitive-red-600);
+    --color-semantic-badge-warning-background: var(--color-primitive-yellow-50);
+    --color-semantic-badge-warning-text: var(--color-primitive-yellow-700);
+    --color-semantic-badge-info-background: color-mix(in srgb, var(--color-primitive-blue-50) 72%, var(--color-primitive-blue-25));
+    --color-semantic-badge-info-text: var(--color-primitive-blue-500);
+  }
+
+  :root:not([data-theme="dark"]) .ds-button--primary:not(.ux-ask-ai-btn):not([data-action="open-agent-panel"]) {
+    background: var(--color-semantic-button-ultra-background);
+    color: var(--color-semantic-button-ultra-text);
+  }
+
+  :root:not([data-theme="dark"]) .ds-button--primary:not(.ux-ask-ai-btn):not([data-action="open-agent-panel"]):hover:not(:disabled):not([data-disabled]) {
+    background: var(--color-semantic-button-ultra-background-hover);
+    color: var(--color-semantic-button-ultra-text);
+  }
+
+  :root:not([data-theme="dark"]) .ux-ask-ai-btn:not([data-active="true"]) {
+    color: var(--color-semantic-text-inverse);
+  }
+
+  :root:not([data-theme="dark"]) .ds-segmented button[aria-pressed="true"],
+  :root:not([data-theme="dark"]) .ds-segmented button[aria-checked="true"],
+  :root:not([data-theme="dark"]) .ds-segmented button[data-state="on"],
+  :root:not([data-theme="dark"]) .ds-segmented button:not([aria-pressed="true"]):not([aria-checked="true"]):not([data-state="on"]):hover:not(:disabled):not([data-disabled]) {
+    color: var(--color-semantic-text-primary);
+  }
+
+  :root:not([data-theme="dark"]) .ds-sidebar .ds-nav__item.is-active,
+  :root:not([data-theme="dark"]) .ds-sidebar .ds-nav__item[aria-current="page"] {
+    color: var(--color-semantic-text-primary);
+  }
+
+  :root:not([data-theme="dark"]) .ds-sidebar :is(.ds-nav__item.is-active, .ds-nav__item[aria-current="page"]) .ds-nav__icon {
+    color: var(--color-semantic-accent-control);
+  }
+
+  :root:not([data-theme="dark"]) .ds-sidebar .ds-search-trigger {
+    background: var(--color-semantic-background-canvas);
+  }
+
+  :root:not([data-theme="dark"]) .ds-sidebar .ds-search-trigger:hover {
+    background: var(--color-primitive-gray-100);
   }
 }
 
@@ -176,11 +342,15 @@
 :root.dark,
 .dark {
   --ux-surface-recessed: var(--color-primitive-gray-150);
+  --ux-ev-unselected-opacity: 1;
   --ux-surface-pane: var(--color-primitive-gray-150);
   --ux-surface-nested-card: var(--color-primitive-gray-250);
   --ux-surface-nested-card-hover: var(--color-semantic-background-surface-elevated);
   --ux-surface-nested-card-drag: var(--ux-surface-modal-control);
+  --ux-scenario-idle-bg: var(--color-semantic-background-surface);
+  --ux-card-hover-bg: var(--color-semantic-background-surface-secondary);
   --ux-surface-ring: none;
+  --ux-reasoning-shadow: var(--ux-surface-ring);
   --ux-surface-selected-ring: none;
   --ux-control-ring: none;
   --ux-pane-ring: none;
@@ -196,6 +366,7 @@
   --ux-backdrop-bg: color-mix(in srgb, var(--color-semantic-background-canvas) 72%, transparent);
   --ux-dialog-shadow: 0 24px 48px -12px color-mix(in srgb, var(--color-primitive-gray-0) 72%, transparent);
   --ux-lb-pill-bg: color-mix(in srgb, var(--color-semantic-background-surface-secondary) 84%, transparent);
+  --ux-lb-pill-fg: var(--color-semantic-text-primary);
   --ux-lb-pill-ring: none;
   --ux-surface-header: var(--color-semantic-background-canvas);
   --ux-surface-media: var(--color-semantic-background-surface);
@@ -203,6 +374,11 @@
   --ux-media-ring: none;
   --ux-video-badge-bg: color-mix(in srgb, var(--color-primitive-gray-0) 40%, transparent);
   --ux-video-badge-bg-hover: color-mix(in srgb, var(--color-primitive-gray-0) 64%, transparent);
+  --ux-video-badge-fg: var(--color-semantic-button-ultra-text);
+  --ux-video-badge-ring: none;
+  --ux-nle-lane-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 5%, transparent);
+  --ux-nle-lane-active-bg: color-mix(in srgb, var(--color-semantic-text-primary) 4%, transparent);
+  --ux-nle-lane-active-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 7%, transparent);
   --ux-nle-clip-bg: var(--color-semantic-background-surface-secondary);
   --ux-nle-clip-hover: color-mix(in srgb, var(--color-semantic-text-primary) 26%, var(--color-semantic-background-surface-secondary));
   --ux-nle-clip-active: color-mix(in srgb, var(--color-semantic-text-primary) 48%, var(--color-semantic-background-surface-secondary));
@@ -211,6 +387,17 @@
   --ux-fill-success: var(--color-semantic-text-success);
   --ux-fill-warning: var(--color-semantic-text-warning);
   --ux-fill-info: var(--color-semantic-text-info);
+  --ux-ctx-marker-color: var(--color-primitive-yellow-400);
+  --ux-ctx-marker-ink: var(--color-primitive-gray-0);
+  --ux-reanalyse-surface: var(--color-semantic-background-surface);
+  --ux-reanalyse-card-bg: var(--color-semantic-background-surface-secondary);
+  --ux-reanalyse-control-bg: var(--color-primitive-gray-300);
+  --ux-reanalyse-hover-subtle: color-mix(in srgb, var(--color-primitive-gray-1000) 5%, transparent);
+  --ux-reanalyse-control-hover: color-mix(in srgb, var(--color-primitive-gray-1000) 5%, var(--ux-reanalyse-control-bg));
+  --ux-reanalyse-scrim-bg: color-mix(in srgb, var(--color-primitive-gray-0) 92%, transparent);
+  --ux-reanalyse-shadow: 0 28px 60px -12px color-mix(in srgb, var(--color-primitive-gray-0) 92%, transparent);
+  --ux-as-detail-bg: color-mix(in srgb, var(--color-primitive-gray-250) 65%, var(--color-primitive-gray-200));
+  --ux-as-detail-divider: 0;
   --ux-party-a-color: var(--color-primitive-purple-300);
   --ux-party-b-color: var(--color-primitive-yellow-300);
   --ux-insured-fill: var(--color-semantic-accent-control);
@@ -218,6 +405,16 @@
   --ux-counterparty-dot: color-mix(in srgb, var(--color-semantic-text-primary) 34%, transparent);
   --ux-ratio-neutral-a: var(--ux-insured-fill);
   --ux-ratio-neutral-b: var(--ux-counterparty-fill);
+  --ux-active-brand: var(--color-semantic-text-primary);
+  --ux-active-brand-ink: var(--color-semantic-text-inverse);
+  --ux-orb-fg: var(--color-semantic-text-primary);
+  --ux-stepper-halo: color-mix(in srgb, var(--color-semantic-text-primary) 20%, transparent);
+  --ux-stepper-idle-marker: var(--color-semantic-button-secondary-background);
+  --ux-stepper-line-bg: color-mix(in srgb, var(--color-semantic-border-default) 45%, var(--color-semantic-background-surface-secondary));
+  --ux-cond-hl-bg: color-mix(in srgb, var(--color-semantic-text-primary) 9%, transparent);
+  --ux-cond-hl-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 15%, transparent);
+  --ux-cond-hl-hover-fg: var(--color-semantic-text-primary);
+  --ux-cond-hl-ring: none;
   --ux-surface-selected: var(--color-primitive-gray-300);
   --color-semantic-background-sidebar: var(--color-primitive-gray-50);
   --color-semantic-background-sidebar-active: var(--color-primitive-gray-200);
@@ -232,6 +429,8 @@
   --color-semantic-background-segmented-hover: var(--color-primitive-gray-300);
   --color-semantic-button-secondary-background: var(--color-primitive-gray-250);
   --color-semantic-button-secondary-background-hover: var(--color-primitive-gray-300);
+  --ux-card-secondary-btn-bg: var(--color-semantic-background-surface-secondary);
+  --ux-card-secondary-btn-hover: var(--color-semantic-button-secondary-background-hover);
   --color-semantic-table-header-background: transparent;
   --color-semantic-table-row-hover-background: var(--color-primitive-gray-200);
   --color-semantic-table-row-selected-background: var(--color-primitive-gray-250);
@@ -253,6 +452,7 @@
   --ux-float-bar-shadow: 0 16px 38px -4px color-mix(in srgb, var(--color-primitive-gray-0) 80%, transparent), 0 4px 14px -2px color-mix(in srgb, var(--color-primitive-gray-0) 56%, transparent), 0 0 0 1px var(--color-semantic-border-default);
   --ux-sim-stage-top: color-mix(in srgb, var(--color-primitive-gray-200) 40%, var(--color-primitive-gray-100));
   --ux-sim-stage-bg: var(--color-primitive-gray-100);
+  --ux-sim-stage-ring: none;
   --ux-sim-road-outer: var(--color-primitive-gray-200);
   --ux-sim-road-mid: var(--color-primitive-gray-250);
   --ux-sim-road-core: var(--color-primitive-gray-300);
@@ -295,11 +495,15 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --ux-surface-recessed: var(--color-primitive-gray-150);
+    --ux-ev-unselected-opacity: 1;
     --ux-surface-pane: var(--color-primitive-gray-150);
     --ux-surface-nested-card: var(--color-primitive-gray-250);
     --ux-surface-nested-card-hover: var(--color-semantic-background-surface-elevated);
     --ux-surface-nested-card-drag: var(--ux-surface-modal-control);
+    --ux-scenario-idle-bg: var(--color-semantic-background-surface);
+    --ux-card-hover-bg: var(--color-semantic-background-surface-secondary);
     --ux-surface-ring: none;
+    --ux-reasoning-shadow: var(--ux-surface-ring);
     --ux-surface-selected-ring: none;
     --ux-control-ring: none;
     --ux-pane-ring: none;
@@ -315,6 +519,7 @@
     --ux-backdrop-bg: color-mix(in srgb, var(--color-semantic-background-canvas) 72%, transparent);
     --ux-dialog-shadow: 0 24px 48px -12px color-mix(in srgb, var(--color-primitive-gray-0) 72%, transparent);
     --ux-lb-pill-bg: color-mix(in srgb, var(--color-semantic-background-surface-secondary) 84%, transparent);
+    --ux-lb-pill-fg: var(--color-semantic-text-primary);
     --ux-lb-pill-ring: none;
     --ux-surface-header: var(--color-semantic-background-canvas);
     --ux-surface-media: var(--color-semantic-background-surface);
@@ -322,6 +527,11 @@
     --ux-media-ring: none;
     --ux-video-badge-bg: color-mix(in srgb, var(--color-primitive-gray-0) 40%, transparent);
     --ux-video-badge-bg-hover: color-mix(in srgb, var(--color-primitive-gray-0) 64%, transparent);
+    --ux-video-badge-fg: var(--color-semantic-button-ultra-text);
+    --ux-video-badge-ring: none;
+    --ux-nle-lane-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 5%, transparent);
+    --ux-nle-lane-active-bg: color-mix(in srgb, var(--color-semantic-text-primary) 4%, transparent);
+    --ux-nle-lane-active-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 7%, transparent);
     --ux-nle-clip-bg: var(--color-semantic-background-surface-secondary);
     --ux-nle-clip-hover: color-mix(in srgb, var(--color-semantic-text-primary) 26%, var(--color-semantic-background-surface-secondary));
     --ux-nle-clip-active: color-mix(in srgb, var(--color-semantic-text-primary) 48%, var(--color-semantic-background-surface-secondary));
@@ -330,6 +540,17 @@
     --ux-fill-success: var(--color-semantic-text-success);
     --ux-fill-warning: var(--color-semantic-text-warning);
     --ux-fill-info: var(--color-semantic-text-info);
+    --ux-ctx-marker-color: var(--color-primitive-yellow-400);
+    --ux-ctx-marker-ink: var(--color-primitive-gray-0);
+    --ux-reanalyse-surface: var(--color-semantic-background-surface);
+    --ux-reanalyse-card-bg: var(--color-semantic-background-surface-secondary);
+    --ux-reanalyse-control-bg: var(--color-primitive-gray-300);
+    --ux-reanalyse-hover-subtle: color-mix(in srgb, var(--color-primitive-gray-1000) 5%, transparent);
+    --ux-reanalyse-control-hover: color-mix(in srgb, var(--color-primitive-gray-1000) 5%, var(--ux-reanalyse-control-bg));
+    --ux-reanalyse-scrim-bg: color-mix(in srgb, var(--color-primitive-gray-0) 92%, transparent);
+    --ux-reanalyse-shadow: 0 28px 60px -12px color-mix(in srgb, var(--color-primitive-gray-0) 92%, transparent);
+    --ux-as-detail-bg: color-mix(in srgb, var(--color-primitive-gray-250) 65%, var(--color-primitive-gray-200));
+    --ux-as-detail-divider: 0;
     --ux-party-a-color: var(--color-primitive-purple-300);
     --ux-party-b-color: var(--color-primitive-yellow-300);
     --ux-insured-fill: var(--color-semantic-accent-control);
@@ -337,6 +558,16 @@
     --ux-counterparty-dot: color-mix(in srgb, var(--color-semantic-text-primary) 34%, transparent);
     --ux-ratio-neutral-a: var(--ux-insured-fill);
     --ux-ratio-neutral-b: var(--ux-counterparty-fill);
+    --ux-active-brand: var(--color-semantic-text-primary);
+    --ux-active-brand-ink: var(--color-semantic-text-inverse);
+    --ux-orb-fg: var(--color-semantic-text-primary);
+    --ux-stepper-halo: color-mix(in srgb, var(--color-semantic-text-primary) 20%, transparent);
+    --ux-stepper-idle-marker: var(--color-semantic-button-secondary-background);
+    --ux-stepper-line-bg: color-mix(in srgb, var(--color-semantic-border-default) 45%, var(--color-semantic-background-surface-secondary));
+    --ux-cond-hl-bg: color-mix(in srgb, var(--color-semantic-text-primary) 9%, transparent);
+    --ux-cond-hl-hover-bg: color-mix(in srgb, var(--color-semantic-text-primary) 15%, transparent);
+    --ux-cond-hl-hover-fg: var(--color-semantic-text-primary);
+    --ux-cond-hl-ring: none;
     --ux-surface-selected: var(--color-primitive-gray-300);
     --color-semantic-background-sidebar: var(--color-primitive-gray-50);
     --color-semantic-background-sidebar-active: var(--color-primitive-gray-200);
@@ -351,6 +582,8 @@
     --color-semantic-background-segmented-hover: var(--color-primitive-gray-300);
     --color-semantic-button-secondary-background: var(--color-primitive-gray-250);
     --color-semantic-button-secondary-background-hover: var(--color-primitive-gray-300);
+    --ux-card-secondary-btn-bg: var(--color-semantic-background-surface-secondary);
+    --ux-card-secondary-btn-hover: var(--color-semantic-button-secondary-background-hover);
     --color-semantic-table-header-background: transparent;
     --color-semantic-table-row-hover-background: var(--color-primitive-gray-200);
     --color-semantic-table-row-selected-background: var(--color-primitive-gray-250);
@@ -372,6 +605,7 @@
     --ux-float-bar-shadow: 0 16px 38px -4px color-mix(in srgb, var(--color-primitive-gray-0) 80%, transparent), 0 4px 14px -2px color-mix(in srgb, var(--color-primitive-gray-0) 56%, transparent), 0 0 0 1px var(--color-semantic-border-default);
     --ux-sim-stage-top: color-mix(in srgb, var(--color-primitive-gray-200) 40%, var(--color-primitive-gray-100));
     --ux-sim-stage-bg: var(--color-primitive-gray-100);
+    --ux-sim-stage-ring: none;
     --ux-sim-road-outer: var(--color-primitive-gray-200);
     --ux-sim-road-mid: var(--color-primitive-gray-250);
     --ux-sim-road-core: var(--color-primitive-gray-300);
@@ -537,12 +771,12 @@
 }
 
 :is(.ux-card, .ux-scenario-item, .ux-ev-item, .ux-ref-card) :is(.ds-button--outline, .ds-button--secondary) {
-  background: var(--color-semantic-background-surface-secondary);
+  background: var(--ux-card-secondary-btn-bg);
   box-shadow: var(--ux-control-ring);
 }
 
 :is(.ux-card, .ux-scenario-item, .ux-ev-item, .ux-ref-card) :is(.ds-button--outline, .ds-button--secondary):hover:not(:disabled):not([data-disabled]) {
-  background: var(--color-semantic-button-secondary-background-hover);
+  background: var(--ux-card-secondary-btn-hover);
 }
 
 :is(.ux-mcard, .ds-agent-panel) :is(.ds-button--outline, .ds-button--secondary) {
@@ -731,7 +965,7 @@
   border: 0;
   border-radius: var(--radius-2xl);
   background: var(--color-semantic-background-surface);
-  box-shadow: var(--ux-surface-ring);
+  box-shadow: var(--ux-reasoning-shadow);
 }
 
 .ds-tool-run__calls {
@@ -921,6 +1155,23 @@
   font-size: var(--font-size-xs);
 }
 
+.ds-badge--blue {
+  background: var(--color-semantic-badge-blue-background);
+  color: var(--color-semantic-badge-blue-text);
+}
+
+:root[data-theme="dark"] .ds-badge--blue {
+  background: color-mix(in srgb, var(--color-primitive-blue-300) 18%, transparent);
+  color: var(--color-primitive-blue-200);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] .ds-badge--blue {
+    background: color-mix(in srgb, var(--color-primitive-blue-300) 18%, transparent);
+    color: var(--color-primitive-blue-200);
+  }
+}
+
 #accident-case-table thead th:nth-child(1),
 [data-ux-arch-table] thead th:nth-child(1) {
   padding-left: var(--space-6);
@@ -1055,7 +1306,8 @@
 }
 
 .ux-case-grid-card:hover {
-  background: var(--color-semantic-background-surface-secondary);
+  background: var(--ux-card-hover-bg);
+  box-shadow: var(--ux-card-hover-shadow);
 }
 
 .ux-case-grid-card:focus-visible {
@@ -1099,7 +1351,8 @@
   background: var(--ux-video-badge-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: var(--color-semantic-button-ultra-text);
+  color: var(--ux-video-badge-fg);
+  box-shadow: var(--ux-video-badge-ring);
   transition: opacity 150ms ease, background-color 150ms ease;
 }
 
@@ -1112,6 +1365,7 @@
 
 .ux-case-grid-card__action:hover:not(:disabled) {
   background: var(--ux-video-badge-bg-hover);
+  color: var(--ux-video-badge-fg);
 }
 
 @media (hover: none) {
@@ -1455,6 +1709,16 @@
   background: var(--ux-fill-danger);
 }
 
+.ux-nle-stage[data-at-ctx="true"] .ux-nle-playhead__arrow,
+.ux-nle-stage[data-at-ctx="true"] .ux-nle-playhead__pill,
+.ux-nle-stage[data-at-ctx="true"] .ux-nle-playhead__line {
+  background: var(--ux-ctx-marker-color);
+}
+
+.ux-nle-stage[data-at-ctx="true"] .ux-nle-playhead__pill {
+  color: var(--ux-ctx-marker-ink);
+}
+
 .ux-nle-range-band {
   position: absolute;
   top: 13px;
@@ -1480,6 +1744,144 @@
   box-shadow: none;
   border-radius: 0;
   background: color-mix(in srgb, var(--color-semantic-text-info) 12%, transparent);
+}
+
+.ux-nle-timeline[data-draft-picking="true"] .ux-nle-range-band {
+  overflow: visible;
+  pointer-events: auto;
+  cursor: grab;
+  border-left: 1.5px solid var(--color-semantic-text-info);
+  border-right: 1.5px solid var(--color-semantic-text-info);
+}
+
+.ux-nle-timeline[data-draft-picking="true"] .ux-nle-range-band:active {
+  cursor: grabbing;
+}
+
+.ux-nle-range-band__handle {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  z-index: 4;
+  touch-action: none;
+}
+
+.ux-nle-range-band__handle::after {
+  content: '';
+  width: 3px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-text-info);
+  box-shadow: 0 0 0 1px var(--color-semantic-background-canvas);
+}
+
+.ux-nle-range-band__handle--start {
+  left: -6px;
+}
+
+.ux-nle-range-band__handle--end {
+  right: -6px;
+}
+
+.ux-nle-timeline[data-draft-picking="true"] .ux-nle-range-band__handle {
+  display: inline-flex;
+}
+
+.ux-nle-timeline[data-draft-picking="true"] .ux-nle-stage {
+  cursor: crosshair;
+}
+
+.ux-nle-ctx-markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ds-button.ds-button--ghost.ux-nle-ctx-pin {
+  position: absolute;
+  top: 11px;
+  left: var(--ctx-x, 50%);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  min-width: 16px;
+  height: 12px;
+  min-height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  box-shadow: none;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 4;
+  outline: none;
+}
+
+.ds-button.ds-button--ghost.ux-nle-ctx-pin:hover,
+.ds-button.ds-button--ghost.ux-nle-ctx-pin[data-active="true"] {
+  background: transparent;
+  box-shadow: none;
+}
+
+.ux-nle-ctx-pin__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: var(--ux-ctx-marker-color);
+  box-shadow: 0 0 0 1.5px var(--color-semantic-background-canvas);
+  transform: rotate(45deg);
+  transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms ease;
+}
+
+.ux-nle-ctx-pin:hover .ux-nle-ctx-pin__dot,
+.ux-nle-ctx-pin[data-active="true"] .ux-nle-ctx-pin__dot {
+  transform: rotate(45deg) scale(1.25);
+}
+
+.ux-nle-ctx-pin[data-active="true"] .ux-nle-ctx-pin__dot {
+  box-shadow: 0 0 0 1.5px var(--color-semantic-background-canvas), 0 0 0 3.5px color-mix(in srgb, var(--ux-ctx-marker-color) 32%, transparent);
+}
+
+.ux-nle-ctx-pin:active .ux-nle-ctx-pin__dot {
+  transform: rotate(45deg) scale(0.92);
+}
+
+.ds-button.ds-button--ghost.ux-nle-ctx-span {
+  position: absolute;
+  top: 13px;
+  bottom: 0;
+  left: var(--ctx-start, 0%);
+  width: var(--ctx-span, 5%);
+  height: auto;
+  min-width: 6px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--ux-ctx-marker-color) 16%, transparent);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.ds-button.ds-button--ghost.ux-nle-ctx-span:hover,
+.ds-button.ds-button--ghost.ux-nle-ctx-span[data-active="true"] {
+  background: color-mix(in srgb, var(--ux-ctx-marker-color) 26%, transparent);
+  border: 0;
+  border-top: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .ux-nle-lanes {
@@ -1534,7 +1936,7 @@
 }
 
 .ux-nle-lane-row:hover::before {
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 5%, transparent);
+  background: var(--ux-nle-lane-hover-bg);
 }
 
 .ux-nle-timeline[data-view-mode="single"] .ux-nle-lane-row[data-active="false"] {
@@ -1551,11 +1953,11 @@
 }
 
 .ux-nle-timeline[data-view-mode="single"] .ux-nle-lane-row[data-active="true"]::before {
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 4%, transparent);
+  background: var(--ux-nle-lane-active-bg);
 }
 
 .ux-nle-timeline[data-view-mode="single"] .ux-nle-lane-row[data-active="true"]:hover::before {
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 7%, transparent);
+  background: var(--ux-nle-lane-active-hover-bg);
 }
 
 .ux-nle-lane-row:focus-visible::before {
@@ -1611,7 +2013,8 @@
 }
 
 .ux-nle-lane-row:hover .ux-nle-head__dur,
-.ux-nle-lane-row[data-active="true"] .ux-nle-head__dur {
+.ux-nle-timeline[data-view-mode="single"] .ux-nle-lane-row[data-active="true"] .ux-nle-head__dur,
+.ux-nle-timeline[data-view-mode="grid"] .ux-nle-lane-row[data-in-range="true"]:not([data-missing="true"]) .ux-nle-head__dur {
   color: var(--color-semantic-text-secondary);
 }
 
@@ -1644,12 +2047,12 @@
   background: var(--ux-nle-clip-hover);
 }
 
-.ux-nle-lane-row[data-active="true"]:not([data-missing="true"]) .ux-nle-clip,
+.ux-nle-timeline[data-view-mode="single"] .ux-nle-lane-row[data-active="true"]:not([data-missing="true"]) .ux-nle-clip,
 .ux-nle-timeline[data-view-mode="grid"] .ux-nle-lane-row[data-in-range="true"]:not([data-missing="true"]) .ux-nle-clip {
   background: var(--ux-nle-clip-active);
 }
 
-.ux-nle-lane-row[data-active="true"]:not([data-missing="true"]):hover .ux-nle-clip,
+.ux-nle-timeline[data-view-mode="single"] .ux-nle-lane-row[data-active="true"]:not([data-missing="true"]):hover .ux-nle-clip,
 .ux-nle-timeline[data-view-mode="grid"] .ux-nle-lane-row[data-in-range="true"]:not([data-missing="true"]):hover .ux-nle-clip {
   background: var(--ux-nle-clip-active-hover);
 }
@@ -1667,6 +2070,15 @@
 
   .ux-nle-lane-row::before {
     inset: 0 -10px;
+  }
+
+  .ds-detail-workspaces[data-reanalyse-open="true"] .ds-video-timeline {
+    width: calc(100% + 20px);
+    max-width: none;
+    margin-inline: -10px;
+    margin-block: calc(-1 * var(--space-2));
+    padding-inline: 10px;
+    padding-block: var(--space-2);
   }
 }
 
@@ -1738,7 +2150,7 @@
   width: 36px;
   height: 36px;
   border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 20%, transparent);
+  background: var(--ux-stepper-halo);
   transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease;
 }
 
@@ -1786,7 +2198,7 @@
   min-height: 28px;
   border: 0;
   border-radius: var(--radius-full);
-  background: var(--color-semantic-button-secondary-background);
+  background: var(--ux-stepper-idle-marker);
   color: var(--color-semantic-text-secondary);
   box-shadow: none;
   overflow: hidden;
@@ -1800,7 +2212,7 @@
   position: absolute;
   inset: 0;
   border-radius: var(--radius-full);
-  background: var(--color-semantic-text-primary);
+  background: var(--ux-active-brand);
   z-index: 1;
   opacity: 0;
   transform: scale(0.5);
@@ -1882,8 +2294,8 @@
 
 .ux-stepper .ds-progress-step[data-state="completed"] .ds-progress-step__marker,
 .ux-stepper .ds-progress-step[data-state="current"] .ds-progress-step__marker {
-  background: var(--color-semantic-button-secondary-background);
-  color: var(--color-semantic-text-inverse);
+  background: var(--ux-stepper-idle-marker);
+  color: var(--ux-active-brand-ink);
   box-shadow: none;
 }
 
@@ -1909,7 +2321,7 @@
   z-index: 1;
   border-radius: var(--radius-full);
   overflow: hidden;
-  background: color-mix(in srgb, var(--color-semantic-border-default) 45%, var(--color-semantic-background-surface-secondary));
+  background: var(--ux-stepper-line-bg);
 }
 
 .ux-stepper .ds-progress-step__line::before {
@@ -1917,7 +2329,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: var(--color-semantic-text-primary);
+  background: var(--ux-active-brand);
   transform-origin: left center;
   transform: scaleX(0);
   transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -1930,8 +2342,8 @@
   border-radius: inherit;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--color-semantic-text-primary) 55%, transparent) 0%,
-    color-mix(in srgb, var(--color-semantic-text-primary) 18%, transparent) 46%,
+    color-mix(in srgb, var(--ux-active-brand) 55%, transparent) 0%,
+    color-mix(in srgb, var(--ux-active-brand) 18%, transparent) 46%,
     transparent 78%
   );
   transform-origin: left center;
@@ -2140,6 +2552,559 @@
   transform: scale(0.95);
 }
 
+/* ── Step 1 Timeline Spotlight Tour-Guide Popover (Borderless Standard Surface & Deep Scrim) ── */
+.ds-detail-workspaces[data-reanalyse-open="true"] .ds-detail-workspace--secondary {
+  border-right-width: 0;
+}
+
+.ds-detail-workspaces[data-reanalyse-open="true"] .ds-video-panel__section {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 100%;
+  overflow: visible;
+}
+
+.ds-detail-workspaces[data-reanalyse-open="true"] .ds-video-panel__section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  background: var(--ux-reanalyse-scrim-bg);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  pointer-events: auto;
+}
+
+.ds-detail-workspaces[data-reanalyse-open="true"] .ux-video-canvas {
+  position: relative;
+  z-index: 27;
+}
+
+.ds-detail-workspaces[data-reanalyse-open="true"] .ds-video-timeline {
+  position: relative;
+  z-index: 27;
+  width: calc(100% + 32px);
+  max-width: none;
+  margin-inline: -16px;
+  margin-block: calc(-1 * var(--space-3));
+  padding-inline: 16px;
+  padding-block: var(--space-3);
+  box-sizing: border-box;
+  border: 0;
+  border-radius: var(--radius-2xl);
+  background: var(--ux-reanalyse-surface);
+  box-shadow: var(--ux-reanalyse-shadow);
+  transition: background-color 200ms ease,
+              box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-detail-workspaces[data-reanalyse-open="true"] .ux-nle-lane-row::before {
+  inset: 0 -8px;
+}
+
+.ds-detail-workspaces[data-reanalyse-open="true"] :is(.ux-nle-impact-node__dot, .ux-nle-ctx-pin__dot) {
+  box-shadow: 0 0 0 1.5px var(--ux-reanalyse-surface);
+}
+
+.ux-reanalyse-layer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: clamp(280px, var(--video-panel-w, 40%), calc(100% - 360px));
+  z-index: 26;
+  pointer-events: none;
+}
+
+.ux-reanalyse-layer[hidden] {
+  display: none !important;
+}
+
+.ux-reanalyse-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  opacity: 0;
+  background: var(--ux-reanalyse-scrim-bg);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ux-reanalyse-layer[data-open="true"] .ux-reanalyse-scrim {
+  opacity: 1;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet {
+  position: absolute;
+  top: var(--reanalyse-top, 140px);
+  left: var(--space-3);
+  width: min(420px, calc(100% - var(--space-6)));
+  height: min(480px, calc(100% - var(--space-8)));
+  min-height: min(480px, calc(100% - var(--space-8)));
+  max-height: calc(100% - var(--space-8));
+  padding: var(--space-5);
+  gap: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-2xl);
+  background: var(--ux-reanalyse-surface);
+  box-shadow: var(--ux-reanalyse-shadow);
+  overflow: visible;
+  pointer-events: auto;
+  opacity: 0;
+  transform-origin: left var(--reanalyse-caret-y, 96px);
+  transform: translate3d(-12px, 0, 0) scale(0.96);
+  transition: opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet[data-sheet-mode="evidence"] {
+  height: auto;
+  min-height: 0;
+  max-height: calc(100% - var(--space-8));
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet[data-sheet-mode="evidence"] .ux-reanalyse-sheet__body {
+  gap: var(--space-3);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet[data-sheet-mode="evidence"] .ux-ev-sheet-cues-bar {
+  height: auto;
+  min-height: var(--space-7);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet[data-sheet-mode="evidence"] [data-ux-s2-ev-live-wrap] {
+  height: auto;
+  min-height: var(--space-7);
+  overflow: visible;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet[data-sheet-mode="evidence"] .ux-reanalyse-composer-card__bar .ux-cue-track__svg {
+  max-width: 156px;
+}
+
+.ux-ev-moment-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.ux-ev-moment-chip {
+  display: inline-flex;
+  align-items: center;
+  height: var(--space-7);
+  max-width: 100%;
+  border-radius: var(--radius-full);
+  background: var(--ux-reanalyse-control-bg);
+  box-shadow: var(--ux-control-ring);
+  color: var(--color-semantic-text-secondary);
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.ux-ev-moment-chip[data-active="true"] {
+  background: var(--color-semantic-badge-info-background);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-semantic-text-info) 38%, transparent) inset;
+  color: var(--color-semantic-text-info);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button.ux-ev-moment-chip__pick {
+  height: var(--space-7);
+  min-height: var(--space-7);
+  padding: 0 10px;
+  gap: 5px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: inherit;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button.ux-ev-moment-chip__pick:hover:not(:disabled) {
+  background: transparent;
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-ev-moment-chip[data-active="true"] .ds-button.ux-ev-moment-chip__pick:hover:not(:disabled) {
+  color: var(--color-semantic-text-info);
+}
+
+.ux-ev-moment-chip__pick svg {
+  flex-shrink: 0;
+}
+
+.ux-ev-moment-chip:has(.ux-ev-moment-chip__del) .ds-button.ux-ev-moment-chip__pick {
+  padding-right: 4px;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button.ux-ev-moment-chip__del {
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  min-height: 22px;
+  margin-right: 3px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  color: var(--color-semantic-text-tertiary);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button.ux-ev-moment-chip__del svg {
+  width: 11px;
+  height: 11px;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button.ux-ev-moment-chip__del:hover:not(:disabled) {
+  background: var(--ux-reanalyse-hover-subtle);
+  color: var(--color-semantic-text-primary);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button.ux-ev-moment-add {
+  height: var(--space-7);
+  min-height: var(--space-7);
+  padding: 0 10px;
+  gap: 4px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.ux-ev-sheet-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-ev-sheet-title.ds-input,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-ev-sheet-title.ds-input:hover,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-ev-sheet-title.ds-input:focus,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-ev-sheet-title.ds-input:focus-visible {
+  height: var(--height-control-md);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--ux-reanalyse-card-bg);
+  box-shadow: var(--ux-control-ring);
+  outline: 0;
+  font-size: var(--font-size-sm);
+}
+
+.ux-reanalyse-layer[data-open="true"] .ds-dialog.ux-dialog.ux-reanalyse-sheet {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: var(--reanalyse-caret-y, 96px);
+  width: 12px;
+  height: 12px;
+  background: var(--ux-reanalyse-surface);
+  border: 0;
+  border-radius: 0 0 0 3px;
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-reanalyse-sheet__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 4px 2px 1px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-label {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--font-line-height-tight);
+  color: var(--color-semantic-text-secondary);
+}
+
+.ux-reanalyse-composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.ux-reanalyse-composer-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  background: var(--ux-reanalyse-card-bg);
+  box-shadow: var(--ux-control-ring);
+  overflow: hidden;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-reanalyse-input.ds-textarea,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-reanalyse-input.ds-textarea:hover,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-reanalyse-input.ds-textarea:focus,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-reanalyse-input.ds-textarea:focus-visible {
+  height: 64px;
+  min-height: 64px;
+  max-height: 64px;
+  padding: var(--space-3) var(--space-4);
+  resize: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  outline: 0;
+  font-size: var(--font-size-sm);
+  line-height: 20px;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet :is(.ds-input, .ds-textarea, .ds-input--multiline):focus,
+.ds-dialog.ux-dialog.ux-reanalyse-sheet :is(.ds-input, .ds-textarea, .ds-input--multiline):focus-visible {
+  border: 0;
+  box-shadow: none;
+  outline: 0;
+}
+
+.ux-reanalyse-composer-card__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-semantic-border-subtle);
+}
+
+.ux-reanalyse-composer-card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  height: var(--space-7);
+  min-height: var(--space-7);
+  flex-wrap: nowrap;
+}
+
+.ux-reanalyse-mode.ds-segmented--sm button {
+  font-weight: var(--font-weight-normal);
+  padding: 0 var(--space-2);
+}
+
+.ux-reanalyse-anchor-box__live {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--space-7);
+  overflow: hidden;
+}
+
+.ux-reanalyse-composer-card__bar .ux-cue-track {
+  max-width: 100%;
+  padding: 0 var(--space-3);
+  gap: 6px;
+}
+
+.ux-reanalyse-composer-card__bar .ux-cue-track__svg {
+  flex: 1 1 52px;
+  min-width: 36px;
+  max-width: 80px;
+}
+
+.ux-reanalyse-composer__actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  height: var(--space-7);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button--secondary {
+  background: var(--ux-reanalyse-control-bg);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button--secondary:hover:not(:disabled):not([data-disabled]) {
+  background: var(--ux-reanalyse-control-hover);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button--outline {
+  background: transparent;
+  color: var(--color-semantic-text-primary);
+  box-shadow: 0 0 0 1px var(--color-semantic-border-default) inset;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button--outline:hover:not(:disabled):not([data-disabled]) {
+  background: var(--ux-reanalyse-hover-subtle);
+  box-shadow: 0 0 0 1px var(--color-semantic-border-strong) inset;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ds-button--ghost:hover:not(:disabled):not([data-disabled]) {
+  background: var(--ux-reanalyse-hover-subtle);
+  color: var(--color-semantic-text-primary);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet [data-ux-reanalyse-add] {
+  padding: 0 var(--space-3);
+  min-width: 60px;
+}
+
+.ux-reanalyse-added {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+}
+
+.ux-reanalyse-added__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 22px;
+  flex-shrink: 0;
+}
+
+.ux-reanalyse-added__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  overflow: visible;
+  padding: 0;
+}
+
+.ux-reanalyse-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 84px;
+  border-radius: var(--radius-xl);
+  background: var(--ux-reanalyse-card-bg);
+  color: var(--color-semantic-text-tertiary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.ux-reanalyse-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3) var(--space-3) 14px;
+  border-radius: var(--radius-xl);
+  background: var(--ux-reanalyse-card-bg);
+  box-shadow: var(--ux-control-ring);
+  flex-shrink: 0;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.ux-reanalyse-card[data-active="true"] {
+  background: color-mix(in srgb, var(--color-semantic-text-primary) 4%, var(--ux-reanalyse-card-bg));
+  box-shadow: var(--ux-control-ring);
+}
+
+.ux-reanalyse-card[data-editing="true"] {
+  box-shadow: 0 0 0 1px var(--color-semantic-border-strong) inset;
+}
+
+.ux-reanalyse-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ux-reanalyse-card__text {
+  margin: 0;
+  padding-top: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: 20px;
+  color: var(--color-semantic-text-primary);
+  white-space: normal;
+  word-break: break-word;
+}
+
+.ux-reanalyse-card__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  margin: -2px -4px 0 0;
+}
+
+.ux-reanalyse-card__actions .ds-button {
+  color: var(--color-semantic-text-tertiary);
+}
+
+.ux-reanalyse-card__actions .ds-button:hover:not(:disabled) {
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-reanalyse-card__actions [data-ux-reanalyse-del]:hover:not(:disabled) {
+  color: var(--color-semantic-text-danger);
+}
+
+.ux-reanalyse-card__meta {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet :is(.ux-ev-tag, .ux-cue-track) {
+  height: var(--space-7);
+  font-size: var(--font-size-xs);
+  background: var(--ux-reanalyse-control-bg);
+  box-shadow: var(--ux-control-ring);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet :is(.ux-ev-tag, .ux-cue-track):hover {
+  background: var(--ux-reanalyse-control-hover);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet :is(.ux-ev-tag, .ux-cue-track)[data-active="true"] {
+  background: var(--ux-reanalyse-control-hover);
+  color: var(--color-semantic-text-primary);
+  box-shadow: var(--ux-control-ring);
+}
+
+.ds-dialog.ux-dialog.ux-reanalyse-sheet .ux-cue-track[data-active="true"] .ux-cue-track__seg {
+  fill: var(--ux-ctx-marker-color);
+}
+
+@media (max-width: 900px) {
+  .ux-reanalyse-layer {
+    position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: min(56vh, 480px);
+    z-index: 40;
+  }
+
+  .ds-dialog.ux-dialog.ux-reanalyse-sheet {
+    top: auto;
+    inset: var(--space-2);
+    width: auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    transform-origin: bottom center;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  .ds-dialog.ux-dialog.ux-reanalyse-sheet::before {
+    display: none;
+  }
+}
+
 .ux-reasoning-orb {
   position: relative;
   display: inline-grid;
@@ -2147,14 +3112,14 @@
   width: 24px;
   height: 24px;
   flex: none;
-  color: var(--color-semantic-text-primary);
+  color: var(--ux-orb-fg);
 }
 
 .ux-reasoning-orb__canvas {
   display: block;
   width: 24px;
   height: 24px;
-  color: var(--color-semantic-text-primary);
+  color: var(--ux-orb-fg);
 }
 
 .ds-detail-workspace--primary .ds-tool-run__calls {
@@ -2238,7 +3203,7 @@
   position: absolute;
   inset: -3px;
   border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 22%, transparent);
+  background: color-mix(in srgb, var(--ux-active-brand) 20%, transparent);
   z-index: -1;
   opacity: 0;
   transform: scale(0.72);
@@ -2252,7 +3217,7 @@
   position: absolute;
   inset: 0;
   border-radius: var(--radius-full);
-  background: var(--color-semantic-text-primary);
+  background: var(--ux-active-brand);
   z-index: 1;
   opacity: 0;
   transform: scale(0.55);
@@ -2263,7 +3228,7 @@
 }
 
 .ds-detail-workspace--primary .ds-tool-run__call[data-status="running"] .ds-tool-run__head > .ds-tool-run__mark {
-  color: var(--color-semantic-text-inverse);
+  color: var(--ux-active-brand-ink);
 }
 
 .ds-detail-workspace--primary .ds-tool-run__call[data-status="running"] .ds-tool-run__head > .ds-tool-run__mark::before {
@@ -2274,7 +3239,7 @@
 .ds-detail-workspace--primary .ds-tool-run__call[data-status="running"] .ds-tool-run__head > .ds-tool-run__mark::after {
   opacity: 1;
   transform: scale(1);
-  background: var(--color-semantic-text-primary);
+  background: var(--ux-active-brand);
 }
 
 .ds-detail-workspace--primary .ds-tool-run__call[data-status="success"] .ds-tool-run__head > .ds-tool-run__mark {
@@ -2372,7 +3337,7 @@
   border-radius: inherit;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--color-semantic-text-primary) 28%, transparent) 0%,
+    color-mix(in srgb, var(--ux-active-brand) 28%, transparent) 0%,
     transparent 65%
   );
   transform-origin: top center;
@@ -2491,6 +3456,7 @@
   border-radius: var(--radius-xl);
   border: 0;
   background: linear-gradient(180deg, var(--ux-sim-stage-top) 0%, var(--ux-sim-stage-bg) 100%);
+  box-shadow: var(--ux-sim-stage-ring);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2509,7 +3475,8 @@
   padding: 0;
   border-radius: var(--radius-full);
   background: var(--ux-video-badge-bg);
-  color: var(--color-semantic-button-ultra-text);
+  color: var(--ux-video-badge-fg);
+  box-shadow: var(--ux-video-badge-ring);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   opacity: 0.86;
@@ -2519,7 +3486,7 @@
 .ux-heading-block__replay:hover {
   opacity: 1;
   background: var(--ux-video-badge-bg-hover);
-  color: var(--color-semantic-button-ultra-text);
+  color: var(--ux-video-badge-fg);
   transform: scale(1.06);
 }
 
@@ -3397,14 +4364,15 @@
   flex-direction: column;
   border-radius: var(--radius-2xl);
   border: 0;
-  background: var(--color-semantic-background-surface);
+  background: var(--ux-scenario-idle-bg);
   box-shadow: var(--ux-surface-ring);
   overflow: hidden;
   transition: box-shadow 150ms ease, background-color 150ms ease, opacity 150ms ease;
 }
 
 .ux-scenario-item:hover {
-  background: var(--color-semantic-background-surface-secondary);
+  background: var(--ux-card-hover-bg);
+  box-shadow: var(--ux-card-hover-shadow);
 }
 
 .ux-scenario-item[data-selected="true"],
@@ -3539,8 +4507,8 @@
   flex-direction: column;
   gap: var(--space-4);
   padding: 0 var(--space-4) var(--space-4);
-  border-top: 0;
-  background: color-mix(in srgb, var(--ux-surface-recessed) 55%, var(--color-semantic-background-surface));
+  border-top: var(--ux-as-detail-divider);
+  background: var(--ux-as-detail-bg);
 }
 
 .ux-as-detail__kicker {
@@ -3618,6 +4586,7 @@
   border-radius: var(--radius-md);
   border: 0;
   background: linear-gradient(180deg, var(--ux-sim-stage-top) 0%, var(--ux-sim-stage-bg) 100%);
+  box-shadow: var(--ux-sim-stage-ring);
   overflow: hidden;
   cursor: pointer;
 }
@@ -3755,7 +4724,8 @@
   padding: 2px 6px;
   border-radius: var(--radius-sm);
   border: 0;
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 9%, transparent);
+  background: var(--ux-cond-hl-bg);
+  box-shadow: var(--ux-cond-hl-ring);
   color: var(--color-semantic-text-primary);
   font-family: inherit;
   font-size: inherit;
@@ -3767,11 +4737,13 @@
   -webkit-box-decoration-break: clone;
   cursor: pointer;
   transition: background-color 150ms ease,
+              box-shadow 150ms ease,
               color 150ms ease;
 }
 
 .ux-as-cond-hl:hover {
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 15%, transparent);
+  background: var(--ux-cond-hl-hover-bg);
+  color: var(--ux-cond-hl-hover-fg);
 }
 
 .ux-as-cond-hl:focus-visible {
@@ -3781,8 +4753,70 @@
 
 .ux-as-cond-hl[data-active="true"] {
   background: var(--color-semantic-badge-info-background);
+  box-shadow: none;
   color: var(--color-semantic-text-info);
   text-decoration: none;
+}
+
+.ux-cond-thumb-tip {
+  position: fixed;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 184px;
+  padding: var(--space-1);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-semantic-border-subtle);
+  background: var(--color-semantic-background-surface-elevated);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 4px, 0) scale(0.97);
+  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ux-cond-thumb-tip[hidden] {
+  display: none;
+}
+
+.ux-cond-thumb-tip[data-open="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.ux-cond-thumb-tip__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 288 / 160;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-semantic-background-canvas);
+}
+
+.ux-cond-thumb-tip__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ux-cond-thumb-tip__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 2px var(--space-1);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 16px;
+  color: var(--color-semantic-text-secondary);
+}
+
+.ux-cond-thumb-tip__cam {
+  color: var(--color-semantic-text-primary);
 }
 
 /* ── Step 2: Evidence Items, Visual Keyframe Cards & Reference Precedents ── */
@@ -3807,8 +4841,8 @@
 
 .ux-ev-item[data-selected="false"] {
   background: var(--ux-surface-recessed);
-  box-shadow: none;
-  opacity: 1;
+  box-shadow: var(--ux-pane-ring);
+  opacity: var(--ux-ev-unselected-opacity);
 }
 
 .ux-ev-item[data-selected="false"] .ux-ev-item__title {
@@ -3837,7 +4871,7 @@
 .ux-ev-item__actions {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   flex-shrink: 0;
 }
 
@@ -3901,6 +4935,7 @@
   border-radius: var(--radius-full);
   border: 0;
   background: var(--color-semantic-background-surface-secondary);
+  box-shadow: var(--ux-control-ring);
   color: var(--color-semantic-text-secondary);
   font-family: var(--font-family-sans);
   font-size: var(--font-size-xs);
@@ -3958,6 +4993,7 @@
 
 .ux-cue-track[data-active="true"] {
   background: var(--color-semantic-badge-info-background);
+  box-shadow: none;
   color: var(--color-semantic-text-info);
 }
 
@@ -3993,6 +5029,7 @@
 
 .ux-ev-item .ux-ev-tag {
   background: var(--color-semantic-background-surface-secondary);
+  box-shadow: var(--ux-control-ring);
 }
 
 .ux-ev-tag:hover {
@@ -4016,6 +5053,7 @@
 .ux-ev-tag[data-active="true"] {
   border: 0;
   background: var(--color-semantic-badge-info-background);
+  box-shadow: none;
   color: var(--color-semantic-text-info);
 }
 
@@ -4177,7 +5215,7 @@
 }
 
 .ux-ref-card__head:hover {
-  background: var(--color-semantic-background-surface-secondary);
+  background: var(--ux-card-hover-bg);
 }
 
 .ux-ref-card__head:focus-visible {
@@ -4376,7 +5414,7 @@
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
   min-height: 36px;
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 4%, var(--ux-surface-pane));
+  background: color-mix(in srgb, var(--color-semantic-text-primary) 2.5%, var(--ux-surface-pane));
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-normal);
   color: var(--color-semantic-text-primary);
@@ -4858,6 +5896,183 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.ux-ev-item__edit-btn {
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
+  padding: 0;
+  color: var(--color-semantic-text-secondary);
+}
+
+.ux-ev-item__edit-btn:hover:not(:disabled) {
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-ev-composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-2xl);
+  background: var(--color-semantic-background-surface);
+  box-shadow: 0 0 0 1.5px var(--color-semantic-text-info);
+}
+
+.ux-ev-composer[hidden] {
+  display: none;
+}
+
+.ux-ev-composer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ux-ev-composer__title {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-ev-composer__pick-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-badge-info-background);
+  color: var(--color-semantic-text-info);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.ux-ev-composer__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ux-ev-composer__time-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.ux-ev-composer__time-input {
+  width: 84px;
+}
+
+.ux-ev-composer__events {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ux-ev-composer__events-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ux-ev-composer__event-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ux-ev-draft-kf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-xl);
+  background: var(--color-semantic-background-surface-secondary);
+}
+
+.ux-ev-draft-kf__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.ux-ev-draft-kf__label {
+  flex: 1 1 120px;
+  min-width: 0;
+}
+
+.ux-ev-draft-kf__meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-semantic-text-secondary);
+  white-space: nowrap;
+}
+
+.ux-ev-draft-kf__cams {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.ux-ev-draft-kf__cam {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-semantic-text-secondary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ux-ev-draft-kf__cam[data-active="true"] {
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-ev-draft-kf__cam[data-active="true"] .ux-ev-draft-kf__thumb {
+  box-shadow: 0 0 0 1.5px var(--color-semantic-text-info);
+}
+
+.ux-ev-draft-kf__thumb {
+  width: 100%;
+  aspect-ratio: 288 / 160;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  background: var(--color-semantic-background-canvas);
+}
+
+.ux-ev-draft-kf__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ux-ev-draft-kf__cap {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ux-ev-composer__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding-top: var(--space-1);
 }
 
 .ux-tab-stage {
@@ -4879,9 +6094,14 @@
   min-width: 0;
 }
 
+#ux-s2-panel-supporting,
+#ux-s2-panel-references,
+#ux-s2-panel-precedents {
+  margin-top: var(--space-3);
+}
+
 #ux-s2-panel-supporting {
   gap: var(--space-3);
-  margin-top: var(--space-3);
 }
 
 /* ── Form Controls & Fields ── */
@@ -5225,8 +6445,8 @@
 }
 
 .ux-lb-moment-tab[aria-selected="true"] {
-  background: var(--color-semantic-text-primary);
-  color: var(--color-semantic-background-canvas);
+  background: var(--ux-active-brand);
+  color: var(--ux-active-brand-ink);
   box-shadow: var(--shadow-xs);
 }
 
@@ -5239,7 +6459,7 @@
 }
 
 .ux-lb-moment-tab[aria-selected="true"] :is(.ux-lb-moment-tab__time, .ux-lb-moment-tab__label) {
-  color: var(--color-semantic-background-canvas);
+  color: var(--ux-active-brand-ink);
 }
 
 .ux-lb-moment-tab__dot {
@@ -5255,6 +6475,15 @@
   align-items: center;
   gap: var(--space-2);
   flex-shrink: 0;
+}
+
+.ux-lb-kf-meta {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4;
+  color: var(--color-semantic-text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .ux-lb-step-btns {
@@ -5377,6 +6606,15 @@
   pointer-events: auto;
 }
 
+.ux-lb-shell[data-lb-kind="range"] .ds-button.ux-lb-stage__nav:not(:disabled) {
+  opacity: 0.88;
+  pointer-events: auto;
+}
+
+.ux-lb-shell[data-lb-kind="range"] .ux-lb-stage:hover .ds-button.ux-lb-stage__nav:not(:disabled) {
+  opacity: 1;
+}
+
 .ds-button.ux-lb-stage__nav:hover:not(:disabled) {
   background: var(--color-semantic-background-surface-elevated);
 }
@@ -5430,7 +6668,7 @@
   box-shadow: var(--ux-lb-pill-ring);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: var(--color-semantic-text-primary);
+  color: var(--ux-lb-pill-fg);
   font-family: var(--font-family-sans);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-normal);
@@ -5452,11 +6690,11 @@
 }
 
 .ux-lb-cam-strip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-3);
   width: 100%;
-  max-width: 620px;
   margin: 0 auto;
 }
 
@@ -5473,6 +6711,8 @@
   text-align: left;
   cursor: pointer;
   outline: none;
+  flex: 0 0 auto;
+  width: auto;
   min-width: 0;
 }
 
@@ -5492,9 +6732,10 @@
 
 .ux-lb-cam-card__media {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 46px;
   max-height: 46px;
+  width: auto;
+  aspect-ratio: 288 / 160;
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--color-semantic-background-canvas);
@@ -6046,6 +7287,7 @@
   border-radius: var(--radius-lg);
   border: 0;
   background: linear-gradient(180deg, var(--ux-sim-stage-top) 0%, var(--ux-sim-stage-bg) 100%);
+  box-shadow: var(--ux-sim-stage-ring);
   overflow: hidden;
 }
 
@@ -6292,7 +7534,14 @@
   .ux-nle-playhead__pill,
   .ux-nle-playhead__line,
   .ux-nle-impact-node__dot,
+  .ux-nle-ctx-pin__dot,
+  .ux-nle-ctx-pin,
+  .ux-nle-ctx-span,
   .ux-tool-run__rerun,
+  .ds-detail-workspaces[data-reanalyse-open="true"] .ds-video-timeline,
+  .ux-reanalyse-scrim,
+  .ds-dialog.ux-dialog.ux-reanalyse-sheet,
+  .ux-reanalyse-card,
   .ux-float-bar,
   .ux-float-bar__lead,
   .ux-float-bar__pips-slot,
@@ -6387,7 +7636,14 @@
 [data-reduced-motion="true"] .ux-nle-playhead__pill,
 [data-reduced-motion="true"] .ux-nle-playhead__line,
 [data-reduced-motion="true"] .ux-nle-impact-node__dot,
+[data-reduced-motion="true"] .ux-nle-ctx-pin__dot,
+[data-reduced-motion="true"] .ux-nle-ctx-pin,
+[data-reduced-motion="true"] .ux-nle-ctx-span,
 [data-reduced-motion="true"] .ux-tool-run__rerun,
+[data-reduced-motion="true"] .ds-detail-workspaces[data-reanalyse-open="true"] .ds-video-timeline,
+[data-reduced-motion="true"] .ux-reanalyse-scrim,
+[data-reduced-motion="true"] .ds-dialog.ux-dialog.ux-reanalyse-sheet,
+[data-reduced-motion="true"] .ux-reanalyse-card,
 [data-reduced-motion="true"] .ux-float-bar,
 [data-reduced-motion="true"] .ux-float-bar__lead,
 [data-reduced-motion="true"] .ux-float-bar__spinner,
