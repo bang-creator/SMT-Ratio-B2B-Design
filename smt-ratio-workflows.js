@@ -1327,7 +1327,7 @@ export function initSmtWorkflows(bridge) {
 
   const renderVideoSlotMetaHtml = ({ hasFile, error, name, durationSec, sizeMb }) => {
     if (error) return `<span class="ux-video-slot__meta ux-video-slot__meta--error">${esc(error)}</span>`;
-    if (!hasFile) return '<span class="ux-video-slot__meta ux-video-slot__meta--empty">No clip attached</span>';
+    if (!hasFile) return '<span class="ux-video-slot__meta ux-video-slot__meta--empty">Drop clip or upload</span>';
     return `
       <div class="ux-video-slot__file">
         <span class="ux-video-slot__file-icon" aria-hidden="true">${ICON_FILE_VIDEO}</span>
@@ -2932,6 +2932,8 @@ export function initSmtWorkflows(bridge) {
     bodyEl.querySelectorAll('[data-ux-lb-view]').forEach((btn) => {
       const isSelected = btn.dataset.uxLbView === st.viewMode;
       btn.setAttribute('aria-pressed', String(isSelected));
+      btn.setAttribute('aria-selected', String(isSelected));
+      btn.dataset.active = String(isSelected);
     });
 
     const singlePane = bodyEl.querySelector('[data-ux-lb-single-pane]');
@@ -3028,6 +3030,7 @@ export function initSmtWorkflows(bridge) {
   const mountKeyframeModalSkeleton = (bodyEl, st) => {
     if (!bodyEl || !st) return;
     const isRangeGallery = st.ev?.type === 'range';
+    const isGrid = st.viewMode === 'grid';
     const baseFrames = (st.moments[0] && st.moments[0].frames) || [];
     bodyEl.innerHTML = `
       <div class="ux-lb-shell" data-lb-kind="${isRangeGallery ? 'range' : 'moment'}">
@@ -3055,12 +3058,12 @@ export function initSmtWorkflows(bridge) {
                 ${LB_ARROW_RIGHT_SVG}
               </button>
             </div>
-            <div class="ux-lb-view-toggle" role="group" aria-label="Camera layout">
-              <button type="button" class="ds-button ds-button--ghost" data-ux-lb-view="single" aria-pressed="false">
+            <div class="ux-lb-view-toggle" role="tablist" aria-label="Camera layout">
+              <button type="button" class="ds-button ds-button--ghost" role="tab" data-ux-lb-view="single" aria-selected="${!isGrid}" aria-pressed="${!isGrid}" data-active="${!isGrid}">
                 ${LB_IMAGE_SVG}
                 <span>1 cam</span>
               </button>
-              <button type="button" class="ds-button ds-button--ghost" data-ux-lb-view="grid" aria-pressed="false">
+              <button type="button" class="ds-button ds-button--ghost" role="tab" data-ux-lb-view="grid" aria-selected="${isGrid}" aria-pressed="${isGrid}" data-active="${isGrid}">
                 ${LB_GRID_SVG}
                 <span>4 cams</span>
               </button>
@@ -9147,15 +9150,509 @@ export function initSmtWorkflows(bridge) {
         { slot: 3, label: 'Counterparty cam', file: null, valid: true, error: '' },
         { slot: 4, label: 'Intersection CCTV', file: null, valid: true, error: '' },
       ],
+      policyVerified: false,
+      accidentDate: '2026-11-18',
+      accidentHour: '09',
+      accidentMinute: '30',
+      draftAccidentDate: '2026-11-18',
+      draftAccidentHour: '09',
+      draftAccidentMinute: '30',
+      summaryState: 'idle',
+      summaryTimer: null,
     };
 
+    const summaryBoxEl = createDlg?.querySelector('[data-ux-cc-summary-box]');
+    const summaryInputEl = createDlg?.querySelector('#ux-cc-summary');
+    const summaryDoneBtn = createDlg?.querySelector('[data-ux-cc-summary-done]');
+    const summaryAnalyzingEl = createDlg?.querySelector('[data-ux-cc-summary-analyzing]');
+    const summaryAnalyzingTextEl = createDlg?.querySelector('[data-ux-cc-summary-analyzing-text]');
+
+    const autoSizeSummaryTextarea = () => {
+      if (!summaryInputEl) return;
+      summaryInputEl.style.height = 'auto';
+      const nextH = Math.max(40, summaryInputEl.scrollHeight || 40);
+      summaryInputEl.style.height = `${nextH}px`;
+    };
+
+    const renderSummaryState = (state, { analyzingText = 'AI analyzing clip...' } = {}) => {
+      newCaseState.summaryState = state;
+      if (summaryBoxEl) summaryBoxEl.dataset.aiState = state;
+      if (summaryAnalyzingTextEl) summaryAnalyzingTextEl.textContent = analyzingText;
+      if (summaryAnalyzingEl) summaryAnalyzingEl.hidden = state !== 'analyzing';
+      if (summaryDoneBtn) {
+        const showDone = state === 'ready' || state === 'done';
+        summaryDoneBtn.hidden = !showDone;
+        summaryDoneBtn.setAttribute('aria-pressed', String(state === 'done'));
+      }
+    };
+
+    const buildAiSummaryFromSlots = (slots) => {
+      const hasFront = slots.some((s) => s.slot === 1);
+      const hasRear = slots.some((s) => s.slot === 2);
+      const hasCounter = slots.some((s) => s.slot === 3);
+      const hasCctv = slots.some((s) => s.slot === 4);
+      const clauses = [];
+      if (hasFront) clauses.push('Front dashcam shows insured entering intersection cleanly on solid green phase');
+      if (hasCounter) clauses.push('Counterparty cam captures cross-traffic late red entry before impact');
+      if (hasCctv) clauses.push('Intersection CCTV corroborates broadside lane trajectories and signal timing');
+      if (hasRear) clauses.push('Rear camera confirms normal trailing clearance prior to collision');
+      return clauses.length ? `${clauses.join('. ')}.` : '';
+    };
+
+    const triggerCreateSummaryAnalysis = (changedSlotNo) => {
+      if (newCaseState.summaryTimer) {
+        window.clearTimeout(newCaseState.summaryTimer);
+        newCaseState.summaryTimer = null;
+      }
+      const validSlots = newCaseState.slots.filter((s) => s.file && s.valid);
+      if (validSlots.length === 0) {
+        if (summaryInputEl) summaryInputEl.value = '';
+        autoSizeSummaryTextarea();
+        renderSummaryState('idle');
+        return;
+      }
+      const targetSlot = newCaseState.slots.find((s) => s.slot === changedSlotNo);
+      const analyzingLabel = targetSlot?.file
+        ? `AI analyzing ${targetSlot.label}...`
+        : `AI analyzing ${validSlots.length} clip${validSlots.length === 1 ? '' : 's'}...`;
+      renderSummaryState('analyzing', { analyzingText: analyzingLabel });
+      newCaseState.summaryTimer = window.setTimeout(() => {
+        newCaseState.summaryTimer = null;
+        const latestValid = newCaseState.slots.filter((s) => s.file && s.valid);
+        if (latestValid.length === 0) {
+          renderSummaryState('idle');
+          return;
+        }
+        if (summaryInputEl) {
+          summaryInputEl.value = buildAiSummaryFromSlots(latestValid);
+          autoSizeSummaryTextarea();
+          summaryInputEl.dataset.justGenerated = 'true';
+          window.setTimeout(() => {
+            if (summaryInputEl) delete summaryInputEl.dataset.justGenerated;
+          }, 220);
+        }
+        renderSummaryState('ready');
+      }, 750);
+    };
+
+    summaryInputEl?.addEventListener('input', () => {
+      autoSizeSummaryTextarea();
+      if (newCaseState.summaryState === 'analyzing') return;
+      if (summaryInputEl.value.trim()) {
+        if (newCaseState.summaryState === 'done' || newCaseState.summaryState === 'idle') {
+          renderSummaryState('ready');
+        }
+      } else {
+        renderSummaryState('idle');
+      }
+    });
+
+    summaryDoneBtn?.addEventListener('click', () => {
+      if (!summaryInputEl?.value.trim()) return;
+      renderSummaryState('done');
+      summaryInputEl.blur();
+    });
+
     const resetNewCaseSlots = () => {
+      if (newCaseState.summaryTimer) {
+        window.clearTimeout(newCaseState.summaryTimer);
+        newCaseState.summaryTimer = null;
+      }
       newCaseState.slots.forEach((s) => {
         s.file = null;
         s.valid = true;
         s.error = '';
       });
+      if (summaryInputEl) {
+        summaryInputEl.value = '';
+        delete summaryInputEl.dataset.justGenerated;
+        autoSizeSummaryTextarea();
+      }
+      renderSummaryState('idle');
     };
+
+    const ICON_VERIFY_OK = '<svg class="ux-verify-btn__svg" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.44242 15.6382L18.3058 5.5L19.7525 6.88095L8.4757 18.4999L4.25195 14.2762L5.66617 12.862L8.44242 15.6382Z" fill="currentColor"/></svg>';
+    const ICON_VERIFY_ERR = '<svg class="ux-verify-btn__svg" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10.2623L18.0123 4.25L19.75 5.98775L13.7377 12L19.75 18.0123L18.0123 19.75L12 13.7377L5.98775 19.75L4.25 18.0123L10.2623 12L4.25 5.98775L5.98775 4.25L12 10.2623Z" fill="currentColor"/></svg>';
+    const VERIFY_LABELS = { idle: 'Verify', pending: 'Verifying', verified: 'Verified', error: 'Not found' };
+    const VERIFY_SPRING_EASING = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timing-function', 'linear(0, 1)')
+      ? 'linear(0,.0213,.0739,.1443,.2235,.305,.3849,.4606,.5305,.594,.6508,.7011,.7452,.7836,.8168,.8454,.8699,.8907,.9084,.9234,.9361,.9467,.9557,.9632,.9694,.9747,.979,.9826,.9857,.9882,.9902,.992,.9934,.9946,.9955,.9963,1)'
+      : 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+    const verifyBtn = createDlg?.querySelector('[data-ux-lookup-policy]');
+    const verifySrEl = createDlg?.querySelector('[data-ux-verify-sr]');
+    const verifyTrackEl = verifyBtn?.querySelector('.ux-verify-btn__track');
+    const verifyIconSlotEl = verifyBtn?.querySelector('.ux-verify-btn__icon-slot');
+    const verifyMorphEl = verifyBtn?.querySelector('.ux-verify-btn__morph');
+    let policyVerifyState = verifyBtn?.dataset.state || 'idle';
+    let policyVerifyTimer = 0;
+    let policyTrackAnim = null;
+
+    const isVerifyReducedMotion = () => (
+      (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      || Boolean(verifyBtn?.closest?.('[data-reduced-motion="true"]'))
+    );
+
+    const buildVerifyPhase = (state, reduced) => {
+      const wrap = document.createElement('span');
+      wrap.className = 'ux-verify-btn__phase';
+      wrap.dataset.phase = state;
+      if (state === 'pending') {
+        wrap.innerHTML = '<span class="ds-button__action-spinner" aria-hidden="true"></span>';
+      } else if (state === 'verified') {
+        wrap.innerHTML = ICON_VERIFY_OK;
+      } else if (state === 'error') {
+        wrap.innerHTML = ICON_VERIFY_ERR;
+      }
+      if (!reduced && state !== 'idle') {
+        wrap.animate(
+          [
+            { opacity: 0, transform: 'scale(0.6)', filter: 'blur(2px)' },
+            { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' },
+          ],
+          { duration: 200, easing: VERIFY_SPRING_EASING }
+        );
+      }
+      return wrap;
+    };
+
+    const setPolicyButtonState = (nextState, { immediate = false } = {}) => {
+      if (!verifyBtn) return;
+      if (nextState === policyVerifyState) return;
+      policyVerifyState = nextState;
+
+      const reduced = immediate || isVerifyReducedMotion();
+      const nextText = VERIFY_LABELS[nextState] || VERIFY_LABELS.idle;
+      const hasIcon = nextState !== 'idle';
+
+      verifyBtn.dataset.state = nextState;
+      verifyBtn.setAttribute('aria-busy', String(nextState === 'pending'));
+      if (nextState === 'pending') verifyBtn.setAttribute('aria-disabled', 'true');
+      else verifyBtn.removeAttribute('aria-disabled');
+      if (verifySrEl) verifySrEl.textContent = nextState === 'idle' ? '' : nextText;
+
+      const prevWidth = !reduced && verifyTrackEl ? verifyTrackEl.getBoundingClientRect().width : 0;
+
+      if (verifyMorphEl) {
+        verifyMorphEl.querySelectorAll('.ux-verify-btn__label:not([data-exiting])').forEach((oldLabel) => {
+          if (reduced) {
+            oldLabel.remove();
+            return;
+          }
+          oldLabel.dataset.exiting = 'true';
+          oldLabel.classList.add('ux-verify-btn__label--exiting');
+          oldLabel.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            { duration: 100, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+          ).onfinish = () => oldLabel.remove();
+        });
+        const nextLabel = document.createElement('span');
+        nextLabel.className = 'ux-verify-btn__label';
+        nextLabel.textContent = nextText;
+        verifyMorphEl.appendChild(nextLabel);
+
+        if (!reduced) {
+          nextLabel.animate(
+            [{ opacity: 0, transform: 'translateY(2px)' }, { opacity: 1, transform: 'translateY(0px)' }],
+            { duration: 150, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+          );
+        }
+      }
+
+      if (verifyIconSlotEl) {
+        verifyIconSlotEl.dataset.hasIcon = hasIcon ? 'true' : 'false';
+        verifyIconSlotEl.querySelectorAll('.ux-verify-btn__phase:not([data-exiting])').forEach((oldPhase) => {
+          if (reduced || !hasIcon) {
+            oldPhase.remove();
+            return;
+          }
+          oldPhase.dataset.exiting = 'true';
+          oldPhase.animate(
+            [
+              { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' },
+              { opacity: 0, transform: 'scale(0.6)', filter: 'blur(2px)' },
+            ],
+            { duration: 140, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+          ).onfinish = () => oldPhase.remove();
+        });
+        if (hasIcon) {
+          verifyIconSlotEl.appendChild(buildVerifyPhase(nextState, reduced));
+        }
+      }
+
+      if (verifyTrackEl) {
+        if (policyTrackAnim) {
+          policyTrackAnim.cancel();
+          policyTrackAnim = null;
+        }
+        verifyTrackEl.style.removeProperty('width');
+        const nextWidth = verifyTrackEl.getBoundingClientRect().width;
+        if (!reduced && prevWidth > 0 && Math.abs(prevWidth - nextWidth) > 0.5) {
+          if (verifyMorphEl) verifyMorphEl.dataset.morphing = 'true';
+          verifyTrackEl.style.setProperty('width', `${prevWidth}px`);
+          void verifyTrackEl.offsetWidth;
+          const anim = verifyTrackEl.animate(
+            [{ width: `${prevWidth}px` }, { width: `${nextWidth}px` }],
+            { duration: 280, easing: VERIFY_SPRING_EASING, fill: 'forwards' }
+          );
+          policyTrackAnim = anim;
+          anim.onfinish = () => {
+            if (policyTrackAnim === anim) policyTrackAnim = null;
+            anim.cancel();
+            verifyTrackEl.style.removeProperty('width');
+            if (verifyMorphEl) delete verifyMorphEl.dataset.morphing;
+          };
+        } else if (verifyMorphEl) {
+          delete verifyMorphEl.dataset.morphing;
+        }
+      }
+    };
+
+    const resetPolicyVerify = ({ immediate = false } = {}) => {
+      if (policyVerifyTimer) {
+        window.clearTimeout(policyVerifyTimer);
+        policyVerifyTimer = 0;
+      }
+      setPolicyButtonState('idle', { immediate });
+    };
+
+    const resolvePolicyLookup = () => {
+      const policyEl = createDlg?.querySelector('#ux-cc-policy');
+      const customerEl = createDlg?.querySelector('#ux-cc-customer');
+      const plateEl = createDlg?.querySelector('#ux-cc-plate');
+      const rawPol = policyEl?.value.trim() || '';
+      const found = POLICY_DIRECTORY[rawPol] || POLICY_DIRECTORY[rawPol.toUpperCase()];
+      if (found) {
+        if (policyEl) policyEl.value = POLICY_DIRECTORY[rawPol] ? rawPol : rawPol.toUpperCase();
+        if (customerEl) customerEl.value = found.customerName;
+        if (plateEl) plateEl.value = found.plate;
+        newCaseState.policyVerified = true;
+        const errBox = createDlg?.querySelector('[data-ux-create-error]');
+        if (errBox) errBox.textContent = '';
+        return true;
+      }
+      if (customerEl) customerEl.value = '';
+      if (plateEl) plateEl.value = '';
+      newCaseState.policyVerified = false;
+      return false;
+    };
+
+    const verifyCreateCasePolicy = ({ silent = false, immediate = false } = {}) => {
+      if (immediate || silent) {
+        if (policyVerifyTimer) {
+          window.clearTimeout(policyVerifyTimer);
+          policyVerifyTimer = 0;
+        }
+        const ok = resolvePolicyLookup();
+        if (ok) setPolicyButtonState('verified', { immediate });
+        else if (!silent) setPolicyButtonState('error', { immediate });
+        return ok;
+      }
+      if (policyVerifyState === 'pending') return false;
+      if (policyVerifyTimer) {
+        window.clearTimeout(policyVerifyTimer);
+        policyVerifyTimer = 0;
+      }
+      setPolicyButtonState('pending');
+      policyVerifyTimer = window.setTimeout(() => {
+        policyVerifyTimer = 0;
+        if (!isDialogOpen(createDlg)) return;
+        const ok = resolvePolicyLookup();
+        setPolicyButtonState(ok ? 'verified' : 'error');
+      }, 220);
+      return false;
+    };
+
+    const ccPicker = createDlg?.querySelector('#ux-cc-datetime-picker');
+    const ccTimeHiddenEl = createDlg?.querySelector('#ux-cc-time');
+    const ccTimeTriggerEl = createDlg?.querySelector('#ux-cc-time-trigger');
+    const ccDateLabelEl = ccPicker?.querySelector('[data-date-label]');
+    const ccTimeLabelEl = createDlg?.querySelector('[data-ux-cc-time-label]');
+    const ccDateHeadingEl = createDlg?.querySelector('[data-ux-cc-date-heading]');
+    const ccHoursBoxEl = createDlg?.querySelector('[data-ux-cc-hours]');
+    const ccMinutesBoxEl = createDlg?.querySelector('[data-ux-cc-minutes]');
+    const ccPickerDialogEl = ccPicker?.querySelector('.ux-datetime-picker__dialog');
+    const CC_MONTH_SHORTS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const formatCcDateLabel = (isoDate) => {
+      const parts = String(isoDate || '').split('-').map(Number);
+      if (parts.length !== 3 || parts.some(Number.isNaN)) return 'Nov 18, 2026';
+      return `${CC_MONTH_SHORTS[parts[1] - 1] || 'Nov'} ${parts[2]}, ${parts[0]}`;
+    };
+
+    const syncCcCalendarSelection = (isoDate) => {
+      if (!ccPicker) return;
+      ccPicker.dataset.date = isoDate;
+      ccPicker.querySelectorAll('.ds-date-picker__day[data-date]').forEach((dayBtn) => {
+        const isSel = dayBtn.dataset.date === isoDate;
+        dayBtn.classList.toggle('ds-date-picker__day--start', isSel);
+        dayBtn.classList.toggle('ds-date-picker__day--end', isSel);
+      });
+    };
+
+    const syncCreateDateTimeUI = () => {
+      const timeStr = `${newCaseState.accidentHour}:${newCaseState.accidentMinute}`;
+      const dateStr = formatCcDateLabel(newCaseState.accidentDate);
+      if (ccTimeHiddenEl) ccTimeHiddenEl.value = `${newCaseState.accidentDate} ${timeStr}`;
+      if (ccDateLabelEl) ccDateLabelEl.textContent = dateStr;
+      if (ccTimeLabelEl) ccTimeLabelEl.textContent = timeStr;
+      if (ccDateHeadingEl) ccDateHeadingEl.textContent = dateStr;
+    };
+
+    const syncDraftDateTimeUI = () => {
+      const timeStr = `${newCaseState.draftAccidentHour}:${newCaseState.draftAccidentMinute}`;
+      const dateStr = formatCcDateLabel(newCaseState.draftAccidentDate);
+      if (ccDateLabelEl) ccDateLabelEl.textContent = dateStr;
+      if (ccTimeLabelEl) ccTimeLabelEl.textContent = timeStr;
+      if (ccDateHeadingEl) ccDateHeadingEl.textContent = dateStr;
+      syncCcCalendarSelection(newCaseState.draftAccidentDate);
+      ccHoursBoxEl?.querySelectorAll('[data-ux-cc-hour]').forEach((btn) => {
+        btn.setAttribute('aria-selected', String(btn.dataset.uxCcHour === newCaseState.draftAccidentHour));
+      });
+      ccMinutesBoxEl?.querySelectorAll('[data-ux-cc-minute]').forEach((btn) => {
+        btn.setAttribute('aria-selected', String(btn.dataset.uxCcMinute === newCaseState.draftAccidentMinute));
+      });
+    };
+
+    const closeCcDateTimePicker = () => {
+      if (!ccPicker) return;
+      ccPicker.dataset.dsOpen = 'false';
+      ccTimeTriggerEl?.setAttribute('aria-expanded', 'false');
+      if (ccPickerDialogEl) ccPickerDialogEl.hidden = true;
+    };
+
+    const cancelCcDateTimePicker = ({ returnFocus = false } = {}) => {
+      newCaseState.draftAccidentDate = newCaseState.accidentDate;
+      newCaseState.draftAccidentHour = newCaseState.accidentHour;
+      newCaseState.draftAccidentMinute = newCaseState.accidentMinute;
+      syncCcCalendarSelection(newCaseState.accidentDate);
+      syncCreateDateTimeUI();
+      closeCcDateTimePicker();
+      if (returnFocus) ccTimeTriggerEl?.focus({ preventScroll: true });
+    };
+
+    const commitCcDateTimePicker = ({ returnFocus = false } = {}) => {
+      newCaseState.accidentDate = newCaseState.draftAccidentDate;
+      newCaseState.accidentHour = newCaseState.draftAccidentHour;
+      newCaseState.accidentMinute = newCaseState.draftAccidentMinute;
+      syncCcCalendarSelection(newCaseState.accidentDate);
+      syncCreateDateTimeUI();
+      closeCcDateTimePicker();
+      if (returnFocus) ccTimeTriggerEl?.focus({ preventScroll: true });
+    };
+
+    const positionCcDateTimePicker = () => {
+      if (!ccPicker || !ccTimeTriggerEl || !ccPickerDialogEl || ccPickerDialogEl.hidden) return;
+      const trRect = ccTimeTriggerEl.getBoundingClientRect();
+      const dlgRect = ccPickerDialogEl.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const margin = 12;
+      const width = dlgRect.width || 416;
+      const height = dlgRect.height || 360;
+      let left = trRect.left;
+      if (left + width > vw - margin) left = Math.max(margin, vw - width - margin);
+      if (left < margin) left = margin;
+      let top = trRect.bottom + 6;
+      if (top + height > vh - margin && trRect.top - height - 6 >= margin) {
+        top = trRect.top - height - 6;
+      }
+      ccPickerDialogEl.style.left = `${Math.round(left)}px`;
+      ccPickerDialogEl.style.top = `${Math.round(top)}px`;
+    };
+
+    if (ccHoursBoxEl && !ccHoursBoxEl.children.length) {
+      ccHoursBoxEl.innerHTML = Array.from({ length: 24 }, (_, h) => {
+        const val = String(h).padStart(2, '0');
+        return `<button type="button" role="option" class="ds-button ds-button--ghost ux-datetime-picker__time-opt ux-num" data-ux-cc-hour="${val}" aria-selected="${val === newCaseState.accidentHour}">${val}</button>`;
+      }).join('');
+      ccHoursBoxEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-ux-cc-hour]');
+        if (!btn) return;
+        e.stopPropagation();
+        newCaseState.draftAccidentHour = btn.dataset.uxCcHour;
+        syncDraftDateTimeUI();
+      });
+    }
+
+    if (ccMinutesBoxEl && !ccMinutesBoxEl.children.length) {
+      ccMinutesBoxEl.innerHTML = Array.from({ length: 12 }, (_, idx) => {
+        const val = String(idx * 5).padStart(2, '0');
+        return `<button type="button" role="option" class="ds-button ds-button--ghost ux-datetime-picker__time-opt ux-num" data-ux-cc-minute="${val}" aria-selected="${val === newCaseState.accidentMinute}">${val}</button>`;
+      }).join('');
+      ccMinutesBoxEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-ux-cc-minute]');
+        if (!btn) return;
+        e.stopPropagation();
+        newCaseState.draftAccidentMinute = btn.dataset.uxCcMinute;
+        syncDraftDateTimeUI();
+      });
+    }
+
+    ccPicker?.addEventListener('ds-change', (e) => {
+      if (e.detail?.date) {
+        newCaseState.draftAccidentDate = e.detail.date;
+        syncDraftDateTimeUI();
+      }
+    });
+
+    ccPicker?.querySelectorAll('.ds-date-picker__nav-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        window.requestAnimationFrame(positionCcDateTimePicker);
+      });
+    });
+
+    const scrollCcTimeColumnsToSelection = () => {
+      const activeHour = ccHoursBoxEl?.querySelector('[aria-selected="true"]');
+      if (activeHour && ccHoursBoxEl) {
+        ccHoursBoxEl.scrollTop = Math.max(0, activeHour.offsetTop - ccHoursBoxEl.clientHeight / 2 + activeHour.clientHeight / 2);
+      }
+      const activeMinute = ccMinutesBoxEl?.querySelector('[aria-selected="true"]');
+      if (activeMinute && ccMinutesBoxEl) {
+        ccMinutesBoxEl.scrollTop = Math.max(0, activeMinute.offsetTop - ccMinutesBoxEl.clientHeight / 2 + activeMinute.clientHeight / 2);
+      }
+    };
+
+    ccTimeTriggerEl?.addEventListener('click', () => {
+      window.requestAnimationFrame(() => {
+        if (ccPicker?.dataset.dsOpen === 'true') {
+          newCaseState.draftAccidentDate = newCaseState.accidentDate;
+          newCaseState.draftAccidentHour = newCaseState.accidentHour;
+          newCaseState.draftAccidentMinute = newCaseState.accidentMinute;
+          syncDraftDateTimeUI();
+          positionCcDateTimePicker();
+          scrollCcTimeColumnsToSelection();
+        } else {
+          cancelCcDateTimePicker({ returnFocus: false });
+        }
+      });
+    });
+
+    createDlg?.querySelector('[data-ux-cc-datetime-cancel]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cancelCcDateTimePicker({ returnFocus: true });
+    });
+
+    createDlg?.querySelector('[data-ux-cc-datetime-done]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      commitCcDateTimePicker({ returnFocus: true });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && ccPicker?.dataset.dsOpen === 'true') {
+        e.preventDefault();
+        e.stopPropagation();
+        cancelCcDateTimePicker({ returnFocus: true });
+      }
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      if (ccPicker?.dataset.dsOpen === 'true' && !ccPicker.contains(e.target)) {
+        cancelCcDateTimePicker({ returnFocus: false });
+      }
+    });
+
+    createDlg?.querySelector('.ux-dialog__body')?.addEventListener('scroll', positionCcDateTimePicker, { passive: true });
+    window.addEventListener('resize', positionCcDateTimePicker, { passive: true });
 
     const renderCreateSlots = () => {
       const container = createDlg?.querySelector('[data-ux-create-slots]');
@@ -9164,9 +9661,9 @@ export function initSmtWorkflows(bridge) {
         const badgeClass = !s.file ? 'ds-badge--default' : (s.valid ? 'ds-badge--green' : 'ds-badge--red');
         const badgeText = !s.file ? 'Empty' : (s.valid ? 'Ready' : 'Invalid');
         return `
-          <div class="ux-video-slot" data-has-file="${Boolean(s.file)}" data-invalid="${!s.valid}">
+          <div class="ux-video-slot" data-ux-slot="${s.slot}" data-has-file="${Boolean(s.file)}" data-invalid="${!s.valid}">
             <div class="ux-video-slot__head">
-              <span class="ux-label ux-video-slot__title ux-num">CAM 0${s.slot} · ${esc(s.label)}</span>
+              <span class="ux-label ux-video-slot__title">${esc(s.label)}</span>
               <span class="ds-badge ds-badge--pill ${badgeClass}">${badgeText}</span>
             </div>
             ${renderVideoSlotMetaHtml({
@@ -9177,7 +9674,7 @@ export function initSmtWorkflows(bridge) {
               sizeMb: s.file?.sizeMb || 0,
             })}
             <div class="ux-video-slot__actions">
-              <button type="button" class="ds-button ds-button--secondary ds-button--sm" data-ux-slot-valid="${s.slot}">${s.file ? 'Replace' : 'Attach'}</button>
+              <button type="button" class="ds-button ds-button--secondary ds-button--sm" data-ux-slot-valid="${s.slot}">${s.file ? 'Replace' : 'Upload'}</button>
               ${s.file ? `<button type="button" class="ds-button ds-button--danger ds-button--sm" data-ux-slot-clear="${s.slot}">Remove</button>` : ''}
             </div>
           </div>
@@ -9199,50 +9696,114 @@ export function initSmtWorkflows(bridge) {
         const errBox = createDlg?.querySelector('[data-ux-create-error]');
         if (errBox) errBox.textContent = '';
         renderCreateSlots();
+        triggerCreateSummaryAnalysis(slotNo);
       };
 
+      const attachDemoSlotFile = (slotNo) =>
+        applySlotFile(slotNo, { name: `cam0${slotNo}_accident.mp4`, durationSec: 24, sizeMb: 38 });
+
       container.querySelectorAll('[data-ux-slot-valid]').forEach((b) => b.addEventListener('click', () =>
-        applySlotFile(Number(b.dataset.uxSlotValid), { name: `cam0${b.dataset.uxSlotValid}_accident.mp4`, durationSec: 24, sizeMb: 38 })));
+        attachDemoSlotFile(Number(b.dataset.uxSlotValid))));
+      container.querySelectorAll('.ux-video-slot[data-ux-slot]').forEach((slotEl) => {
+        const slotNo = Number(slotEl.dataset.uxSlot);
+        slotEl.addEventListener('dragenter', (e) => {
+          e.preventDefault();
+          slotEl.dataset.dragover = 'true';
+        });
+        slotEl.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          slotEl.dataset.dragover = 'true';
+        });
+        slotEl.addEventListener('dragleave', (e) => {
+          if (!slotEl.contains(e.relatedTarget)) delete slotEl.dataset.dragover;
+        });
+        slotEl.addEventListener('drop', (e) => {
+          e.preventDefault();
+          delete slotEl.dataset.dragover;
+          const dropped = e.dataTransfer?.files?.[0];
+          if (dropped) {
+            applySlotFile(slotNo, {
+              name: dropped.name,
+              durationSec: 24,
+              sizeMb: Math.max(1, Math.round(dropped.size / (1024 * 1024))),
+            });
+          } else {
+            attachDemoSlotFile(slotNo);
+          }
+        });
+      });
       container.querySelectorAll('[data-ux-slot-clear]').forEach((b) => b.addEventListener('click', () =>
         applySlotFile(Number(b.dataset.uxSlotClear), null)));
     };
 
     createDlg?.addEventListener('ux-dialog-closed', () => {
+      closeCcDateTimePicker();
       resetNewCaseSlots();
+      resetPolicyVerify({ immediate: true });
       const errBox = createDlg.querySelector('[data-ux-create-error]');
       if (errBox) errBox.textContent = '';
     });
 
     document.querySelector('[data-action="create-case"]')?.addEventListener('click', () => {
       if (!createDlg) return;
+      closeCcDateTimePicker();
       resetNewCaseSlots();
       const nextNum = 149 + store.cases.length - 8;
       const idEl = createDlg.querySelector('#ux-cc-id');
+      const policyEl = createDlg.querySelector('#ux-cc-policy');
+      const customerEl = createDlg.querySelector('#ux-cc-customer');
+      const plateEl = createDlg.querySelector('#ux-cc-plate');
       if (idEl) idEl.value = `CASE-2026-0${nextNum}`;
+      if (policyEl) policyEl.value = '';
+      if (customerEl) customerEl.value = '';
+      if (plateEl) plateEl.value = '';
+      newCaseState.policyVerified = false;
+      resetPolicyVerify({ immediate: true });
+      newCaseState.accidentDate = '2026-11-18';
+      newCaseState.accidentHour = '09';
+      newCaseState.accidentMinute = '30';
+      newCaseState.draftAccidentDate = '2026-11-18';
+      newCaseState.draftAccidentHour = '09';
+      newCaseState.draftAccidentMinute = '30';
+      syncCcCalendarSelection(newCaseState.accidentDate);
+      syncCreateDateTimeUI();
+      syncDraftDateTimeUI();
+      autoSizeSummaryTextarea();
       const errBox = createDlg.querySelector('[data-ux-create-error]');
       if (errBox) errBox.textContent = '';
-      const policyMsg = createDlg.querySelector('[data-ux-policy-msg]');
-      if (policyMsg) policyMsg.textContent = 'POL-2026-8801 or POL-2026-7742';
       renderCreateSlots();
       openDialogSmooth(createDlg);
     });
 
-    createDlg?.querySelector('[data-ux-lookup-policy]')?.addEventListener('click', () => {
-      const pol = createDlg.querySelector('#ux-cc-policy')?.value.trim();
-      const found = POLICY_DIRECTORY[pol];
-      const msg = createDlg.querySelector('[data-ux-policy-msg]');
-      if (found) {
-        createDlg.querySelector('#ux-cc-customer').value = found.customerName;
-        createDlg.querySelector('#ux-cc-plate').value = found.plate;
-        if (msg) msg.textContent = `Matched · ${found.vehicle}`;
-      } else if (msg) {
-        msg.textContent = 'No matching policy found';
+    createDlg?.querySelector('#ux-cc-policy')?.addEventListener('input', () => {
+      newCaseState.policyVerified = false;
+      resetPolicyVerify({ immediate: false });
+      const customerEl = createDlg.querySelector('#ux-cc-customer');
+      const plateEl = createDlg.querySelector('#ux-cc-plate');
+      if (customerEl) customerEl.value = '';
+      if (plateEl) plateEl.value = '';
+    });
+
+    createDlg?.querySelector('#ux-cc-policy')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        verifyCreateCasePolicy();
       }
+    });
+
+    createDlg?.querySelector('[data-ux-lookup-policy]')?.addEventListener('click', () => {
+      verifyCreateCasePolicy();
     });
 
     createDlg?.querySelector('[data-ux-create-form]')?.addEventListener('submit', (e) => {
       e.preventDefault();
       const errBox = createDlg.querySelector('[data-ux-create-error]');
+      if (!newCaseState.policyVerified && !verifyCreateCasePolicy({ silent: true, immediate: true })) {
+        setPolicyButtonState('error');
+        if (errBox) errBox.textContent = 'Verify a valid policy number (e.g. POL-2026-8801).';
+        createDlg.querySelector('#ux-cc-policy')?.focus();
+        return;
+      }
       const validFiles = newCaseState.slots.filter((s) => s.file && s.valid);
       const invalidFiles = newCaseState.slots.filter((s) => s.file && !s.valid);
       if (invalidFiles.length > 0) { if (errBox) errBox.textContent = 'Fix or remove invalid clips.'; return; }
@@ -9250,12 +9811,13 @@ export function initSmtWorkflows(bridge) {
       if (errBox) errBox.textContent = '';
 
       const id = createDlg.querySelector('#ux-cc-id').value.trim();
-      const policyNo = createDlg.querySelector('#ux-cc-policy').value.trim() || 'POL-2026-8801';
-      const customerName = createDlg.querySelector('#ux-cc-customer').value.trim() || 'New Insured Driver';
-      const plate = createDlg.querySelector('#ux-cc-plate').value.trim() || '51K-999.01';
-      const accidentTime = createDlg.querySelector('#ux-cc-time').value.trim() || '2026-11-18 09:30';
+      const policyNo = createDlg.querySelector('#ux-cc-policy').value.trim();
+      const customerName = createDlg.querySelector('#ux-cc-customer').value.trim();
+      const plate = createDlg.querySelector('#ux-cc-plate').value.trim();
+      const accidentTime = createDlg.querySelector('#ux-cc-time').value.trim() || `${newCaseState.accidentDate} ${newCaseState.accidentHour}:${newCaseState.accidentMinute}`;
       const location = createDlg.querySelector('#ux-cc-location').value.trim() || 'Seoul Arterial Junction';
-      const summary = createDlg.querySelector('#ux-cc-summary').value.trim() || 'Intersection T-bone';
+      const rawSummary = createDlg.querySelector('#ux-cc-summary').value.trim();
+      const summary = rawSummary || buildAiSummaryFromSlots(validFiles) || 'Intersection T-bone';
 
       store.cases.unshift({
         id,
@@ -9275,6 +9837,8 @@ export function initSmtWorkflows(bridge) {
         archived: false,
         selectedChart: 'KNIA-205',
         interpretation: '',
+        rerunGuidance: summary ? { 1: summary } : {},
+        step1Contexts: summary ? [{ id: 'case-summary', kind: 'text', label: 'Case summary', text: summary }] : [],
         versions: [],
         factors: [
           { id: `f-${Date.now()}`, side: 'counterparty', group: 'Scenario', title: 'Insured entered under green phase', rationale: 'Initial AI flag.', delta: 10, status: 'negotiating', note: '' },
@@ -9302,6 +9866,7 @@ export function initSmtWorkflows(bridge) {
         step3AnalysedKey: null,
       });
       logActivity(id, 'OTHER', `Created new case (${validFiles.length} clips attached)`, 'Adjuster');
+      closeCcDateTimePicker();
       resetNewCaseSlots();
       closeDialogSmooth(createDlg);
       renderCaseQueueRows();

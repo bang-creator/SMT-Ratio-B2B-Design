@@ -907,9 +907,36 @@ function scanCodexRollouts({ seedOnly = false, dryRun = false } = {}) {
       continue;
     }
 
-    const isLocalhost4173Session = /https?:\/\/(?:localhost|127\.0\.0\.1):4173(?:\/|$|\?|#|"|\s|<)/i.test(content);
+    const lines = content.split(/\r?\n/);
+    let sessionCwd = '';
+    for (const metaLine of lines) {
+      if (!metaLine) continue;
+      if (!metaLine.includes('session_meta')) break;
+      try {
+        const metaRow = JSON.parse(metaLine);
+        if (metaRow?.type === 'session_meta') {
+          sessionCwd = String(metaRow?.payload?.cwd || '');
+        }
+      } catch {
+        // Ignore malformed session_meta line
+      }
+      break;
+    }
 
-    for (const line of content.split(/\r?\n/)) {
+    if (/duolingo/i.test(sessionCwd)) {
+      if (!dryRun) {
+        fileStates[f.fullPath] = { size: f.size, mtimeMs: f.mtimeMs };
+        cursorDirty = true;
+      }
+      continue;
+    }
+
+    const isTarget4173Url = (u) => /^https?:\/\/(?:localhost|127\.0\.0\.1):4173(?:\/|$|\?|#)/i.test(String(u || ''))
+      && !/rms2-admin-mockup-v2\.html/i.test(String(u || ''));
+    const isWorkspaceSession = Boolean(sessionCwd) && path.resolve(sessionCwd) === WORKSPACE_ROOT;
+    let lastCurrentUrl = '';
+
+    for (const line of lines) {
       if (!line || !line.includes('response_item') || !line.includes('user')) continue;
       let row;
       try {
@@ -925,6 +952,11 @@ function scanCodexRollouts({ seedOnly = false, dryRun = false } = {}) {
         .join('\n');
       if (!texts.trim()) continue;
 
+      const currentUrlMatch = texts.match(/-\s*Current URL:\s*(https?:\/\/[^\s<]+)/i);
+      if (currentUrlMatch) {
+        lastCurrentUrl = currentUrlMatch[1].trim();
+      }
+
       const idx = texts.indexOf('# Browser comments:');
       let hash;
       let parsed;
@@ -932,12 +964,16 @@ function scanCodexRollouts({ seedOnly = false, dryRun = false } = {}) {
       if (idx !== -1) {
         const beforeText = stripCodexAmbientBlocks(texts.slice(0, idx));
         const commentSection = texts.slice(idx).trim();
+        const pageUrlMatch = commentSection.match(/^Page URL:\s*(https?:\/\/[^\s<]+)/im);
+        if (pageUrlMatch && !isTarget4173Url(pageUrlMatch[1].trim())) continue;
         const normalizedBlock = beforeText ? `${beforeText}\n\n${commentSection}` : commentSection;
         hash = crypto.createHash('sha256').update(normalizedBlock).digest('hex');
         if (!dryRun && seenSet.has(hash)) continue;
         parsed = parseCodexBrowserComments(normalizedBlock);
       } else {
-        if (!isLocalhost4173Session) continue;
+        const allowChat = isTarget4173Url(lastCurrentUrl)
+          || (isWorkspaceSession && (!lastCurrentUrl || isTarget4173Url(lastCurrentUrl)));
+        if (!allowChat) continue;
         const cleanedChat = stripCodexAmbientBlocks(texts);
         if (!cleanedChat) continue;
         if (/Read-Only DOM\/UI Inspector|Chỉ trả lời đúng chữ|Thay vì rep\s+["“]/i.test(cleanedChat)) {
@@ -949,7 +985,7 @@ function scanCodexRollouts({ seedOnly = false, dryRun = false } = {}) {
           sourceAgent: 'codex-rollout-chat',
           globalPrompt: cleanedChat,
           pageContext: {
-            url: 'http://localhost:4173/',
+            url: isTarget4173Url(lastCurrentUrl) ? lastCurrentUrl : 'http://localhost:4173/',
             theme: null,
             viewport: null,
             activeState: null,

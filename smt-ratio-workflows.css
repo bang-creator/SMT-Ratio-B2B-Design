@@ -807,14 +807,6 @@
   background: var(--ux-surface-modal-control-hover);
 }
 
-.ux-video-slot[data-has-file="true"] .ds-button--secondary {
-  background: var(--ux-surface-modal-control-hover);
-}
-
-.ux-video-slot[data-has-file="true"] .ds-button--secondary:hover:not(:disabled):not([data-disabled]) {
-  background: color-mix(in srgb, var(--color-semantic-text-primary) 12%, var(--ux-surface-modal-control-hover));
-}
-
 .ds-input,
 .ds-textarea,
 .ds-input--multiline,
@@ -6139,14 +6131,6 @@
   color: var(--color-semantic-text-tertiary);
 }
 
-.ux-policy-msg {
-  min-height: 16px;
-  line-height: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .ux-error {
   margin: 0;
   font-size: var(--font-size-xs);
@@ -6163,6 +6147,554 @@
 .ux-input-row .ds-input {
   flex: 1;
   min-width: 0;
+}
+
+.ux-verify-btn {
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ux-verify-btn[data-state="pending"],
+.ux-verify-btn[data-state="pending"] * {
+  cursor: progress;
+}
+
+.ux-verify-btn__track {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.ux-verify-btn__icon-slot {
+  display: inline-grid;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  place-items: center;
+  overflow: visible;
+}
+
+.ux-verify-btn__icon-slot[data-has-icon="false"] {
+  display: none;
+}
+
+.ux-verify-btn__phase {
+  grid-area: 1 / 1;
+  display: inline-grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+.ds-button.ux-verify-btn .ux-verify-btn__svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.ux-verify-btn .ds-button__action-spinner {
+  width: 13px;
+  height: 13px;
+}
+
+.ux-verify-btn__morph {
+  position: relative;
+  display: inline-grid;
+  min-width: 0;
+  justify-items: start;
+  align-items: center;
+}
+
+.ux-verify-btn__morph[data-morphing="true"] {
+  clip-path: inset(-0.6em 0 -0.6em -0.3em);
+}
+
+.ux-verify-btn__label {
+  grid-area: 1 / 1;
+  white-space: pre;
+}
+
+.ux-verify-btn__label--exiting {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+/* Sync Create Case surface & control elevation with Step 1 Re-analyse / Step 2 Evidence sheets */
+#modal-create-case {
+  --cc-modal-bg: var(--color-primitive-gray-0);
+  --cc-field-bg: var(--color-primitive-gray-75);
+  --cc-field-hover-bg: var(--color-primitive-gray-100);
+  --cc-btn-bg: var(--color-primitive-gray-100);
+  --cc-btn-hover-bg: var(--color-primitive-gray-150);
+  --cc-file-bg: var(--color-primitive-gray-0);
+}
+
+:root[data-theme="dark"] #modal-create-case {
+  --cc-modal-bg: var(--color-primitive-gray-150);
+  --cc-field-bg: var(--color-primitive-gray-250);
+  --cc-field-hover-bg: var(--color-primitive-gray-300);
+  --cc-btn-bg: var(--color-primitive-gray-350);
+  --cc-btn-hover-bg: var(--color-primitive-gray-400);
+  --cc-file-bg: var(--color-primitive-gray-350);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) #modal-create-case {
+    --cc-modal-bg: var(--color-primitive-gray-150);
+    --cc-field-bg: var(--color-primitive-gray-250);
+    --cc-field-hover-bg: var(--color-primitive-gray-300);
+    --cc-btn-bg: var(--color-primitive-gray-350);
+    --cc-btn-hover-bg: var(--color-primitive-gray-400);
+    --cc-file-bg: var(--color-primitive-gray-350);
+  }
+}
+
+#modal-create-case > .ds-dialog.ux-dialog {
+  background: var(--cc-modal-bg);
+  border: 0;
+  box-shadow: var(--ux-reanalyse-shadow);
+}
+
+#modal-create-case .ds-input,
+#modal-create-case .ds-textarea.ux-cc-summary-textarea,
+#modal-create-case .ds-date-picker__trigger.ux-datetime-picker__trigger {
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--cc-field-bg);
+  color: var(--color-semantic-text-primary);
+  box-shadow: none;
+  outline: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #modal-create-case .ds-input:hover:not(:disabled):not([readonly]),
+  #modal-create-case .ds-textarea.ux-cc-summary-textarea:hover:not(:disabled),
+  #modal-create-case .ds-date-picker__trigger.ux-datetime-picker__trigger:hover:not(:disabled):not([data-disabled]) {
+    border: 0;
+    background: var(--cc-field-hover-bg);
+    box-shadow: none;
+    outline: 0;
+  }
+}
+
+#modal-create-case .ds-input:focus:not(:disabled):not([readonly]),
+#modal-create-case .ds-input:focus-visible:not(:disabled):not([readonly]),
+#modal-create-case .ds-textarea.ux-cc-summary-textarea:focus,
+#modal-create-case .ds-textarea.ux-cc-summary-textarea:focus-visible,
+#modal-create-case .ds-date-picker.ux-datetime-picker[data-ds-open="true"] .ds-date-picker__trigger.ux-datetime-picker__trigger,
+#modal-create-case .ds-date-picker__trigger.ux-datetime-picker__trigger[aria-expanded="true"] {
+  border: 0;
+  background: var(--cc-field-hover-bg);
+  box-shadow: none;
+  outline: 0;
+}
+
+#modal-create-case .ds-input:disabled,
+#modal-create-case .ds-input[readonly],
+#modal-create-case .ux-input--locked {
+  background: transparent;
+  color: var(--color-semantic-text-secondary);
+  box-shadow: 0 0 0 1px var(--color-semantic-border-subtle) inset;
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+
+#modal-create-case .ds-input:disabled:focus,
+#modal-create-case .ds-input[readonly]:focus,
+#modal-create-case .ux-input--locked:focus {
+  box-shadow: 0 0 0 1px var(--color-semantic-border-subtle) inset;
+}
+
+#modal-create-case :is(.ds-button--outline, .ds-button--secondary) {
+  border: 0;
+  background: var(--cc-btn-bg);
+  box-shadow: none;
+}
+
+#modal-create-case :is(.ds-button--outline, .ds-button--secondary):hover:not(:disabled):not([data-disabled]) {
+  border: 0;
+  background: var(--cc-btn-hover-bg);
+  box-shadow: none;
+}
+
+#modal-create-case .ux-verify-btn[data-state="verified"] .ux-verify-btn__icon-slot {
+  color: var(--color-semantic-text-success);
+}
+
+#modal-create-case .ux-verify-btn[data-state="error"] .ux-verify-btn__icon-slot {
+  color: var(--color-semantic-text-danger);
+}
+
+#modal-create-case .ux-video-slot,
+#modal-create-case .ux-video-slot[data-has-file="true"] {
+  border: 0;
+  background: var(--cc-field-bg);
+  box-shadow: none;
+}
+
+#modal-create-case .ux-video-slot[data-dragover="true"] {
+  background: var(--cc-field-hover-bg);
+}
+
+#modal-create-case .ux-video-slot__file {
+  border: 0;
+  background: var(--cc-file-bg);
+  box-shadow: none;
+}
+
+#modal-create-case .ux-cc-summary-analyzing {
+  border: 0;
+  background: var(--cc-field-bg);
+  box-shadow: none;
+}
+
+.ds-dialog.ux-dialog .ds-date-picker.ux-datetime-picker {
+  display: block;
+  width: 100%;
+}
+
+.ds-dialog.ux-dialog .ds-date-picker__trigger.ux-datetime-picker__trigger {
+  width: 100%;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  justify-content: space-between;
+  gap: var(--space-2);
+  box-sizing: border-box;
+}
+
+.ds-dialog.ux-dialog .ds-date-picker__trigger.ux-datetime-picker__trigger .ds-date-picker__icon {
+  color: var(--color-semantic-text-tertiary);
+}
+
+.ux-datetime-picker__value {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: 1;
+  color: var(--color-semantic-text-primary);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ux-datetime-picker__sep {
+  color: var(--color-semantic-text-tertiary);
+}
+
+.ds-date-picker__dialog.ux-datetime-picker__dialog {
+  position: fixed;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: calc(100vw - 24px);
+  border: 1px solid var(--color-semantic-border-default);
+  border-radius: var(--radius-xl);
+  background: var(--color-semantic-background-menu);
+  box-shadow: var(--shadow-menu);
+  overflow: hidden;
+}
+
+.ux-datetime-picker__body {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar {
+  flex: 0 0 264px;
+  width: 264px;
+  padding: var(--space-4) var(--space-5);
+  gap: var(--space-2);
+  box-sizing: border-box;
+}
+
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar .ds-date-picker__nav-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 28px;
+  margin-bottom: var(--space-1);
+}
+
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar .ds-date-picker__nav-btn--prev,
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar .ds-date-picker__nav-btn--next {
+  position: absolute;
+  top: 0;
+}
+
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar .ds-date-picker__nav-btn--prev {
+  left: 0;
+}
+
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar .ds-date-picker__nav-btn--next {
+  right: 0;
+}
+
+.ux-datetime-picker__dialog .ds-date-picker__single-calendar .ds-date-picker__weekday-row {
+  margin-bottom: var(--space-1);
+}
+
+.ux-datetime-picker__time-pane {
+  flex: 0 0 152px;
+  width: 152px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-semantic-border-default);
+  padding: var(--space-4) var(--space-3);
+  gap: var(--space-2);
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ux-datetime-picker__time-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  margin-bottom: var(--space-1);
+}
+
+.ux-datetime-picker__date-heading {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-semantic-text-secondary);
+  white-space: nowrap;
+}
+
+.ux-datetime-picker__time-subhead {
+  display: grid;
+  grid-template-columns: repeat(2, 56px);
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-semantic-text-tertiary);
+  margin-bottom: var(--space-1);
+}
+
+.ux-datetime-picker__time-cols {
+  display: grid;
+  grid-template-columns: repeat(2, 56px);
+  grid-template-rows: 202px;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 202px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ux-datetime-picker__time-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding: 0;
+  scrollbar-width: none;
+}
+
+.ux-datetime-picker__time-col::-webkit-scrollbar {
+  display: none;
+}
+
+.ux-datetime-picker__time-col .ds-button.ux-datetime-picker__time-opt {
+  width: 100%;
+  height: 28px;
+  min-height: 28px;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  border-radius: var(--radius-sm);
+}
+
+.ux-datetime-picker__time-col .ds-button.ux-datetime-picker__time-opt[aria-selected="true"],
+.ux-datetime-picker__time-col .ds-button.ux-datetime-picker__time-opt[aria-selected="true"]:hover:not(:disabled):not([data-disabled]) {
+  background: var(--color-primitive-gray-1000);
+  color: var(--color-primitive-gray-0);
+}
+
+.ux-datetime-picker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-semantic-border-default);
+  box-sizing: border-box;
+}
+
+.ux-datetime-picker__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.ux-label--ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ux-ai-sparkle-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-cc-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 24px;
+}
+
+.ux-cc-summary-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ux-cc-summary-done[hidden],
+.ux-cc-summary-analyzing[hidden] {
+  display: none;
+}
+
+.ds-dialog.ux-dialog .ds-button.ux-cc-summary-done {
+  height: 24px;
+  min-height: 24px;
+  padding: 0 var(--space-2);
+  gap: 5px;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--color-semantic-text-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}
+
+.ds-dialog.ux-dialog .ds-button.ux-cc-summary-done:hover:not(:disabled):not([data-disabled]) {
+  background: var(--ux-surface-modal-item);
+  color: var(--color-semantic-text-primary);
+}
+
+.ds-dialog.ux-dialog .ds-button.ux-cc-summary-done[aria-pressed="true"] {
+  opacity: 1;
+  color: var(--color-semantic-text-primary);
+}
+
+.ux-cc-summary-done__check {
+  color: var(--color-semantic-text-success);
+  flex-shrink: 0;
+}
+
+.ux-cc-summary-editor {
+  position: relative;
+}
+
+.ds-dialog.ux-dialog .ds-textarea.ux-cc-summary-textarea {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px var(--space-3);
+  line-height: 1.5;
+  resize: none;
+  overflow: hidden;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  transition: opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--motion-duration-basic) ease,
+              box-shadow var(--motion-duration-basic) ease;
+}
+
+.ds-dialog.ux-dialog .ds-textarea.ux-cc-summary-textarea[data-just-generated="true"] {
+  animation: ux-summary-reveal 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ux-cc-summary-analyzing {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  background: var(--ux-surface-modal-item);
+  box-shadow: var(--ux-control-ring);
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 2;
+}
+
+.ux-cc-summary-spinner {
+  width: 14px;
+  height: 14px;
+  border-width: 1.75px;
+  flex-shrink: 0;
+}
+
+.ux-cc-summary-analyzing__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-semantic-text-secondary);
+  animation: ux-ai-sparkle-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes ux-summary-reveal {
+  from {
+    opacity: 0.45;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ux-ai-sparkle-pulse {
+  0%, 100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ux-cc-summary-analyzing__label,
+  .ds-dialog.ux-dialog .ds-textarea.ux-cc-summary-textarea[data-just-generated="true"] {
+    animation: none;
+  }
+}
+
+[data-reduced-motion="true"] .ux-cc-summary-analyzing__label,
+[data-reduced-motion="true"] .ds-dialog.ux-dialog .ds-textarea.ux-cc-summary-textarea[data-just-generated="true"] {
+  animation: none;
 }
 
 .ux-dialog .ux-fieldset {
@@ -6222,6 +6754,13 @@
 }
 
 /* ── Video Slots (Modals) ── */
+.ux-clips-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
 .ux-slot-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -6242,7 +6781,7 @@
 }
 
 .ux-video-slot[data-has-file="true"] {
-  background: var(--ux-surface-modal-control);
+  background: var(--ux-surface-modal-item);
   box-shadow: none;
 }
 
@@ -6268,8 +6807,10 @@
 }
 
 .ux-video-slot__meta {
-  display: block;
-  min-height: 18px;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  min-height: 32px;
   line-height: 18px;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-normal);
@@ -6297,8 +6838,18 @@
   min-height: 32px;
   padding: 0 var(--space-2);
   border-radius: var(--radius-md);
-  background: var(--color-semantic-background-canvas);
+  background: var(--ux-surface-modal-control);
   box-shadow: var(--ux-control-ring);
+}
+
+:root[data-theme="light"] .ux-video-slot__file {
+  background: var(--ux-surface-modal-thumb);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .ux-video-slot__file {
+    background: var(--ux-surface-modal-thumb);
+  }
 }
 
 .ux-video-slot__file-icon {
@@ -6518,9 +7069,11 @@
   font-weight: var(--font-weight-normal);
 }
 
-.ux-lb-view-toggle .ds-button[aria-pressed="true"] {
-  background: var(--ux-surface-modal-control-hover);
+.ux-lb-view-toggle .ds-button[aria-pressed="true"],
+.ux-lb-view-toggle .ds-button[data-active="true"] {
+  background: var(--ux-surface-modal-thumb);
   color: var(--color-semantic-text-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .ux-lb-viewport {
@@ -6914,6 +7467,16 @@
 
 .ds-dialog__backdrop[data-size="sm"] > .ds-dialog.ux-dialog {
   width: min(460px, calc(100vw - var(--space-8)));
+}
+
+#modal-create-case > .ds-dialog.ux-dialog {
+  height: min(800px, 92vh);
+  height: min(800px, 92dvh);
+}
+
+#modal-create-case .ux-dialog__body {
+  margin-inline: calc(var(--space-5) * -1);
+  padding: 2px var(--space-5);
 }
 
 #modal-frame-lightbox > .ds-dialog.ux-dialog {
@@ -7383,9 +7946,15 @@
     padding: var(--space-4);
   }
 
+  #modal-create-case > .ds-dialog.ux-dialog,
   #modal-frame-lightbox > .ds-dialog.ux-dialog {
     height: min(680px, 88vh);
     height: min(680px, 88dvh);
+  }
+
+  #modal-create-case .ux-dialog__body {
+    margin-inline: calc(var(--space-4) * -1);
+    padding: 2px var(--space-4);
   }
 
   #modal-frame-lightbox .ux-dialog__body {

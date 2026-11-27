@@ -3630,35 +3630,120 @@
       <div class="ds-dialog__header ux-dialog__header">
         <div class="ux-dialog__title-wrap">
           <h2 id="dlg-create-title" class="ds-dialog__title ux-dialog__title">Create new case</h2>
-          <p class="ds-dialog__description ux-dialog__desc">Attach at least one clip (.mp4, .mov, .avi, .mkv &middot; &le;180s, &le;200MB).</p>
         </div>
       </div>
       <div class="ds-dialog__body ux-dialog__body">
         <form id="ux-create-case-form" class="ux-form" data-ux-create-form>
           <div class="ux-grid-2">
             <div class="ux-field">
-              <label class="ux-label" for="ux-cc-id">Case ID</label>
-              <input id="ux-cc-id" class="ds-input" type="text" autocorrect="off" autocapitalize="none" spellcheck="false" readonly />
-            </div>
-            <div class="ux-field">
               <label class="ux-label" for="ux-cc-policy">Policy number</label>
               <div class="ux-input-row">
-                <input id="ux-cc-policy" class="ds-input" type="text" value="POL-2026-8801" autocorrect="off" autocapitalize="none" spellcheck="false" autofocus />
-                <button type="button" class="ds-button ds-button--secondary" data-ux-lookup-policy>Lookup</button>
+                <input id="ux-cc-policy" class="ds-input" type="text" placeholder="POL-2026-8801" autocorrect="off" autocapitalize="none" spellcheck="false" autofocus />
+                <button type="button" class="ds-button ds-button--secondary ux-verify-btn" data-ux-lookup-policy data-state="idle" aria-busy="false">
+                  <span class="ux-verify-btn__track" aria-hidden="true">
+                    <span class="ux-verify-btn__icon-slot" data-has-icon="false"></span>
+                    <span class="ux-verify-btn__morph">
+                      <span class="ux-verify-btn__label">Verify</span>
+                    </span>
+                  </span>
+                </button>
               </div>
-              <p class="ux-hint ux-policy-msg" data-ux-policy-msg>POL-2026-8801 or POL-2026-7742</p>
+              <span class="ds-button__sr-only" data-ux-verify-sr role="status"></span>
+            </div>
+            <div class="ux-field">
+              <label class="ux-label" for="ux-cc-id">Case ID</label>
+              <input id="ux-cc-id" class="ds-input ux-input--locked" type="text" autocorrect="off" autocapitalize="none" spellcheck="false" disabled />
             </div>
             <div class="ux-field">
               <label class="ux-label" for="ux-cc-customer">Customer</label>
-              <input id="ux-cc-customer" class="ds-input" type="text" value="Nguyễn Minh Quân" />
+              <input id="ux-cc-customer" class="ds-input ux-input--locked" type="text" placeholder="Verified from policy" disabled />
             </div>
             <div class="ux-field">
               <label class="ux-label" for="ux-cc-plate">License plate</label>
-              <input id="ux-cc-plate" class="ds-input" type="text" value="51K-892.41" autocorrect="off" autocapitalize="none" spellcheck="false" />
+              <input id="ux-cc-plate" class="ds-input ux-input--locked" type="text" placeholder="Verified from policy" autocorrect="off" autocapitalize="none" spellcheck="false" disabled />
             </div>
             <div class="ux-field">
-              <label class="ux-label" for="ux-cc-time">Accident time</label>
-              <input id="ux-cc-time" class="ds-input" type="text" value="2026-11-18 09:30" />
+              <label class="ux-label" id="ux-cc-time-label" for="ux-cc-time-trigger">Accident time</label>
+              <input id="ux-cc-time" type="hidden" value="2026-11-18 09:30" />
+              <div class="ds-date-picker ds-date-picker--single-month ux-datetime-picker" id="ux-cc-datetime-picker" data-ds-date-picker data-date="2026-11-18">
+                <button type="button" id="ux-cc-time-trigger" class="ds-date-picker__trigger ux-datetime-picker__trigger" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="ux-cc-time-label ux-cc-time-trigger">
+                  <span class="ux-datetime-picker__value ux-num">
+                    <span class="ds-date-picker__label" data-date-label>Nov 18, 2026</span>
+                    <span class="ux-datetime-picker__sep" aria-hidden="true">·</span>
+                    <span data-ux-cc-time-label>09:30</span>
+                  </span>
+                  <svg class="ds-date-picker__icon" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 1.5V3H16.5V1.5H18.5V3H21C21.4142 3 21.75 3.33579 21.75 3.75V21.525C21.75 22.0635 21.3135 22.5 20.775 22.5H3.225C2.68652 22.5 2.25 22.0635 2.25 21.525V3.75C2.25 3.33579 2.58579 3 3 3H5.5V1.5H7.5ZM19.8 20.55V9.5H4.2V20.55H19.8Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7 12.0254H9.00897V14.0254H7V12.0254ZM10.9955 12.0254H13.0045V14.0254H10.9955V12.0254ZM14.991 12.0254H17V14.0254H14.991V12.0254ZM7 16.0254H9.00897V18.0254H7V16.0254ZM10.9955 16.0254H13.0045V18.0254H10.9955V16.0254Z" fill="currentColor"/></svg>
+                </button>
+                <div class="ds-date-picker__dialog ux-datetime-picker__dialog" hidden>
+                  <div class="ux-datetime-picker__body">
+                    <div class="ds-date-picker__single-calendar">
+                      <div class="ds-date-picker__nav-bar">
+                        <button type="button" class="ds-date-picker__nav-btn ds-date-picker__nav-btn--prev" aria-label="Previous month">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13 5 8l5-5"/></svg>
+                        </button>
+                        <span class="ds-date-picker__month-title">November 2026</span>
+                        <button type="button" class="ds-date-picker__nav-btn ds-date-picker__nav-btn--next" aria-label="Next month">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+                        </button>
+                      </div>
+                      <div class="ds-date-picker__weekday-row">
+                        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                      </div>
+                      <div class="ds-date-picker__days-grid">
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-01">1</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-02">2</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-03">3</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-04">4</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-05">5</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-06">6</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-07">7</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-08">8</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-09">9</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-10">10</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-11">11</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-12">12</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-13"><span>13</span><span class="ds-date-picker__today-dot"></span></button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-14">14</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-15">15</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-16">16</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-17">17</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day ds-date-picker__day--start ds-date-picker__day--end" data-date="2026-11-18">18</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-19">19</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-20">20</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-21">21</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-22">22</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-23">23</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-24">24</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-25">25</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-26">26</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-27">27</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-28">28</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-29">29</button></div>
+                        <div class="ds-date-picker__cell"><button type="button" class="ds-date-picker__day" data-date="2026-11-30">30</button></div>
+                      </div>
+                    </div>
+                    <div class="ux-datetime-picker__time-pane">
+                      <div class="ux-datetime-picker__time-head">
+                        <span class="ux-datetime-picker__date-heading ux-num" data-ux-cc-date-heading>Nov 18, 2026</span>
+                      </div>
+                      <div class="ux-datetime-picker__time-subhead" aria-hidden="true">
+                        <span>HH</span>
+                        <span>MM</span>
+                      </div>
+                      <div class="ux-datetime-picker__time-cols">
+                        <div class="ux-datetime-picker__time-col ds-scrollbar" role="listbox" aria-label="Hour" data-ux-cc-hours></div>
+                        <div class="ux-datetime-picker__time-col ds-scrollbar" role="listbox" aria-label="Minute" data-ux-cc-minutes></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ux-datetime-picker__footer">
+                    <div class="ux-datetime-picker__actions">
+                      <button type="button" class="ds-button ds-button--ghost ds-button--sm" data-ux-cc-datetime-cancel>Cancel</button>
+                      <button type="button" class="ds-button ds-button--primary ds-button--sm" data-ux-cc-datetime-done>Done</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="ux-field">
               <label class="ux-label" for="ux-cc-location">Location</label>
@@ -3666,12 +3751,32 @@
             </div>
           </div>
           <div class="ux-field">
-            <label class="ux-label" for="ux-cc-summary">Summary</label>
-            <input id="ux-cc-summary" class="ds-input" type="text" value="Broadside intersection collision under green signal" />
-          </div>
-          <div class="ux-field">
-            <span class="ux-label">Camera clips</span>
+            <div class="ux-clips-head">
+              <span class="ux-label">Camera clips</span>
+              <span class="ux-hint">Upload at least one clip (.mp4, .mov, .avi, .mkv &middot; &le;180s, &le;200MB)</span>
+            </div>
             <div class="ux-slot-grid" data-ux-create-slots></div>
+          </div>
+          <div class="ux-field ux-cc-summary-field" data-ux-cc-summary-box data-ai-state="idle">
+            <div class="ux-cc-summary-head">
+              <label class="ux-label ux-label--ai" for="ux-cc-summary">
+                <svg class="ux-ai-sparkle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 2l.539 2.392a5.39 5.39 0 0 0 4.07 4.07L22 9l-2.392.539a5.39 5.39 0 0 0-4.07 4.07L15 16l-.539-2.392a5.39 5.39 0 0 0-4.07-4.07L8 9l2.392-.539a5.39 5.39 0 0 0 4.07-4.07zM7 12l.385 1.708a3.85 3.85 0 0 0 2.907 2.907L12 17l-1.708.385a3.85 3.85 0 0 0-2.907 2.907L7 22l-.385-1.708a3.85 3.85 0 0 0-2.907-2.907L2 17l1.708-.385a3.85 3.85 0 0 0 2.907-2.907z" fill="currentColor"/></svg>
+                <span>Summary</span>
+              </label>
+              <div class="ux-cc-summary-meta">
+                <button type="button" class="ds-button ds-button--ghost ds-button--sm ux-cc-summary-done" data-ux-cc-summary-done hidden>
+                  <svg class="ux-cc-summary-done__check" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.44242 15.6382L18.3058 5.5L19.7525 6.88095L8.4757 18.4999L4.25195 14.2762L5.66617 12.862L8.44242 15.6382Z" fill="currentColor"/></svg>
+                  <span>Done</span>
+                </button>
+              </div>
+            </div>
+            <div class="ux-cc-summary-editor">
+              <textarea id="ux-cc-summary" class="ds-textarea ux-cc-summary-textarea" rows="1" placeholder="Attach video clips for AI analysis..."></textarea>
+              <div class="ux-cc-summary-analyzing" data-ux-cc-summary-analyzing hidden aria-live="polite">
+                <span class="ds-spinner ux-cc-summary-spinner" aria-hidden="true"></span>
+                <span class="ux-cc-summary-analyzing__label" data-ux-cc-summary-analyzing-text>AI analyzing clip...</span>
+              </div>
+            </div>
           </div>
         </form>
       </div>
